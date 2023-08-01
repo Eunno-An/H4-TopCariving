@@ -3,5 +3,7 @@ disabled_rules:
 - large_tuple
 - function_body_length
 excluded:
-- Dayeng/App/AppDelegate.swift
-- Dayeng/App/SceneDelegate.swift
+- TopCariving/AppDelegate.swift
+- TopCariving/SceneDelegate.swift
+- TopCarivingTests
+- TopCarivingUITests
