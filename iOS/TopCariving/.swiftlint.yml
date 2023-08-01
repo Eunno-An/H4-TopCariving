@@ -3,7 +3,7 @@ disabled_rules:
 - large_tuple
 - function_body_length
 excluded:
-- TopCariving/AppDelegate.swift
-- TopCariving/SceneDelegate.swift
+- TopCariving/App/AppDelegate.swift
+- TopCariving/App/SceneDelegate.swift
 - TopCarivingTests
 - TopCarivingUITests
