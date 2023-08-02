@@ -107,7 +107,7 @@
 		D4ACBA422A78A3AD002B6A5B /* TopCariving */ = {
 			isa = PBXGroup;
 			children = (
-				D4ACBA852A78CE82002B6A5B /* Util */,
+				D4ACBA852A78CE82002B6A5B /* Global */,
 				D4ACBA782A78CDA3002B6A5B /* Model */,
 				D4ACBA7A2A78CDD2002B6A5B /* ViewModel */,
 				D4ACBA7C2A78CDEE002B6A5B /* View */,
@@ -179,12 +179,12 @@
 			path = View;
 			sourceTree = "<group>";
 		};
-		D4ACBA852A78CE82002B6A5B /* Util */ = {
+		D4ACBA852A78CE82002B6A5B /* Global */ = {
 			isa = PBXGroup;
 			children = (
 				D4ACBA862A78CE8F002B6A5B /* DummyUtil.swift */,
 			);
-			path = Util;
+			path = Global;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
