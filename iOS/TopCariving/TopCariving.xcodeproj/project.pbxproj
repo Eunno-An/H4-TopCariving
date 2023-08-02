@@ -19,7 +19,13 @@
 		D4ACBA802A78CE4D002B6A5B /* DummyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ACBA7F2A78CE4D002B6A5B /* DummyViewModel.swift */; };
 		D4ACBA822A78CE56002B6A5B /* DummyModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ACBA812A78CE56002B6A5B /* DummyModel.swift */; };
 		D4ACBA842A78CE62002B6A5B /* DummyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ACBA832A78CE62002B6A5B /* DummyViewController.swift */; };
-		D4ACBA872A78CE8F002B6A5B /* DummyUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ACBA862A78CE8F002B6A5B /* DummyUtil.swift */; };
+		D4ACBA872A78CE8F002B6A5B /* UIColor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4ACBA862A78CE8F002B6A5B /* UIColor+.swift */; };
+		D4CFBAA82A79F9EA00CCB27E /* HyundaiSansHeadKROTFRegular.otf in Resources */ = {isa = PBXBuildFile; fileRef = D4CFBAA42A79F9EA00CCB27E /* HyundaiSansHeadKROTFRegular.otf */; };
+		D4CFBAA92A79F9EA00CCB27E /* HyundaiSansHeadKROTFLight.otf in Resources */ = {isa = PBXBuildFile; fileRef = D4CFBAA52A79F9EA00CCB27E /* HyundaiSansHeadKROTFLight.otf */; };
+		D4CFBAAA2A79F9EA00CCB27E /* HyundaiSansHeadKROTFMedium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D4CFBAA62A79F9EA00CCB27E /* HyundaiSansHeadKROTFMedium.otf */; };
+		D4CFBAAB2A79F9EA00CCB27E /* HyundaiSansHeadKROTFBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D4CFBAA72A79F9EA00CCB27E /* HyundaiSansHeadKROTFBold.otf */; };
+		D4CFBAAD2A7A25B100CCB27E /* HyundaiFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CFBAAC2A7A25B100CCB27E /* HyundaiFont.swift */; };
+		D4CFBAAF2A7A3E6500CCB27E /* UIFont+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4CFBAAE2A7A3E6500CCB27E /* UIFont+.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,7 +62,13 @@
 		D4ACBA7F2A78CE4D002B6A5B /* DummyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyViewModel.swift; sourceTree = "<group>"; };
 		D4ACBA812A78CE56002B6A5B /* DummyModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyModel.swift; sourceTree = "<group>"; };
 		D4ACBA832A78CE62002B6A5B /* DummyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyViewController.swift; sourceTree = "<group>"; };
-		D4ACBA862A78CE8F002B6A5B /* DummyUtil.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyUtil.swift; sourceTree = "<group>"; };
+		D4ACBA862A78CE8F002B6A5B /* UIColor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+.swift"; sourceTree = "<group>"; };
+		D4CFBAA42A79F9EA00CCB27E /* HyundaiSansHeadKROTFRegular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HyundaiSansHeadKROTFRegular.otf; sourceTree = "<group>"; };
+		D4CFBAA52A79F9EA00CCB27E /* HyundaiSansHeadKROTFLight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HyundaiSansHeadKROTFLight.otf; sourceTree = "<group>"; };
+		D4CFBAA62A79F9EA00CCB27E /* HyundaiSansHeadKROTFMedium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HyundaiSansHeadKROTFMedium.otf; sourceTree = "<group>"; };
+		D4CFBAA72A79F9EA00CCB27E /* HyundaiSansHeadKROTFBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = HyundaiSansHeadKROTFBold.otf; sourceTree = "<group>"; };
+		D4CFBAAC2A7A25B100CCB27E /* HyundaiFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HyundaiFont.swift; sourceTree = "<group>"; };
+		D4CFBAAE2A7A3E6500CCB27E /* UIFont+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIFont+.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,9 +194,23 @@
 		D4ACBA852A78CE82002B6A5B /* Global */ = {
 			isa = PBXGroup;
 			children = (
-				D4ACBA862A78CE8F002B6A5B /* DummyUtil.swift */,
+				D4CFBAA32A79F8F700CCB27E /* Font */,
+				D4ACBA862A78CE8F002B6A5B /* UIColor+.swift */,
+				D4CFBAAC2A7A25B100CCB27E /* HyundaiFont.swift */,
+				D4CFBAAE2A7A3E6500CCB27E /* UIFont+.swift */,
 			);
 			path = Global;
+			sourceTree = "<group>";
+		};
+		D4CFBAA32A79F8F700CCB27E /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				D4CFBAA72A79F9EA00CCB27E /* HyundaiSansHeadKROTFBold.otf */,
+				D4CFBAA52A79F9EA00CCB27E /* HyundaiSansHeadKROTFLight.otf */,
+				D4CFBAA62A79F9EA00CCB27E /* HyundaiSansHeadKROTFMedium.otf */,
+				D4CFBAA42A79F9EA00CCB27E /* HyundaiSansHeadKROTFRegular.otf */,
+			);
+			path = Font;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -293,7 +319,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				D4ACBA502A78A3AE002B6A5B /* LaunchScreen.storyboard in Resources */,
+				D4CFBAA82A79F9EA00CCB27E /* HyundaiSansHeadKROTFRegular.otf in Resources */,
+				D4CFBAAA2A79F9EA00CCB27E /* HyundaiSansHeadKROTFMedium.otf in Resources */,
 				D4ACBA4D2A78A3AE002B6A5B /* Assets.xcassets in Resources */,
+				D4CFBAA92A79F9EA00CCB27E /* HyundaiSansHeadKROTFLight.otf in Resources */,
+				D4CFBAAB2A79F9EA00CCB27E /* HyundaiSansHeadKROTFBold.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,9 +372,11 @@
 			files = (
 				D4ACBA842A78CE62002B6A5B /* DummyViewController.swift in Sources */,
 				D4ACBA482A78A3AD002B6A5B /* ViewController.swift in Sources */,
+				D4CFBAAF2A7A3E6500CCB27E /* UIFont+.swift in Sources */,
 				D4ACBA7E2A78CE35002B6A5B /* DummyView.swift in Sources */,
 				D4ACBA442A78A3AD002B6A5B /* AppDelegate.swift in Sources */,
-				D4ACBA872A78CE8F002B6A5B /* DummyUtil.swift in Sources */,
+				D4CFBAAD2A7A25B100CCB27E /* HyundaiFont.swift in Sources */,
+				D4ACBA872A78CE8F002B6A5B /* UIColor+.swift in Sources */,
 				D4ACBA822A78CE56002B6A5B /* DummyModel.swift in Sources */,
 				D4ACBA802A78CE4D002B6A5B /* DummyViewModel.swift in Sources */,
 				D4ACBA462A78A3AD002B6A5B /* SceneDelegate.swift in Sources */,
