@@ -12,8 +12,8 @@ import io.swagger.v3.oas.models.servers.Server;
 @Configuration
 public class SwaggerConfig {
 
-	private static final String DEV_URL = "https://dev.topcariving.com:8080";
-	private static final String LOCAL_URL = "https://localhost:8080";
+	private static final String DEV_URL = "http://dev.topcariving.com:8080";
+	private static final String LOCAL_URL = "http://localhost:8080";
 
 	@Bean
 	public OpenAPI openAPI() {
