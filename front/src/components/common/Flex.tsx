@@ -10,7 +10,7 @@ export const Flex = styled.div<{
   padding?: string;
   gap?: number;
   width?: number | string;
-  height?: number;
+  height?: number | string;
   backgroundColor?: KeyOfPalette;
   borderRadius?: string;
 }>`
@@ -21,7 +21,8 @@ export const Flex = styled.div<{
   gap: ${({ gap }) => (gap ? `${gap}px` : '0px')};
   width: ${({ width }) =>
     width ? (typeof width === 'string' ? 'auto' : `${width}px`) : '100%'};
-  height: ${({ height }) => (height ? `${height}px` : '100%')};
+  height: ${({ height }) =>
+    height ? (typeof height === 'string' ? 'auto' : `${height}px`) : '100%'};
   margin: ${({ margin }) => (margin ? margin : '0')};
   padding: ${({ padding }) => (padding ? padding : '0')};
   border-radius: ${({ borderRadius }) => (borderRadius ? borderRadius : '0px')};
