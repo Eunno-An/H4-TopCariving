@@ -32,7 +32,7 @@ const TrimCard = ({
       <Text typo="Heading3_Bold" palette={isSelected ? 'Primary' : 'Black'}>
         {name}
       </Text>
-      <Line isSelected={isSelected === true} />
+      <img src="/image/page/myCar/rowLine.svg" />
       <Flex justify="space-between">
         {trimOption[id].map((item, key) => (
           <Flex
@@ -57,7 +57,7 @@ const TrimCard = ({
           </Flex>
         ))}
       </Flex>
-      <Line isSelected={isSelected === true} />
+      <img src="/image/page/myCar/rowLine.svg" />
       <Text typo="Heading3_Bold" palette={isSelected ? 'Primary' : 'Black'}>
         {`${price.toLocaleString('ko-KR')}원`}
       </Text>
@@ -123,10 +123,4 @@ const CustomFlex = styled(Flex)<{ isSelected: boolean }>`
   border: ${({ isSelected }) =>
     isSelected ? `2px solid ${theme.palette.Primary}` : ''};
   box-sizing: border-box;
-`;
-
-const Line = styled.div<{ isSelected: boolean }>`
-  width: 100%;
-  height: 3px;
-  background-color: ${theme.palette.Primary};
 `;
