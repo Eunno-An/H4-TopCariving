@@ -1,10 +1,11 @@
+import CarModel from '../../components/common/CarModel';
 import { Flex } from '../../components/common/Flex';
 import TrimCard, { TrimCardInterface } from '../../components/myCar/TrimCard';
 
 const Trim = () => {
   return (
     <Flex direction="column" justify="space-between">
-      <Flex>자동차모델 컴포넌트</Flex>
+      <CarModel />
       <Flex gap={24}>
         {trimInfo.map((trim: TrimCardInterface, idx: number) => (
           <TrimCard trim={trim} isSelected={isSelectedArr[idx]} />
