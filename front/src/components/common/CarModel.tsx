@@ -60,6 +60,12 @@ const CarModel = () => {
 const ImgContainer = styled.img`
   width: 800px;
   height: auto;
+
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
 `;
 
 export default CarModel;
