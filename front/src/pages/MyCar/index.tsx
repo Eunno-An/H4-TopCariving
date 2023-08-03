@@ -6,10 +6,12 @@ import Trim from './Trim';
 
 const MyCar = () => {
   return (
-    <Flex direction="column">
+    <Flex direction="column" align="center">
       <Header />
       <NavBar />
-      <Trim />
+      <Flex direction="column" width={1040}>
+        <Trim />
+      </Flex>
       <Footer />
     </Flex>
   );
