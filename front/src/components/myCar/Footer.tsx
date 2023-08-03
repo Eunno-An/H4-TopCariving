@@ -2,15 +2,9 @@ import styled from '@emotion/styled';
 import { Flex } from '../common/Flex';
 import { Text } from '../common/Text';
 import { Button } from '../common/Button';
+import { footerInterface } from '../../pages/MyCar';
 
-const footerInfo = {
-  name: 'Le Blanc',
-  color: [],
-  option: { outer: '', innter: '' },
-  price: 47720000,
-};
-
-const Footer = () => {
+const Footer = ({ footerInfo }: { footerInfo: footerInterface }) => {
   return (
     <Flex
       backgroundColor="Sand"

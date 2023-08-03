@@ -86,7 +86,7 @@ const trimOption = {
     { svg: '/image/option/exclusive1.svg', name: ['12인치', '내비게이션'] },
     {
       svg: '/image/option/exclusive2.svg',
-      name: ['네비게이션 기반', '스마트 크루즈 컨트롤'],
+      name: ['네비게이션 기반', '스마트 크루즈', '컨트롤'],
     },
     {
       svg: '/image/option/exclusive3.svg',

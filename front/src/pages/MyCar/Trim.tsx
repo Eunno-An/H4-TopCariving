@@ -1,9 +1,16 @@
 import CarModel from '../../components/common/CarModel';
-import { useState } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { Flex } from '../../components/common/Flex';
 import TrimCard, { TrimCardInterface } from '../../components/myCar/TrimCard';
+import { footerInterface } from '.';
 
-const Trim = () => {
+const Trim = ({
+  footerInfo,
+  setFooterInfo,
+}: {
+  footerInfo: footerInterface;
+  setFooterInfo: Dispatch<SetStateAction<footerInterface>>;
+}) => {
   const [isSelectedArr, setIsSelectedArr] = useState([
     true,
     false,
@@ -16,6 +23,11 @@ const Trim = () => {
       return selectIdx === idx;
     });
     setIsSelectedArr(newSelected);
+    setFooterInfo({
+      ...footerInfo,
+      name: trimInfo[idx].name,
+      price: trimInfo[idx].price,
+    });
   };
 
   return (
@@ -37,7 +49,7 @@ export default Trim;
 const trimInfo = [
   {
     id: 1,
-    name: 'Le Blanc(르블랑)',
+    name: 'Le Blanc',
     price: 47720000,
   },
   {
