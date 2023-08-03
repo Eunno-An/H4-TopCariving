@@ -125,3 +125,19 @@ table {
   border-collapse: collapse;
   border-spacing: 0;
 }
+
+@font-face {
+  font-family: 'hyundaiFont';
+  src: url('./assets/font/HyundaiSansHeadKRMedium.ttf');
+}
+
+body {
+  font-family: 'hyundaiFont';
+}
+
+img {
+  -webkit-user-drag: none;
+  -khtml-user-drag: none;
+  -moz-user-drag: none;
+  -o-user-drag: none;
+}

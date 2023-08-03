@@ -24,7 +24,7 @@ const TrimCard = ({
       width={242}
       height={251}
       borderRadius="8px"
-      padding="14px"
+      padding={isSelected ? '9px' : '11px'}
       gap={16}
       backgroundColor="LightSand"
       isSelected={isSelected === true}
@@ -130,6 +130,3 @@ const Line = styled.div<{ isSelected: boolean }>`
   height: 3px;
   background-color: ${theme.palette.Primary};
 `;
-
-// ${(isSelected) =>
-//   isSelected ? theme.palette.Primary : theme.palette.MediumGray};
