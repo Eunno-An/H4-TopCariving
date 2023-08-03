@@ -24,7 +24,7 @@ const TrimCard = ({
       width={242}
       height={251}
       borderRadius="8px"
-      padding="20px"
+      padding="14px"
       gap={16}
       backgroundColor="LightSand"
       isSelected={isSelected === true}
@@ -32,29 +32,32 @@ const TrimCard = ({
       <Text typo="Heading3_Bold" palette={isSelected ? 'Primary' : 'Black'}>
         {name}
       </Text>
-      <Line isSelected />
+      <Line isSelected={isSelected === true} />
       <Flex justify="space-between">
         {trimOption[id].map((item, key) => (
           <Flex
             direction="column"
-            justify="start"
+            justify="center"
             align="center"
             key={`trimCard_${key}`}
+            gap={4}
           >
-            <Flex width={0} height={0}></Flex>
-            {item.name.map((name: string, key: number) => (
-              <Text
-                typo="Caption_Medium"
-                palette={isSelected ? 'Primary' : 'DarkGray'}
-                key={`imgOption_${key}`}
-              >
-                {name}
-              </Text>
-            ))}
+            <img src={item.svg} />
+            <Flex direction="column">
+              {item.name.map((name: string, key: number) => (
+                <Text
+                  typo="Caption_Medium"
+                  palette={isSelected ? 'Primary' : 'DarkGray'}
+                  key={`imgOption_${key}`}
+                >
+                  {name}
+                </Text>
+              ))}
+            </Flex>
           </Flex>
         ))}
       </Flex>
-      <Line isSelected />
+      <Line isSelected={isSelected === true} />
       <Text typo="Heading3_Bold" palette={isSelected ? 'Primary' : 'Black'}>
         {`${price.toLocaleString('ko-KR')}원`}
       </Text>
@@ -72,24 +75,45 @@ type TrimOption = {
 
 const trimOption = {
   1: [
-    { svg: '', name: ['20인치', '알로이 휠'] },
-    { svg: '', name: ['서라운드 뷰', '모니터'] },
-    { svg: '', name: ['클러스터 ( 12.3', '인치 컬러 LCD )'] },
+    { svg: '/image/option/reblanc1.svg', name: ['20인치', '알로이 휠'] },
+    { svg: '/image/option/reblanc2.svg', name: ['서라운드 뷰', '모니터'] },
+    {
+      svg: '/image/option/reblanc3.svg',
+      name: ['클러스터 ( 12.3', '인치 컬러 LCD )'],
+    },
   ],
   2: [
-    { svg: '', name: ['12인치', '내비게이션'] },
-    { svg: '', name: ['네비게이션 기반', '스마트 크루즈 컨트롤'] },
-    { svg: '', name: ['베젤리스', '인사이드 미러'] },
+    { svg: '/image/option/exclusive1.svg', name: ['12인치', '내비게이션'] },
+    {
+      svg: '/image/option/exclusive2.svg',
+      name: ['네비게이션 기반', '스마트 크루즈 컨트롤'],
+    },
+    {
+      svg: '/image/option/exclusive3.svg',
+      name: ['베젤리스', '인사이드 미러'],
+    },
   ],
   3: [
-    { svg: '', name: ['2열 수동식', '도어 커튼'] },
-    { svg: '', name: ['스마트', '자세제어'] },
-    { svg: '', name: ['전후식 통합', '터치 공조 컨트롤'] },
+    { svg: '/image/option/prestige1.svg', name: ['2열 수동식', '도어 커튼'] },
+    { svg: '/image/option/prestige2.svg', name: ['스마트', '자세제어'] },
+    {
+      svg: '/image/option/prestige3.svg',
+      name: ['전후식 통합', '터치 공조 컨트롤'],
+    },
   ],
   4: [
-    { svg: '', name: ['KRELL', '프리미어 사운드'] },
-    { svg: '', name: ['원격 스마트', '주차보조'] },
-    { svg: '', name: ['캘리그래피', '전용 디자인'] },
+    {
+      svg: '/image/option/calligraphy1.svg',
+      name: ['KRELL', '프리미어 사운드'],
+    },
+    {
+      svg: '/image/option/calligraphy2.svg',
+      name: ['원격 스마트', '주차보조'],
+    },
+    {
+      svg: '/image/option/calligraphy3.svg',
+      name: ['캘리그래피', '전용 디자인'],
+    },
   ],
 } as TrimOption;
 
@@ -104,6 +128,8 @@ const CustomFlex = styled(Flex)<{ isSelected: boolean }>`
 const Line = styled.div<{ isSelected: boolean }>`
   width: 100%;
   height: 3px;
-  background-color: ${(isSelected) =>
-    isSelected ? theme.palette.Primary : theme.palette.LightGray};
+  background-color: ${theme.palette.Primary};
 `;
+
+// ${(isSelected) =>
+//   isSelected ? theme.palette.Primary : theme.palette.MediumGray};

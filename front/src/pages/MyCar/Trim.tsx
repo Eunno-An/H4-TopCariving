@@ -22,12 +22,8 @@ const Trim = () => {
       <Flex>자동차모델 컴포넌트</Flex>
       <Flex gap={24}>
         {trimInfo.map((trim: TrimCardInterface, idx: number) => (
-          <div onClick={() => changeSelected(idx)}>
-            <TrimCard
-              trim={trim}
-              isSelected={isSelectedArr[idx]}
-              key={`trimCard_${idx}`}
-            />
+          <div onClick={() => changeSelected(idx)} key={`trimCard_${idx}`}>
+            <TrimCard trim={trim} isSelected={isSelectedArr[idx]} />
           </div>
         ))}
       </Flex>
