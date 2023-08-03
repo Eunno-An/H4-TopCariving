@@ -10,25 +10,29 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.backend.topcariving.domain.option.dto.TrimResponseDTO;
+import com.backend.topcariving.domain.option.dto.OptionResponseDTO;
+import com.backend.topcariving.domain.option.service.OptionService;
 import com.backend.topcariving.global.response.SuccessResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 
 @Tag(name="내 차 만들기 - 옵션")
 @RequestMapping("/api/options")
 @RestController
+@RequiredArgsConstructor
 public class OptionController {
 
-	@GetMapping("/trim")
-	@Operation(summary = "트림 옵션 전체 반환", description = "내 차 만들기에서 트림 옵션 전체를 반환한다.")
-	@Parameter(name = "userId", description = "유저 아이디")
-	public List<TrimResponseDTO> getTrims(@RequestParam String userId) {
+	private final OptionService optionService;
 
-		return null;
+	@GetMapping("/trim/model")
+	@Operation(summary = "트림 옵션 전체 반환", description = "내 차 만들기에서 트림 옵션 전체를 반환한다.")
+	// @Parameter(name = "userId", description = "유저 아이디")
+	public List<OptionResponseDTO> getModels() {
+		return optionService.getModels();
 	}
 
 	@PostMapping("/trim")
