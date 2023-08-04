@@ -5,9 +5,10 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.backend.topcariving.domain.option.entity.Option;
+import com.backend.topcariving.domain.option.entity.ModelPhoto;
 
 @Repository
-public interface OptionRepository extends CrudRepository<Option, Long> {
-	List<Option> findByCategoryDetail(String categoryDetail);
+public interface ModelPhotoRepository extends CrudRepository<ModelPhoto, Long> {
+
+	List<ModelPhoto> findAllByCarOptionId(Long carOptionId);
 }

@@ -198,4 +198,20 @@ INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, o
 로우 스틸패드 : 마찰계수 증대로 제동성이 향상되었습니다.
 
 [알콘 (alcon) 단조 브레이크 & 20인치 휠 패키지]
-알콘사와 협업 개발', 3660000, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/N_performance/alconbreak.jpeg', null)
+알콘사와 협업 개발', 3660000, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/N_performance/alconbreak.jpeg', null);
+
+/**
+  MODEL_PHOTO DATA
+ */
+INSERT INTO MODEL_PHOTO (model_photo_id, content, photo_svg_url, photo_png_url, car_option_id) VALUES (1, '20인치\n알로이 휠', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/svg/leBlanc1.svg', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/png/leBlanc1.png', 1);
+INSERT INTO MODEL_PHOTO (model_photo_id, content, photo_svg_url, photo_png_url, car_option_id) VALUES (2, '서라운드 뷰\n모니터', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/svg/leBlanc2.svg', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/png/leBlanc2.png', 1);
+INSERT INTO MODEL_PHOTO (model_photo_id, content, photo_svg_url, photo_png_url, car_option_id) VALUES (3, '클러스터\n(12.3인치 컬러 LCD)', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/svg/leBlanc3.svg', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/png/leBlanc3.png', 1);
+INSERT INTO MODEL_PHOTO (model_photo_id, content, photo_svg_url, photo_png_url, car_option_id) VALUES (4, '12.3인치\n내비게이션', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/svg/exclusive1.svg', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/png/exclusive1.png', 2);
+INSERT INTO MODEL_PHOTO (model_photo_id, content, photo_svg_url, photo_png_url, car_option_id) VALUES (5, '네비게이션 기반\n스마트 크루즈 컨트롤', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/svg/exclusive2.svg', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/png/exclusive2.png', 2);
+INSERT INTO MODEL_PHOTO (model_photo_id, content, photo_svg_url, photo_png_url, car_option_id) VALUES (6, '베젤리스\n인사이드 미러', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/svg/exclusive3.svg', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/png/exclusive3.png', 2);
+INSERT INTO MODEL_PHOTO (model_photo_id, content, photo_svg_url, photo_png_url, car_option_id) VALUES (7, '2열 수동식\n도어 커튼', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/svg/prestige1.svg', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/png/prestige1.png', 3);
+INSERT INTO MODEL_PHOTO (model_photo_id, content, photo_svg_url, photo_png_url, car_option_id) VALUES (8, '스마트\n자세제어', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/svg/prestige2.svg', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/png/prestige2.png', 3);
+INSERT INTO MODEL_PHOTO (model_photo_id, content, photo_svg_url, photo_png_url, car_option_id) VALUES (9, '전후석 통합\n터치 공조 컨트롤', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/svg/prestige3.svg', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/png/prestige3.png', 3);
+INSERT INTO MODEL_PHOTO (model_photo_id, content, photo_svg_url, photo_png_url, car_option_id) VALUES (10, 'KRELL\n프리미엄 사운드', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/svg/calligraphy1.svg', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/png/calligraphy1.png', 4);
+INSERT INTO MODEL_PHOTO (model_photo_id, content, photo_svg_url, photo_png_url, car_option_id) VALUES (11, '원격 스마트\n주차보조', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/svg/calligraphy2.svg', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/png/calligraphy2.png', 4);
+INSERT INTO MODEL_PHOTO (model_photo_id, content, photo_svg_url, photo_png_url, car_option_id) VALUES (12, '캘리그래피\n전용 디자인', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/svg/calligraphy3.svg', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/png/calligraphy3.png', 4);

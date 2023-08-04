@@ -12,8 +12,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.backend.topcariving.domain.option.dto.OptionResponseDTO;
+import com.backend.topcariving.domain.option.dto.ModelResponseDTO;
+import com.backend.topcariving.domain.option.entity.ModelPhoto;
 import com.backend.topcariving.domain.option.entity.Option;
+import com.backend.topcariving.domain.option.repository.ModelPhotoRepository;
 import com.backend.topcariving.domain.option.repository.OptionRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -21,6 +23,8 @@ class OptionServiceTest {
 
 	@Mock
 	private OptionRepository optionRepository;
+	@Mock
+	private ModelPhotoRepository modelPhotoRepository;
 
 	@InjectMocks
 	private OptionService optionService;
@@ -32,19 +36,23 @@ class OptionServiceTest {
 		given(optionRepository.findByCategoryDetail(anyString()))
 			.willReturn(List.of(option));
 
+		final ModelPhoto modelPhoto1 = new ModelPhoto(1L, "포토 이름 설명", "svg 경로", "photo 경로", 1L);
+		final ModelPhoto modelPhoto2 = new ModelPhoto(2L, "포토 이름 설명2", "svg2 경로", "photo2 경로", 2L);
+		given(modelPhotoRepository.findAllByCarOptionId(1L))
+			.willReturn(List.of(modelPhoto1, modelPhoto2));
+
 		// when
-		final List<OptionResponseDTO> models = optionService.getModels();
+		final List<ModelResponseDTO> models = optionService.getModels();
 
 		// then
-		OptionResponseDTO model = models.get(0);
+		ModelResponseDTO model = models.get(0);
 		SoftAssertions softAssertions = new SoftAssertions();
 		softAssertions.assertThat(model.getCarOptionId()).as("옵션 아이디 테스트").isEqualTo(1L);
-		softAssertions.assertThat(model.getCategory()).as("카테고리 테스트").isEqualTo("카테고리");
-		softAssertions.assertThat(model.getCategoryDetail()).as("카테고리 디테일 테스트").isEqualTo("카테고리 디테일");
 		softAssertions.assertThat(model.getOptionName()).as("옵션 이름 테스트").isEqualTo("옵션이름");
 		softAssertions.assertThat(model.getPrice()).as("옵션 가격 테스트").isEqualTo(1000);
-		softAssertions.assertThat(model.getPhotoUrl()).as("사진 URL 테스트").isEqualTo("포토URL");
-		softAssertions.assertThat(models).hasSize(1);
+		softAssertions.assertThat(models).as("models의 갯수 테스트").hasSize(1);
+		softAssertions.assertThat(model.getPhotos()).as("photos의 크기 테스트").hasSize(2);
+		softAssertions.assertThat(model.getPhotos().get(0).getContent()).as("Photo의 attirbute가 제대로 저장되었는지 테스트").isEqualTo(modelPhoto1.getContent());
 		softAssertions.assertAll();
 	}
 }

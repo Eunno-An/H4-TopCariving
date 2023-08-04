@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.backend.topcariving.domain.option.dto.OptionResponseDTO;
+import com.backend.topcariving.domain.option.dto.ModelResponseDTO;
 import com.backend.topcariving.domain.option.service.OptionService;
 import com.backend.topcariving.global.response.SuccessResponse;
 
@@ -30,8 +30,7 @@ public class OptionController {
 
 	@GetMapping("/trim/model")
 	@Operation(summary = "트림 옵션 전체 반환", description = "내 차 만들기에서 트림 옵션 전체를 반환한다.")
-	// @Parameter(name = "userId", description = "유저 아이디")
-	public List<OptionResponseDTO> getModels() {
+	public List<ModelResponseDTO> getModels() {
 		return optionService.getModels();
 	}
 
