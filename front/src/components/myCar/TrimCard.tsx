@@ -42,7 +42,14 @@ const TrimCard = ({
             key={`trimCard_${key}`}
             gap={4}
           >
-            <img src={item.svg} />
+            <img
+              src={item.svg}
+              style={{
+                filter: isSelected
+                  ? 'invert(12%) sepia(40%) saturate(4856%) hue-rotate(196deg) brightness(50%) contrast(106%)'
+                  : '',
+              }}
+            />
             <Flex direction="column">
               {item.name.map((name: string, key: number) => (
                 <Text
@@ -75,7 +82,10 @@ type TrimOption = {
 
 const trimOption = {
   1: [
-    { svg: '/image/option/leBlanc1.svg', name: ['20인치', '알로이 휠'] },
+    {
+      svg: '/image/option/leBlanc1.svg',
+      name: ['20인치', '알로이 휠'],
+    },
     { svg: '/image/option/leBlanc2.svg', name: ['서라운드 뷰', '모니터'] },
     {
       svg: '/image/option/leBlanc3.svg',
