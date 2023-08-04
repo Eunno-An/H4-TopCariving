@@ -27,10 +27,10 @@ const CarModel = () => {
   };
 
   const onMouseMoveHandler = (e) => {
-    if (isClicked && pointerPosition > e.screenX) {
+    if (isClicked && pointerPosition > e.screenX + 5) {
       setFocus((focus + 1) % 60);
       setPointerPosition(e.screenX);
-    } else if (isClicked && pointerPosition <= e.screenX) {
+    } else if (isClicked && pointerPosition < e.screenX - 5) {
       focus - 1 < 0 ? setFocus(59) : setFocus(focus - 1);
       setPointerPosition(e.screenX);
     }
