@@ -11,13 +11,19 @@ export const router = createBrowserRouter([
       {
         path: 'trim',
         element: <Trim />,
-        children: [
-          { path: 'engine', element: <>엔진 선택 화면</> },
-          { path: 'bodytype', element: <>바디타입 선택 화면</> },
-          { path: 'traction', element: <>구동방식 선택 화면</> },
-        ],
       },
-
+      {
+        path: 'trim/engine',
+        element: <>엔진 선택 화면</>,
+      },
+      {
+        path: 'trim/body-type',
+        element: <>바디타입 선택 화면</>,
+      },
+      {
+        path: 'trim/traction',
+        element: <>구동방식 선택 화면</>,
+      },
       {
         path: 'color',
         element: <>컬러선택</>,
