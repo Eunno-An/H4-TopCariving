@@ -7,7 +7,15 @@ function App() {
     <Container>
       <BrowserRouter>
         <Routes>
-          <Route path="/mycar/*" element={<MyCar />} />
+          <Route path="/my-car/trim" element={<MyCar />} />
+          <Route path="/my-car/trim/engine" element={<MyCar />} />
+          <Route path="/my-car/trim/bodytype" element={<MyCar />} />
+          <Route path="/my-car/trim/traction" element={<MyCar />} />
+          <Route path="/my-car/color" element={<MyCar />} />
+          <Route path="/my-car/option" element={<MyCar />} />
+          <Route path="/my-car/option/genuine" element={<MyCar />} />
+          <Route path="/my-car/options/performance" element={<MyCar />} />
+          <Route path="/my-car/complete" element={<MyCar />} />
         </Routes>
       </BrowserRouter>
     </Container>
