@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { useEffect, useState } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import { Flex } from './Flex';
 
 const CarModel = () => {
@@ -17,7 +17,7 @@ const CarModel = () => {
     }
   }, []);
 
-  const onMouseDownHandler = (e) => {
+  const onMouseDownHandler = (e: MouseEvent<HTMLDivElement>) => {
     setIsClicked(true);
     setPointerPosition(e.screenX);
   };
@@ -26,7 +26,7 @@ const CarModel = () => {
     setIsClicked(false);
   };
 
-  const onMouseMoveHandler = (e) => {
+  const onMouseMoveHandler = (e: MouseEvent<HTMLDivElement>) => {
     if (isClicked && pointerPosition > e.screenX + 5) {
       setFocus((focus + 1) % 60);
       setPointerPosition(e.screenX);
@@ -36,7 +36,7 @@ const CarModel = () => {
     }
   };
 
-  const onMouseLeaveHandler = (e) => {
+  const onMouseLeaveHandler = () => {
     setIsClicked(false);
   };
 
