@@ -75,10 +75,10 @@ type TrimOption = {
 
 const trimOption = {
   1: [
-    { svg: '/image/option/reblanc1.svg', name: ['20인치', '알로이 휠'] },
-    { svg: '/image/option/reblanc2.svg', name: ['서라운드 뷰', '모니터'] },
+    { svg: '/image/option/leBlanc1.svg', name: ['20인치', '알로이 휠'] },
+    { svg: '/image/option/leBlanc2.svg', name: ['서라운드 뷰', '모니터'] },
     {
-      svg: '/image/option/reblanc3.svg',
+      svg: '/image/option/leBlanc3.svg',
       name: ['클러스터 ( 12.3', '인치 컬러 LCD )'],
     },
   ],
@@ -123,4 +123,5 @@ const CustomFlex = styled(Flex)<{ isSelected: boolean }>`
   border: ${({ isSelected }) =>
     isSelected ? `2px solid ${theme.palette.Primary}` : ''};
   box-sizing: border-box;
+  cursor: pointer;
 `;
