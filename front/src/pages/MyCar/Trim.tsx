@@ -3,14 +3,14 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import { Flex } from '../../components/common/Flex';
 import TrimCard, { TrimCardInterface } from '../../components/myCar/TrimCard';
 import { footerInterface } from '.';
+import { useOutletContext } from 'react-router-dom';
 
-const Trim = ({
-  footerInfo,
-  setFooterInfo,
-}: {
-  footerInfo: footerInterface;
-  setFooterInfo: Dispatch<SetStateAction<footerInterface>>;
-}) => {
+const Trim = () => {
+  const { footerInfo, setFooterInfo } = useOutletContext<{
+    footerInfo: footerInterface;
+    setFooterInfo: Dispatch<SetStateAction<footerInterface>>;
+  }>();
+
   const [isSelectedArr, setIsSelectedArr] = useState([
     true,
     false,
