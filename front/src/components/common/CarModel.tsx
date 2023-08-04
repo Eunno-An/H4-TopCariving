@@ -36,6 +36,10 @@ const CarModel = () => {
     }
   };
 
+  const onMouseLeaveHandler = (e) => {
+    setIsClicked(false);
+  };
+
   return (
     <Flex
       width={503}
@@ -43,6 +47,7 @@ const CarModel = () => {
       onMouseDown={onMouseDownHandler}
       onMouseMove={onMouseMoveHandler}
       onMouseUp={onMouseOverHandler}
+      onMouseLeave={onMouseLeaveHandler}
     >
       {carList.map((it, idx) => (
         <ImgContainer
