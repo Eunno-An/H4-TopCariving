@@ -1,8 +1,8 @@
 import styled from '@emotion/styled';
-import { Flex } from '../../components/common/Flex';
-import { Text } from '../../components/common/Text';
-import EngineCard from '../../components/myCar/EngineCard';
+import { Flex, Text } from '@components/common';
 import { useState } from 'react';
+import { EngineCard } from '@components/myCar';
+
 
 export interface engineOptionInterface {
   engineType: string;

@@ -1,9 +1,9 @@
-import CarModel from '../../components/common/CarModel';
+
 import { Dispatch, SetStateAction, useState } from 'react';
-import { Flex } from '../../components/common/Flex';
-import TrimCard, { TrimCardInterface } from '../../components/myCar/TrimCard';
-import { footerInterface } from '.';
 import { useOutletContext } from 'react-router-dom';
+import { footerInterface } from '.';
+import { Flex, CarModel } from '@components/common';
+import { TrimCard, TrimCardInterface } from '@components/myCar';
 
 const Trim = () => {
   const { footerInfo, setFooterInfo } = useOutletContext<{

@@ -1,6 +1,6 @@
 import { ButtonHTMLAttributes } from 'react';
-import { Flex } from './Flex';
 import styled from '@emotion/styled';
+import { Flex } from './Flex';
 
 export const Button = ({
   children,

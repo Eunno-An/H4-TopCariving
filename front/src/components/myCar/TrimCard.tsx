@@ -1,7 +1,6 @@
+import { Flex, Text } from '@components/common';
 import styled from '@emotion/styled';
-import { Flex } from '../common/Flex';
-import { Text } from '../common/Text';
-import { theme } from '../../styles/theme';
+import { theme } from '@styles/theme';
 
 export interface TrimCardInterface {
   id: number;
@@ -9,7 +8,7 @@ export interface TrimCardInterface {
   price: number;
 }
 
-const TrimCard = ({
+export const TrimCard = ({
   trim,
   isSelected,
 }: {
@@ -72,7 +71,6 @@ const TrimCard = ({
   );
 };
 
-export default TrimCard;
 type TrimOption = {
   [key: string]: {
     svg: string;

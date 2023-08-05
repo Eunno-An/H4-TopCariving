@@ -1,10 +1,8 @@
+import { Button, Flex, Text } from '@components/common';
 import styled from '@emotion/styled';
-import { Flex } from '../common/Flex';
-import { Text } from '../common/Text';
-import { Button } from '../common/Button';
-import { footerInterface } from '../../pages/MyCar';
+import { footerInterface } from '@pages/MyCar';
 
-const Footer = ({ footerInfo }: { footerInfo: footerInterface }) => {
+export const Footer = ({ footerInfo }: { footerInfo: footerInterface }) => {
   return (
     <Flex
       backgroundColor="Sand"
@@ -62,8 +60,6 @@ const Footer = ({ footerInfo }: { footerInfo: footerInterface }) => {
     </Flex>
   );
 };
-
-export default Footer;
 
 const Section = styled(Flex)`
   flex-direction: column;

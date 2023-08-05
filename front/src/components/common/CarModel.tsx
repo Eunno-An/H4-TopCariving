@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { MouseEvent, useEffect, useState } from 'react';
 import { Flex } from './Flex';
 
-const CarModel = () => {
+export const CarModel = () => {
   const [carList, setCarList] = useState<{ path: string }[]>([]);
   const [focus, setFocus] = useState<number>(0);
   const [isClicked, setIsClicked] = useState<boolean>(false);
@@ -66,5 +66,3 @@ const ImgContainer = styled.img`
   width: 800px;
   height: auto;
 `;
-
-export default CarModel;

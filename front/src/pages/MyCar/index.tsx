@@ -1,9 +1,7 @@
-import { Flex } from '../../components/common/Flex';
-import Footer from '../../components/myCar/Footer';
-import NavBar from '../../components/myCar/NavBar';
-import Header from '../../components/myCar/Header';
 import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
+import { Flex } from '@components/common';
+import { Footer, Header, NavBar } from '@components/myCar';
 
 export interface footerInterface {
   name: string;
@@ -24,7 +22,7 @@ const MyCar = () => {
     <Flex direction="column" align="center">
       <Header />
       <NavBar />
-      <Flex direction="column" width={1040}>
+      <Flex direction="column" padding="0 120px">
         <Outlet context={{ footerInfo, setFooterInfo }} />
       </Flex>
       <Footer footerInfo={footerInfo} />

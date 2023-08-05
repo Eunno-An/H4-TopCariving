@@ -1,10 +1,9 @@
+import { Flex, Text } from '@components/common';
 import styled from '@emotion/styled';
-import { Flex } from '../common/Flex';
-import { theme } from '../../styles/theme';
-import { Text } from '../common/Text';
-import { engineOptionInterface } from '../../pages/MyCar/Engine';
+import { engineOptionInterface } from '@pages/MyCar/Engine';
+import { theme } from '@styles/theme';
 
-const EngineCard = ({
+export const EngineCard = ({
   engine,
   isSelected,
 }: {
@@ -61,5 +60,3 @@ const BorderLine = styled.div`
 
   border: 1px solid ${theme.palette.Primary};
 `;
-
-export default EngineCard;

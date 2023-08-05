@@ -4,7 +4,7 @@ import {
   KeyOfAlertPalette,
   KeyOfTypo,
   theme,
-} from '../../styles/theme';
+} from '@styles/theme';
 
 export const Text = styled.div<{
   typo?: KeyOfTypo;

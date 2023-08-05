@@ -1,9 +1,10 @@
-import { Flex } from '../common/Flex';
-import arrowRight from '../../assets/images/arrowRight.svg';
-import { Text } from '../common/Text';
-import vector455 from '../../assets/images/vector455.svg';
+import { Flex, Text} from '@components/common';
 
-const NavBar = () => {
+import arrowRight from '@assets/images/arrowRight.svg';
+import vector455 from '@assets/images/vector455.svg';
+
+
+export const NavBar = () => {
   return (
     <Flex backgroundColor="LightSand" height={60} padding="0 120px 0 120px">
       <Flex gap={12} justify="flex-start">
@@ -75,5 +76,3 @@ const NavBar = () => {
     </Flex>
   );
 };
-
-export default NavBar;

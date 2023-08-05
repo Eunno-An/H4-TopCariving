@@ -1,12 +1,12 @@
-import { Flex } from '../common/Flex';
-import { Text } from '../common/Text';
-import hyundai from '../../assets/images/hyundai.svg';
-import cargo from '../../assets/images/cargo.svg';
-import save from '../../assets/images/save.svg';
-import vector845 from '../../assets/images/vector845.svg';
-import vector850 from '../../assets/images/vector850.svg';
+import { Flex, Text } from "@components/common";
 
-const Header = () => {
+import hyundai from '@assets/images/hyundai.svg';
+import cargo from '@assets/images/cargo.svg';
+import save from '@assets/images/save.svg';
+import vector845 from '@assets/images/vector845.svg';
+import vector850 from '@assets/images/vector850.svg';
+
+export const Header = () => {
   return (
     <Flex
       backgroundColor="Sand"
@@ -47,5 +47,3 @@ const Header = () => {
     </Flex>
   );
 };
-
-export default Header;
