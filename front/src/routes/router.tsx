@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import MyCar from '../pages/MyCar';
 import Trim from '../pages/MyCar/Trim';
+import Engine from '../pages/MyCar/Engine';
 
 export const router = createBrowserRouter([
   { path: '', element: <>메인화면</> },
@@ -14,7 +15,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'trim/engine',
-        element: <>엔진 선택 화면</>,
+        element: <Engine />,
       },
       {
         path: 'trim/body-type',
