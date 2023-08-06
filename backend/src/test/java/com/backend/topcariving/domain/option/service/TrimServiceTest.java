@@ -19,7 +19,7 @@ import com.backend.topcariving.domain.option.repository.ModelPhotoRepository;
 import com.backend.topcariving.domain.option.repository.OptionRepository;
 
 @ExtendWith(MockitoExtension.class)
-class OptionServiceTest {
+class TrimServiceTest {
 
 	@Mock
 	private OptionRepository optionRepository;
@@ -27,7 +27,7 @@ class OptionServiceTest {
 	private ModelPhotoRepository modelPhotoRepository;
 
 	@InjectMocks
-	private OptionService optionService;
+	private TrimService trimService;
 
 	@Test
 	void 모델의_종류를_반환해야한다() {
@@ -42,7 +42,7 @@ class OptionServiceTest {
 			.willReturn(List.of(modelPhoto1, modelPhoto2));
 
 		// when
-		final List<ModelResponseDTO> models = optionService.getModels();
+		final List<ModelResponseDTO> models = trimService.getModels();
 
 		// then
 		ModelResponseDTO model = models.get(0);

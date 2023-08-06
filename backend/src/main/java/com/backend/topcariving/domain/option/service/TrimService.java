@@ -18,7 +18,7 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class OptionService {
+public class TrimService {
 
 	private static final String MODEL = "모델";
 
