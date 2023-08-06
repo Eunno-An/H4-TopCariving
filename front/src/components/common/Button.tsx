@@ -1,24 +1,40 @@
-import { ButtonHTMLAttributes } from 'react';
 import styled from '@emotion/styled';
 import { Flex } from './Flex';
+import { KeyOfPalette } from '@styles/theme';
 
-export const Button = ({
-  children,
-}: ButtonHTMLAttributes<HTMLButtonElement>) => {
+interface ButtonProps {
+  width: number;
+  type: 'medium' | 'small';
+  text: string;
+  backgroundColor: KeyOfPalette;
+}
+
+export const Button = ({ width, type, text, backgroundColor }: ButtonProps) => {
+  const color: KeyOfPalette =
+    backgroundColor === 'Primary'
+      ? 'White'
+      : backgroundColor === 'White'
+      ? 'Primary'
+      : backgroundColor === 'LightGray'
+      ? 'DarkGray'
+      : 'Primary';
   return (
     <ButtonContainer
-      width="auto"
-      padding="13px 48px"
+      width={width}
+      backgroundColor={backgroundColor}
+      color={color}
+      height={type === 'medium' ? 56 : 50}
       borderRadius="8px"
-      backgroundColor="Primary"
+      justify="center"
+      align="center"
     >
-      {children}
+      {text}
     </ButtonContainer>
   );
 };
 
-const ButtonContainer = styled(Flex)`
-  color: white;
+const ButtonContainer = styled(Flex)<{ color: string }>`
+  color: ${(props) => props.color};
   white-space: nowrap;
   cursor: pointer;
 `;

@@ -34,10 +34,14 @@ export const router = createBrowserRouter([
       {
         path: 'option',
         element: <Flex> 선택 옵션</Flex>,
-        children: [
-          { path: 'genuine', element: <Flex>H genuine</Flex> },
-          { path: 'performance', element: <Flex>N Performance</Flex> },
-        ],
+      },
+      {
+        path: 'option/genuine',
+        element: <Flex>H genuine</Flex>,
+      },
+      {
+        path: 'option/performance',
+        element: <Flex>N Performance</Flex>,
       },
     ],
   },

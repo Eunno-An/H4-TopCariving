@@ -1,10 +1,11 @@
-import { Flex, Text } from "@components/common";
+import { Flex, Text } from '@components/common';
 
 import hyundai from '@assets/images/hyundai.svg';
 import cargo from '@assets/images/cargo.svg';
 import save from '@assets/images/save.svg';
 import vector845 from '@assets/images/vector845.svg';
 import vector850 from '@assets/images/vector850.svg';
+import { css } from '@emotion/react';
 
 export const Header = () => {
   return (
@@ -36,6 +37,9 @@ export const Header = () => {
             width={98}
             height={35}
             gap={4}
+            css={css`
+              cursor: pointer;
+            `}
           >
             <img src={cargo} alt="아카이빙 카고" />
             <Text palette="Sand" typo="Body4_Medium">
