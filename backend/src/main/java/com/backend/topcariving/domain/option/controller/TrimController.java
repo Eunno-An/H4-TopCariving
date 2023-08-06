@@ -89,7 +89,7 @@ public class TrimController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@Operation(summary = "구동 방식 저장", description = "내 차 만들기에서 구동 방식 선택한 값을 저장하고, 차량 아카이빙 PK 값을 반환한다")
 	@Parameter(name = "carOptionId", description = "사용자가 선택한 구동 방식의 ID값")
-	public SuccessResponse<Long> save(@RequestParam Long carOptionId) {
+	public SuccessResponse<Long> saveDrivingMethod(@RequestParam Long carOptionId) {
 
 		return null;
 	}
