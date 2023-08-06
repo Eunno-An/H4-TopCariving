@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.backend.topcariving.domain.option.dto.TrimResponseDTO;
 import com.backend.topcariving.domain.option.dto.ModelResponseDTO;
 import com.backend.topcariving.domain.option.service.OptionService;
 import com.backend.topcariving.global.response.SuccessResponse;
@@ -43,4 +44,12 @@ public class OptionController {
 
 		return null;
 	}
+
+	@GetMapping("/trims/engines")
+	@Operation(summary = "엔진 옵션 전체 반환", description = "내 차 만들기에서 모든 엔진 옵션을 반환한다")
+	public List<TrimResponseDTO> getEngines() {
+
+		return null;
+	}
+
 }
