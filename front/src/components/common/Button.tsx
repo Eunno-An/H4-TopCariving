@@ -1,10 +1,11 @@
 import styled from '@emotion/styled';
 import { Flex } from './Flex';
-import { KeyOfPalette } from '@styles/theme';
+import { KeyOfPalette, theme } from '@styles/theme';
 
 interface ButtonProps {
   width: number;
-  type: 'medium' | 'small';
+  type: 'large' | 'medium' | 'small';
+  isIcon?: boolean;
   text: string;
   backgroundColor: KeyOfPalette;
 }
@@ -23,7 +24,7 @@ export const Button = ({ width, type, text, backgroundColor }: ButtonProps) => {
       width={width}
       backgroundColor={backgroundColor}
       color={color}
-      height={type === 'medium' ? 56 : 50}
+      height={type === 'large' ? 56 : type === 'medium' ? 50 : 30}
       borderRadius="8px"
       justify="center"
       align="center"
@@ -33,8 +34,8 @@ export const Button = ({ width, type, text, backgroundColor }: ButtonProps) => {
   );
 };
 
-const ButtonContainer = styled(Flex)<{ color: string }>`
-  color: ${(props) => props.color};
+const ButtonContainer = styled(Flex)<{ color: KeyOfPalette }>`
+  color: ${(props) => theme.palette[props.color]};
   white-space: nowrap;
   cursor: pointer;
 `;

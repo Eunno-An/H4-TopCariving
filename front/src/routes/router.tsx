@@ -5,6 +5,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import Engine from '@pages/MyCar/Trim/Engine';
 import { Trim } from '@pages/MyCar/Trim';
 import Traction from '@pages/MyCar/Trim/Traction';
+import { MyCarOptions } from '@pages/MyCar/Option';
 import Login from '@pages/Login';
 
 export const router = createBrowserRouter([
@@ -36,7 +37,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'option',
-        element: <Flex> 선택 옵션</Flex>,
+        element: <MyCarOptions />,
       },
       {
         path: 'option/genuine',
