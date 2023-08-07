@@ -16,3 +16,5 @@ export type KeyOfPalette = keyof typeof palette;
 
 export type TypeOfTypo = typeof typo;
 export type KeyOfTypo = keyof typeof typo;
+
+export type KeyOfAlertPalette = keyof typeof palette.Alert;

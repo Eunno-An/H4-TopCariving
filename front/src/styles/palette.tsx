@@ -17,6 +17,8 @@ export const palette = {
   DarkGray: '#545454',
   Black: '#232323',
 
+  White: '#FFFFFF',
+
   Alert: {
     Primary: '#FA6253',
     Neutral: '#FAFAFA',

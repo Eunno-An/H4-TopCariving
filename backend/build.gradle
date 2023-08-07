@@ -32,6 +32,13 @@ dependencies {
 
     // Swagger
     implementation group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.7.0'
+
+    // Spring data jdbc
+    implementation 'org.springframework.boot:spring-boot-starter-data-jdbc'
+
+    // Database
+    runtimeOnly 'com.h2database:h2'
+
 }
 
 tasks.named('test') {
