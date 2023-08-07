@@ -12,3 +12,21 @@ export interface myCarOptionInterface {
   price: number;
   photoUrl: string;
 }
+
+export interface apiResponse<T> {
+  code: number;
+  data: T;
+}
+
+export interface trimModelInterface {
+  carOptionId: number;
+  optionName: string;
+  price: number;
+  photos: [
+    {
+      content: string;
+      photoSvgUrl: string;
+      photoPngUrl: string;
+    },
+  ];
+}

@@ -22,7 +22,6 @@ export const CarModel = () => {
     setPointerPosition(e.screenX);
   };
   const onMouseOverHandler = () => {
-    console.log('Mouse Over');
     setIsClicked(false);
   };
 

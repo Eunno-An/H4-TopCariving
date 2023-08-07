@@ -5,9 +5,10 @@ import { createBrowserRouter } from 'react-router-dom';
 import Engine from '@pages/MyCar/Trim/Engine';
 import { Trim } from '@pages/MyCar/Trim';
 import Traction from '@pages/MyCar/Trim/Traction';
+import Login from '@pages/Login';
 
 export const router = createBrowserRouter([
-  { path: '', element: <Flex>메인화면</Flex> },
+  { path: '', element: <Login /> },
   { path: '/*', element: <Flex>Error: 해당 url에 화면이 없습니다</Flex> },
   {
     path: '/my-car',

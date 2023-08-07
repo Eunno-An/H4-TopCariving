@@ -1,10 +1,12 @@
 import { Flex, Text } from '@components/common';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { theme } from '@styles/theme';
 
 export interface TrimCardInterface {
-  id: number;
-  name: string;
+  carOptionId: number;
+  optionName: string;
+  photos: { content: string; photoPngUrl: string; photoSvgUrl: string }[];
   price: number;
 }
 
@@ -15,7 +17,7 @@ export const TrimCard = ({
   trim: TrimCardInterface;
   isSelected: boolean;
 }) => {
-  const { id, name, price } = trim;
+  const { optionName, photos, price } = trim;
 
   return (
     <CustomFlex
@@ -29,11 +31,11 @@ export const TrimCard = ({
       isSelected={isSelected === true}
     >
       <Text typo="Heading3_Bold" palette={isSelected ? 'Primary' : 'Black'}>
-        {name}
+        {optionName}
       </Text>
       <img src="/image/page/myCar/rowLine.svg" />
       <Flex justify="space-between">
-        {trimOption[id].map((item, key) => (
+        {photos.map((item, key) => (
           <Flex
             direction="column"
             justify="center"
@@ -42,7 +44,7 @@ export const TrimCard = ({
             gap={4}
           >
             <img
-              src={item.svg}
+              src={item.photoSvgUrl}
               style={{
                 filter: isSelected
                   ? 'invert(12%) sepia(40%) saturate(4856%) hue-rotate(196deg) brightness(50%) contrast(106%)'
@@ -50,11 +52,14 @@ export const TrimCard = ({
               }}
             />
             <Flex direction="column">
-              {item.name.map((name: string, key: number) => (
+              {item.content.split('\\n').map((name: string, key: number) => (
                 <Text
                   typo="Caption_Medium"
                   palette={isSelected ? 'Primary' : 'DarkGray'}
                   key={`imgOption_${key}`}
+                  css={css`
+                    white-space: nowrap;
+                  `}
                 >
                   {name}
                 </Text>
@@ -70,60 +75,6 @@ export const TrimCard = ({
     </CustomFlex>
   );
 };
-
-type TrimOption = {
-  [key: string]: {
-    svg: string;
-    name: string[];
-  }[];
-};
-
-const trimOption = {
-  1: [
-    {
-      svg: '/image/option/leBlanc1.svg',
-      name: ['20인치', '알로이 휠'],
-    },
-    { svg: '/image/option/leBlanc2.svg', name: ['서라운드 뷰', '모니터'] },
-    {
-      svg: '/image/option/leBlanc3.svg',
-      name: ['클러스터 ( 12.3', '인치 컬러 LCD )'],
-    },
-  ],
-  2: [
-    { svg: '/image/option/exclusive1.svg', name: ['12인치', '내비게이션'] },
-    {
-      svg: '/image/option/exclusive2.svg',
-      name: ['네비게이션 기반', '스마트 크루즈', '컨트롤'],
-    },
-    {
-      svg: '/image/option/exclusive3.svg',
-      name: ['베젤리스', '인사이드 미러'],
-    },
-  ],
-  3: [
-    { svg: '/image/option/prestige1.svg', name: ['2열 수동식', '도어 커튼'] },
-    { svg: '/image/option/prestige2.svg', name: ['스마트', '자세제어'] },
-    {
-      svg: '/image/option/prestige3.svg',
-      name: ['전후식 통합', '터치 공조 컨트롤'],
-    },
-  ],
-  4: [
-    {
-      svg: '/image/option/calligraphy1.svg',
-      name: ['KRELL', '프리미어 사운드'],
-    },
-    {
-      svg: '/image/option/calligraphy2.svg',
-      name: ['원격 스마트', '주차보조'],
-    },
-    {
-      svg: '/image/option/calligraphy3.svg',
-      name: ['캘리그래피', '전용 디자인'],
-    },
-  ],
-} as TrimOption;
 
 const CustomFlex = styled(Flex)<{ isSelected: boolean }>`
   background-color: ${({ isSelected }) =>

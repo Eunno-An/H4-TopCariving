@@ -47,6 +47,7 @@ export const NavBar = ({ currentUrl }: navBarProps) => {
 
   useEffect(() => {
     const [step, detailStep] = currentUrl.split('/').slice(2);
+
     setStep(step);
     setDetailStep(detailStep ? detailStep : '');
     setStepIdx(Object.keys(navBarText).indexOf(step) + 1);
