@@ -1,4 +1,4 @@
-package com.backend.topcariving.domain.option.dto;
+package com.backend.topcariving.domain.option.dto.selection;
 
 import java.util.List;
 

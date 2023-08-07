@@ -12,7 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.backend.topcariving.domain.option.dto.ModelResponseDTO;
+import com.backend.topcariving.domain.option.dto.model.ModelResponseDTO;
 import com.backend.topcariving.domain.option.entity.ModelPhoto;
 import com.backend.topcariving.domain.option.entity.Option;
 import com.backend.topcariving.domain.option.repository.ModelPhotoRepository;

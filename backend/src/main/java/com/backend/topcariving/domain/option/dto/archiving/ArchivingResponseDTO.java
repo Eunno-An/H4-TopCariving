@@ -1,4 +1,4 @@
-package com.backend.topcariving.domain.option.dto;
+package com.backend.topcariving.domain.option.dto.archiving;
 
 import java.util.List;
 

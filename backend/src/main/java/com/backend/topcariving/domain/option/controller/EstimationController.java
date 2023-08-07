@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.backend.topcariving.domain.option.dto.ArchivingResponseDTO;
-import com.backend.topcariving.domain.option.dto.EstimationChangeRequestDTO;
-import com.backend.topcariving.domain.option.dto.ModifyOptionResponseDTO;
+import com.backend.topcariving.domain.option.dto.archiving.ArchivingResponseDTO;
+import com.backend.topcariving.domain.option.dto.esitmation.EstimationChangeRequestDTO;
+import com.backend.topcariving.domain.option.dto.archiving.ModifyOptionResponseDTO;
 import com.backend.topcariving.global.response.SuccessResponse;
 
 import io.swagger.v3.oas.annotations.Operation;

@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.backend.topcariving.domain.option.dto.ColorBothResponseDTO;
-import com.backend.topcariving.domain.option.dto.ColorResponseDTO;
+import com.backend.topcariving.domain.option.dto.color.ColorBothResponseDTO;
+import com.backend.topcariving.domain.option.dto.color.ColorResponseDTO;
 import com.backend.topcariving.global.response.SuccessResponse;
 
 import io.swagger.v3.oas.annotations.Operation;

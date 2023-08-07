@@ -11,10 +11,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.backend.topcariving.domain.option.dto.BasicOptionDTO;
+import com.backend.topcariving.domain.option.dto.trim.BasicOptionResponseDTO;
 import com.backend.topcariving.domain.option.dto.OptionRequestDTO;
-import com.backend.topcariving.domain.option.dto.SelectionResponseDTO;
-import com.backend.topcariving.domain.option.dto.TrimResponseDTO;
+import com.backend.topcariving.domain.option.dto.selection.SelectionResponseDTO;
+import com.backend.topcariving.domain.option.dto.trim.OptionResponseDTO;
 import com.backend.topcariving.global.response.SuccessResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,7 +28,7 @@ public class OptionController {
 
 	@GetMapping("/selections")
 	@Operation(summary = "선택 옵션 전체 반환", description = "내 차 만들기에서 선택 옵션 전체를 반환한다")
-	public List<TrimResponseDTO> getSelections() {
+	public List<OptionResponseDTO> getSelections() {
 
 		return null;
 	}
@@ -48,31 +48,31 @@ public class OptionController {
 		return null;
 	}
 
-	@GetMapping("/basic")
+	@GetMapping("/basics")
 	@Operation(summary = "기본 옵션 전체 반환", description = "내 차 만들기에서 기본 옵션 전체를 반환한다")
-	public List<BasicOptionDTO> getBasics() {
+	public List<BasicOptionResponseDTO> getBasics() {
 
 		return null;
 	}
 
-	@GetMapping("/genuine")
+	@GetMapping("/accessories")
 	@Operation(summary = "H Genuine Accessories 전체 반환", description = "내 차 만들기에서 H Genuine Accessories에 대한 옵션 전체를 반환한다")
-	public List<TrimResponseDTO> getGenuine() {
+	public List<OptionResponseDTO> getAccessories() {
 
 		return null;
 	}
 
-	@PostMapping("/genuine")
+	@PostMapping("/accessories")
 	@Operation(summary = "H Genuine Accessories 저장", description = "내 차 만들기에서 선택한 옵션들의 값을 저장하고, 차량 아카이브 PK 값을 반환함")
 	@ResponseStatus(HttpStatus.CREATED)
-	public SuccessResponse<Long> saveGenuine(@RequestBody OptionRequestDTO requestDTO) {
+	public SuccessResponse<Long> saveAccessories(@RequestBody OptionRequestDTO requestDTO) {
 
 		return null;
 	}
 
 	@GetMapping("/performances")
 	@Operation(summary = "N Performance 전체 반환", description = "내 차 만들기에서 N Performance에 대한 옵션 전체를 반환한다")
-	public List<TrimResponseDTO> getPerformance() {
+	public List<OptionResponseDTO> getPerformances() {
 
 		return null;
 	}
@@ -80,7 +80,7 @@ public class OptionController {
 	@PostMapping("/performances")
 	@Operation(summary = "N Performance 저장", description = "내 차 만들기에서 선택한 옵션들의 값을 저장하고, 차량 아카이브 PK 값을 반환함")
 	@ResponseStatus(HttpStatus.CREATED)
-	public SuccessResponse<Long> saveGenuine(@RequestParam Long carOptionId) {
+	public SuccessResponse<Long> savePerformances(@RequestParam Long carOptionId) {
 
 		return null;
 	}
