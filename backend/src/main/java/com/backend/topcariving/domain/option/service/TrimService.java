@@ -8,10 +8,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.backend.topcariving.domain.option.dto.model.ModelPhotoDTO;
 import com.backend.topcariving.domain.option.dto.model.ModelResponseDTO;
+import com.backend.topcariving.domain.option.entity.CarOption;
 import com.backend.topcariving.domain.option.entity.ModelPhoto;
-import com.backend.topcariving.domain.option.entity.Option;
+import com.backend.topcariving.domain.option.repository.CarOptionRepository;
 import com.backend.topcariving.domain.option.repository.ModelPhotoRepository;
-import com.backend.topcariving.domain.option.repository.OptionRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,12 +22,12 @@ public class TrimService {
 
 	private static final String MODEL = "모델";
 
-	private final OptionRepository optionRepository;
+	private final CarOptionRepository carOptionRepository;
 	private final ModelPhotoRepository modelPhotoRepository;
 
 	@Transactional(readOnly = true)
 	public List<ModelResponseDTO> getModels() {
-		List<Option> options = optionRepository.findByCategoryDetail(MODEL);
+		List<CarOption> options = carOptionRepository.findByCategoryDetail(MODEL);
 
 		return options.stream()
 			.map(option -> ModelResponseDTO.of(option, getPageOptions(option.getCarOptionId())))

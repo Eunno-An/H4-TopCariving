@@ -9,7 +9,7 @@ import lombok.Getter;
 @AllArgsConstructor
 @Getter
 @Table("CAR_OPTION")
-public class Option {
+public class CarOption {
 
 	@Id
 	private Long carOptionId;

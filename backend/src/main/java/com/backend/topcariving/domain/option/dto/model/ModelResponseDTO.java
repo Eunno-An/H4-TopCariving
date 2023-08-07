@@ -2,7 +2,7 @@ package com.backend.topcariving.domain.option.dto.model;
 
 import java.util.List;
 
-import com.backend.topcariving.domain.option.entity.Option;
+import com.backend.topcariving.domain.option.entity.CarOption;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
@@ -26,7 +26,7 @@ public class ModelResponseDTO {
 	@Schema(description = "옵션의 사진 url들")
 	private List<ModelPhotoDTO> photos;
 
-	public static ModelResponseDTO of(Option option, List<ModelPhotoDTO> photos) {
+	public static ModelResponseDTO of(CarOption option, List<ModelPhotoDTO> photos) {
 		return ModelResponseDTO.builder()
 			.carOptionId(option.getCarOptionId())
 			.optionName(option.getOptionName())

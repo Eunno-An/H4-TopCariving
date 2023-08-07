@@ -13,16 +13,16 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.backend.topcariving.domain.option.dto.model.ModelResponseDTO;
+import com.backend.topcariving.domain.option.entity.CarOption;
 import com.backend.topcariving.domain.option.entity.ModelPhoto;
-import com.backend.topcariving.domain.option.entity.Option;
+import com.backend.topcariving.domain.option.repository.CarOptionRepository;
 import com.backend.topcariving.domain.option.repository.ModelPhotoRepository;
-import com.backend.topcariving.domain.option.repository.OptionRepository;
 
 @ExtendWith(MockitoExtension.class)
 class TrimServiceTest {
 
 	@Mock
-	private OptionRepository optionRepository;
+	private CarOptionRepository carOptionRepository;
 	@Mock
 	private ModelPhotoRepository modelPhotoRepository;
 
@@ -32,8 +32,8 @@ class TrimServiceTest {
 	@Test
 	void 모델의_종류를_반환해야한다() {
 		// given
-		final Option option = new Option(1L, "카테고리", "카테고리 디테일", "옵션이름", "옵션디테일", 1000, "포토URL", null);
-		given(optionRepository.findByCategoryDetail(anyString()))
+		final CarOption option = new CarOption(1L, "카테고리", "카테고리 디테일", "옵션이름", "옵션디테일", 1000, "포토URL", null);
+		given(carOptionRepository.findByCategoryDetail(anyString()))
 			.willReturn(List.of(option));
 
 		final ModelPhoto modelPhoto1 = new ModelPhoto(1L, "포토 이름 설명", "svg 경로", "photo 경로", 1L);

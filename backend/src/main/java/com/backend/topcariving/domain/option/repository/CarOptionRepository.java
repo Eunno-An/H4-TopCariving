@@ -5,9 +5,9 @@ import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.backend.topcariving.domain.option.entity.Option;
+import com.backend.topcariving.domain.option.entity.CarOption;
 
 @Repository
-public interface OptionRepository extends CrudRepository<Option, Long> {
-	List<Option> findByCategoryDetail(String categoryDetail);
+public interface CarOptionRepository extends CrudRepository<CarOption, Long> {
+	List<CarOption> findByCategoryDetail(String categoryDetail);
 }
