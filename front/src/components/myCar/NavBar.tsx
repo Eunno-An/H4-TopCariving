@@ -53,9 +53,9 @@ export const NavBar = ({ currentUrl }: navBarProps) => {
   }, [currentUrl]);
 
   return (
-    <>
+    <Flex backgroundColor="LightSand" height={60} justify="center">
       {step && (
-        <Flex backgroundColor="LightSand" height={60} padding="0 120px 0 120px">
+        <Flex width={1024}>
           <Flex gap={12} justify="flex-start">
             <Flex gap={5} width="auto">
               <Flex
@@ -119,6 +119,6 @@ export const NavBar = ({ currentUrl }: navBarProps) => {
           </Flex>
         </Flex>
       )}
-    </>
+    </Flex>
   );
 };

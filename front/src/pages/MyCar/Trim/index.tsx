@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
 import { myCarFooterInterface } from '@interface/index';
-import { TrimCard, TrimCardInterface } from '@components/myCar/trim';
 import { CarModel, Flex } from '@components/common';
+import { TrimCard, TrimCardInterface } from '@components/myCar/trim';
 
 const trimInfo = [
   {
@@ -53,7 +53,7 @@ export const Trim = () => {
   };
 
   return (
-    <Flex direction="column" justify="space-between">
+    <Flex direction="column" justify="flex-start" height="auto">
       <CarModel />
       <Flex gap={24}>
         {trimInfo.map((trim: TrimCardInterface, idx: number) => (

@@ -2,8 +2,8 @@ import styled from '@emotion/styled';
 import { Flex, Text } from '@components/common';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
-import { EngineCard } from '@components/myCar/trim';
 import { myCarFooterInterface } from '@interface/index';
+import { EngineCard } from '@components/myCar/trim';
 
 export interface engineOptionInterface {
   engineType: string;
@@ -60,8 +60,8 @@ const Engine = () => {
   };
 
   return (
-    <Flex padding="28px 0 0 0" gap={28}>
-      <Flex direction="column" gap={23}>
+    <Flex gap={28} padding="28px 0 0 0" align="flex-start">
+      <Flex direction="column" gap={23} height="auto">
         <Flex width={620} align="flex-start">
           <ImgTag src={engineDummyData[isSelected].img} alt="" />
         </Flex>
@@ -77,7 +77,7 @@ const Engine = () => {
         </Flex>
       </Flex>
 
-      <Flex direction="column" justify="flex-start" gap={12}>
+      <Flex direction="column" justify="flex-start" gap={12} height="auto">
         {engineDummyData.map((engine, idx) => (
           <div
             key={`engineOption_${idx}`}

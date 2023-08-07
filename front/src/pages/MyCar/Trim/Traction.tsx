@@ -47,8 +47,8 @@ const Traction = () => {
   };
 
   return (
-    <Flex padding="28px 0 0 0" gap={28}>
-      <Flex direction="column" gap={23}>
+    <Flex padding="28px 0 0 0" align="flex-start" gap={28}>
+      <Flex direction="column" height="auto" gap={23}>
         <Flex width={620} align="flex-start">
           <ImgTag src={bodyTypeInfo[isSelected].photoUrl} alt="" />
         </Flex>
