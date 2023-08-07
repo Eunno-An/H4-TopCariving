@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
 import { Flex, Text } from '@components/common';
-import { useState } from 'react';
-import { EngineCard } from '@components/myCar';
-
+import { Dispatch, SetStateAction, useState } from 'react';
+import { useOutletContext } from 'react-router-dom';
+import { EngineCard } from '@components/myCar/trim';
+import { myCarFooterInterface } from '@interface/index';
 
 export interface engineOptionInterface {
   engineType: string;
@@ -37,7 +38,26 @@ const engineDummyData = [
 ];
 
 const Engine = () => {
+  const { footerInfo, setFooterInfo } = useOutletContext<{
+    footerInfo: myCarFooterInterface;
+    setFooterInfo: Dispatch<SetStateAction<myCarFooterInterface>>;
+  }>();
+
   const [isSelected, setIsSelected] = useState(0);
+
+  const lastPrice = footerInfo.price;
+  const onSelectEngine = (idx: number) => {
+    setIsSelected(idx);
+
+    const newTrimOption = footerInfo.name[1].split('/');
+    newTrimOption[0] = engineDummyData[idx].engineType;
+
+    setFooterInfo({
+      ...footerInfo,
+      price: lastPrice + engineDummyData[idx].price,
+      name: [footerInfo.name[0], newTrimOption.join('/')],
+    });
+  };
 
   return (
     <Flex padding="28px 0 0 0" gap={28}>
@@ -51,7 +71,7 @@ const Engine = () => {
               {engineDummyData[isSelected].engineType}
             </Text>
             <Text typo="Heading2_Bold">
-              +{engineDummyData[isSelected].price}원
+              +{engineDummyData[isSelected].price.toLocaleString('ko-KR')}원
             </Text>
           </InfoBox>
         </Flex>
@@ -62,7 +82,7 @@ const Engine = () => {
           <div
             key={`engineOption_${idx}`}
             onClick={() => {
-              setIsSelected(idx);
+              onSelectEngine(idx);
             }}
           >
             <EngineCard engine={engine} isSelected={isSelected === idx} />
@@ -73,11 +93,11 @@ const Engine = () => {
   );
 };
 
-const InfoBox = styled(Flex)`
+export const InfoBox = styled(Flex)`
   border-bottom: 4px solid #545454;
 `;
 
-const ImgTag = styled.img`
+export const ImgTag = styled.img`
   width: 620px;
   height: 397px;
   border-radius: 8px;

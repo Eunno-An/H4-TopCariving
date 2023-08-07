@@ -1,13 +1,14 @@
 import { Button, Flex, Text } from '@components/common';
 import styled from '@emotion/styled';
-import { footerInterface, myCarUrl } from '@pages/MyCar';
+import { myCarFooterInterface } from '@interface/index';
+import { myCarUrl } from '@pages/MyCar';
 import { Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface footerProps {
   currentUrl: string;
   setCurrentUrl: Dispatch<SetStateAction<string>>;
-  footerInfo: footerInterface;
+  footerInfo: myCarFooterInterface;
 }
 
 export const Footer = ({
@@ -34,12 +35,15 @@ export const Footer = ({
       justify="space-between"
     >
       <Flex width="auto">
-        <Section width={138}>
+        <Section width={208}>
           <Text typo="Body3_Regular" palette="DarkGray">
             트림
           </Text>
           <Text typo="Heading4_Bold" palette="Black">
-            {footerInfo.name}
+            {footerInfo.name[0]}
+          </Text>
+          <Text typo="Body3_Medium" palette="Black">
+            {footerInfo.name[1]}
           </Text>
         </Section>
         <img src="/image/page/myCar/columnLine.svg" />

@@ -8,6 +8,7 @@
     "types": ["vite/client", "@emotion/react/types/css-prop"],
 
     "paths": {
+      "@interface/*" : ["./src/interface/*"],
       "@assets/*" : ["./src/assets/*"],
       "@components/*" : ["./src/components/*"],
       "@pages/*" : ["./src/pages/*"],

@@ -1,8 +1,10 @@
 import { Flex } from '@components/common';
 import MyCar from '@pages/MyCar';
-import Engine from '@pages/MyCar/Engine';
-import Trim from '@pages/MyCar/Trim';
+import BodyType from '@pages/MyCar/Trim/BodyType';
 import { createBrowserRouter } from 'react-router-dom';
+import Engine from '@pages/MyCar/Trim/Engine';
+import { Trim } from '@pages/MyCar/Trim';
+import Traction from '@pages/MyCar/Trim/Traction';
 
 export const router = createBrowserRouter([
   { path: '', element: <Flex>메인화면</Flex> },
@@ -21,11 +23,11 @@ export const router = createBrowserRouter([
       },
       {
         path: 'trim/body-type',
-        element: <Flex>바디타입 선택 화면</Flex>,
+        element: <BodyType />,
       },
       {
         path: 'trim/traction',
-        element: <Flex>구동방식 선택 화면</Flex>,
+        element: <Traction />,
       },
       {
         path: 'color',

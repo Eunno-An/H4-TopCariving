@@ -12,6 +12,7 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
+      '@interface': '/src/interface',
       '@assets': '/src/assets',
       '@components': '/src/components',
       '@pages': '/src/pages',

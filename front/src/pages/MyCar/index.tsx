@@ -2,13 +2,7 @@ import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Flex } from '@components/common';
 import { Footer, Header, NavBar } from '@components/myCar';
-
-export interface footerInterface {
-  name: string;
-  color: string[];
-  option: { outer: string; inner: string };
-  price: number;
-}
+import { myCarFooterInterface } from '@interface/index';
 
 export const myCarUrl = [
   '/my-car/trim',
@@ -28,17 +22,17 @@ const MyCar = () => {
   );
 
   const [footerInfo, setFooterInfo] = useState({
-    name: 'Le Blanc',
+    name: ['Le Blanc', ''],
     color: [],
     option: { outer: '', inner: '' },
     price: 47720000,
-  } as footerInterface);
+  } as myCarFooterInterface);
 
   return (
     <Flex direction="column" align="center">
       <Header />
       <NavBar currentUrl={currentUrl} />
-      <Flex direction="column" padding="0 120px">
+      <Flex direction="column" width={1040}>
         <Outlet context={{ footerInfo, setFooterInfo }} />
       </Flex>
       <Footer

@@ -1,6 +1,6 @@
 import { Flex, Text } from '@components/common';
 import styled from '@emotion/styled';
-import { engineOptionInterface } from '@pages/MyCar/Engine';
+import { engineOptionInterface } from '@pages/MyCar/Trim/Engine';
 import { theme } from '@styles/theme';
 
 export const EngineCard = ({
