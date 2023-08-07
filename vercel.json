@@ -1,0 +1,9 @@
+{
+  "builds": [
+    {
+      "src": "front",
+      "use": "@vercel/static"
+    }
+  ],
+  "ignore": ["iOS/**", "backend/**"]
+}
