@@ -1,4 +1,4 @@
-import { Button, Flex, Text } from '@components/common';
+import { Flex, Text, Button } from '@components/common';
 import styled from '@emotion/styled';
 import { myCarFooterInterface } from '@interface/index';
 import { myCarUrl } from '@pages/MyCar';
@@ -93,20 +93,26 @@ export const Footer = ({
                 <div onClick={() => onClickButton(-1)}>
                   <Button
                     width={121}
-                    type="medium"
-                    text="이전"
+                    heightType="medium"
                     backgroundColor="White"
-                  />
+                  >
+                    <Text palette="Primary" typo="Heading4_Bold">
+                      이전
+                    </Text>
+                  </Button>
                 </div>
               )}
 
               <div onClick={() => onClickButton(+1)}>
                 <Button
                   width={176}
-                  type="medium"
-                  text="다음 단계로"
+                  heightType="medium"
                   backgroundColor="Primary"
-                />
+                >
+                  <Text palette="White" typo="Heading4_Bold">
+                    다음 단계로
+                  </Text>
+                </Button>
               </div>
             </>
           )}

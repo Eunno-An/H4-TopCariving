@@ -1,4 +1,4 @@
-import { Flex, Text, Btn } from '@components/common';
+import { Flex, Text, Button } from '@components/common';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { theme } from '@styles/theme';
@@ -19,7 +19,7 @@ export const OptionCard = ({
       <Flex direction="column" align="flex-start" padding="20px 9px" gap={8}>
         <Text>컴포트 2</Text>
         <Text>+ 1,090,000 원</Text>
-        <Btn
+        <Button
           backgroundColor="White"
           heightType="small"
           width={142}
@@ -34,7 +34,7 @@ export const OptionCard = ({
           ) : (
             <Text typo="Body3_Medium">추가하기</Text>
           )}
-        </Btn>
+        </Button>
       </Flex>
     </Card>
   );
