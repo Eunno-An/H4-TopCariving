@@ -11,9 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.backend.topcariving.domain.option.dto.trim.BasicOptionResponseDTO;
 import com.backend.topcariving.domain.option.dto.OptionRequestDTO;
 import com.backend.topcariving.domain.option.dto.selection.SelectionResponseDTO;
+import com.backend.topcariving.domain.option.dto.trim.BasicOptionResponseDTO;
 import com.backend.topcariving.domain.option.dto.trim.OptionResponseDTO;
 import com.backend.topcariving.global.response.SuccessResponse;
 
@@ -24,7 +24,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 @RequestMapping("/api/options")
 @RestController
 public class OptionController {
-
 
 	@GetMapping("/selections")
 	@Operation(summary = "선택 옵션 전체 반환", description = "내 차 만들기에서 선택 옵션 전체를 반환한다")
@@ -50,7 +49,7 @@ public class OptionController {
 
 	@GetMapping("/basics")
 	@Operation(summary = "기본 옵션 전체 반환", description = "내 차 만들기에서 기본 옵션 전체를 반환한다")
-	public List<BasicOptionResponseDTO> getBasics() {
+	public BasicOptionResponseDTO getBasics() {
 
 		return null;
 	}
