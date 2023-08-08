@@ -42,9 +42,10 @@ public class TrimController {
 	@ApiResponse(responseCode = "201", description = "성공하면, 아카이빙 PK 값을 반환함")
 	@Operation(summary = "모델 옵션 저장", description = "내 차 만들기에서 모델을 선택한 값을 저장하고, 아카이빙 PK 값을 반환한다")
 	@Parameter(name = "carOptionId", description = "사용자가 선택한 모델의 ID 값")
-	public SuccessResponse<Long> saveTrim(@RequestParam Long carOptionId) {
+	public SuccessResponse<Long> saveTrim(@RequestParam Long userId,
+										  @RequestParam Long carOptionId) {
 
-		return null;
+		return new SuccessResponse<>(trimService.saveModel(userId, carOptionId));
 	}
 
 	@GetMapping("/engines")

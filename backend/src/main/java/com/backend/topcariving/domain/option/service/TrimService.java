@@ -6,6 +6,10 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.backend.topcariving.domain.archive.entity.CarArchiving;
+import com.backend.topcariving.domain.archive.entity.MyCar;
+import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
+import com.backend.topcariving.domain.archive.repository.MyCarRepository;
 import com.backend.topcariving.domain.option.dto.model.ModelPhotoDTO;
 import com.backend.topcariving.domain.option.dto.model.ModelResponseDTO;
 import com.backend.topcariving.domain.option.entity.CarOption;
@@ -24,6 +28,8 @@ public class TrimService {
 
 	private final CarOptionRepository carOptionRepository;
 	private final ModelPhotoRepository modelPhotoRepository;
+	private final CarArchivingRepository carArchivingRepository;
+	private final MyCarRepository myCarRepository;
 
 	@Transactional(readOnly = true)
 	public List<ModelResponseDTO> getModels() {
@@ -40,5 +46,23 @@ public class TrimService {
 		return modelPhotos.stream()
 			.map(ModelPhotoDTO::from)
 			.collect(Collectors.toList());
+	}
+
+	public Long saveModel(Long userId, Long carOptionId) {
+		CarArchiving carArchiving = CarArchiving.builder()
+										.userId(userId)
+										.isComplete(false)
+										.isAlive(true)
+										.build();
+		carArchiving = carArchivingRepository.save(carArchiving);
+
+		MyCar mycar = MyCar.builder()
+			.archivingId(carArchiving.getArchivingId())
+			.carOptionId(carOptionId)
+			.build();
+
+		myCarRepository.save(mycar);
+
+		return carArchiving.getArchivingId();
 	}
 }

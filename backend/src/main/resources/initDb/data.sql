@@ -215,3 +215,8 @@ INSERT INTO MODEL_PHOTO (model_photo_id, content, photo_svg_url, photo_png_url, 
 INSERT INTO MODEL_PHOTO (model_photo_id, content, photo_svg_url, photo_png_url, car_option_id) VALUES (10, 'KRELL\n프리미엄 사운드', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/svg/calligraphy1.svg', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/png/calligraphy1.png', 4);
 INSERT INTO MODEL_PHOTO (model_photo_id, content, photo_svg_url, photo_png_url, car_option_id) VALUES (11, '원격 스마트\n주차보조', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/svg/calligraphy2.svg', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/png/calligraphy2.png', 4);
 INSERT INTO MODEL_PHOTO (model_photo_id, content, photo_svg_url, photo_png_url, car_option_id) VALUES (12, '캘리그래피\n전용 디자인', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/svg/calligraphy3.svg', 'https://topcariving.s3.ap-northeast-2.amazonaws.com/png/calligraphy3.png', 4);
+
+/**
+  USER_INFO
+ */
+INSERT INTO USER_INFO (user_id, name, email, password) VALUES (1, '김민구', 'mingu@gmail.com', '1234');
