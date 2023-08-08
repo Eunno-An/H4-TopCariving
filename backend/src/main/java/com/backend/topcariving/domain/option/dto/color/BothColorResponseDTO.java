@@ -9,11 +9,11 @@ import lombok.Getter;
 @Getter
 @Builder
 @Schema(description = "외장, 내장 색상에 대한 응답 DTO")
-public class ColorBothResponseDTO {
+public class BothColorResponseDTO {
 
 	@Schema(description = "외장 색상 응답 DTO")
-	private List<ColorResponseDTO> exteriorColorResponses;
+	private List<ExteriorColorResponseDTO> exteriorColorResponses;
 
 	@Schema(description = "내장 색상 응답 DTO")
-	private List<ColorResponseDTO> interiorColorResponses;
+	private List<InteriorColorResponseDTO> interiorColorResponses;
 }

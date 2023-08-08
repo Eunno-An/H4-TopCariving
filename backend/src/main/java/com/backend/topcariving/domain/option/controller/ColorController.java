@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.backend.topcariving.domain.option.dto.color.ColorBothResponseDTO;
-import com.backend.topcariving.domain.option.dto.color.ColorResponseDTO;
+import com.backend.topcariving.domain.option.dto.color.BothColorResponseDTO;
+import com.backend.topcariving.domain.option.dto.color.ExteriorColorResponseDTO;
+import com.backend.topcariving.domain.option.dto.color.InteriorColorResponseDTO;
 import com.backend.topcariving.global.response.SuccessResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -26,7 +27,7 @@ public class ColorController {
 
 	@GetMapping("/exteriors")
 	@Operation(summary = "외장 색상 옵션 전체 반환", description = "내 차 만들기에서 모든 외장 색상 옵션을 반환한다")
-	public List<ColorResponseDTO> getExteriorColors() {
+	public List<ExteriorColorResponseDTO> getExteriorColors() {
 		return null;
 	}
 
@@ -39,7 +40,7 @@ public class ColorController {
 
 	@GetMapping("/interiors")
 	@Operation(summary = "내장 색상 옵션 전체 반환", description = "내 차 만들기에서 모든 내장 색상 옵션을 반환한다")
-	public List<ColorResponseDTO> getInteriorColors() {
+	public List<InteriorColorResponseDTO> getInteriorColors() {
 		return null;
 	}
 
@@ -52,7 +53,7 @@ public class ColorController {
 
 	@GetMapping("/both")
 	@Operation(summary = "외장, 내장 색상 옵션 전체 반환", description = "내 차 만들기에서 모든 외장, 내장 색상 옵션을 반환한다")
-	public ColorBothResponseDTO getBothColors() {
+	public BothColorResponseDTO getBothColors() {
 		return null;
 	}
 
