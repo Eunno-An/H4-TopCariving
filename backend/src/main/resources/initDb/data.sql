@@ -7,9 +7,7 @@ INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, o
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (4, '트림', '모델', 'Calligraphy', 'KRELL 프리미엄 사운드, 원격 스마트 주차 보조, 캘리그래피 전용 디자인', 51060000, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/model/calligraphy.png', null);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (5, '트림', '엔진', '디젤 2.2', '높은 토크로 파워풀한 드라이빙이 가능하며, 차급대비 연비 효율이 우수합니다', 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/power/diesel.jpg', null);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (6, '트림', '엔진', '가솔린 3.8', '고마력의 우수한 가속 성능을 확보하여, 넉넉하고 안정감 있는 주행이 가능합니다
-엔진의 진동이 적어 편안하고 조용한 드라이빙 감성을 제공합니다
-최고출력 295/6,000PS/rpm
-최대토크 36.2/5,200kgf-m/rpm', 1480000, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/power/gasoline.jpg', null);
+엔진의 진동이 적어 편안하고 조용한 드라이빙 감성을 제공합니다', 1480000, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/power/gasoline.jpg', null);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (8, '트림', '바디타입', '8인승', '1열 2명, 2열 3명, 3열 3명이 탑승할 수 있는 구조로, 많은 인원이 탑승할 수 있도록 배려하였습니다', 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/body_type/eight.jpg', null);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (7, '트림', '바디타입', '7인승', '기존 8인승 시트(1열 2명, 2열 3명, 3열 3명)에서 2열 가운데 시트를 없애 2열 탑승객의 편의는 물론, 3열 탑승객의 승하차가 편리합니다', 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/body_type/seven.jpg', null);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (9, '트림', '구동방식', '2WD', '엔진에서 전달되는 동력이 전/후륜 바퀴 중 한쪽으로만 전달되어 차량을 움직이는 방식입니다
@@ -240,65 +238,65 @@ INSERT INTO MODEL_PHOTO (model_photo_id, content, photo_svg_url, photo_png_url, 
 /**
   USER_INFO
  */
-INSERT INTO USER_INFO (user_id, name, email, password) VALUES (1, '김민구', 'mingu@gmail.com', '1234');
-INSERT INTO USER_INFO (user_id, name, email, password) VALUES (2, '오지은', 'je@gmail.com', '1234');
-INSERT INTO USER_INFO (user_id, name, email, password) VALUES (3, '조승기', 'sk@gmail.com', '1234');
-INSERT INTO USER_INFO (user_id, name, email, password) VALUES (4, '안은노', 'en@gmail.com', '1234');
-INSERT INTO USER_INFO (user_id, name, email, password) VALUES (5, '유해찬', 'hc@gmail.com', '1234');
-INSERT INTO USER_INFO (user_id, name, email, password) VALUES (6, '김아현', 'ah@gmail.com', '1234');
-INSERT INTO USER_INFO (user_id, name, email, password) VALUES (7, '현대', 'hyundai@gmail.com', '1234');
-INSERT INTO USER_INFO (user_id, name, email, password) VALUES (8, '와우', 'wow@gmail.com', '1234');
-INSERT INTO USER_INFO (user_id, name, email, password) VALUES (9, '홍길동', 'hong@gmail.com', '1234');
-INSERT INTO USER_INFO (user_id, name, email, password) VALUES (10, '고길동', 'go@gmail.com', '1234');
+INSERT INTO USER_INFO (name, email, password) VALUES ('김민구', 'mingu@gmail.com', '1234');
+INSERT INTO USER_INFO (name, email, password) VALUES ('오지은', 'je@gmail.com', '1234');
+INSERT INTO USER_INFO (name, email, password) VALUES ('조승기', 'sk@gmail.com', '1234');
+INSERT INTO USER_INFO (name, email, password) VALUES ('안은노', 'en@gmail.com', '1234');
+INSERT INTO USER_INFO (name, email, password) VALUES ('유해찬', 'hc@gmail.com', '1234');
+INSERT INTO USER_INFO (name, email, password) VALUES ('김아현', 'ah@gmail.com', '1234');
+INSERT INTO USER_INFO (name, email, password) VALUES ('현대', 'hyundai@gmail.com', '1234');
+INSERT INTO USER_INFO (name, email, password) VALUES ('와우', 'wow@gmail.com', '1234');
+INSERT INTO USER_INFO (name, email, password) VALUES ('홍길동', 'hong@gmail.com', '1234');
+INSERT INTO USER_INFO (name, email, password) VALUES ('고길동', 'go@gmail.com', '1234');
 
 /**
   CAR_ARCHIVING
  */
-INSERT INTO CAR_ARCHIVING (archiving_id, user_id, day_time, is_complete, is_alive) VALUES (1, 1, '2023-08-01 12:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (archiving_id, user_id, day_time, is_complete, is_alive) VALUES (2, 2, '2023-08-01 17:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (archiving_id, user_id, day_time, is_complete, is_alive) VALUES (3, 3, '2023-08-02 12:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (archiving_id, user_id, day_time, is_complete, is_alive) VALUES (4, 4, '2023-08-02 18:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (archiving_id, user_id, day_time, is_complete, is_alive) VALUES (5, 5, '2023-08-03 08:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (archiving_id, user_id, day_time, is_complete, is_alive) VALUES (6, 6, '2023-08-03 12:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (archiving_id, user_id, day_time, is_complete, is_alive) VALUES (7, 7, '2023-08-03 14:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (archiving_id, user_id, day_time, is_complete, is_alive) VALUES (8, 8, '2023-08-04 07:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (archiving_id, user_id, day_time, is_complete, is_alive) VALUES (9, 9, '2023-08-04 12:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (archiving_id, user_id, day_time, is_complete, is_alive) VALUES (10, 10, '2023-08-04 14:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (archiving_id, user_id, day_time, is_complete, is_alive) VALUES (11, 1, '2023-08-04 18:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (archiving_id, user_id, day_time, is_complete, is_alive) VALUES (12, 2, '2023-08-04 20:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (archiving_id, user_id, day_time, is_complete, is_alive) VALUES (13, 3, '2023-08-05 05:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (archiving_id, user_id, day_time, is_complete, is_alive) VALUES (14, 4, '2023-08-05 11:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (archiving_id, user_id, day_time, is_complete, is_alive) VALUES (15, 5, '2023-08-05 14:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (archiving_id, user_id, day_time, is_complete, is_alive) VALUES (16, 6, '2023-08-05 18:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (archiving_id, user_id, day_time, is_complete, is_alive) VALUES (17, 7, '2023-08-05 22:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (archiving_id, user_id, day_time, is_complete, is_alive) VALUES (18, 8, '2023-08-06 12:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (archiving_id, user_id, day_time, is_complete, is_alive) VALUES (19, 9, '2023-08-07 12:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (archiving_id, user_id, day_time, is_complete, is_alive) VALUES (20, 9, '2023-08-07 23:00:00', 'false', 'true');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (1, '2023-08-01 12:00:00', 'false', 'true');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (2, '2023-08-01 17:00:00', 'false', 'true');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (3, '2023-08-02 12:00:00', 'false', 'true');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (4, '2023-08-02 18:00:00', 'false', 'true');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (5, '2023-08-03 08:00:00', 'false', 'true');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (6, '2023-08-03 12:00:00', 'false', 'true');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (7, '2023-08-03 14:00:00', 'false', 'true');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (8, '2023-08-04 07:00:00', 'false', 'true');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (9, '2023-08-04 12:00:00', 'false', 'true');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (10, '2023-08-04 14:00:00', 'false', 'true');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (1, '2023-08-04 18:00:00', 'false', 'true');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (2, '2023-08-04 20:00:00', 'false', 'true');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (3, '2023-08-05 05:00:00', 'false', 'true');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (4, '2023-08-05 11:00:00', 'false', 'true');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (5, '2023-08-05 14:00:00', 'false', 'true');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (6, '2023-08-05 18:00:00', 'false', 'true');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (7, '2023-08-05 22:00:00', 'false', 'true');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (8, '2023-08-06 12:00:00', 'false', 'true');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (9, '2023-08-07 12:00:00', 'false', 'true');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (9, '2023-08-07 23:00:00', 'false', 'true');
 
 /**
   MY_CAR
  */
 -- 1
-INSERT INTO MY_CAR (my_car_id, car_option_id, archiving_id) VALUES (1, 1, 1);
-INSERT INTO MY_CAR (my_car_id, car_option_id, archiving_id) VALUES (2, 5, 1);
-INSERT INTO MY_CAR (my_car_id, car_option_id, archiving_id) VALUES (3, 7, 1);
-INSERT INTO MY_CAR (my_car_id, car_option_id, archiving_id) VALUES (4, 9, 1);
-INSERT INTO MY_CAR (my_car_id, car_option_id, archiving_id) VALUES (5, 11, 1);
-INSERT INTO MY_CAR (my_car_id, car_option_id, archiving_id) VALUES (6, 17, 1);
-INSERT INTO MY_CAR (my_car_id, car_option_id, archiving_id) VALUES (7, 103, 1);
-INSERT INTO MY_CAR (my_car_id, car_option_id, archiving_id) VALUES (8, 110, 1);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (1, 1);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (5, 1);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (7, 1);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (9, 1);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (11, 1);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (17, 1);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (103, 1);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (110, 1);
 -- 2
-INSERT INTO MY_CAR (my_car_id, car_option_id, archiving_id) VALUES (9, 2, 2);
-INSERT INTO MY_CAR (my_car_id, car_option_id, archiving_id) VALUES (10, 6, 2);
-INSERT INTO MY_CAR (my_car_id, car_option_id, archiving_id) VALUES (11, 8, 2);
-INSERT INTO MY_CAR (my_car_id, car_option_id, archiving_id) VALUES (12, 10, 2);
-INSERT INTO MY_CAR (my_car_id, car_option_id, archiving_id) VALUES (13, 12, 2);
-INSERT INTO MY_CAR (my_car_id, car_option_id, archiving_id) VALUES (14, 18, 2);
-INSERT INTO MY_CAR (my_car_id, car_option_id, archiving_id) VALUES (15, 110, 2);
-INSERT INTO MY_CAR (my_car_id, car_option_id, archiving_id) VALUES (16, 113, 2);
-INSERT INTO MY_CAR (my_car_id, car_option_id, archiving_id) VALUES (17, 114, 2);
-INSERT INTO MY_CAR (my_car_id, car_option_id, archiving_id) VALUES (18, 115, 2);
-INSERT INTO MY_CAR (my_car_id, car_option_id, archiving_id) VALUES (19, 116, 2);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (2, 2);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (6, 2);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (8, 2);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (10, 2);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (12, 2);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (18, 2);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (110, 2);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (113, 2);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (114, 2);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (115, 2);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (116, 2);
 
 /**
   Engine Detail
@@ -560,47 +558,47 @@ INSERT INTO CAR_OPTION_TAG (car_option_tag_id, tag_id, car_option_id) VALUES (11
 /**
   TAG_REVIEW
 */
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(1, 1, 5);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(2, 2, 5);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(3, 3, 5);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(4, 4, 5);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(5, 5, 5);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(6, 6, 5);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(7, 7, 6);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(8, 8, 6);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(9, 9, 6);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(10, 10, 6);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(11, 11, 6);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(12, 24, 7);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(13, 25, 7);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(14, 26, 7);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(15, 27, 7);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(16, 28, 7);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(17, 29, 7);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(18, 30, 7);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(19, 12, 8);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(20, 13, 8);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(21, 14, 8);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(22, 15, 8);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(23, 16, 8);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(24, 4, 13);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(25, 5, 13);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(26, 6, 13);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(27, 7, 14);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(28, 8, 14);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(29, 9, 14);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(30, 13, 15);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(31, 14, 15);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(32, 18, 15);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(33, 31, 16);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(34, 32, 16);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(35, 34, 16);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(36, 37, 17);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(37, 38, 17);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(38, 39, 17);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(39, 41, 18);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(40, 42, 18);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(41, 43, 18);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(42, 20, 19);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(43, 21, 19);
-INSERT INTO TAG_REVIEW (tag_review_id, tag_id, my_car_id) VALUES(44, 22, 19);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(1, 5);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(2, 5);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(3, 5);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(4, 5);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(5, 5);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(6, 5);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(7, 6);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(8, 6);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(9, 6);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(10, 6);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(11, 6);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(24, 7);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(25, 7);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(26, 7);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(27, 7);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(28, 7);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(29, 7);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(30, 7);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(12, 8);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(13, 8);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(14, 8);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(15, 8);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(16, 8);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(4, 13);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(5, 13);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(6, 13);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(7, 14);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(8, 14);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(9, 14);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(13, 15);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(14, 15);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(18, 15);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(31, 16);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(32, 16);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(34, 16);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(37, 17);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(38, 17);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(39, 17);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(41, 18);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(42, 18);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(43, 18);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(20, 19);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(21, 19);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(22, 19);

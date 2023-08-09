@@ -1,5 +1,8 @@
 package com.backend.topcariving.domain.option.dto.engine;
 
+import com.backend.topcariving.domain.option.entity.CarOption;
+import com.backend.topcariving.domain.option.entity.EngineDetail;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
 import lombok.Getter;
@@ -29,4 +32,16 @@ public class EngineResponseDTO {
 
 	@Schema(description = "사진 url", example = "topcariving.com/engine.png")
 	private String photoUrl;
+
+	public static EngineResponseDTO of(CarOption carOption, EngineDetail engineDetail) {
+		return EngineResponseDTO.builder()
+			.carOptionId(carOption.getCarOptionId())
+			.optionName(carOption.getOptionName())
+			.optionDetail(carOption.getOptionDetail())
+			.price(carOption.getPrice())
+			.maxOutput(engineDetail.getMaxOutput())
+			.maxTorque(engineDetail.getMaxTorque())
+			.photoUrl(carOption.getPhotoUrl())
+			.build();
+	}
 }

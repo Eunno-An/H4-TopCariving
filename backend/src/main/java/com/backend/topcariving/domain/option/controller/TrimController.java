@@ -18,11 +18,12 @@ import com.backend.topcariving.global.response.SuccessResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
-@Tag(name="내 차 만들기 - 옵션")
+@Tag(name = "내 차 만들기 - 옵션")
 @RequestMapping("/api/options/trims")
 @RestController
 @RequiredArgsConstructor
@@ -43,7 +44,7 @@ public class TrimController {
 	@Operation(summary = "모델 옵션 저장", description = "내 차 만들기에서 모델을 선택한 값을 저장하고, 아카이빙 PK 값을 반환한다")
 	@Parameter(name = "carOptionId", description = "사용자가 선택한 모델의 ID 값")
 	public SuccessResponse<Long> saveTrim(@RequestParam Long userId,
-										  @RequestParam Long carOptionId) {
+		@RequestParam Long carOptionId) {
 
 		return new SuccessResponse<>(trimService.saveModel(userId, carOptionId));
 	}
@@ -52,16 +53,21 @@ public class TrimController {
 	@Operation(summary = "엔진 옵션 전체 반환", description = "내 차 만들기에서 모든 엔진 옵션을 반환한다")
 	public List<EngineResponseDTO> getEngines() {
 
-		return null;
+		return trimService.getEngines();
 	}
 
 	@PostMapping("/engines")
 	@ResponseStatus(HttpStatus.CREATED)
 	@Operation(summary = "엔진 옵션 저장", description = "내 차 만들기에서 엔진을 선택한 값을 저장하고, 차량 아카이빙 PK 값을 반환한다")
-	@Parameter(name = "carOptionId", description = "사용자가 선택한 엔진의 ID값")
-	public SuccessResponse<Long> saveEngine(@RequestParam Long carOptionId) {
+	@Parameters({
+		@Parameter(name = "carOptionId", description = "사용자가 선택한 엔진의 ID값"),
+		@Parameter(name = "archivingId", description = "모델 선택에서 생성된 차량 아카빙 ID값")
+	})
+	public SuccessResponse<Long> saveEngine(@RequestParam Long userId,
+		@RequestParam Long carOptionId,
+		@RequestParam Long archivingId) {
 
-		return null;
+		return new SuccessResponse<>(trimService.saveEngine(userId, carOptionId, archivingId));
 	}
 
 	@GetMapping("/body-types")
