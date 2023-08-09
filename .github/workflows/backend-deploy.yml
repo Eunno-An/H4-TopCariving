@@ -14,6 +14,7 @@ on:
     paths:
       - '**.java'
       - '**.sql'
+      - '**.yml'
 
 permissions:
   contents: read
@@ -59,3 +60,31 @@ jobs:
           script: |
             cd ~/deploy/
             ./deploy.sh
+      - name: slack-send message
+        id: slack
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: |
+            {
+              "text": "Backend 배포 현황☀️: ${{ job.status }}\n",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "PR 제목 : ${{github.event.pull_request.title}}"
+                  }
+                },
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "[😎PR 링크에요!!](${{ github.event.pull_request.html_url || github.event.head_commit.url }})"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+      
