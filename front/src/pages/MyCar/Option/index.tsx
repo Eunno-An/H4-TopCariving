@@ -2,28 +2,92 @@ import { Flex, Text } from '@components/common';
 import { Tag } from '@components/common/Tag';
 import styled from '@emotion/styled';
 import { theme } from '@styles/theme';
-import leftBtn from '@assets/images/leftBtn.svg';
-import rightBtn from '@assets/images/rightBtn.svg';
-import { OptionCard } from '@components/common/OptionCard';
+import { OptionCard } from '@components/myCar/trim/OptionCard';
+import { useEffect, useState } from 'react';
+import { OptionInfoCard } from '@components/myCar/trim/OptionInfoCard';
+import { css } from '@emotion/react';
+import vector478 from '@assets/images/Vector 478.svg';
+
+const optionCategory = [
+  '파워 트레인/성능',
+  '지능형 안전 기술',
+  '안전',
+  '외관',
+  '내장',
+  '시트',
+  '편의',
+  '멀티미디어',
+];
+
+const cateName = {
+  select: '선택항목',
+  default: '기본 포함 품목',
+};
 
 export const MyCarOptions = () => {
+  const [userOptionList, setUserOptionList] = useState<string[]>([]);
+  const [selectedMenu, setSelectedMenu] = useState(cateName.select);
+  const [defaultOption, setDefaultOption] = useState(0);
+  const [dummyData, setDummyData] = useState(optionDummy);
+  const [selectedItem, setSelectedItem] = useState(0);
+  const [currentIdx, setCurrentIdx] = useState(0);
+
+  const userOptionHandler = (option: string, actionType: string) => {
+    console.log(option, actionType);
+    actionType === 'ADD' ? userAddOptions(option) : userDeleteOptions(option);
+  };
+
+  const userAddOptions = (option: string) => {
+    setUserOptionList((it) => [...it, option]);
+  };
+  const userDeleteOptions = (option: string) => {
+    const newData = userOptionList.filter((it) => it !== option);
+    setUserOptionList([...newData]);
+  };
+
+  const onPageBtnClickHandler = (btnType: string) => {
+    btnType === 'left' ? onLeftPage() : onRightPage();
+  };
+
+  const onLeftPage = () => {
+    const info = dummyData[selectedItem].details;
+    currentIdx - 1 < 0
+      ? setCurrentIdx(info.length - 1)
+      : setCurrentIdx(currentIdx - 1);
+  };
+
+  const onRightPage = () => {
+    const info = dummyData[selectedItem].details;
+    setCurrentIdx((currentIdx + 1) % info.length);
+  };
+
+  const onSelectedItemHandler = (idx: number) => {
+    setCurrentIdx(0);
+    setSelectedItem(idx);
+  };
+
+  useEffect(() => {
+    console.log(`선택된 옵션: [${userOptionList}]`);
+  }, [userOptionList]);
+
   return (
-    <Flex direction="column" justify="flex-start" height="auto" gap={15}>
+    <Flex direction="column" justify="flex-start" height={561} gap={15}>
       {/* 옵션 상단 */}
       <Flex gap={39}>
         {/* 이미지 */}
         <Flex width={479} height={304}>
-          <ImgContainer
-            src="https://topcariving.s3.ap-northeast-2.amazonaws.com/power/driving_mode.jpg"
-            alt=""
-          />
+          <ImgContainer src={dummyData[selectedItem].photoUrl} alt="" />
         </Flex>
         {/* 옵션 Info */}
         <Flex direction="column">
           {/* 옵션 이름 / 가격 */}
           <OptionContainer>
-            <Text typo="Heading1_Bold">컴포트 ||</Text>
-            <Text typo="Heading2_Bold">+690,000 원</Text>
+            <Text typo="Heading1_Bold">
+              {dummyData[selectedItem].optionName}
+            </Text>
+            <Text typo="Heading2_Bold">
+              +{dummyData[selectedItem].price.toLocaleString('ko-KR')} 원
+            </Text>
           </OptionContainer>
           {/* 옵션에대한 태그칩 */}
           <Flex
@@ -34,107 +98,124 @@ export const MyCarOptions = () => {
             align="flex-start"
           >
             <Text>
-              컴포트 ||
+              {dummyData[selectedItem].optionName}
               <Text typo="Body3_Regular">
                 에 대해 시승자들은 이런 후기를 남겼어요
               </Text>
             </Text>
-            <Flex gap={4} justify="flex-start">
+            <Flex gap={4} justify="flex-start" css={TagWrap}>
               <Tag desc="여름에 쓰기 좋아요☀️" />
               <Tag desc="옵션값 뽑았어요👍" />
               <Tag desc="편리해요☺️" />
             </Flex>
           </Flex>
           {/* 옵션 세부 설명 */}
-          <InfoContainer>
-            <InfoTitleContainer>
-              <Flex justify="flex-start" gap={8}>
-                <Flex
-                  backgroundColor="Primary"
-                  borderRadius="50%"
-                  width={22}
-                  height={22}
-                  padding="6px"
-                >
-                  <Text palette="LightSand">06</Text>
-                </Flex>
-                <Text palette="Primary">헤드업 디스플레이</Text>
-              </Flex>
-              <Flex
-                justify="flex-end"
-                backgroundColor="DarkGray"
-                borderRadius="13px"
-                width="auto"
-                padding="0 9px"
-              >
-                <Text palette="LightSand" typo="Caption_Regular">
-                  6/6
-                </Text>
-              </Flex>
-            </InfoTitleContainer>
-            <Flex>
-              <div>
-                <img src={leftBtn} alt="" />
-              </div>
-              <Text typo="Body3_Regular" palette="Primary">
-                초음파 센서를 통해 뒷좌석에 남아있는 승객의 움직임을 감지하여
-                운전자에게 경고함으로써 부주의에 의한 유아 또는 반려 동물 등의
-                방치 사고를 예방하는 신기술입니다.
-              </Text>
-              <div>
-                <img src={rightBtn} alt="" />
-              </div>
-            </Flex>
-          </InfoContainer>
+          <OptionInfoCard
+            info={dummyData[selectedItem].details}
+            onPageBtnClickHandler={onPageBtnClickHandler}
+            currentIdx={currentIdx}
+          />
         </Flex>
       </Flex>
 
       {/* 옵션 하단 */}
-      <Flex direction="column" gap={21}>
+      <Flex direction="column" height={245} gap={20}>
         {/* 선택 항목 / 기본 포함 항목 */}
-        <OptionMenu justify="flex-start" gap={23}>
-          <Text typo="Body1_Medium">선택항목</Text>
-          <Text typo="Heading4_Bold" palette="LightGray">
-            기본 포함 품목
-          </Text>
+        <OptionMenu justify="flex-start" height={40} gap={23}>
+          {selectedMenu === cateName.select ? (
+            <>
+              <FocusMenu>선택항목</FocusMenu>
+              <NonFocusMenu
+                onClick={() => {
+                  setCurrentIdx(0);
+                  setSelectedItem(0);
+                  setDummyData(defaultDummy);
+                  setSelectedMenu(cateName.default);
+                }}
+              >
+                기본 포함 품목
+              </NonFocusMenu>
+            </>
+          ) : (
+            <>
+              <NonFocusMenu
+                onClick={() => {
+                  setCurrentIdx(0);
+                  setSelectedItem(0);
+                  setDummyData(optionDummy);
+                  setSelectedMenu(cateName.select);
+                }}
+              >
+                선택항목
+              </NonFocusMenu>
+              <FocusMenu>기본 포함 품목</FocusMenu>
+            </>
+          )}
         </OptionMenu>
+        {/* 기본 포함 품목 카테고리 */}
+        {selectedMenu !== cateName.select && (
+          <Flex justify="flex-start" gap={10} height={1}>
+            {optionCategory.map((it, idx) => (
+              <>
+                <OptionTag
+                  typo="Body4_Medium"
+                  palette={defaultOption === idx ? 'Black' : 'MediumGray'}
+                  onClick={() => setDefaultOption(idx)}
+                >
+                  {it}
+                </OptionTag>
+                {idx !== 7 && <img src={vector478} alt="" />}
+              </>
+            ))}
+          </Flex>
+        )}
         {/* 옵션 카드 */}
-        <Flex justify="flex-start" gap={6}>
-          <OptionCard isSelected={0} idx={0} />
-          <OptionCard isSelected={0} idx={1} />
-          <OptionCard isSelected={0} idx={2} />
-          <OptionCard isSelected={0} idx={2} />
-          <OptionCard isSelected={0} idx={2} />
-          <OptionCard isSelected={0} idx={2} />
+        <Flex justify="flex-start" align="flex-end" gap={6} height={187}>
+          {(selectedMenu === cateName.select ? dummyData : defaultDummy).map(
+            (item, idx) => (
+              <div
+                key={`optionCard_${idx}`}
+                onClick={() => onSelectedItemHandler(idx)}
+              >
+                <OptionCard
+                  idx={idx}
+                  isSelected={selectedItem === idx}
+                  optionName={item.optionName}
+                  price={item.price}
+                  photo={item.photoUrl}
+                  userOptionHandler={userOptionHandler}
+                  selectedMenu={selectedMenu}
+                />
+              </div>
+            ),
+          )}
         </Flex>
       </Flex>
     </Flex>
   );
 };
 
+const OptionTag = styled(Text)`
+  cursor: pointer;
+`;
+
+const FocusMenu = styled(Text)`
+  ${theme.typo.Body1_Medium};
+  cursor: pointer;
+`;
+
+const NonFocusMenu = styled(Text)`
+  ${theme.typo.Heading4_Bold};
+  color: ${theme.palette.LightGray};
+  cursor: pointer;
+`;
+
+const TagWrap = css`
+  flex-wrap: wrap;
+`;
+
 const OptionMenu = styled(Flex)`
   border-bottom: 3px solid ${theme.palette.LightGray};
-`;
-
-const InfoTitleContainer = styled(Flex)`
-  justify-content: space-between;
-  border-bottom: 2px solid ${theme.palette.Primary};
-
-  width: 443px;
-  height: auto;
-
-  padding: 20px 0 15px 0;
-`;
-
-const InfoContainer = styled(Flex)`
-  flex-direction: column;
-  width: 507px;
-  height: 152px;
-
-  border: 2px solid ${theme.palette.Primary};
-  border-radius: 8px;
-
-  background-color: rgba(0, 44, 95, 0.1);
 `;
 
 const OptionContainer = styled(Flex)`
@@ -150,3 +231,366 @@ const ImgContainer = styled.img`
   height: 304px;
   border-radius: 4px;
 `;
+
+// interface defaultOptionInterface {
+//   [key: string]: {
+//     carOptionId: number;
+//     optionName: string;
+//     optionDetail: string;
+//     price: number;
+//     photoUrl: string;
+//   }[];
+// }
+
+// const dummyOp = {
+//   power: [
+//     {
+//       carOptionId: 1,
+//       optionName: '파워트레인 1',
+//       optionDetail: '높은 토크로 파워풀한 드라이빙이 가능합니다',
+//       price: 1480000,
+//       photoUrl:
+//         'https://topcariving.s3.ap-northeast-2.amazonaws.com/ai/daw.jpeg',
+//     },
+//     {
+//       carOptionId: 2,
+//       optionName: '파워트레인 2',
+//       optionDetail: '높은 토크로 파워풀한 드라이빙이 가능합니다',
+//       price: 1480000,
+//       photoUrl:
+//         'https://topcariving.s3.ap-northeast-2.amazonaws.com/ai/daw.jpeg',
+//     },
+//     {
+//       carOptionId: 3,
+//       optionName: '파워트레인 3',
+//       optionDetail: '높은 토크로 파워풀한 드라이빙이 가능합니다',
+//       price: 1480000,
+//       photoUrl:
+//         'https://topcariving.s3.ap-northeast-2.amazonaws.com/ai/daw.jpeg',
+//     },
+//   ],
+//   intelligent: [
+//     {
+//       carOptionId: 1,
+//       optionName: '지능형시스템 1',
+//       optionDetail: '높은 토크로 파워풀한 드라이빙이 가능합니다',
+//       price: 1480000,
+//       photoUrl:
+//         'https://topcariving.s3.ap-northeast-2.amazonaws.com/ai/daw.jpeg',
+//     },
+//     {
+//       carOptionId: 1,
+//       optionName: '지능형시스템 2',
+//       optionDetail: '높은 토크로 파워풀한 드라이빙이 가능합니다',
+//       price: 1480000,
+//       photoUrl:
+//         'https://topcariving.s3.ap-northeast-2.amazonaws.com/ai/daw.jpeg',
+//     },
+//   ],
+//   safety: [
+//     {
+//       carOptionId: 1,
+//       optionName: '안전 1',
+//       optionDetail: '높은 토크로 파워풀한 드라이빙이 가능합니다',
+//       price: 1480000,
+//       photoUrl:
+//         'https://topcariving.s3.ap-northeast-2.amazonaws.com/ai/daw.jpeg',
+//     },
+//   ],
+//   exterior: [
+//     {
+//       carOptionId: 1,
+//       optionName: '안전 1',
+//       optionDetail: '높은 토크로 파워풀한 드라이빙이 가능합니다',
+//       price: 1480000,
+//       photoUrl:
+//         'https://topcariving.s3.ap-northeast-2.amazonaws.com/ai/daw.jpeg',
+//     },
+//     {
+//       carOptionId: 2,
+//       optionName: '안전 2',
+//       optionDetail: '높은 토크로 파워풀한 드라이빙이 가능합니다',
+//       price: 1480000,
+//       photoUrl:
+//         'https://topcariving.s3.ap-northeast-2.amazonaws.com/ai/daw.jpeg',
+//     },
+//     {
+//       carOptionId: 3,
+//       optionName: '안전 3',
+//       optionDetail: '높은 토크로 파워풀한 드라이빙이 가능합니다',
+//       price: 1480000,
+//       photoUrl:
+//         'https://topcariving.s3.ap-northeast-2.amazonaws.com/ai/daw.jpeg',
+//     },
+//     {
+//       carOptionId: 4,
+//       optionName: '안전 4',
+//       optionDetail: '높은 토크로 파워풀한 드라이빙이 가능합니다',
+//       price: 1480000,
+//       photoUrl:
+//         'https://topcariving.s3.ap-northeast-2.amazonaws.com/ai/daw.jpeg',
+//     },
+//   ],
+//   interior: [
+//     {
+//       carOptionId: 1,
+//       optionName: '내장 1',
+//       optionDetail: '높은 토크로 파워풀한 드라이빙이 가능합니다',
+//       price: 1480000,
+//       photoUrl:
+//         'https://topcariving.s3.ap-northeast-2.amazonaws.com/ai/daw.jpeg',
+//     },
+//   ],
+//   seats: [
+//     {
+//       carOptionId: 1,
+//       optionName: '시트 1',
+//       optionDetail: '높은 토크로 파워풀한 드라이빙이 가능합니다',
+//       price: 1480000,
+//       photoUrl:
+//         'https://topcariving.s3.ap-northeast-2.amazonaws.com/ai/daw.jpeg',
+//     },
+//     {
+//       carOptionId: 2,
+//       optionName: '시트 2',
+//       optionDetail: '높은 토크로 파워풀한 드라이빙이 가능합니다',
+//       price: 1480000,
+//       photoUrl:
+//         'https://topcariving.s3.ap-northeast-2.amazonaws.com/ai/daw.jpeg',
+//     },
+//     {
+//       carOptionId: 3,
+//       optionName: '시트 3',
+//       optionDetail: '높은 토크로 파워풀한 드라이빙이 가능합니다',
+//       price: 1480000,
+//       photoUrl:
+//         'https://topcariving.s3.ap-northeast-2.amazonaws.com/ai/daw.jpeg',
+//     },
+//     {
+//       carOptionId: 4,
+//       optionName: '시트 4',
+//       optionDetail: '높은 토크로 파워풀한 드라이빙이 가능합니다',
+//       price: 1480000,
+//       photoUrl:
+//         'https://topcariving.s3.ap-northeast-2.amazonaws.com/ai/daw.jpeg',
+//     },
+//   ],
+//   convenience: [
+//     {
+//       carOptionId: 1,
+//       optionName: '편리 1',
+//       optionDetail: '높은 토크로 파워풀한 드라이빙이 가능합니다',
+//       price: 1480000,
+//       photoUrl:
+//         'https://topcariving.s3.ap-northeast-2.amazonaws.com/ai/daw.jpeg',
+//     },
+//   ],
+//   multimedia: [
+//     {
+//       carOptionId: 1,
+//       optionName: '멀티미디어 1',
+//       optionDetail: '높은 토크로 파워풀한 드라이빙이 가능합니다',
+//       price: 1480000,
+//       photoUrl:
+//         'https://topcariving.s3.ap-northeast-2.amazonaws.com/ai/daw.jpeg',
+//     },
+//   ],
+// } as defaultOptionInterface;
+
+const optionDummy = [
+  {
+    carOptionId: 1,
+    optionName: '컴포트2',
+    price: 6900000,
+    photoUrl: 'https://topcariving.s3.ap-northeast-2.amazonaws.com/ai/scc.jpeg',
+    details: [
+      {
+        carOptionId: 1,
+        optionName: '후방 주차 충돌방지 보조',
+        optionDetail: '주요 주행 정보를 전면 윈드실드에 표시합니다.',
+      },
+      {
+        carOptionId: 2,
+        optionName: '후방 주차 충돌방지',
+        optionDetail: '주요 주행 정보를 전면 윈드실드에.',
+      },
+      {
+        carOptionId: 3,
+        optionName: '후방 주차',
+        optionDetail: '주요 주행 정보를 전면.',
+      },
+      {
+        carOptionId: 4,
+        optionName: '후방',
+        optionDetail: '주요 주행 정보를.',
+      },
+      {
+        carOptionId: 5,
+        optionName: '스마트크루즈컨트롤',
+        optionDetail: '주요 주행.',
+      },
+    ],
+    tags: [
+      {
+        tagContent: 'string',
+      },
+    ],
+  },
+  {
+    carOptionId: 2,
+    optionName: '현대스마트센스',
+    price: 7900000,
+    photoUrl:
+      'https://topcariving.s3.ap-northeast-2.amazonaws.com/ai/vibsteeringwheel.jpeg',
+    details: [
+      {
+        carOptionId: 1,
+        optionName: '현대스마트센스',
+        optionDetail: '주요 주행 정보를 전면 윈드실드에 표시합니다.',
+      },
+    ],
+    tags: [
+      {
+        tagContent: 'string',
+      },
+    ],
+  },
+  {
+    carOptionId: 3,
+    optionName: '2열 통풍 시트',
+    price: 4000000,
+    photoUrl:
+      'https://topcariving.s3.ap-northeast-2.amazonaws.com/ai/ncss.jpeg',
+    details: [
+      {
+        carOptionId: 1,
+        optionName: '2열 통풍 시트',
+        optionDetail: '주요 주행 정보를 전면 윈드실드에 표시합니다.',
+      },
+    ],
+    tags: [
+      {
+        tagContent: 'string',
+      },
+    ],
+  },
+  {
+    carOptionId: 4,
+    optionName: '듀얼 와이드 선루프',
+    price: 8900000,
+    photoUrl: 'https://topcariving.s3.ap-northeast-2.amazonaws.com/ai/fca.jpeg',
+    details: [
+      {
+        carOptionId: 1,
+        optionName: '듀얼 와이드 선루프',
+        optionDetail: '주요 주행 정보를 전면 윈드실드에 표시합니다.',
+      },
+    ],
+    tags: [
+      {
+        tagContent: 'string',
+      },
+    ],
+  },
+  {
+    carOptionId: 5,
+    optionName: '빌트인 캠(보조배터리 포함)',
+    price: 6900000,
+    photoUrl: 'https://topcariving.s3.ap-northeast-2.amazonaws.com/ai/lka.jpeg',
+    details: [
+      {
+        carOptionId: 1,
+        optionName: '빌트인 캠(보조배터리 포함)',
+        optionDetail: '주요 주행 정보를 전면 윈드실드에 표시합니다.',
+      },
+    ],
+    tags: [
+      {
+        tagContent: 'string',
+      },
+    ],
+  },
+  {
+    carOptionId: 6,
+    optionName: '주차보조 시스템 Ⅱ',
+    price: 6900000,
+    photoUrl: 'https://topcariving.s3.ap-northeast-2.amazonaws.com/ai/bca.jpeg',
+    details: [
+      {
+        carOptionId: 1,
+        optionName: '주차보조 시스템 Ⅱ',
+        optionDetail: '주차보조 윈드실드에 표시합니다.',
+      },
+      {
+        carOptionId: 2,
+        optionName: '제네시스 스마트 크루즈 컨트롤',
+        optionDetail: '주요 주행 정보를 전면 윈드실드에 표시합니다.',
+      },
+    ],
+    tags: [
+      {
+        tagContent: 'string',
+      },
+    ],
+  },
+];
+
+const defaultDummy = [
+  {
+    carOptionId: 1,
+    optionName: 'ISG 시스템',
+    price: 1000000,
+    photoUrl:
+      'https://topcariving.s3.ap-northeast-2.amazonaws.com/external/ledstoplamp.jpeg',
+    details: [
+      {
+        carOptionId: 1,
+        optionName: '후방 주차 충돌방지 보조',
+        optionDetail: '주요 주행 정보를 전면 윈드실드에 표시합니다.',
+      },
+    ],
+    tags: [
+      {
+        tagContent: 'string',
+      },
+    ],
+  },
+  {
+    carOptionId: 1,
+    optionName: 'ISG 시스템',
+    price: 1000000,
+    photoUrl:
+      'https://topcariving.s3.ap-northeast-2.amazonaws.com/external/ledstoplamp.jpeg',
+    details: [
+      {
+        carOptionId: 1,
+        optionName: '후방 주차 충돌방지 보조',
+        optionDetail: '주요 주행 정보를 전면 윈드실드에 표시합니다.',
+      },
+    ],
+    tags: [
+      {
+        tagContent: 'string',
+      },
+    ],
+  },
+  {
+    carOptionId: 1,
+    optionName: 'ISG 시스템',
+    price: 1000000,
+    photoUrl:
+      'https://topcariving.s3.ap-northeast-2.amazonaws.com/external/ledstoplamp.jpeg',
+    details: [
+      {
+        carOptionId: 1,
+        optionName: '후방 주차 충돌방지 보조',
+        optionDetail: '주요 주행 정보를 전면 윈드실드에 표시합니다.',
+      },
+    ],
+    tags: [
+      {
+        tagContent: 'string',
+      },
+    ],
+  },
+];

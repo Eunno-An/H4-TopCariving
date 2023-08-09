@@ -30,3 +30,9 @@ export interface trimModelInterface {
     },
   ];
 }
+
+export interface optionInfoInterface {
+  carOptionId: number;
+  optionName: string;
+  optionDetail: string;
+}

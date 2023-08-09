@@ -25,4 +25,8 @@ export const Button = styled.button<{
 
   border-radius: ${({ border }) => (border ? `${border}px` : '8px')};
   border: none;
+
+  box-sizing: border-box;
+
+  cursor: pointer;
 `;
