@@ -34,6 +34,9 @@ const BodyType = () => {
 
   const [isSelected, setIsSelected] = useState(0);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [initialFooterPrice, _] = useState(footerInfo.price);
+
   const onSelectBodyType = (idx: number) => {
     setIsSelected(idx);
 
@@ -43,6 +46,7 @@ const BodyType = () => {
     setFooterInfo({
       ...footerInfo,
       name: [footerInfo.name[0], newTrimOption.join('/')],
+      price: initialFooterPrice + bodyTypeInfo[idx].price,
     });
   };
 

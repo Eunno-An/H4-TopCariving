@@ -1,7 +1,7 @@
 export interface myCarFooterInterface {
   name: string[];
-  color: string[];
-  option: { outer: string; inner: string };
+  color: { exteriorColorResponses: string; interiorColorResponses: string };
+  option: string[];
   price: number;
 }
 

@@ -7,10 +7,11 @@ import { Trim } from '@pages/MyCar/Trim';
 import Traction from '@pages/MyCar/Trim/Traction';
 import { MyCarOptions } from '@pages/MyCar/Option';
 import Login from '@pages/Login';
+import Error from '@pages/Error';
+import Color from '@pages/MyCar/Color';
 
 export const router = createBrowserRouter([
-  { path: '', element: <Login /> },
-  { path: '/*', element: <Flex>Error: 해당 url에 화면이 없습니다</Flex> },
+  { path: '/', element: <Login /> },
   {
     path: '/my-car',
     element: <MyCar />,
@@ -33,7 +34,7 @@ export const router = createBrowserRouter([
       },
       {
         path: 'color',
-        element: <Flex>컬러선택</Flex>,
+        element: <Color />,
       },
       {
         path: 'option',
@@ -54,4 +55,5 @@ export const router = createBrowserRouter([
     path: '/archive',
     element: <Flex>아카이빙</Flex>,
   },
+  { path: '/*', element: <Error /> },
 ]);

@@ -45,7 +45,8 @@ const Engine = () => {
 
   const [isSelected, setIsSelected] = useState(0);
 
-  const lastPrice = footerInfo.price;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [initialFooterPrice, _] = useState(footerInfo.price);
   const onSelectEngine = (idx: number) => {
     setIsSelected(idx);
 
@@ -54,7 +55,7 @@ const Engine = () => {
 
     setFooterInfo({
       ...footerInfo,
-      price: lastPrice + engineDummyData[idx].price,
+      price: initialFooterPrice + engineDummyData[idx].price,
       name: [footerInfo.name[0], newTrimOption.join('/')],
     });
   };

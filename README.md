@@ -1,5 +1,17 @@
 # TopCariving
 
+## 🔗 참고 링크
+[🎨 Figma](https://www.figma.com/file/JYV5ZV1tXRHU8kjuA6abpK/%EC%83%81%EC%84%B8%EC%84%A4%EA%B3%84%EC%95%88-230719-v0.2?type=design&node-id=841-757&mode=design&t=Lm6j2fq5uBvtbWiH-0)
+<br/>
+[📝 frontend 스토리](https://docs.google.com/spreadsheets/d/1iX1l_wUp_GrAQQi_7fDryP_Ag_0Te5Ck1vPWFrpiwxs/edit#gid=0)
+<br/>
+[📝  iOS 스토리](https://docs.google.com/spreadsheets/d/1PtKXKmFU8i2JZh-HBZQLFMDBaZ8Gfu6phGtt-d6110w/edit#gid=0)
+<br/>
+[📝 IA](https://docs.google.com/spreadsheets/d/1iVsTaG-LK-wPMv_XPyvTQp6S3f4YAlaThrafH7-HkYI/edit#gid=0)
+<br/>
+[📝 ERD](https://www.erdcloud.com/d/iZiFaC3Nsond5QaTy)
+<br/>
+
 ## 🍀 팀원
 
 |                                   오지은                                   |                                   김민구                                   |                                   유해찬                                   |                                   김아현                                   |                                   조승기                                   |                                   안은노                                   |

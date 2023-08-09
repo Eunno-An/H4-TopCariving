@@ -2,6 +2,7 @@ import { Flex, Text, Button } from '@components/common';
 import styled from '@emotion/styled';
 import { myCarFooterInterface } from '@interface/index';
 import { myCarUrl } from '@pages/MyCar';
+import { colorKey } from '@pages/MyCar/Color';
 import { Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -26,6 +27,11 @@ export const Footer = ({
     setCurrentUrl(nextUrl);
   };
 
+  const colorInfo = [
+    { text: '외장', key: 'exteriorColorResponses' },
+    { text: '내장', key: 'interiorColorResponses' },
+  ] as { text: string; key: colorKey }[];
+
   return (
     <Flex
       backgroundColor="Sand"
@@ -36,43 +42,53 @@ export const Footer = ({
     >
       <Flex width={1280} gap={30}>
         <Flex>
-          <Section width={116}>
+          <Section width={175}>
             <Text typo="Body3_Regular" palette="DarkGray">
               트림
             </Text>
-            <Text typo="Heading4_Bold" palette="Black">
-              {footerInfo.name[0]}
-            </Text>
-            <Text typo="Body3_Medium" palette="Black">
-              {footerInfo.name[1]}
-            </Text>
+            {footerInfo.name.map((item, idx) => (
+              <Text
+                typo={idx ? 'Body3_Regular' : 'Heading4_Bold'}
+                palette="Black"
+                key={`trimModel_${idx}`}
+              >
+                {item}
+              </Text>
+            ))}
           </Section>
-          <img src="/image/page/myCar/columnLine.svg" />
-          <Section width={164}>
+          <ColumnImg src="/image/page/myCar/columnLine.svg" />
+          <Section width={220}>
             <Text typo="Body3_Regular" palette="DarkGray">
               선택 색상
             </Text>
-            <Flex justify="start" gap={12}>
-              <Text typo="Body3_Regular" palette="Black">
-                외장
-              </Text>
-              <Text></Text>
-            </Flex>
-            <Flex justify="start" gap={12}>
-              <Text typo="Body3_Regular" palette="Black">
-                내장
-              </Text>
-              <Text></Text>
-            </Flex>
+            {colorInfo.map((color, idx) => (
+              <Flex
+                justify="start"
+                gap={5}
+                key={`color_${idx}
+              `}
+              >
+                <Text typo="Body3_Medium" palette="Black">
+                  {color.text}
+                </Text>
+                <Flex
+                  backgroundColor="Primary"
+                  borderRadius="100px"
+                  width={16}
+                  height={16}
+                />
+                <Text typo="Body3_Regular">{footerInfo.color[color.key]}</Text>
+              </Flex>
+            ))}
           </Section>
-          <img src="/image/page/myCar/columnLine.svg" />
-          <Section width={358}>
+          <ColumnImg src="/image/page/myCar/columnLine.svg" />
+          <Section width={290}>
             <Text typo="Body3_Regular" palette="DarkGray">
               선택 옵션
             </Text>
           </Section>
-          <img src="/image/page/myCar/columnLine.svg" />
-          <Section width={178}>
+          <ColumnImg src="/image/page/myCar/columnLine.svg" />
+          <Section width={170}>
             <Text typo="Body3_Regular" palette="DarkGray">
               예상 가격
             </Text>
@@ -89,7 +105,7 @@ export const Footer = ({
         <Flex gap={7} width="auto">
           {myCarUrl.indexOf(currentUrl) != myCarUrl.length - 1 && (
             <>
-              {myCarUrl.indexOf(currentUrl) !== 0 && (
+              {myCarUrl.indexOf(currentUrl) !== 0 ? (
                 <div onClick={() => onClickButton(-1)}>
                   <Button
                     width={121}
@@ -101,6 +117,8 @@ export const Footer = ({
                     </Text>
                   </Button>
                 </div>
+              ) : (
+                <Flex width={121}></Flex>
               )}
 
               <div onClick={() => onClickButton(+1)}>
@@ -130,4 +148,8 @@ const Section = styled(Flex)`
   gap: 6px;
   padding: 0 0 0 22px;
   box-sizing: border-box;
+`;
+
+const ColumnImg = styled.img`
+  height: 100%;
 `;

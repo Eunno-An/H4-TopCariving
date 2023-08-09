@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 import { KeyOfPalette, theme } from '@styles/theme';
 
 export const Button = styled.button<{
-  width?: number;
+  width?: number | 'auto';
   heightType?: 'large' | 'medium' | 'small';
   backgroundColor: KeyOfPalette;
   padding?: string;
