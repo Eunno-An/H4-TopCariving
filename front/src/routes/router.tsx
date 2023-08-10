@@ -9,6 +9,7 @@ import { MyCarOptions } from '@pages/MyCar/Option';
 import Login from '@pages/Login';
 import Error from '@pages/Error';
 import Color from '@pages/MyCar/Color';
+import Complete from '@pages/MyCar/Complete';
 
 export const router = createBrowserRouter([
   { path: '/', element: <Login /> },
@@ -50,7 +51,7 @@ export const router = createBrowserRouter([
       },
     ],
   },
-  { path: '/my-car/complete', element: <Flex>내 차 만들기 완성!!</Flex> },
+  { path: '/my-car/complete', element: <Complete /> },
   {
     path: '/archive',
     element: <Flex>아카이빙</Flex>,

@@ -14,6 +14,9 @@ export const Header = () => {
       height={60}
       justify="center"
       padding="0 100px 0 100px"
+      css={css`
+        flex-shrink: 0;
+      `}
     >
       <Flex width={1280}>
         <Flex gap={9.58} justify="flex-start">

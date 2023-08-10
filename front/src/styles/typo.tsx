@@ -1,6 +1,11 @@
 import { css } from '@emotion/react';
 
 export const typo = {
+  Heading0_Bold: css`
+    font-weight: 500;
+    font-size: 64px;
+    line-height: 36px;
+  `,
   Heading1_Bold: css`
     font-weight: 700;
     font-size: 26px;

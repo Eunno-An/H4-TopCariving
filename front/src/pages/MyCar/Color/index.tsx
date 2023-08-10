@@ -1,4 +1,4 @@
-import { CarModel, Flex, Text } from '@components/common';
+import { CarModel, Flex, Tag, Text } from '@components/common';
 import { ImgTag, InfoBox } from '../Trim/Engine';
 import { Dispatch, SetStateAction, useState } from 'react';
 import styled from '@emotion/styled';
@@ -6,6 +6,7 @@ import { theme } from '@styles/theme';
 import check from '@assets/images/blueCheck.svg';
 import { useOutletContext } from 'react-router-dom';
 import { myCarFooterInterface } from '@interface/index';
+import { css } from '@emotion/react';
 
 interface colorResponseInterface {
   carOptionId: number;
@@ -31,7 +32,7 @@ interface colorInfoInterface {
   interiorColorResponses: interiorColorResponseInterface[];
 }
 
-type colorEng =
+export type colorEng =
   | '어비스블랙펄'
   | '쉬머링 실버 메탈릭'
   | '문라이프 블루 펄'
@@ -39,7 +40,7 @@ type colorEng =
   | '그라파이트 그레이 메탈릭'
   | '크리미 화이트 펄';
 
-const colorPath = {
+export const colorPath = {
   어비스블랙펄: 'black',
   '쉬머링 실버 메탈릭': 'silver',
   '문라이프 블루 펄': 'blue',
@@ -76,7 +77,7 @@ const Color = () => {
     selectedColorIdx[colorKey] = idx;
     setSelectedColorIdx(newSelectedColor);
     setIsLastClick({
-      key: colorKey,
+      key: colorKey as colorKey,
       idx: idx,
     });
 
@@ -122,6 +123,19 @@ const Color = () => {
               ].price.toLocaleString('ko-KR')}원`}
             </Text>
           </InfoBox>
+        </Flex>
+        <Flex
+          justify="flex-start"
+          css={css`
+            flex-wrap: wrap;
+            gap: 4px;
+          `}
+        >
+          {colorInfo[isLastClick.key][isLastClick.idx].tagResponses.map(
+            (tag, idx) => (
+              <Tag desc={tag.tagContent} key={`tag_${idx}`} />
+            ),
+          )}
         </Flex>
       </Flex>
 
@@ -275,6 +289,27 @@ const colorInfo = {
       price: 0,
       tagResponses: [
         {
+          tagContent: '이것만 있으면 나도 주차고수🚘',
+        },
+        {
+          tagContent: '태그칩👊🏻',
+        },
+        {
+          tagContent: '태그칩⭐️',
+        },
+        {
+          tagContent: '이것만 있으면 나도 주차고수🚘',
+        },
+        {
+          tagContent: '이것만 있으면 나도 주차고수🚘',
+        },
+        {
+          tagContent: '편리해요😉',
+        },
+        {
+          tagContent: '편리해요😉',
+        },
+        {
           tagContent: '태그칩 설명',
         },
       ],
@@ -345,7 +380,7 @@ const colorInfo = {
       carOptionId: 11,
       optionName: '퀄팅천연(블랙)',
       photoUrl:
-        'https://topcariving.s3.ap-northeast-2.amazonaws.com/internal_color/balck_internal.png',
+        'https://topcariving.s3.ap-northeast-2.amazonaws.com/internal_color/black_internal.png',
       colorUrl:
         'https://topcariving.s3.ap-northeast-2.amazonaws.com/internal_color/black.png',
       price: 300000,

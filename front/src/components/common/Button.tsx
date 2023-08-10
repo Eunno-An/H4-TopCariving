@@ -20,12 +20,13 @@ export const Button = styled.button<{
       : '30px'};
 
   background-color: ${({ backgroundColor }) => theme.palette[backgroundColor]};
+  color: ${({ backgroundColor }) =>
+    backgroundColor === 'Primary' ? theme.palette.White : theme.palette.White}
 
   padding: ${({ padding }) => (padding ? padding : '0')};
 
   border-radius: ${({ border }) => (border ? `${border}px` : '8px')};
   border: none;
-
   box-sizing: border-box;
 
   cursor: pointer;
