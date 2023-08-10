@@ -12,8 +12,10 @@ import UIKit.UIControl
 @available(iOS 13.0, *)
 extension Combine.Publishers {
     struct CustomEvent<Control: UIControl>: Publisher {
+        // swiftlint: disable nesting
         typealias Output = Void
         typealias Failure = Never
+        // swiftlint: enable nesting
         
         private let control: Control
         private let controlEvent: Control.Event
@@ -23,7 +25,7 @@ extension Combine.Publishers {
             self.controlEvent = controlEvent
         }
         
-        func receive<S>(subscriber: S) where S : Subscriber, Never == S.Failure, Void == S.Input {
+        func receive<S>(subscriber: S) where S: Subscriber, Never == S.Failure, Void == S.Input {
             let subscription = Subscription(subscriber: subscriber, control: control, event: controlEvent)
             subscriber.receive(subscription: subscription)
         }
