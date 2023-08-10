@@ -102,6 +102,15 @@ public class TrimService {
 			.collect(Collectors.toList());
 	}
 
+	@Transactional(readOnly = true)
+	public List<OptionResponseDTO> getDrivingMethods() {
+		final List<CarOption> carOptions = carOptionRepository.findByCategoryDetail(CategoryDetail.DRIVING_METHOD.getName());
+
+		return carOptions.stream()
+			.map(OptionResponseDTO::from)
+			.collect(Collectors.toList());
+	}
+
 	public Long saveTrim(SelectOptionRequestDTO selectOptionRequestDTO, CategoryDetail categoryDetail) {
 		Long userId = selectOptionRequestDTO.getUserId();
 		Long carOptionId = selectOptionRequestDTO.getCarOptionId();
