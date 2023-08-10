@@ -8,6 +8,12 @@
 import Combine
 import UIKit
 
+extension UIGestureRecognizer {
+    var tapGesture: AnyPublisher<UIGestureRecognizer, Never> {
+        gesturePublisher(for: self)
+    }
+}
+
 @available(iOS 13.0, *)
 private func gesturePublisher<Gesture: UIGestureRecognizer>(for gesture: Gesture) -> AnyPublisher<Gesture, Never> {
     Publishers.CustomControl(
