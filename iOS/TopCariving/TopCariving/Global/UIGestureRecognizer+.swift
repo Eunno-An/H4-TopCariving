@@ -8,23 +8,53 @@
 import Combine
 import UIKit
 
-extension UIGestureRecognizer {
-    var tapGesture: AnyPublisher<UIGestureRecognizer, Never> {
-        gesturePublisher(for: self)
+@available(iOS 13.0, *)
+extension UITapGestureRecognizer {
+    struct GesturePublisher<TapRecognizer: UITapGestureRecognizer>: Publisher {
+        // swiftlint: disable nesting
+        typealias Output = TapRecognizer
+        typealias Failure = Never
+        // swiftlint: enable nesting
+        private let recognizer: TapRecognizer
+        private let view: UIView
+        
+        init(recognizer: TapRecognizer, view: UIView) {
+            self.recognizer = recognizer
+            self.view = view
+        }
+        
+        func receive<S>(subscriber: S) where S: Subscriber, Never == S.Failure, TapRecognizer == S.Input {
+            let subscription = GestureSubscription(
+                subscriber: subscriber,
+                recognizer: recognizer,
+                view: view
+            )
+            subscriber.receive(subscription: subscription)
+        }
     }
 }
-
 @available(iOS 13.0, *)
-private func gesturePublisher<Gesture: UIGestureRecognizer>(for gesture: Gesture) -> AnyPublisher<Gesture, Never> {
-    Publishers.CustomControl(
-        control: gesture,
-        addTargetAction: { gesture, target, action in
-            gesture.addTarget(target, action: action)
-        },
-        removeTargetAction: { gesture, target, action in
-            gesture?.addTarget(target, action: action)
-        })
-    .subscribe(on: DispatchQueue.main)
-    .map { gesture }
-    .eraseToAnyPublisher()
+extension UITapGestureRecognizer {
+    final class GestureSubscription<S: Subscriber, TapRecognizer: UITapGestureRecognizer>: Subscription
+    where S.Input == TapRecognizer {
+        private var subscriber: S?
+        private let recognizer: TapRecognizer
+        
+        init(subscriber: S, recognizer: TapRecognizer, view: UIView) {
+            self.subscriber = subscriber
+            self.recognizer = recognizer
+            recognizer.addTarget(self, action: #selector(eventHandler))
+            view.addGestureRecognizer(recognizer)
+        }
+        
+        func request(_ demand: Subscribers.Demand) {}
+        
+        func cancel() {
+            subscriber = nil
+        }
+        
+        @objc func eventHandler() {
+            _ = subscriber?.receive(recognizer)
+        }
+    }
 }
