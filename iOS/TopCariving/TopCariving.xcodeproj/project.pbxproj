@@ -26,6 +26,7 @@
 		D462E7642A84BB5500C5A8EC /* CombineControlEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E7632A84BB5500C5A8EC /* CombineControlEvent.swift */; };
 		D462E7662A84C9BF00C5A8EC /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E7652A84C9BF00C5A8EC /* UIButton+.swift */; };
 		D462E7682A84CAA100C5A8EC /* UIControl+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E7672A84CAA100C5A8EC /* UIControl+.swift */; };
+		D462E7762A85280D00C5A8EC /* CombineControlTarget.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E7752A85280D00C5A8EC /* CombineControlTarget.swift */; };
 		D4A68CF82A808D6300E2C1FD /* OptionRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A68CF72A808D6300E2C1FD /* OptionRequestDTO.swift */; };
 		D4A68CFA2A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A68CF92A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift */; };
 		D4A68CFC2A80925400E2C1FD /* ArchivingOptionResponseDTO+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A68CFB2A80925400E2C1FD /* ArchivingOptionResponseDTO+Mapping.swift */; };
@@ -116,6 +117,7 @@
 		D462E7632A84BB5500C5A8EC /* CombineControlEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineControlEvent.swift; sourceTree = "<group>"; };
 		D462E7652A84C9BF00C5A8EC /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		D462E7672A84CAA100C5A8EC /* UIControl+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+.swift"; sourceTree = "<group>"; };
+		D462E7752A85280D00C5A8EC /* CombineControlTarget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineControlTarget.swift; sourceTree = "<group>"; };
 		D4A68CF72A808D6300E2C1FD /* OptionRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionRequestDTO.swift; sourceTree = "<group>"; };
 		D4A68CF92A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArchivingColorResponseDTO+Mapping.swift"; sourceTree = "<group>"; };
 		D4A68CFB2A80925400E2C1FD /* ArchivingOptionResponseDTO+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArchivingOptionResponseDTO+Mapping.swift"; sourceTree = "<group>"; };
@@ -421,6 +423,7 @@
 				C31350092A7E826C00D5D401 /* UIImage+.swift */,
 				7631E9462A82200C00015363 /* UILabel+.swift */,
 				D462E7632A84BB5500C5A8EC /* CombineControlEvent.swift */,
+				D462E7752A85280D00C5A8EC /* CombineControlTarget.swift */,
 				D462E7652A84C9BF00C5A8EC /* UIButton+.swift */,
 				D462E7672A84CAA100C5A8EC /* UIControl+.swift */,
 			);
@@ -633,6 +636,7 @@
 				7631E9472A82200C00015363 /* UILabel+.swift in Sources */,
 				D4A68D102A80968500E2C1FD /* ColorResponseDTO+Mapping.swift in Sources */,
 				D4A68D0A2A80957100E2C1FD /* SelectionDetailResponseDTO+Mapping.swift in Sources */,
+				D462E7762A85280D00C5A8EC /* CombineControlTarget.swift in Sources */,
 				D4ACBA872A78CE8F002B6A5B /* UIColor+.swift in Sources */,
 				D4A68CFE2A80930800E2C1FD /* ArchivingResponseDTO+Mapping.swift in Sources */,
 				D4A68D462A80F15500E2C1FD /* ModelPhoto.swift in Sources */,
