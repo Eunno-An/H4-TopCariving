@@ -69,7 +69,7 @@ jobs:
               "text": "☀️*Backend 배포 현황*☀️: `${{ job.status }}`\n",
               "attachments": [
                 {
-                    "text": "Backend가 재배포를 시작했습니다😎",
+                    "text": "Backend가 재배포를 시작했습니다😎: ${{ github.event.pull_request.title }}",
                     "color": "${{ job.status == 'success' && '#36a64f' || '#d9534f' }}",
                     "attachment_type": "default",
                     "actions": [
