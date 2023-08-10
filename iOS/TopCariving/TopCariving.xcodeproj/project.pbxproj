@@ -26,7 +26,7 @@
 		D462E7642A84BB5500C5A8EC /* CombineControlEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E7632A84BB5500C5A8EC /* CombineControlEvent.swift */; };
 		D462E7662A84C9BF00C5A8EC /* UIButton+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E7652A84C9BF00C5A8EC /* UIButton+.swift */; };
 		D462E7682A84CAA100C5A8EC /* UIControl+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E7672A84CAA100C5A8EC /* UIControl+.swift */; };
-		D462E7782A852D3C00C5A8EC /* UIGestureRecognizer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E7772A852D3C00C5A8EC /* UIGestureRecognizer+.swift */; };
+		D462E7782A852D3C00C5A8EC /* UITapGestureRecognizer+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E7772A852D3C00C5A8EC /* UITapGestureRecognizer+.swift */; };
 		D462E77A2A852FEE00C5A8EC /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E7792A852FEE00C5A8EC /* UIView+.swift */; };
 		D4A68CF82A808D6300E2C1FD /* OptionRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A68CF72A808D6300E2C1FD /* OptionRequestDTO.swift */; };
 		D4A68CFA2A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A68CF92A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift */; };
@@ -118,7 +118,7 @@
 		D462E7632A84BB5500C5A8EC /* CombineControlEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineControlEvent.swift; sourceTree = "<group>"; };
 		D462E7652A84C9BF00C5A8EC /* UIButton+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+.swift"; sourceTree = "<group>"; };
 		D462E7672A84CAA100C5A8EC /* UIControl+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIControl+.swift"; sourceTree = "<group>"; };
-		D462E7772A852D3C00C5A8EC /* UIGestureRecognizer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIGestureRecognizer+.swift"; sourceTree = "<group>"; };
+		D462E7772A852D3C00C5A8EC /* UITapGestureRecognizer+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITapGestureRecognizer+.swift"; sourceTree = "<group>"; };
 		D462E7792A852FEE00C5A8EC /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		D4A68CF72A808D6300E2C1FD /* OptionRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionRequestDTO.swift; sourceTree = "<group>"; };
 		D4A68CF92A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArchivingColorResponseDTO+Mapping.swift"; sourceTree = "<group>"; };
@@ -427,7 +427,7 @@
 				D462E7632A84BB5500C5A8EC /* CombineControlEvent.swift */,
 				D462E7652A84C9BF00C5A8EC /* UIButton+.swift */,
 				D462E7672A84CAA100C5A8EC /* UIControl+.swift */,
-				D462E7772A852D3C00C5A8EC /* UIGestureRecognizer+.swift */,
+				D462E7772A852D3C00C5A8EC /* UITapGestureRecognizer+.swift */,
 				D462E7792A852FEE00C5A8EC /* UIView+.swift */,
 			);
 			path = Global;
@@ -623,7 +623,7 @@
 				D4A68CF82A808D6300E2C1FD /* OptionRequestDTO.swift in Sources */,
 				D4A68D0C2A8095B100E2C1FD /* SelectionResponseDTO+Mapping.swift in Sources */,
 				D462E7662A84C9BF00C5A8EC /* UIButton+.swift in Sources */,
-				D462E7782A852D3C00C5A8EC /* UIGestureRecognizer+.swift in Sources */,
+				D462E7782A852D3C00C5A8EC /* UITapGestureRecognizer+.swift in Sources */,
 				D4A68D322A80EF8500E2C1FD /* ModifyOption.swift in Sources */,
 				7631E9412A81D21500015363 /* MyCarFooterView.swift in Sources */,
 				D44B45752A7BC3DF00E8E207 /* DummyViewModel.swift in Sources */,

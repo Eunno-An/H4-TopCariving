@@ -5,20 +5,26 @@
 //  Created by Eunno An on 2023/08/01.
 //
 
+import Combine
 import UIKit
 
 class ViewController: BaseMyCarViewController {
-    private let rotatableView: RotatableOptionImageView = RotatableOptionImageView(frame: .zero)
+    var bag: Set<AnyCancellable> = .init()
+    var myView: UIView = {
+        var view: UIView = UIView(frame: .init(x: 100, y: 150, width: 200, height: 200))
+        view.backgroundColor = .red
+        return view
+    }()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.addSubview(myView)
         
-        view.addSubview(rotatableView)
+        myView.throttleTapGesturePublisher().sink { _ in
+            print("hi")
+        }.store(in: &bag)
+        
         view.backgroundColor = .white
-        NSLayoutConstraint.activate([
-            rotatableView.topAnchor.constraint(equalTo: view.topAnchor),
-            rotatableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            rotatableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            rotatableView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.63)
-        ])
+        
     }
 }
