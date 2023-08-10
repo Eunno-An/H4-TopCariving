@@ -117,4 +117,33 @@ class TrimServiceTest {
 		}
 	}
 
+	@Nested
+	@DisplayName("구동방식 테스트")
+	class DrivingMethod {
+		@Test
+		void 구동방식을_선택시_내_차가_아닌_차에_옵션을_추가하면_에러가_발생한다() {
+			// given
+			given(carArchivingRepository.existsByUserIdAndArchivingId(1L, 22L))
+				.willReturn(false);
+			final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(1L, 1L, 22L);
+
+			// when, then
+			Assertions.assertThatThrownBy(() -> trimService.saveTrim(selectOptionRequestDTO, CategoryDetail.DRIVING_METHOD))
+				.isInstanceOf(InvalidAuthorityException.class);
+		}
+
+		@Test
+		void 구동방식을_선택시_엔진이_아닌_옵션을_선택하면_에러가_발생한다() {
+			// given
+			given(carArchivingRepository.existsByUserIdAndArchivingId(1L, 22L))
+				.willReturn(true);
+			given(carOptionRepository.existsByCarOptionIdAndCategoryDetail(1L, CategoryDetail.DRIVING_METHOD.getName()))
+				.willReturn(false);
+			final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(1L, 1L, 22L);
+
+			// when, then
+			Assertions.assertThatThrownBy(() -> trimService.saveTrim(selectOptionRequestDTO, CategoryDetail.DRIVING_METHOD))
+				.isInstanceOf(InvalidCarOptionIdException.class);
+		}
+	}
 }

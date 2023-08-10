@@ -94,8 +94,8 @@ public class TrimService {
 	}
 
 	@Transactional(readOnly = true)
-	public List<OptionResponseDTO> getBodyTypes() {
-		final List<CarOption> carOptions = carOptionRepository.findByCategoryDetail(CategoryDetail.BODY_TYPE.getName());
+	public List<OptionResponseDTO> getOptions(CategoryDetail categoryDetail) {
+		final List<CarOption> carOptions = carOptionRepository.findByCategoryDetail(categoryDetail.getName());
 
 		return carOptions.stream()
 			.map(OptionResponseDTO::from)
@@ -139,5 +139,4 @@ public class TrimService {
 			throw new InvalidCarOptionIdException();
 		}
 	}
-
 }

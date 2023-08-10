@@ -134,7 +134,7 @@ public class TrimServiceIntegralTest {
 		@Test
 		void 바디타입의_종류를_반환해야_한다() {
 			// given, when
-			final List<OptionResponseDTO> bodyTypes = trimService.getBodyTypes();
+			final List<OptionResponseDTO> bodyTypes = trimService.getOptions(CategoryDetail.BODY_TYPE);
 
 			// then
 			softAssertions.assertThat(bodyTypes).as("사이즈 테스트").hasSize(2);

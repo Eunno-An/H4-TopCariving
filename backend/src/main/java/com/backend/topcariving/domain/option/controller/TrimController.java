@@ -68,7 +68,7 @@ public class TrimController {
 	@Operation(summary = "바디 타입 전체 반환", description = "내 차 만들기에서 바디 타입 반환")
 	public List<OptionResponseDTO> getBodyTypes() {
 
-		return trimService.getBodyTypes();
+		return trimService.getOptions(CategoryDetail.BODY_TYPE);
 	}
 
 	@PostMapping("/body-types")
@@ -83,7 +83,7 @@ public class TrimController {
 	@Operation(summary = "구동 방식 전체 반환", description = "내 차 만들기에서 구동 방식 반환")
 	public List<OptionResponseDTO> getDrivingMethods() {
 
-		return trimService.getDrivingMethods();
+		return trimService.getOptions(CategoryDetail.DRIVING_METHOD);
 	}
 
 	@PostMapping("/driving-methods")
@@ -91,6 +91,7 @@ public class TrimController {
 	@Operation(summary = "구동 방식 저장", description = "내 차 만들기에서 구동 방식 선택한 값을 저장하고, 차량 아카이빙 PK 값을 반환한다")
 	public SuccessResponse<Long> saveDrivingMethod(@RequestBody SelectOptionRequestDTO selectOptionRequestDTO) {
 
-		return new SuccessResponse<>(trimService.saveTrim(selectOptionRequestDTO, CategoryDetail.DRIVING_METHOD));
+		final Long archivingId = trimService.saveTrim(selectOptionRequestDTO, CategoryDetail.DRIVING_METHOD);
+		return new SuccessResponse<>(archivingId);
 	}
 }
