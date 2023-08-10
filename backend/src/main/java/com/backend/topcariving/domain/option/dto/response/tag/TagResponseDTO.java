@@ -1,4 +1,4 @@
-package com.backend.topcariving.domain.option.dto.tag;
+package com.backend.topcariving.domain.option.dto.response.tag;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;

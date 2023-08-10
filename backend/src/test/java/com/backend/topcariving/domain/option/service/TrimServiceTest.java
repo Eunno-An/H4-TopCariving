@@ -12,6 +12,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import com.backend.topcariving.domain.archive.exception.InvalidAuthorityException;
 import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
 import com.backend.topcariving.domain.archive.repository.MyCarRepository;
+import com.backend.topcariving.domain.option.dto.request.SelectOptionRequestDTO;
 import com.backend.topcariving.domain.option.exception.InvalidCarOptionIdException;
 import com.backend.topcariving.domain.option.repository.CarOptionRepository;
 import com.backend.topcariving.domain.option.repository.EngineDetailRepository;
@@ -43,8 +44,9 @@ class TrimServiceTest {
 		given(carOptionRepository.existsByCarOptionIdAndCategoryDetail(6L, "모델"))
 			.willReturn(false);
 
+		final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(1L, 6L, null);
 		// when, then
-		Assertions.assertThatThrownBy(() -> trimService.saveModel(1L, 6L))
+		Assertions.assertThatThrownBy(() -> trimService.saveModel(selectOptionRequestDTO))
 			.isInstanceOf(InvalidCarOptionIdException.class);
 	}
 
@@ -54,8 +56,10 @@ class TrimServiceTest {
 		given(carArchivingRepository.existsByUserIdAndArchivingId(1L, 22L))
 			.willReturn(false);
 
+		final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(1L, 5L, 22L);
+
 		// when, then
-		Assertions.assertThatThrownBy(() -> trimService.saveEngine(1L, 5L, 22L))
+		Assertions.assertThatThrownBy(() -> trimService.saveEngine(selectOptionRequestDTO))
 			.isInstanceOf(InvalidAuthorityException.class);
 	}
 
@@ -67,8 +71,10 @@ class TrimServiceTest {
 		given(carOptionRepository.existsByCarOptionIdAndCategoryDetail(1L, "엔진"))
 			.willReturn(false);
 
+		final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(1L, 1L, 22L);
+
 		// when, then
-		Assertions.assertThatThrownBy(() -> trimService.saveEngine(1L, 1L, 22L))
+		Assertions.assertThatThrownBy(() -> trimService.saveEngine(selectOptionRequestDTO))
 			.isInstanceOf(InvalidCarOptionIdException.class);
 	}
 }

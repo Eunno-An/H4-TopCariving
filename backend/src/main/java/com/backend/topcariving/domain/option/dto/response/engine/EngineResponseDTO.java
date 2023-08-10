@@ -1,4 +1,4 @@
-package com.backend.topcariving.domain.option.dto.engine;
+package com.backend.topcariving.domain.option.dto.response.engine;
 
 import com.backend.topcariving.domain.option.entity.CarOption;
 import com.backend.topcariving.domain.option.entity.EngineDetail;

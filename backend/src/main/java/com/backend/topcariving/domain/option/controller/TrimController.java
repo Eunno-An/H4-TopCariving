@@ -5,14 +5,15 @@ import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.backend.topcariving.domain.option.dto.engine.EngineResponseDTO;
-import com.backend.topcariving.domain.option.dto.trim.OptionResponseDTO;
-import com.backend.topcariving.domain.option.dto.model.ModelResponseDTO;
+import com.backend.topcariving.domain.option.dto.request.SelectOptionRequestDTO;
+import com.backend.topcariving.domain.option.dto.response.engine.EngineResponseDTO;
+import com.backend.topcariving.domain.option.dto.response.model.ModelResponseDTO;
+import com.backend.topcariving.domain.option.dto.response.trim.OptionResponseDTO;
 import com.backend.topcariving.domain.option.service.TrimService;
 import com.backend.topcariving.global.response.SuccessResponse;
 
@@ -43,10 +44,9 @@ public class TrimController {
 	@ApiResponse(responseCode = "201", description = "성공하면, 아카이빙 PK 값을 반환함")
 	@Operation(summary = "모델 옵션 저장", description = "내 차 만들기에서 모델을 선택한 값을 저장하고, 아카이빙 PK 값을 반환한다")
 	@Parameter(name = "carOptionId", description = "사용자가 선택한 모델의 ID 값")
-	public SuccessResponse<Long> saveTrim(@RequestParam Long userId,
-		@RequestParam Long carOptionId) {
+	public SuccessResponse<Long> saveModel(@RequestBody SelectOptionRequestDTO selectOptionRequestDTO) {
 
-		return new SuccessResponse<>(trimService.saveModel(userId, carOptionId));
+		return new SuccessResponse<>(trimService.saveModel(selectOptionRequestDTO));
 	}
 
 	@GetMapping("/engines")
@@ -63,11 +63,9 @@ public class TrimController {
 		@Parameter(name = "carOptionId", description = "사용자가 선택한 엔진의 ID값"),
 		@Parameter(name = "archivingId", description = "모델 선택에서 생성된 차량 아카빙 ID값")
 	})
-	public SuccessResponse<Long> saveEngine(@RequestParam Long userId,
-		@RequestParam Long carOptionId,
-		@RequestParam Long archivingId) {
+	public SuccessResponse<Long> saveEngine(@RequestBody SelectOptionRequestDTO selectOptionRequestDTO) {
 
-		return new SuccessResponse<>(trimService.saveEngine(userId, carOptionId, archivingId));
+		return new SuccessResponse<>(trimService.saveEngine(selectOptionRequestDTO));
 	}
 
 	@GetMapping("/body-types")
@@ -81,7 +79,7 @@ public class TrimController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@Operation(summary = "바디 타입 저장", description = "내 차 만들기에서 바디 타입 선택한 값을 저장하고, 차량 아카이빙 PK 값을 반환한다")
 	@Parameter(name = "carOptionId", description = "사용자가 선택한 bodyType의 ID값")
-	public SuccessResponse<Long> saveBodyTypes(@RequestParam Long carOptionId) {
+	public SuccessResponse<Long> saveBodyTypes(@RequestBody SelectOptionRequestDTO selectOptionRequestDTO) {
 
 		return null;
 	}
@@ -97,7 +95,7 @@ public class TrimController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@Operation(summary = "구동 방식 저장", description = "내 차 만들기에서 구동 방식 선택한 값을 저장하고, 차량 아카이빙 PK 값을 반환한다")
 	@Parameter(name = "carOptionId", description = "사용자가 선택한 구동 방식의 ID값")
-	public SuccessResponse<Long> saveDrivingMethod(@RequestParam Long carOptionId) {
+	public SuccessResponse<Long> saveDrivingMethod(@RequestBody SelectOptionRequestDTO selectOptionRequestDTO) {
 
 		return null;
 	}

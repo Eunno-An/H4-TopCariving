@@ -1,4 +1,4 @@
-package com.backend.topcariving.domain.option.dto.trim;
+package com.backend.topcariving.domain.option.dto.response.trim;
 
 import java.util.List;
 import java.util.Map;

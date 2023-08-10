@@ -1,8 +1,8 @@
-package com.backend.topcariving.domain.option.dto.color;
+package com.backend.topcariving.domain.option.dto.response.color;
 
 import java.util.List;
 
-import com.backend.topcariving.domain.option.dto.tag.TagResponseDTO;
+import com.backend.topcariving.domain.option.dto.response.tag.TagResponseDTO;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;

@@ -11,9 +11,10 @@ import com.backend.topcariving.domain.archive.entity.MyCar;
 import com.backend.topcariving.domain.archive.exception.InvalidAuthorityException;
 import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
 import com.backend.topcariving.domain.archive.repository.MyCarRepository;
-import com.backend.topcariving.domain.option.dto.engine.EngineResponseDTO;
-import com.backend.topcariving.domain.option.dto.model.ModelPhotoDTO;
-import com.backend.topcariving.domain.option.dto.model.ModelResponseDTO;
+import com.backend.topcariving.domain.option.dto.request.SelectOptionRequestDTO;
+import com.backend.topcariving.domain.option.dto.response.engine.EngineResponseDTO;
+import com.backend.topcariving.domain.option.dto.response.model.ModelPhotoDTO;
+import com.backend.topcariving.domain.option.dto.response.model.ModelResponseDTO;
 import com.backend.topcariving.domain.option.entity.CarOption;
 import com.backend.topcariving.domain.option.entity.EngineDetail;
 import com.backend.topcariving.domain.option.entity.ModelPhoto;
@@ -55,7 +56,10 @@ public class TrimService {
 			.collect(Collectors.toList());
 	}
 
-	public Long saveModel(Long userId, Long carOptionId) {
+	public Long saveModel(SelectOptionRequestDTO selectOptionRequestDTO) {
+		Long userId = selectOptionRequestDTO.getUserId();
+		Long carOptionId = selectOptionRequestDTO.getCarOptionId();
+
 		verifyCarOptionId(MODEL, carOptionId);
 
 		CarArchiving carArchiving = CarArchiving.builder()
@@ -90,7 +94,11 @@ public class TrimService {
 		return EngineResponseDTO.of(engine, engineDetail);
 	}
 
-	public Long saveEngine(Long userId, Long carOptionId, Long archivingId) {
+	public Long saveEngine(SelectOptionRequestDTO selectOptionRequestDTO) {
+		Long userId = selectOptionRequestDTO.getUserId();
+		Long carOptionId = selectOptionRequestDTO.getCarOptionId();
+		Long archivingId = selectOptionRequestDTO.getArchivingId();
+
 		verifyCarArchiving(userId, archivingId);
 		verifyCarOptionId(ENGINE, carOptionId);
 

@@ -13,8 +13,9 @@ import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
 import com.backend.topcariving.domain.archive.entity.MyCar;
 import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
 import com.backend.topcariving.domain.archive.repository.MyCarRepository;
-import com.backend.topcariving.domain.option.dto.engine.EngineResponseDTO;
-import com.backend.topcariving.domain.option.dto.model.ModelResponseDTO;
+import com.backend.topcariving.domain.option.dto.request.SelectOptionRequestDTO;
+import com.backend.topcariving.domain.option.dto.response.engine.EngineResponseDTO;
+import com.backend.topcariving.domain.option.dto.response.model.ModelResponseDTO;
 import com.backend.topcariving.domain.option.repository.CarOptionRepository;
 import com.backend.topcariving.domain.option.repository.EngineDetailRepository;
 import com.backend.topcariving.domain.option.repository.ModelPhotoRepository;
@@ -69,11 +70,10 @@ public class TrimServiceIntegralTest {
 	@Test
 	void 모델이_제대로_저장되고_아카이빙_아이디가_반환되어야_한다() {
 		// given
-		Long userId = 1L;
-		Long carOptionId = 1L;
+		final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(1L, 1L, null);
 
 		// when
-		Long archivingId = trimService.saveModel(userId, carOptionId);
+		Long archivingId = trimService.saveModel(selectOptionRequestDTO);
 
 		// then
 		Assertions.assertThat(archivingId).isEqualTo(21);
@@ -98,14 +98,16 @@ public class TrimServiceIntegralTest {
 		Long userId = 3L;
 		Long carOptionId = 5L;
 		Long archivingId = 3L;
+		final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(userId, carOptionId, archivingId);
 		MyCar myCar = MyCar.builder()
 			.archivingId(3L)
 			.carOptionId(1L)
 			.build();
 		myCarRepository.save(myCar);
 
+
 		// when
-		Long savedArchivingId = trimService.saveEngine(userId, carOptionId, archivingId);
+		Long savedArchivingId = trimService.saveEngine(selectOptionRequestDTO);
 
 		// then
 		Assertions.assertThat(savedArchivingId).isEqualTo(archivingId);

@@ -1,4 +1,4 @@
-package com.backend.topcariving.domain.option.dto.esitmation;
+package com.backend.topcariving.domain.option.dto.request.esitmation;
 
 import java.util.List;
 

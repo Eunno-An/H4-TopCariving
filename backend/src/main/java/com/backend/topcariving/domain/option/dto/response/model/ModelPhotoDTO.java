@@ -1,4 +1,4 @@
-package com.backend.topcariving.domain.option.dto.model;
+package com.backend.topcariving.domain.option.dto.response.model;
 
 import com.backend.topcariving.domain.option.entity.ModelPhoto;
 

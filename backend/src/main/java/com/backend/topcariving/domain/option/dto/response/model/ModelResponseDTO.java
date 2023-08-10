@@ -1,4 +1,4 @@
-package com.backend.topcariving.domain.option.dto.model;
+package com.backend.topcariving.domain.option.dto.response.model;
 
 import java.util.List;
 

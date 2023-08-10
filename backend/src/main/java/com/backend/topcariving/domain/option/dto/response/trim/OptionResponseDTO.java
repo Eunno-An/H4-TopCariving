@@ -1,4 +1,4 @@
-package com.backend.topcariving.domain.option.dto.trim;
+package com.backend.topcariving.domain.option.dto.response.trim;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;

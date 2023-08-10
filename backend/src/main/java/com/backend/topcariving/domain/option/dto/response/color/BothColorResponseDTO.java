@@ -1,4 +1,4 @@
-package com.backend.topcariving.domain.option.dto.color;
+package com.backend.topcariving.domain.option.dto.response.color;
 
 import java.util.List;
 

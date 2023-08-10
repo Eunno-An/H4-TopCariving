@@ -1,4 +1,4 @@
-package com.backend.topcariving.domain.option.dto.selection;
+package com.backend.topcariving.domain.option.dto.response.selection;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
