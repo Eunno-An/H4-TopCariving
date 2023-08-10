@@ -18,11 +18,11 @@ extension Combine.Publishers {
         let control: Control
         let addTargetAction: (Control, AnyObject, Selector) -> Void
         let removeTargetAction: (Control?, AnyObject, Selector) -> Void
-
+        
         init(
             control: Control,
-            addTargetAction: @escaping (AnyObject, AnyObject, Selector) -> Void,
-            removeTargetAction: @escaping (AnyObject?, AnyObject, Selector) -> Void) {
+            addTargetAction: @escaping (Control, AnyObject, Selector) -> Void,
+            removeTargetAction: @escaping (Control?, AnyObject, Selector) -> Void) {
             self.control = control
             self.addTargetAction = addTargetAction
             self.removeTargetAction = removeTargetAction
@@ -30,17 +30,19 @@ extension Combine.Publishers {
         
         func receive<S>(subscriber: S)
         where S: Subscriber,
-        Never == S.Failure,
-        Void == S.Input {
+              S.Failure == Failure,
+              S.Input == Output {
             let subscription = Subscription(
                 subscriber: subscriber,
                 control: control,
                 addTargetAction: addTargetAction,
                 removeTargetAction: removeTargetAction)
+            subscriber.receive(subscription: subscription)
         }
     }
 }
 
+@available(iOS 13.0, *)
 extension Combine.Publishers.CustomControl {
     class Subscription<S: Subscriber, Control: AnyObject>: Combine.Subscription where S.Input == Void {
         private var subscriber: S?
