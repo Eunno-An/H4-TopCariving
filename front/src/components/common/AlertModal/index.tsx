@@ -49,7 +49,7 @@ export const AlertModal = ({ content, buttonInfo }: alertModalInterface) => {
   );
 };
 
-const containerCss = () => css`
+export const containerCss = () => css`
   position: absolute;
   top: 0;
   left: 0;
@@ -57,7 +57,7 @@ const containerCss = () => css`
   right: 0;
 `;
 
-const backCss = () => css`
+export const backCss = () => css`
   position: absolute;
   top: 0;
   left: 0;
