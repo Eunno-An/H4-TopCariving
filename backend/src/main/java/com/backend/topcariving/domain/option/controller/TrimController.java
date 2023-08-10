@@ -14,6 +14,7 @@ import com.backend.topcariving.domain.option.dto.request.SelectOptionRequestDTO;
 import com.backend.topcariving.domain.option.dto.response.engine.EngineResponseDTO;
 import com.backend.topcariving.domain.option.dto.response.model.ModelResponseDTO;
 import com.backend.topcariving.domain.option.dto.response.trim.OptionResponseDTO;
+import com.backend.topcariving.domain.option.entity.CategoryDetail;
 import com.backend.topcariving.domain.option.service.TrimService;
 import com.backend.topcariving.global.response.SuccessResponse;
 
@@ -65,14 +66,14 @@ public class TrimController {
 	})
 	public SuccessResponse<Long> saveEngine(@RequestBody SelectOptionRequestDTO selectOptionRequestDTO) {
 
-		return new SuccessResponse<>(trimService.saveEngine(selectOptionRequestDTO));
+		return new SuccessResponse<>(trimService.saveTrim(selectOptionRequestDTO, CategoryDetail.ENGINE));
 	}
 
 	@GetMapping("/body-types")
 	@Operation(summary = "바디 타입 전체 반환", description = "내 차 만들기에서 바디 타입 반환")
 	public List<OptionResponseDTO> getBodyTypes() {
 
-		return null;
+		return trimService.getBodyTypes();
 	}
 
 	@PostMapping("/body-types")
