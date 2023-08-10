@@ -24,8 +24,33 @@ extension Combine.Publishers {
         }
         
         func receive<S>(subscriber: S) where S : Subscriber, Never == S.Failure, Void == S.Input {
-            #warning("subscription추가")
+            let subscription = Subscription(subscriber: subscriber, control: control, event: controlEvent)
+            subscriber.receive(subscription: subscription)
         }
     }
 }
 
+extension Combine.Publishers.CustomEvent {
+    final class Subscription<S: Subscriber, Control: UIControl>: Combine.Subscription where S.Input == Void {
+        private var subscriber: S?
+        weak private var control: Control?
+        
+        init(subscriber: S, control: Control, event: Control.Event) {
+            self.subscriber = subscriber
+            self.control = control
+            control.addTarget(self, action: #selector(action), for: event)
+        }
+        
+        func request(_ demand: Subscribers.Demand) {
+            
+        }
+        
+        func cancel() {
+            subscriber = nil
+        }
+        
+        @objc func action() {
+            _ = subscriber?.receive()
+        }
+    }
+}
