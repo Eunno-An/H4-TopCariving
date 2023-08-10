@@ -23,6 +23,7 @@
 		D44B45732A7B969200E8E207 /* RequestError.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44B45722A7B969200E8E207 /* RequestError.swift */; };
 		D44B45752A7BC3DF00E8E207 /* DummyViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44B45742A7BC3DF00E8E207 /* DummyViewModel.swift */; };
 		D44B45952A7CB9CA00E8E207 /* APIEndPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44B45942A7CB9CA00E8E207 /* APIEndPoints.swift */; };
+		D462E7642A84BB5500C5A8EC /* CombineControlEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E7632A84BB5500C5A8EC /* CombineControlEvent.swift */; };
 		D4A68CF82A808D6300E2C1FD /* OptionRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A68CF72A808D6300E2C1FD /* OptionRequestDTO.swift */; };
 		D4A68CFA2A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A68CF92A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift */; };
 		D4A68CFC2A80925400E2C1FD /* ArchivingOptionResponseDTO+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A68CFB2A80925400E2C1FD /* ArchivingOptionResponseDTO+Mapping.swift */; };
@@ -110,6 +111,7 @@
 		D44B45722A7B969200E8E207 /* RequestError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestError.swift; sourceTree = "<group>"; };
 		D44B45742A7BC3DF00E8E207 /* DummyViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DummyViewModel.swift; sourceTree = "<group>"; };
 		D44B45942A7CB9CA00E8E207 /* APIEndPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEndPoints.swift; sourceTree = "<group>"; };
+		D462E7632A84BB5500C5A8EC /* CombineControlEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineControlEvent.swift; sourceTree = "<group>"; };
 		D4A68CF72A808D6300E2C1FD /* OptionRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionRequestDTO.swift; sourceTree = "<group>"; };
 		D4A68CF92A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArchivingColorResponseDTO+Mapping.swift"; sourceTree = "<group>"; };
 		D4A68CFB2A80925400E2C1FD /* ArchivingOptionResponseDTO+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArchivingOptionResponseDTO+Mapping.swift"; sourceTree = "<group>"; };
@@ -414,6 +416,7 @@
 				D4CFBAAE2A7A3E6500CCB27E /* UIFont+.swift */,
 				C31350092A7E826C00D5D401 /* UIImage+.swift */,
 				7631E9462A82200C00015363 /* UILabel+.swift */,
+				D462E7632A84BB5500C5A8EC /* CombineControlEvent.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -599,6 +602,7 @@
 				D4CFBAAF2A7A3E6500CCB27E /* UIFont+.swift in Sources */,
 				D4A68CFA2A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift in Sources */,
 				D4A68D3E2A80F0C400E2C1FD /* TagResponseDTO.swift in Sources */,
+				D462E7642A84BB5500C5A8EC /* CombineControlEvent.swift in Sources */,
 				D4A68D2C2A80EE6900E2C1FD /* ArchivingColor.swift in Sources */,
 				D4ACBA7E2A78CE35002B6A5B /* DummyView.swift in Sources */,
 				D4A68D362A80EFEE00E2C1FD /* Model.swift in Sources */,
