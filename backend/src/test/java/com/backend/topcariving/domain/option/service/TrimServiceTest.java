@@ -1,21 +1,21 @@
 package com.backend.topcariving.domain.option.service;
 
-import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.*;
 
-import java.util.List;
-
-import org.assertj.core.api.SoftAssertions;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.backend.topcariving.domain.option.dto.model.ModelResponseDTO;
-import com.backend.topcariving.domain.option.entity.CarOption;
-import com.backend.topcariving.domain.option.entity.ModelPhoto;
+import com.backend.topcariving.domain.archive.exception.InvalidAuthorityException;
+import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
+import com.backend.topcariving.domain.archive.repository.MyCarRepository;
+import com.backend.topcariving.domain.option.dto.request.SelectOptionRequestDTO;
+import com.backend.topcariving.domain.option.exception.InvalidCarOptionIdException;
 import com.backend.topcariving.domain.option.repository.CarOptionRepository;
+import com.backend.topcariving.domain.option.repository.EngineDetailRepository;
 import com.backend.topcariving.domain.option.repository.ModelPhotoRepository;
 
 @ExtendWith(MockitoExtension.class)
@@ -26,33 +26,55 @@ class TrimServiceTest {
 	@Mock
 	private ModelPhotoRepository modelPhotoRepository;
 
+	@Mock
+	private CarArchivingRepository carArchivingRepository;
+
+	@Mock
+	private MyCarRepository myCarRepository;
+
+	@Mock
+	private EngineDetailRepository engineDetailRepository;
+
 	@InjectMocks
 	private TrimService trimService;
 
 	@Test
-	void 모델의_종류를_반환해야한다() {
+	void 모델을_선택시_모델이_아닌_옵션을_선택하면_에러가_발생한다() {
 		// given
-		final CarOption option = new CarOption(1L, "카테고리", "카테고리 디테일", "옵션이름", "옵션디테일", 1000, "포토URL", null);
-		given(carOptionRepository.findByCategoryDetail(anyString()))
-			.willReturn(List.of(option));
+		given(carOptionRepository.existsByCarOptionIdAndCategoryDetail(6L, "모델"))
+			.willReturn(false);
 
-		final ModelPhoto modelPhoto1 = new ModelPhoto(1L, "포토 이름 설명", "svg 경로", "photo 경로", 1L);
-		final ModelPhoto modelPhoto2 = new ModelPhoto(2L, "포토 이름 설명2", "svg2 경로", "photo2 경로", 2L);
-		given(modelPhotoRepository.findAllByCarOptionId(1L))
-			.willReturn(List.of(modelPhoto1, modelPhoto2));
+		final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(1L, 6L, null);
+		// when, then
+		Assertions.assertThatThrownBy(() -> trimService.saveModel(selectOptionRequestDTO))
+			.isInstanceOf(InvalidCarOptionIdException.class);
+	}
 
-		// when
-		final List<ModelResponseDTO> models = trimService.getModels();
+	@Test
+	void 엔진을_선택시_내_차가_아닌_차에_옵션을_추가하면_에러가_발생한다() {
+		// given
+		given(carArchivingRepository.existsByUserIdAndArchivingId(1L, 22L))
+			.willReturn(false);
 
-		// then
-		ModelResponseDTO model = models.get(0);
-		SoftAssertions softAssertions = new SoftAssertions();
-		softAssertions.assertThat(model.getCarOptionId()).as("옵션 아이디 테스트").isEqualTo(1L);
-		softAssertions.assertThat(model.getOptionName()).as("옵션 이름 테스트").isEqualTo("옵션이름");
-		softAssertions.assertThat(model.getPrice()).as("옵션 가격 테스트").isEqualTo(1000);
-		softAssertions.assertThat(models).as("models의 갯수 테스트").hasSize(1);
-		softAssertions.assertThat(model.getPhotos()).as("photos의 크기 테스트").hasSize(2);
-		softAssertions.assertThat(model.getPhotos().get(0).getContent()).as("Photo의 attirbute가 제대로 저장되었는지 테스트").isEqualTo(modelPhoto1.getContent());
-		softAssertions.assertAll();
+		final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(1L, 5L, 22L);
+
+		// when, then
+		Assertions.assertThatThrownBy(() -> trimService.saveEngine(selectOptionRequestDTO))
+			.isInstanceOf(InvalidAuthorityException.class);
+	}
+
+	@Test
+	void 엔진을_선택시_엔진이_아닌_옵션을_선택하면_에러가_발생한다() {
+		// given
+		given(carArchivingRepository.existsByUserIdAndArchivingId(1L, 22L))
+			.willReturn(true);
+		given(carOptionRepository.existsByCarOptionIdAndCategoryDetail(1L, "엔진"))
+			.willReturn(false);
+
+		final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(1L, 1L, 22L);
+
+		// when, then
+		Assertions.assertThatThrownBy(() -> trimService.saveEngine(selectOptionRequestDTO))
+			.isInstanceOf(InvalidCarOptionIdException.class);
 	}
 }

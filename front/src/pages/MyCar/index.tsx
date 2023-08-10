@@ -23,9 +23,9 @@ const MyCar = () => {
 
   const [footerInfo, setFooterInfo] = useState({
     name: ['Le Blanc', ''],
-    color: [],
-    option: { outer: '', inner: '' },
-    price: 47720000,
+    color: { exteriorColorResponses: '', interiorColorResponses: '' },
+    option: [],
+    price: 0,
   } as myCarFooterInterface);
 
   return (

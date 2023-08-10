@@ -36,7 +36,9 @@ const BodyBox = styled(Flex)<{ isSelected: boolean }>`
   background-color: ${({ isSelected }) =>
     isSelected ? 'rgba(0, 44, 95, 0.10)' : theme.palette.LightSand};
   border: ${({ isSelected }) =>
-    isSelected ? `2px solid ${theme.palette.Primary}` : ''};
+    isSelected
+      ? `2px solid ${theme.palette.Primary}`
+      : `2px solid ${theme.palette.White}`};
   color: ${({ isSelected }) =>
     isSelected ? theme.palette.Primary : theme.palette.Black};
   border-radius: 8px;

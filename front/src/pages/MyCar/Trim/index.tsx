@@ -13,6 +13,9 @@ export const Trim = () => {
 
   const [data, setData] = useState<TrimCardInterface[] | null>(null);
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [initialFooterPrice, _] = useState(footerInfo.price);
+
   useEffect(() => {
     const getData = async () => {
       const res = await apiInstance({
@@ -40,13 +43,13 @@ export const Trim = () => {
       setFooterInfo({
         ...footerInfo,
         name: [data[idx].optionName, footerInfo.name[1]],
-        price: data[idx].price,
+        price: initialFooterPrice + data[idx].price,
       });
   };
 
   return (
     <Flex direction="column" justify="flex-start" height="auto">
-      <CarModel />
+      <CarModel exteriorColor="black" />
       <Flex gap={24}>
         {data && (
           <>

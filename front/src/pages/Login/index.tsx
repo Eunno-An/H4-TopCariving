@@ -33,12 +33,11 @@ const Login = () => {
           </Flex>
 
           <div onClick={onSubmit}>
-            <Button
-              width={600}
-              type="medium"
-              backgroundColor="Primary"
-              text="로그인"
-            />
+            <Button width={600} heightType="medium" backgroundColor="Primary">
+              <Text palette="White" typo="Heading4_Bold">
+                로그인
+              </Text>
+            </Button>
           </div>
         </Flex>
       </Flex>

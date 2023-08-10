@@ -32,6 +32,9 @@ const Traction = () => {
     setFooterInfo: Dispatch<SetStateAction<myCarFooterInterface>>;
   }>();
 
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [initialFooterPrice, _] = useState(footerInfo.price);
+
   const [isSelected, setIsSelected] = useState(0);
 
   const onSelectBodyType = (idx: number) => {
@@ -43,6 +46,7 @@ const Traction = () => {
     setFooterInfo({
       ...footerInfo,
       name: [footerInfo.name[0], newTrimOption.join('/')],
+      price: initialFooterPrice + bodyTypeInfo[idx].price,
     });
   };
 

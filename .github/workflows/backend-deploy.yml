@@ -14,6 +14,7 @@ on:
     paths:
       - '**.java'
       - '**.sql'
+      - '**.yml'
 
 permissions:
   contents: read
@@ -59,3 +60,37 @@ jobs:
           script: |
             cd ~/deploy/
             ./deploy.sh
+      - name: slack-send message
+        id: slack
+        uses: slackapi/slack-github-action@v1.24.0
+        with:
+          payload: |
+            {
+              "text": "☀️*Backend 배포 현황*☀️: `${{ job.status }}`\n",
+              "attachments": [
+                {
+                    "text": "Backend가 재배포를 시작했습니다😎: ${{ github.event.pull_request.title }}",
+                    "color": "${{ job.status == 'success' && '#36a64f' || '#d9534f' }}",
+                    "attachment_type": "default",
+                    "actions": [
+                      {
+                        "name": "Github_PR_Button",
+                        "text": "Github PR로🔥",
+                        "type": "button",
+                        "url": "${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                      },
+                      {
+                        "name": "swagger",
+                        "text": "Swagger로 이동👀",
+                        "type": "button",
+                        "style": "danger",
+                        "url": "${{ secrets.SWAGGER_API }}"
+                      }
+                    ]
+                  }
+                ]
+              }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+      

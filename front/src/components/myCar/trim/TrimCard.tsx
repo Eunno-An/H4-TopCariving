@@ -25,7 +25,7 @@ export const TrimCard = ({
       width={242}
       height={251}
       borderRadius="8px"
-      padding={isSelected ? '9px' : '11px'}
+      padding="11px"
       gap={16}
       backgroundColor="LightSand"
       isSelected={isSelected === true}
@@ -80,7 +80,9 @@ const CustomFlex = styled(Flex)<{ isSelected: boolean }>`
   background-color: ${({ isSelected }) =>
     isSelected ? 'rgba(0, 44, 95, 0.10)' : theme.palette.LightSand};
   border: ${({ isSelected }) =>
-    isSelected ? `2px solid ${theme.palette.Primary}` : ''};
+    isSelected
+      ? `2px solid ${theme.palette.Primary}`
+      : `2px solid ${theme.palette.White}`};
   box-sizing: border-box;
   cursor: pointer;
 `;
