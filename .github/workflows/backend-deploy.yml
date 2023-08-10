@@ -66,24 +66,30 @@ jobs:
         with:
           payload: |
             {
-              "text": "Backend 배포 현황☀️: ${{ job.status }}\n",
-              "blocks": [
+              "text": "☀️*Backend 배포 현황*☀️: `${{ job.status }}`\n",
+              "attachments": [
                 {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "PR 제목 : ${{github.event.pull_request.title}}"
+                    "text": "Backend가 재배포를 시작했습니다😎",
+                    "color": "${{ job.status == 'success' && '#36a64f' || '#d9534f' }}",
+                    "attachment_type": "default",
+                    "actions": [
+                      {
+                        "name": "Github_PR_Button",
+                        "text": "Github PR로🔥",
+                        "type": "button",
+                        "url": "${{ github.event.pull_request.html_url || github.event.head_commit.url }}"
+                      },
+                      {
+                        "name": "swagger",
+                        "text": "Swagger로 이동👀",
+                        "type": "button",
+                        "style": "danger",
+                        "url": "${{ secrets.SWAGGER_API }}"
+                      }
+                    ]
                   }
-                },
-                {
-                  "type": "section",
-                  "text": {
-                    "type": "mrkdwn",
-                    "text": "[😎PR 링크에요!!](${{ github.event.pull_request.html_url || github.event.head_commit.url }})"
-                  }
-                }
-              ]
-            }
+                ]
+              }
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
