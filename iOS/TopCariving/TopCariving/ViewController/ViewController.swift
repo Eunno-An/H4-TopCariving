@@ -9,22 +9,20 @@ import Combine
 import UIKit
 
 class ViewController: BaseMyCarViewController {
-    var bag: Set<AnyCancellable> = .init()
-    var myView: UIView = {
-        var view: UIView = UIView(frame: .init(x: 100, y: 150, width: 200, height: 200))
-        view.backgroundColor = .red
-        return view
-    }()
-    
+    private var asd: Set<AnyCancellable> = .init()
+    let modalVC = IncludedBaseItemModalViewController()
     override func viewDidLoad() {
         super.viewDidLoad()
         view.addSubview(myView)
         
-        myView.throttleTapGesturePublisher().sink { _ in
-            print("hi")
-        }.store(in: &bag)
-        
         view.backgroundColor = .white
-        
+        let uiButton = UIButton(frame: .init(x: 100, y: 300, width: 200, height: 200))
+        uiButton.backgroundColor = .hyundaiBlackGray
+        uiButton.setTitle("test", for: .normal)
+        view.addSubview(uiButton)
+        uiButton.tabPublisher.sink { [weak self] in
+            self!.modalVC.modalPresentationStyle = .automatic
+            self!.present(self!.modalVC, animated: true)
+        }.store(in: &asd)
     }
 }

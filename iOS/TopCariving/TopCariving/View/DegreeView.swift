@@ -44,10 +44,9 @@ class DegreeView: UIView {
     }
     
     func setLayout() {
-        degreeLabel.widthAnchor.constraint(equalToConstant: 32).isActive = true
-        degreeLabel.heightAnchor.constraint(equalToConstant: 21).isActive = true
-        
         NSLayoutConstraint.activate([
+            degreeLabel.widthAnchor.constraint(equalToConstant: 32),
+            degreeLabel.heightAnchor.constraint(equalToConstant: 21),
             degreeLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             degreeLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -18)
         ])
