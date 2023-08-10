@@ -1,16 +1,18 @@
 import styled from '@emotion/styled';
 import { AlertModalWrapper } from '@components/common';
-import { AlertProvider } from './contexts';
+import { AlertProvider, MyCarProvider } from './contexts';
 import { router } from './routes/router';
 import { RouterProvider } from 'react-router-dom';
 
 function App() {
   return (
     <AlertProvider>
-      <Container>
-        <RouterProvider router={router} />
-        <AlertModalWrapper />
-      </Container>
+      <MyCarProvider>
+        <Container>
+          <RouterProvider router={router} />
+          <AlertModalWrapper />
+        </Container>
+      </MyCarProvider>
     </AlertProvider>
   );
 }

@@ -1,61 +1,75 @@
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
-import { useOutletContext } from 'react-router-dom';
-import { myCarFooterInterface } from '@interface/index';
+import { useEffect, useState } from 'react';
 import { CarModel, Flex } from '@components/common';
 import { TrimCard, TrimCardInterface } from '@components/myCar/trim';
 import { TrimUrl, apiInstance } from '@utils/api';
+import { MyCarContextType, useMyCar } from '@contexts/MyCarContext';
 
 export const Trim = () => {
-  const { footerInfo, setFooterInfo } = useOutletContext<{
-    footerInfo: myCarFooterInterface;
-    setFooterInfo: Dispatch<SetStateAction<myCarFooterInterface>>;
-  }>();
+  const { myCarInfo, setMyCarInfo } = useMyCar() as MyCarContextType;
+  const [modelInfo, setModelInfo] = useState<TrimCardInterface[] | null>(null);
 
-  const [data, setData] = useState<TrimCardInterface[] | null>(null);
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [initialFooterPrice, _] = useState(footerInfo.price);
+  const [isSelected, setIsSelected] = useState(0);
 
   useEffect(() => {
     const getData = async () => {
-      const res = await apiInstance({
+      const res = (await apiInstance({
         url: TrimUrl.MODELS,
         method: 'GET',
-      });
-      setData(res);
+      })) as TrimCardInterface[];
+      setModelInfo(res);
+
+      if (res) {
+        if (myCarInfo.trim.type === null) {
+          setMyCarInfo({
+            ...myCarInfo,
+            trim: {
+              ...myCarInfo.trim,
+              type: {
+                id: res[0].carOptionId,
+                name: res[0].optionName,
+              },
+            },
+            price: myCarInfo.price + res[0].price,
+          });
+        } else {
+          res.forEach((model, selectIdx) => {
+            if (model.carOptionId === myCarInfo.trim.type?.id) {
+              setIsSelected(selectIdx);
+            }
+          });
+        }
+      }
     };
     getData();
   }, []);
 
-  const [isSelectedArr, setIsSelectedArr] = useState([
-    true,
-    false,
-    false,
-    false,
-  ] as boolean[]);
-
   const changeSelected = (idx: number) => {
-    const newSelected = isSelectedArr.map((_, selectIdx) => {
-      return selectIdx === idx;
-    });
-    setIsSelectedArr(newSelected);
-    data &&
-      setFooterInfo({
-        ...footerInfo,
-        name: [data[idx].optionName, footerInfo.name[1]],
-        price: initialFooterPrice + data[idx].price,
+    modelInfo &&
+      setMyCarInfo({
+        ...myCarInfo,
+        trim: {
+          ...myCarInfo.trim,
+          type: {
+            name: modelInfo[idx].optionName,
+            id: modelInfo[idx].carOptionId,
+          },
+        },
+        price:
+          myCarInfo.price - modelInfo[isSelected].price + modelInfo[idx].price,
       });
+
+    setIsSelected(idx);
   };
 
   return (
     <Flex direction="column" justify="flex-start" height="auto">
       <CarModel exteriorColor="black" />
       <Flex gap={24}>
-        {data && (
+        {modelInfo && (
           <>
-            {data.map((trim: TrimCardInterface, idx: number) => (
+            {modelInfo.map((trim: TrimCardInterface, idx: number) => (
               <div onClick={() => changeSelected(idx)} key={`trimCard_${idx}`}>
-                <TrimCard trim={trim} isSelected={isSelectedArr[idx]} />
+                <TrimCard trim={trim} isSelected={isSelected === idx} />
               </div>
             ))}
           </>

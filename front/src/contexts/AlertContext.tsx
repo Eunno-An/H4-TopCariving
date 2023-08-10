@@ -35,7 +35,6 @@ export function AlertProvider({ children }: { children: ReactNode }) {
   };
 
   const closeAlert = () => {
-    console.log('closeAlert');
     setIsOpen(false);
   };
 

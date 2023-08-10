@@ -57,7 +57,6 @@ export const MyCarOptions = () => {
   });
 
   const userOptionHandler = (option: string, actionType: string) => {
-    console.log(option, actionType);
     actionType === 'ADD' ? userAddOptions(option) : userDeleteOptions(option);
   };
 
@@ -111,9 +110,7 @@ export const MyCarOptions = () => {
     setIsOpen(false);
   };
 
-  useEffect(() => {
-    console.log(`선택된 옵션: [${userOptionList}]`);
-  }, [userOptionList]);
+  useEffect(() => {}, [userOptionList]);
 
   return (
     <Flex direction="column" justify="flex-start" height={561} gap={15}>
