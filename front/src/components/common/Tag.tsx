@@ -12,8 +12,10 @@ export const Tag = ({ desc }: { desc: string }) => {
 const TagContainer = styled(Flex)`
   width: auto;
   height: 22px;
-  padding: 4px 8px;
+  padding: 12px;
 
   border-radius: 8px;
   background: #f6f3f2;
+
+  white-space: nowrap;
 `;

@@ -1,40 +1,40 @@
 import { Flex, Text } from '@components/common';
 import styled from '@emotion/styled';
-import { engineOptionInterface } from '@pages/MyCar/Trim/Engine';
+import { engineInfoInterface } from '@pages/MyCar/Trim/Engine';
 import { theme } from '@styles/theme';
 
 export const EngineCard = ({
   engine,
   isSelected,
 }: {
-  engine: engineOptionInterface;
+  engine: engineInfoInterface;
   isSelected: boolean;
 }) => {
   return (
     <EngineBox
       direction="column"
-      padding="2px 22.8px"
-      height={engine.height}
+      padding="28px 23px"
+      gap={22}
       isSelected={isSelected === true}
     >
       <Flex justify="space-between">
-        <Text typo="Heading3_Bold">{engine.engineType}</Text>
+        <Text typo="Heading3_Bold">{engine.optionName}</Text>
         <Text typo="Heading4_Bold">
           +{engine.price.toLocaleString('ko-KR')}원
         </Text>
       </Flex>
       <Flex>
-        <Text typo="Body3_Regular">{engine.description}</Text>
+        <Text typo="Body3_Regular">{engine.optionDetail}</Text>
       </Flex>
       <BorderLine />
       <Flex direction="column" gap={8}>
         <Flex justify="space-between" height={18}>
           <Text typo="Body3_Medium">최고출력</Text>
-          <Text typo="Body3_Regular">{engine.maximumPower}</Text>
+          <Text typo="Body3_Regular">{engine.maxOutput}</Text>
         </Flex>
         <Flex justify="space-between" height={18}>
           <Text typo="Body3_Medium">최대토크</Text>
-          <Text typo="Body3_Regular">{engine.maximumTorque}</Text>
+          <Text typo="Body3_Regular">{engine.maxTorque}</Text>
         </Flex>
       </Flex>
     </EngineBox>

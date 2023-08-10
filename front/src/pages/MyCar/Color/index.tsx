@@ -1,11 +1,11 @@
-import { CarModel, Flex, Text } from '@components/common';
+import { CarModel, Flex, Tag, Text } from '@components/common';
 import { ImgTag, InfoBox } from '../Trim/Engine';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { theme } from '@styles/theme';
 import check from '@assets/images/blueCheck.svg';
-import { useOutletContext } from 'react-router-dom';
-import { myCarFooterInterface } from '@interface/index';
+import { exteriorColorType, useMyCar } from '@contexts/MyCarContext';
+import { css } from '@emotion/react';
 
 interface colorResponseInterface {
   carOptionId: number;
@@ -16,7 +16,7 @@ interface colorResponseInterface {
   }[];
 }
 interface exteriorColorResponseInterface extends colorResponseInterface {
-  optionName: colorEng;
+  optionName: exteriorColorType;
 }
 
 interface interiorColorResponseInterface extends colorResponseInterface {
@@ -31,32 +31,17 @@ interface colorInfoInterface {
   interiorColorResponses: interiorColorResponseInterface[];
 }
 
-type colorEng =
-  | '어비스블랙펄'
-  | '쉬머링 실버 메탈릭'
-  | '문라이프 블루 펄'
-  | '가이아 브라운 펄'
-  | '그라파이트 그레이 메탈릭'
-  | '크리미 화이트 펄';
-
-const colorPath = {
+export const colorPath = {
   어비스블랙펄: 'black',
   '쉬머링 실버 메탈릭': 'silver',
   '문라이프 블루 펄': 'blue',
   '가이아 브라운 펄': 'brown',
   '그라파이트 그레이 메탈릭': 'gray',
   '크리미 화이트 펄': 'white',
-} as { [key in colorEng]: string };
+} as { [key in exteriorColorType]: string };
 
 const Color = () => {
-  const { footerInfo, setFooterInfo } = useOutletContext<{
-    footerInfo: myCarFooterInterface;
-    setFooterInfo: Dispatch<SetStateAction<myCarFooterInterface>>;
-  }>();
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [initialFooterPrice, _] = useState(footerInfo.price);
-
+  const { myCarInfo, setMyCarInfo } = useMyCar();
   const [selectedColorIdx, setSelectedColorIdx] = useState<{
     [key in colorKey]: number;
   }>({
@@ -70,13 +55,73 @@ const Color = () => {
     key: 'exteriorColorResponses',
     idx: 0,
   });
+  const [modelColor, setModelColor] = useState('black');
+
+  useEffect(() => {
+    const getData = async () => {
+      if (colorInfo) {
+        if (myCarInfo.color.exteriorColor === null) {
+          setMyCarInfo({
+            ...myCarInfo,
+            price:
+              myCarInfo.price +
+              colorInfo.exteriorColorResponses[0].price +
+              colorInfo.interiorColorResponses[0].price,
+            color: {
+              exteriorColor: {
+                id: colorInfo.exteriorColorResponses[0].carOptionId,
+                name: colorInfo.exteriorColorResponses[0].optionName,
+              },
+              interiorColor: {
+                id: colorInfo.interiorColorResponses[0].carOptionId,
+                name: colorInfo.interiorColorResponses[0].optionName,
+              },
+            },
+          });
+        } else {
+          let [exteriorIdx, interiorIdx] = [0, 0];
+          colorInfo.exteriorColorResponses.forEach((exColor, idx) => {
+            if (exColor.optionName === myCarInfo.color.exteriorColor?.name) {
+              exteriorIdx = idx;
+            }
+          });
+          colorInfo.interiorColorResponses.forEach((interColor, idx) => {
+            if (interColor.optionName === myCarInfo.color.interiorColor?.name) {
+              interiorIdx = idx;
+            }
+          });
+          setSelectedColorIdx({
+            interiorColorResponses: interiorIdx,
+            exteriorColorResponses: exteriorIdx,
+          });
+        }
+      }
+    };
+    getData();
+  }, []);
 
   const onClickColorBox = (colorKey: colorKey, idx: number) => {
-    const newSelectedColor = selectedColorIdx;
-    selectedColorIdx[colorKey] = idx;
-    setSelectedColorIdx(newSelectedColor);
+    const changeColorKey =
+      colorKey === 'exteriorColorResponses' ? 'exteriorColor' : 'interiorColor';
+
+    console.log();
+    setMyCarInfo({
+      ...myCarInfo,
+      color: {
+        ...myCarInfo.color,
+        [changeColorKey]: {
+          id: colorInfo[colorKey][idx].carOptionId,
+          name: colorInfo[colorKey][idx].optionName,
+        },
+      },
+      price:
+        myCarInfo.price -
+        colorInfo[colorKey][selectedColorIdx[colorKey]].price +
+        colorInfo[colorKey][idx].price,
+    });
+
     setIsLastClick({
-      key: colorKey,
+      key: colorKey as colorKey,
       idx: idx,
     });
 
@@ -86,17 +131,10 @@ const Color = () => {
       );
     }
 
-    const newColorInfo = footerInfo.color;
-    newColorInfo[colorKey] = colorInfo[colorKey][idx].optionName;
-
-    setFooterInfo({
-      ...footerInfo,
-      color: newColorInfo,
-      price: initialFooterPrice + colorInfo[colorKey][idx].price,
-    });
+    const newSelectedColor = selectedColorIdx;
+    selectedColorIdx[colorKey] = idx;
+    setSelectedColorIdx(newSelectedColor);
   };
-
-  const [modelColor, setModelColor] = useState('black');
 
   return (
     <Flex gap={28} padding="28px 0 0 0" align="flex-start">
@@ -122,6 +160,19 @@ const Color = () => {
               ].price.toLocaleString('ko-KR')}원`}
             </Text>
           </InfoBox>
+        </Flex>
+        <Flex
+          justify="flex-start"
+          css={css`
+            flex-wrap: wrap;
+            gap: 4px;
+          `}
+        >
+          {colorInfo[isLastClick.key][isLastClick.idx].tagResponses.map(
+            (tag, idx) => (
+              <Tag desc={tag.tagContent} key={`tag_${idx}`} />
+            ),
+          )}
         </Flex>
       </Flex>
 
@@ -275,6 +326,27 @@ const colorInfo = {
       price: 0,
       tagResponses: [
         {
+          tagContent: '이것만 있으면 나도 주차고수🚘',
+        },
+        {
+          tagContent: '태그칩👊🏻',
+        },
+        {
+          tagContent: '태그칩⭐️',
+        },
+        {
+          tagContent: '이것만 있으면 나도 주차고수🚘',
+        },
+        {
+          tagContent: '이것만 있으면 나도 주차고수🚘',
+        },
+        {
+          tagContent: '편리해요😉',
+        },
+        {
+          tagContent: '편리해요😉',
+        },
+        {
           tagContent: '태그칩 설명',
         },
       ],
@@ -345,7 +417,7 @@ const colorInfo = {
       carOptionId: 11,
       optionName: '퀄팅천연(블랙)',
       photoUrl:
-        'https://topcariving.s3.ap-northeast-2.amazonaws.com/internal_color/balck_internal.png',
+        'https://topcariving.s3.ap-northeast-2.amazonaws.com/internal_color/black_internal.png',
       colorUrl:
         'https://topcariving.s3.ap-northeast-2.amazonaws.com/internal_color/black.png',
       price: 300000,

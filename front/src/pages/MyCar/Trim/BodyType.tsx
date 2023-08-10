@@ -1,9 +1,9 @@
 import { Flex, Text } from '@components/common';
-import { Dispatch, SetStateAction, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ImgTag, InfoBox } from './Engine';
-import { myCarFooterInterface, myCarOptionInterface } from '@interface/index';
-import { useOutletContext } from 'react-router-dom';
+import { myCarOptionInterface } from '@interface/index';
 import { BodyCard } from '@components/myCar/trim';
+import { useMyCar } from '@contexts/MyCarContext';
 
 const bodyTypeInfo = [
   {
@@ -11,7 +11,7 @@ const bodyTypeInfo = [
     optionName: '7인승',
     optionDetail:
       '기존 8인승 시트(1열 2명, 2열 3명, 3열 3명)에서 2열 가운데 시트를 없애 2열 탑승객의 편의는 물론, 3열 탑승객의 승하차가 편리합니다.',
-    price: 0,
+    price: 200000,
     photoUrl:
       'https://topcariving.s3.ap-northeast-2.amazonaws.com/body_type/seven.jpg',
   },
@@ -27,27 +27,54 @@ const bodyTypeInfo = [
 ] as myCarOptionInterface[];
 
 const BodyType = () => {
-  const { footerInfo, setFooterInfo } = useOutletContext<{
-    footerInfo: myCarFooterInterface;
-    setFooterInfo: Dispatch<SetStateAction<myCarFooterInterface>>;
-  }>();
-
+  const { myCarInfo, setMyCarInfo } = useMyCar();
   const [isSelected, setIsSelected] = useState(0);
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [initialFooterPrice, _] = useState(footerInfo.price);
+  useEffect(() => {
+    const getData = async () => {
+      if (bodyTypeInfo) {
+        if (myCarInfo.trim.bodyType === null) {
+          setMyCarInfo({
+            ...myCarInfo,
+            price: myCarInfo.price + bodyTypeInfo[0].price,
+            trim: {
+              ...myCarInfo.trim,
+              bodyType: {
+                id: bodyTypeInfo[0].carOptionId,
+                name: bodyTypeInfo[0].optionName,
+              },
+            },
+          });
+        } else {
+          bodyTypeInfo.forEach((bodyType, selectIdx) => {
+            if (bodyType.carOptionId === myCarInfo.trim.bodyType?.id) {
+              setIsSelected(selectIdx);
+            }
+          });
+        }
+      }
+    };
+
+    getData();
+  }, []);
 
   const onSelectBodyType = (idx: number) => {
+    bodyTypeInfo &&
+      setMyCarInfo({
+        ...myCarInfo,
+        trim: {
+          ...myCarInfo.trim,
+          bodyType: {
+            id: bodyTypeInfo[idx].carOptionId,
+            name: bodyTypeInfo[idx].optionName,
+          },
+        },
+        price:
+          myCarInfo.price -
+          bodyTypeInfo[isSelected].price +
+          bodyTypeInfo[idx].price,
+      });
     setIsSelected(idx);
-
-    const newTrimOption = footerInfo.name[1].split('/');
-    newTrimOption[1] = bodyTypeInfo[idx].optionName;
-
-    setFooterInfo({
-      ...footerInfo,
-      name: [footerInfo.name[0], newTrimOption.join('/')],
-      price: initialFooterPrice + bodyTypeInfo[idx].price,
-    });
   };
 
   return (

@@ -1,25 +1,21 @@
 import { Flex, Text, Button } from '@components/common';
+import { useMyCar } from '@contexts/MyCarContext';
 import styled from '@emotion/styled';
-import { myCarFooterInterface } from '@interface/index';
 import { myCarUrl } from '@pages/MyCar';
-import { colorKey } from '@pages/MyCar/Color';
+import { TrimUrl, apiInstance } from '@utils/api';
 import { Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface footerProps {
   currentUrl: string;
   setCurrentUrl: Dispatch<SetStateAction<string>>;
-  footerInfo: myCarFooterInterface;
 }
 
-export const Footer = ({
-  currentUrl,
-  setCurrentUrl,
-  footerInfo,
-}: footerProps) => {
+export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
   const navigate = useNavigate();
+  const { myCarInfo } = useMyCar();
 
-  const onClickButton = (moveNum: number) => {
+  const onClickButton = async (moveNum: number) => {
     const nextIdx = myCarUrl.indexOf(currentUrl) + moveNum;
     const nextUrl = myCarUrl[nextIdx];
 
@@ -27,10 +23,29 @@ export const Footer = ({
     setCurrentUrl(nextUrl);
   };
 
-  const colorInfo = [
-    { text: '외장', key: 'exteriorColorResponses' },
-    { text: '내장', key: 'interiorColorResponses' },
-  ] as { text: string; key: colorKey }[];
+  const postData = async () => {
+    switch (currentUrl) {
+      case '/my-car/trim':
+        try {
+          await apiInstance({
+            url: `${TrimUrl.MODELS}?carOptionId=${myCarInfo.trim.type?.id}`,
+            method: 'POST',
+            bodyData: JSON.stringify({
+              userId: 1,
+              archivingId: null,
+              carOptionId: myCarInfo.trim.type?.id,
+            }),
+          });
+
+          onClickButton(+1);
+        } catch (err) {
+          console.error(err);
+        }
+        break;
+      default:
+        onClickButton(+1);
+    }
+  };
 
   return (
     <Flex
@@ -46,40 +61,53 @@ export const Footer = ({
             <Text typo="Body3_Regular" palette="DarkGray">
               트림
             </Text>
-            {footerInfo.name.map((item, idx) => (
-              <Text
-                typo={idx ? 'Body3_Regular' : 'Heading4_Bold'}
-                palette="Black"
-                key={`trimModel_${idx}`}
-              >
-                {item}
+            <Text typo={'Heading4_Bold'} palette="Black">
+              {myCarInfo.trim.type?.name}
+            </Text>
+            <Flex justify="flex-start">
+              <Text typo={'Body3_Regular'} palette="Black">
+                {Object.values(myCarInfo.trim)
+                  .map((trim, idx) =>
+                    idx !== 0 && trim !== null ? trim.name : null,
+                  )
+                  .filter((name) => name !== null)
+                  .join('/')}
               </Text>
-            ))}
+            </Flex>
           </Section>
           <ColumnImg src="/image/page/myCar/columnLine.svg" />
           <Section width={220}>
             <Text typo="Body3_Regular" palette="DarkGray">
               선택 색상
             </Text>
-            {colorInfo.map((color, idx) => (
+            <Flex justify="start" gap={5}>
+              <Text typo="Body3_Medium" palette="Black">
+                외장
+              </Text>
               <Flex
-                justify="start"
-                gap={5}
-                key={`color_${idx}
-              `}
-              >
-                <Text typo="Body3_Medium" palette="Black">
-                  {color.text}
-                </Text>
-                <Flex
-                  backgroundColor="Primary"
-                  borderRadius="100px"
-                  width={16}
-                  height={16}
-                />
-                <Text typo="Body3_Regular">{footerInfo.color[color.key]}</Text>
-              </Flex>
-            ))}
+                backgroundColor="Primary"
+                borderRadius="100px"
+                width={16}
+                height={16}
+              />
+              <Text typo="Body3_Regular">
+                {myCarInfo.color.exteriorColor?.name}
+              </Text>
+            </Flex>
+            <Flex justify="start" gap={5}>
+              <Text typo="Body3_Medium" palette="Black">
+                내장
+              </Text>
+              <Flex
+                backgroundColor="Primary"
+                borderRadius="100px"
+                width={16}
+                height={16}
+              />
+              <Text typo="Body3_Regular">
+                {myCarInfo.color.interiorColor?.name}
+              </Text>
+            </Flex>
           </Section>
           <ColumnImg src="/image/page/myCar/columnLine.svg" />
           <Section width={290}>
@@ -94,7 +122,7 @@ export const Footer = ({
             </Text>
             <Flex width="auto">
               <Text typo="Heading1_Bold" palette="Black">
-                {`${footerInfo.price.toLocaleString('ko-KR')}`}
+                {`${myCarInfo.price.toLocaleString('ko-KR')}`}
               </Text>
               <Text typo="Body3_Regular" palette="Black">
                 원
@@ -121,7 +149,7 @@ export const Footer = ({
                 <Flex width={121}></Flex>
               )}
 
-              <div onClick={() => onClickButton(+1)}>
+              <div onClick={() => postData()}>
                 <Button
                   width={176}
                   heightType="medium"

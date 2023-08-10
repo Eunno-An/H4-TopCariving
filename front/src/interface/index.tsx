@@ -1,3 +1,11 @@
+export type colorEng =
+  | '어비스블랙펄'
+  | '쉬머링 실버 메탈릭'
+  | '문라이프 블루 펄'
+  | '가이아 브라운 펄'
+  | '그라파이트 그레이 메탈릭'
+  | '크리미 화이트 펄';
+
 export interface myCarFooterInterface {
   name: string[];
   color: { exteriorColorResponses: string; interiorColorResponses: string };

@@ -15,7 +15,9 @@ import com.backend.topcariving.domain.option.dto.request.SelectOptionRequestDTO;
 import com.backend.topcariving.domain.option.dto.response.engine.EngineResponseDTO;
 import com.backend.topcariving.domain.option.dto.response.model.ModelPhotoDTO;
 import com.backend.topcariving.domain.option.dto.response.model.ModelResponseDTO;
+import com.backend.topcariving.domain.option.dto.response.trim.OptionResponseDTO;
 import com.backend.topcariving.domain.option.entity.CarOption;
+import com.backend.topcariving.domain.option.entity.CategoryDetail;
 import com.backend.topcariving.domain.option.entity.EngineDetail;
 import com.backend.topcariving.domain.option.entity.ModelPhoto;
 import com.backend.topcariving.domain.option.exception.InvalidCarOptionIdException;
@@ -30,9 +32,6 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 public class TrimService {
 
-	private static final String MODEL = "모델";
-	private static final String ENGINE = "엔진";
-
 	private final CarOptionRepository carOptionRepository;
 	private final ModelPhotoRepository modelPhotoRepository;
 	private final CarArchivingRepository carArchivingRepository;
@@ -41,7 +40,7 @@ public class TrimService {
 
 	@Transactional(readOnly = true)
 	public List<ModelResponseDTO> getModels() {
-		List<CarOption> options = carOptionRepository.findByCategoryDetail(MODEL);
+		List<CarOption> options = carOptionRepository.findByCategoryDetail(CategoryDetail.MODEL.getName());
 
 		return options.stream()
 			.map(option -> ModelResponseDTO.of(option, getPageOptions(option.getCarOptionId())))
@@ -60,7 +59,7 @@ public class TrimService {
 		Long userId = selectOptionRequestDTO.getUserId();
 		Long carOptionId = selectOptionRequestDTO.getCarOptionId();
 
-		verifyCarOptionId(MODEL, carOptionId);
+		verifyCarOptionId(CategoryDetail.MODEL, carOptionId);
 
 		CarArchiving carArchiving = CarArchiving.builder()
 										.userId(userId)
@@ -81,7 +80,7 @@ public class TrimService {
 
 	@Transactional(readOnly = true)
 	public List<EngineResponseDTO> getEngines() {
-		List<CarOption> engines = carOptionRepository.findByCategoryDetail(ENGINE);
+		List<CarOption> engines = carOptionRepository.findByCategoryDetail(CategoryDetail.ENGINE.getName());
 
 		return engines.stream()
 			.map(this::getEngineResponseDTO).collect(Collectors.toList());
@@ -94,13 +93,31 @@ public class TrimService {
 		return EngineResponseDTO.of(engine, engineDetail);
 	}
 
-	public Long saveEngine(SelectOptionRequestDTO selectOptionRequestDTO) {
+	@Transactional(readOnly = true)
+	public List<OptionResponseDTO> getOptions(CategoryDetail categoryDetail) {
+		final List<CarOption> carOptions = carOptionRepository.findByCategoryDetail(categoryDetail.getName());
+
+		return carOptions.stream()
+			.map(OptionResponseDTO::from)
+			.collect(Collectors.toList());
+	}
+
+	@Transactional(readOnly = true)
+	public List<OptionResponseDTO> getDrivingMethods() {
+		final List<CarOption> carOptions = carOptionRepository.findByCategoryDetail(CategoryDetail.DRIVING_METHOD.getName());
+
+		return carOptions.stream()
+			.map(OptionResponseDTO::from)
+			.collect(Collectors.toList());
+	}
+
+	public Long saveTrim(SelectOptionRequestDTO selectOptionRequestDTO, CategoryDetail categoryDetail) {
 		Long userId = selectOptionRequestDTO.getUserId();
 		Long carOptionId = selectOptionRequestDTO.getCarOptionId();
 		Long archivingId = selectOptionRequestDTO.getArchivingId();
 
 		verifyCarArchiving(userId, archivingId);
-		verifyCarOptionId(ENGINE, carOptionId);
+		verifyCarOptionId(categoryDetail, carOptionId);
 
 		MyCar myCar = MyCar.builder()
 			.carOptionId(carOptionId)
@@ -117,8 +134,8 @@ public class TrimService {
 		}
 	}
 
-	private void verifyCarOptionId(String category, Long carOptionId) {
-		if (!carOptionRepository.existsByCarOptionIdAndCategoryDetail(carOptionId, category)) {
+	private void verifyCarOptionId(CategoryDetail categoryDetail, Long carOptionId) {
+		if (!carOptionRepository.existsByCarOptionIdAndCategoryDetail(carOptionId, categoryDetail.getName())) {
 			throw new InvalidCarOptionIdException();
 		}
 	}

@@ -10,6 +10,9 @@ import com.backend.topcariving.domain.option.entity.CarOption;
 
 @Repository
 public interface CarOptionRepository extends CrudRepository<CarOption, Long> {
+
+	Optional<CarOption> findByCarOptionId(Long carOptionId);
+
 	List<CarOption> findByCategoryDetail(String categoryDetail);
 
 	boolean existsByCarOptionIdAndCategoryDetail(Long carOptionId, String categoryDetail);

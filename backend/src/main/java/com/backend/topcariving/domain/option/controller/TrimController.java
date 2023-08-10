@@ -14,6 +14,7 @@ import com.backend.topcariving.domain.option.dto.request.SelectOptionRequestDTO;
 import com.backend.topcariving.domain.option.dto.response.engine.EngineResponseDTO;
 import com.backend.topcariving.domain.option.dto.response.model.ModelResponseDTO;
 import com.backend.topcariving.domain.option.dto.response.trim.OptionResponseDTO;
+import com.backend.topcariving.domain.option.entity.CategoryDetail;
 import com.backend.topcariving.domain.option.service.TrimService;
 import com.backend.topcariving.global.response.SuccessResponse;
 
@@ -43,7 +44,6 @@ public class TrimController {
 	@ResponseStatus(HttpStatus.CREATED)
 	@ApiResponse(responseCode = "201", description = "성공하면, 아카이빙 PK 값을 반환함")
 	@Operation(summary = "모델 옵션 저장", description = "내 차 만들기에서 모델을 선택한 값을 저장하고, 아카이빙 PK 값을 반환한다")
-	@Parameter(name = "carOptionId", description = "사용자가 선택한 모델의 ID 값")
 	public SuccessResponse<Long> saveModel(@RequestBody SelectOptionRequestDTO selectOptionRequestDTO) {
 
 		return new SuccessResponse<>(trimService.saveModel(selectOptionRequestDTO));
@@ -59,44 +59,39 @@ public class TrimController {
 	@PostMapping("/engines")
 	@ResponseStatus(HttpStatus.CREATED)
 	@Operation(summary = "엔진 옵션 저장", description = "내 차 만들기에서 엔진을 선택한 값을 저장하고, 차량 아카이빙 PK 값을 반환한다")
-	@Parameters({
-		@Parameter(name = "carOptionId", description = "사용자가 선택한 엔진의 ID값"),
-		@Parameter(name = "archivingId", description = "모델 선택에서 생성된 차량 아카빙 ID값")
-	})
 	public SuccessResponse<Long> saveEngine(@RequestBody SelectOptionRequestDTO selectOptionRequestDTO) {
 
-		return new SuccessResponse<>(trimService.saveEngine(selectOptionRequestDTO));
+		return new SuccessResponse<>(trimService.saveTrim(selectOptionRequestDTO, CategoryDetail.ENGINE));
 	}
 
 	@GetMapping("/body-types")
 	@Operation(summary = "바디 타입 전체 반환", description = "내 차 만들기에서 바디 타입 반환")
 	public List<OptionResponseDTO> getBodyTypes() {
 
-		return null;
+		return trimService.getOptions(CategoryDetail.BODY_TYPE);
 	}
 
 	@PostMapping("/body-types")
 	@ResponseStatus(HttpStatus.CREATED)
 	@Operation(summary = "바디 타입 저장", description = "내 차 만들기에서 바디 타입 선택한 값을 저장하고, 차량 아카이빙 PK 값을 반환한다")
-	@Parameter(name = "carOptionId", description = "사용자가 선택한 bodyType의 ID값")
 	public SuccessResponse<Long> saveBodyTypes(@RequestBody SelectOptionRequestDTO selectOptionRequestDTO) {
 
-		return null;
+		return new SuccessResponse<>(trimService.saveTrim(selectOptionRequestDTO, CategoryDetail.BODY_TYPE));
 	}
 
 	@GetMapping("/driving-methods")
 	@Operation(summary = "구동 방식 전체 반환", description = "내 차 만들기에서 구동 방식 반환")
 	public List<OptionResponseDTO> getDrivingMethods() {
 
-		return null;
+		return trimService.getOptions(CategoryDetail.DRIVING_METHOD);
 	}
 
 	@PostMapping("/driving-methods")
 	@ResponseStatus(HttpStatus.CREATED)
 	@Operation(summary = "구동 방식 저장", description = "내 차 만들기에서 구동 방식 선택한 값을 저장하고, 차량 아카이빙 PK 값을 반환한다")
-	@Parameter(name = "carOptionId", description = "사용자가 선택한 구동 방식의 ID값")
 	public SuccessResponse<Long> saveDrivingMethod(@RequestBody SelectOptionRequestDTO selectOptionRequestDTO) {
 
-		return null;
+		final Long archivingId = trimService.saveTrim(selectOptionRequestDTO, CategoryDetail.DRIVING_METHOD);
+		return new SuccessResponse<>(archivingId);
 	}
 }

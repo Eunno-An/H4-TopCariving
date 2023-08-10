@@ -15,6 +15,7 @@ export const OptionCard = ({
   idx,
   isSelected,
   optionName,
+  userOptionList,
   price,
   photo,
   selectedMenu,
@@ -23,12 +24,14 @@ export const OptionCard = ({
   idx: number;
   isSelected: boolean;
   optionName: string;
+  userOptionList: string[];
   price: number;
   photo: string;
   selectedMenu: string;
   userOptionHandler: (option: string, actionType: string) => void;
 }) => {
-  const [isAddBtnClicked, setIsBtnClicked] = useState(false);
+  const btnCheck = userOptionList.includes(optionName);
+  const [isAddBtnClicked, setIsBtnClicked] = useState(btnCheck);
   const [hover, setHover] = useState(false);
   return (
     <Card
