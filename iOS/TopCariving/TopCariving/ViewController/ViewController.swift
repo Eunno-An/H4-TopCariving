@@ -13,7 +13,6 @@ class ViewController: BaseMyCarViewController {
     let modalVC = IncludedBaseItemModalViewController()
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(myView)
         
         view.backgroundColor = .white
         let uiButton = UIButton(frame: .init(x: 100, y: 300, width: 200, height: 200))
