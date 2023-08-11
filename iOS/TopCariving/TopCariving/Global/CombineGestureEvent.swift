@@ -48,6 +48,7 @@ extension Combine.Publishers.CustomTarget {
             self.removeTargetAction = removeTargetAction
             addTargetAction(control, self, action)
         }
+        
         func request(_ demand: Subscribers.Demand) {
             
         }

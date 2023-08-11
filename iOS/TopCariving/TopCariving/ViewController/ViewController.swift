@@ -18,13 +18,12 @@ class ViewController: BaseMyCarViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(myView)
-        
-        myView.throttleTapGesturePublisher().sink { _ in
-            print("hi")
-        }.store(in: &bag)
-        
         view.backgroundColor = .white
+        
+        view.addSubview(myView)
+        myView.tapPublisher().sink { _ in
+            print("Hi 배남석")
+        }.store(in: &bag)
         
     }
 }
