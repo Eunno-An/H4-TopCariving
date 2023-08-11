@@ -16,6 +16,8 @@ export const Header = () => {
       padding="0 100px 0 100px"
       css={css`
         flex-shrink: 0;
+        position: fixed;
+        top: 0;
       `}
     >
       <Flex width={1280}>

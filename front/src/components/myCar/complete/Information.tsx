@@ -1,11 +1,9 @@
 import { Flex, Text } from '@components/common';
-import { myCarFooterInterface } from '@interface/index';
+import { useMyCar } from '@contexts/MyCarContext';
 
-export const Information = ({
-  footerInfo,
-}: {
-  footerInfo: myCarFooterInterface;
-}) => {
+export const Information = () => {
+  const { myCarInfo } = useMyCar();
+
   return (
     <Flex direction="column" align="flex-start" width={1040} gap={16}>
       <Text typo="Heading2_Medium">
@@ -21,8 +19,15 @@ export const Information = ({
         borderRadius="8px"
       >
         <Flex direction="column" gap={6} align="flex-start">
-          <Text typo="Heading2_Medium">{`펠리세이드 ${footerInfo.name[0]}`}</Text>
-          <Text typo="Body1_Regular">{footerInfo.name[1]}</Text>
+          <Text typo="Heading2_Medium">{`펠리세이드 ${myCarInfo.trim.type?.name}`}</Text>
+          <Text typo="Body1_Regular">
+            {Object.values(myCarInfo.trim)
+              .map((trim, idx) =>
+                idx !== 0 && trim !== null ? trim.name : null,
+              )
+              .filter((name) => name !== null)
+              .join('/')}
+          </Text>
         </Flex>
         <Flex height={3} backgroundColor="Sand" margin="10px 0 40px 0"></Flex>
         <Flex gap={49} width="auto" height="auto">
@@ -36,7 +41,7 @@ export const Information = ({
               margin="0 24px 0 16px"
             />
             <Text typo="Body1_Regular">
-              {footerInfo.color.exteriorColorResponses}
+              {myCarInfo.color.exteriorColor?.name}
             </Text>
           </Flex>
           <Flex justify="flex-start" width="auto" height="auto">
@@ -49,7 +54,7 @@ export const Information = ({
               margin="0 24px 0 16px"
             />
             <Text typo="Body1_Regular">
-              {footerInfo.color.interiorColorResponses}
+              {myCarInfo.color.interiorColor?.name}
             </Text>
           </Flex>
         </Flex>

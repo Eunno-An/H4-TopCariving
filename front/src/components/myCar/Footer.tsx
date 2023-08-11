@@ -2,6 +2,7 @@ import { Flex, Text, Button } from '@components/common';
 import { useMyCar } from '@contexts/MyCarContext';
 import styled from '@emotion/styled';
 import { myCarUrl } from '@pages/MyCar';
+import { theme } from '@styles/theme';
 import { TrimUrl, apiInstance } from '@utils/api';
 import { Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -114,7 +115,18 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
             <Text typo="Body3_Regular" palette="DarkGray">
               선택 옵션
             </Text>
+            <Flex
+              gap={8}
+              justify="flex-start"
+              align="center"
+              style={{ overflow: 'auto' }}
+            >
+              {myCarInfo.selectedOption.map((option, idx) => (
+                <BlackTagChip key={`chip_${idx}`}>{option.name}</BlackTagChip>
+              ))}
+            </Flex>
           </Section>
+
           <ColumnImg src="/image/page/myCar/columnLine.svg" />
           <Section width={170}>
             <Text typo="Body3_Regular" palette="DarkGray">
@@ -180,4 +192,17 @@ const Section = styled(Flex)`
 
 const ColumnImg = styled.img`
   height: 100%;
+`;
+
+const BlackTagChip = styled(Flex)`
+  width: auto;
+  height: 30px;
+
+  padding: 0 8px;
+  background-color: ${theme.palette.Black};
+  color: ${theme.palette.White};
+  ${theme.typo.Body3_Regular}
+  border-radius: 8px;
+
+  white-space: nowrap;
 `;

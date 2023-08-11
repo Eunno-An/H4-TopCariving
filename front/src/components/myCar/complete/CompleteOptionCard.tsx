@@ -28,7 +28,7 @@ export const CompleteOptionCard = ({
           <Text typo="Body3_Medium">{price.toLocaleString('ko-KR')}원</Text>
         </Flex>
         <Flex align="flex-start">
-          <Text typo="Caption_Regular">
+          <Text typo="Body3_Regular">
             {details.map((it, idx) =>
               idx + 1 !== details.length ? <>{it} / </> : <>{it}</>,
             )}

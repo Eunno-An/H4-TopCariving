@@ -7,12 +7,12 @@ import { optionInfoInterface } from '@interface/index';
 
 export const OptionInfoCard = ({
   info,
-  onPageBtnClickHandler,
-  currentIdx,
+  onMovePage,
+  cardPageIdx,
 }: {
   info: optionInfoInterface[];
-  onPageBtnClickHandler: (btnType: string) => void;
-  currentIdx: number;
+  onMovePage: ({ pageParam }: { pageParam: number }) => void;
+  cardPageIdx: number;
 }) => {
   const total = info.length;
 
@@ -27,9 +27,9 @@ export const OptionInfoCard = ({
             height={22}
             padding="6px"
           >
-            <Text palette="LightSand">{currentIdx + 1}</Text>
+            <Text palette="LightSand">{cardPageIdx + 1}</Text>
           </Flex>
-          <Text palette="Primary">{info[currentIdx].optionName}</Text>
+          <Text palette="Primary">{info[cardPageIdx].optionName}</Text>
         </Flex>
         <Flex
           justify="flex-end"
@@ -39,18 +39,18 @@ export const OptionInfoCard = ({
           padding="0 9px"
         >
           <Text palette="LightSand" typo="Caption_Regular">
-            {currentIdx + 1}/{total}
+            {cardPageIdx + 1}/{total}
           </Text>
         </Flex>
       </InfoTitleContainer>
       <Flex justify="space-between">
-        <ButtonContainer onClick={() => onPageBtnClickHandler('left')}>
+        <ButtonContainer onClick={() => onMovePage({ pageParam: -1 })}>
           <img src={leftBtn} alt="" />
         </ButtonContainer>
         <Text typo="Body3_Regular" palette="Primary">
-          {info[currentIdx].optionDetail}
+          {info[cardPageIdx].optionDetail}
         </Text>
-        <ButtonContainer onClick={() => onPageBtnClickHandler('right')}>
+        <ButtonContainer onClick={() => onMovePage({ pageParam: +1 })}>
           <img src={rightBtn} alt="" />
         </ButtonContainer>
       </Flex>

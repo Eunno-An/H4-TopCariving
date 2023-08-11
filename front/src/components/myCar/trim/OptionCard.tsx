@@ -5,6 +5,10 @@ import { theme } from '@styles/theme';
 import { useState } from 'react';
 import check from '@assets/images/check.svg';
 import { DimInfoMsg } from '.';
+import {
+  optionItemInterface,
+  selectOptionInterface,
+} from '@pages/MyCar/Option';
 
 const cateName = {
   select: '선택항목',
@@ -14,24 +18,17 @@ const cateName = {
 export const OptionCard = ({
   idx,
   isSelected,
-  optionName,
-  userOptionList,
-  price,
-  photo,
+  optionItem,
   selectedMenu,
-  userOptionHandler,
+  changeUserOptionList,
 }: {
   idx: number;
   isSelected: boolean;
-  optionName: string;
-  userOptionList: string[];
-  price: number;
-  photo: string;
+  optionItem: selectOptionInterface | optionItemInterface;
   selectedMenu: string;
-  userOptionHandler: (option: string, actionType: string) => void;
+  changeUserOptionList: (optionIdx: number) => void;
 }) => {
-  const btnCheck = userOptionList.includes(optionName);
-  const [isAddBtnClicked, setIsBtnClicked] = useState(btnCheck);
+  const [isAddBtnClicked, setIsBtnClicked] = useState(isSelected);
   const [hover, setHover] = useState(false);
   return (
     <Card
@@ -56,7 +53,7 @@ export const OptionCard = ({
         height={selectedMenu === cateName.select ? 93 : 82}
         borderRadius="8px"
       >
-        <ImgContainer src={photo} selectedMenu={selectedMenu} />
+        <ImgContainer src={optionItem.photoUrl} selectedMenu={selectedMenu} />
       </Flex>
       {/* 옵션이름 */}
       <Flex
@@ -67,20 +64,19 @@ export const OptionCard = ({
         height={selectedMenu === cateName.select ? 104 : 80}
       >
         <Text typo="Body3_Medium" style={{ whiteSpace: 'nowrap' }}>
-          {optionName}
+          {optionItem.optionName}
         </Text>
         {/* 가격 & 추가하기 & 추가완료 버튼은 '선택항목'일때만 보여진다 */}
         {selectedMenu === cateName.select && (
           <>
             {/* 가격 */}
             <Text typo="Body3_Medium">
-              + {price.toLocaleString('ko-KR')} 원
+              + {optionItem.price.toLocaleString('ko-KR')} 원
             </Text>
             {/* 버튼 */}
             <div
               onClick={() => {
-                isAddBtnClicked && userOptionHandler(optionName, 'DELETE');
-                !isAddBtnClicked && userOptionHandler(optionName, 'ADD');
+                changeUserOptionList(idx);
                 setIsBtnClicked(!isAddBtnClicked);
               }}
             >
