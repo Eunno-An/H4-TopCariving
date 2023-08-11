@@ -3,7 +3,6 @@ package com.backend.topcariving.domain.option.dto.response.archiving;
 import java.util.List;
 import java.util.Map;
 
-import com.backend.topcariving.domain.option.entity.CarOption;
 import com.backend.topcariving.domain.option.entity.CategoryDetail;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -38,10 +37,10 @@ public class ArchivingResponseDTO {
 	private ArchivingColorResponseDTO interiorColor;
 
 	@Schema(description = "선택한 선택옵션")
-	private List<ArchivingOptionResponseDTO> selectOptions;
+	private List<ArchivingOptionDetailResponseDTO> selectOptions;
 
 	public static ArchivingResponseDTO of(Long archivingId, Map<CategoryDetail, ArchivingOptionResponseDTO> archivingOptionResponseDTOs,
-		Map<CategoryDetail, ArchivingColorResponseDTO> archivingColorResponseDTOs, List<ArchivingOptionResponseDTO> selectOptions) {
+		Map<CategoryDetail, ArchivingColorResponseDTO> archivingColorResponseDTOs, List<ArchivingOptionDetailResponseDTO> selectOptions) {
 		return ArchivingResponseDTO.builder()
 			.archivingId(archivingId)
 			.model(archivingOptionResponseDTOs.get(CategoryDetail.MODEL))

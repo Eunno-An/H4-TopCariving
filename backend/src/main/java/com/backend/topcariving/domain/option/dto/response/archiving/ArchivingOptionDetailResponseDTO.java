@@ -1,6 +1,5 @@
 package com.backend.topcariving.domain.option.dto.response.archiving;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.backend.topcariving.domain.option.entity.CarOption;
@@ -12,8 +11,8 @@ import lombok.Getter;
 
 @Getter
 @Builder(access = AccessLevel.PRIVATE)
-@Schema(description = "차량 아카이빙의 옵션에 대한 응답 DTO")
-public class ArchivingOptionResponseDTO {
+@Schema(description = "차량 아카이빙의 선택 옵션에 대한 응답 DTO")
+public class ArchivingOptionDetailResponseDTO {
 
 	@Schema(description = "옵션 ID")
 	private Long carOptionId;
@@ -24,19 +23,15 @@ public class ArchivingOptionResponseDTO {
 	@Schema(description = "옵션 가격")
 	private int price;
 
-	public static ArchivingOptionResponseDTO from(CarOption carOption) {
-		return ArchivingOptionResponseDTO.builder()
+	@Schema(description = "옵션 설명")
+	private List<ArchivingOptionResponseDTO> optionDetail;
+
+	public static ArchivingOptionDetailResponseDTO of(CarOption carOption, List<ArchivingOptionResponseDTO> optionDetail) {
+		return ArchivingOptionDetailResponseDTO.builder()
 			.carOptionId(carOption.getCarOptionId())
 			.optionName(carOption.getOptionName())
 			.price(carOption.getPrice())
+			.optionDetail(optionDetail)
 			.build();
-	}
-
-	public static List<ArchivingOptionResponseDTO> from(List<CarOption> carOptions) {
-		List<ArchivingOptionResponseDTO> archivingOptionResponseDTOs = new ArrayList<>();
-		carOptions.forEach(carOption -> {
-			archivingOptionResponseDTOs.add(from(carOption));
-		});
-		return archivingOptionResponseDTOs;
 	}
 }

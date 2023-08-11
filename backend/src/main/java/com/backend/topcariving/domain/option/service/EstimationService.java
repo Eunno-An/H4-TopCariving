@@ -15,6 +15,7 @@ import com.backend.topcariving.domain.archive.exception.InvalidAuthorityExceptio
 import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
 import com.backend.topcariving.domain.archive.repository.MyCarRepository;
 import com.backend.topcariving.domain.option.dto.response.archiving.ArchivingColorResponseDTO;
+import com.backend.topcariving.domain.option.dto.response.archiving.ArchivingOptionDetailResponseDTO;
 import com.backend.topcariving.domain.option.dto.response.archiving.ArchivingOptionResponseDTO;
 import com.backend.topcariving.domain.option.dto.response.archiving.ArchivingResponseDTO;
 import com.backend.topcariving.domain.option.entity.CarOption;
@@ -41,7 +42,7 @@ public class EstimationService {
 
 		Map<CategoryDetail, ArchivingOptionResponseDTO> archivingOptionResponseDTOs = new HashMap<>();
 		Map<CategoryDetail, ArchivingColorResponseDTO> archivingColorResponseDTOs = new HashMap<>();
-		List<ArchivingOptionResponseDTO> selectOptionResponseDTOs = new ArrayList<>();
+		List<ArchivingOptionDetailResponseDTO> selectOptionResponseDTOs = new ArrayList<>();
 
 		for (MyCar myCar : myCars) {
 			CarOption carOption = carOptionRepository.findByCarOptionId(myCar.getCarOptionId())
@@ -69,7 +70,8 @@ public class EstimationService {
 				case SELECTED:
 				case H_GENUINE_ACCESSORIES:
 				case N_PERFORMANCE:
-					selectOptionResponseDTOs.add(ArchivingOptionResponseDTO.from(carOption));
+					List<CarOption> childCarOptions = carOptionRepository.findByParentOptionId(carOption.getCarOptionId());
+					selectOptionResponseDTOs.add(ArchivingOptionDetailResponseDTO.of(carOption, ArchivingOptionResponseDTO.from(childCarOptions)));
 					break;
 				default:
 					throw new InvalidCarOptionIdException();

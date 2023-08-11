@@ -13,6 +13,8 @@ public interface CarOptionRepository extends CrudRepository<CarOption, Long> {
 
 	Optional<CarOption> findByCarOptionId(Long carOptionId);
 
+	List<CarOption> findByParentOptionId(Long parentOptionId);
+
 	List<CarOption> findByCategoryDetail(String categoryDetail);
 
 	boolean existsByCarOptionIdAndCategoryDetail(Long carOptionId, String categoryDetail);
