@@ -19,7 +19,7 @@ class ViewController: BaseMyCarViewController {
         uiButton.backgroundColor = .hyundaiBlackGray
         uiButton.setTitle("test", for: .normal)
         view.addSubview(uiButton)
-        uiButton.tabPublisher.sink { [weak self] in
+        uiButton.touchUpPublisher.sink { [weak self] _ in
             self!.modalVC.modalPresentationStyle = .automatic
             self!.present(self!.modalVC, animated: true)
         }.store(in: &asd)

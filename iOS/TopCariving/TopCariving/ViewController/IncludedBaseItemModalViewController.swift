@@ -5,6 +5,7 @@
 //  Created by Eunno An on 2023/08/10.
 //
 
+import Combine
 import UIKit
 
 class IncludedBaseItemModalViewController: UIViewController {
@@ -26,18 +27,21 @@ class IncludedBaseItemModalViewController: UIViewController {
         return button
     }()
     // MARK: - Properties
+    private var bag: Set<AnyCancellable> = Set<AnyCancellable>()
     
     // MARK: - Lifecycles
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUI()
         setLayout()
+        setCancelButtonAction()
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setUI()
         setLayout()
+        setCancelButtonAction()
     }
     
     override func viewDidLoad() {
@@ -71,5 +75,11 @@ class IncludedBaseItemModalViewController: UIViewController {
             cancelButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 25.41),
             cancelButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25.41)
         ])
+    }
+    
+    func setCancelButtonAction() {
+        cancelButton.touchUpPublisher.sink {
+            self.dismiss(animated: true)
+        }.store(in: &bag)
     }
 }
