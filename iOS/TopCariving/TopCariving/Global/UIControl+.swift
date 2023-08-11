@@ -8,7 +8,6 @@
 import Combine
 import UIKit
 
-@available(iOS 13.0, *)
 extension UIControl {
     func attachPublisher(for event: UIControl.Event) -> AnyPublisher<Void, Never> {
         Publishers.CustomEvent(control: self, controlEvent: event).eraseToAnyPublisher()

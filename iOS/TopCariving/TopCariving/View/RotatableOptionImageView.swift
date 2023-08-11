@@ -97,11 +97,11 @@ class RotatableOptionImageView: UIView {
             imageNumber = previousImageNumber - Int(round(currentRotationAngle / (2 * .pi / 60)))
             
             imageNumber %= 61
-            
+
             if imageNumber <= 0 {
                 imageNumber += 60
             }
-            
+
             let imageNumStr = converter()
             
             imageView.image = nil

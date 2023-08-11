@@ -55,6 +55,7 @@ extension Combine.Publishers.CustomTarget {
         
         func cancel() {
             subscriber = nil
+            removeTargetAction(control!, self, action)
         }
         
         @objc func handleAction() {

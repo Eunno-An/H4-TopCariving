@@ -9,7 +9,6 @@ import Combine
 import Foundation
 import UIKit.UIControl
 
-@available(iOS 13.0, *)
 extension Combine.Publishers {
     struct CustomEvent<Control: UIControl>: Publisher {
         // swiftlint: disable nesting
