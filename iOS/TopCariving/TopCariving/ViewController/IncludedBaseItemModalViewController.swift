@@ -35,6 +35,7 @@ class IncludedBaseItemModalViewController: UIViewController {
         setUI()
         setLayout()
         setCancelButtonAction()
+        test()
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -42,6 +43,7 @@ class IncludedBaseItemModalViewController: UIViewController {
         setUI()
         setLayout()
         setCancelButtonAction()
+        test()
     }
     
     override func viewDidLoad() {
@@ -81,5 +83,10 @@ class IncludedBaseItemModalViewController: UIViewController {
         cancelButton.touchUpPublisher.sink {
             self.dismiss(animated: true)
         }.store(in: &bag)
+    }
+    
+    func test() {
+        let testView = BaseOptionMainCategoryView(frame: .init(x: 16, y: 100, width: 343, height: 46))
+        view.addSubview(testView)
     }
 }
