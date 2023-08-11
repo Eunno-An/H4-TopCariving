@@ -10,7 +10,7 @@ import UIKit
 
 extension UIView {
   func throttleTapGesturePublisher() ->
-    Publishers.Throttle<UITapGestureRecognizer.GesturePublisher<UITapGestureRecognizer>, RunLoop> {
+    Publishers. {
     return UITapGestureRecognizer.GesturePublisher(recognizer: .init(), view: self)
       .throttle(
         for: .seconds(0.2),
