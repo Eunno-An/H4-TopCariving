@@ -20,7 +20,11 @@ class IncludedBaseItemModalViewController: UIViewController {
         label.backgroundColor = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1)
         return label
     }()
-    
+    private let cancelButton: UIButton = {
+        let button: UIButton = UIButton()
+        button.setImage(UIImage(named: "cancelButton"), for: .normal)
+        return button
+    }()
     // MARK: - Properties
     
     // MARK: - Lifecycles
@@ -40,12 +44,14 @@ class IncludedBaseItemModalViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(modalTitle)
         view.addSubview(separator)
+        view.addSubview(cancelButton)
     }
     
     // MARK: - Helpers
     func setUI() {
         modalTitle.translatesAutoresizingMaskIntoConstraints = false
         separator.translatesAutoresizingMaskIntoConstraints = false
+        cancelButton.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func setLayout() {
@@ -58,7 +64,12 @@ class IncludedBaseItemModalViewController: UIViewController {
             separator.widthAnchor.constraint(equalTo: view.widthAnchor),
             separator.topAnchor.constraint(equalTo: modalTitle.bottomAnchor, constant: 15),
             separator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            separator.heightAnchor.constraint(equalToConstant: 1)
+            separator.heightAnchor.constraint(equalToConstant: 1),
+            
+            cancelButton.widthAnchor.constraint(equalToConstant: 13.18),
+            cancelButton.heightAnchor.constraint(equalToConstant: 13.18),
+            cancelButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 25.41),
+            cancelButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25.41)
         ])
     }
 }
