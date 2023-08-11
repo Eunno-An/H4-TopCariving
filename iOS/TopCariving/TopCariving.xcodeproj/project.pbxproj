@@ -30,6 +30,7 @@
 		D462E77A2A852FEE00C5A8EC /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E7792A852FEE00C5A8EC /* UIView+.swift */; };
 		D462E76C2A850D3F00C5A8EC /* IncludedBaseItemModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E76B2A850D3F00C5A8EC /* IncludedBaseItemModalViewController.swift */; };
 		D462E77E2A85CCA900C5A8EC /* CombineGestureEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E77D2A85CCA900C5A8EC /* CombineGestureEvent.swift */; };
+		D462E7802A85F3D900C5A8EC /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E77F2A85F3D900C5A8EC /* UIView+.swift */; };
 		D4A68CF82A808D6300E2C1FD /* OptionRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A68CF72A808D6300E2C1FD /* OptionRequestDTO.swift */; };
 		D4A68CFA2A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A68CF92A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift */; };
 		D4A68CFC2A80925400E2C1FD /* ArchivingOptionResponseDTO+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A68CFB2A80925400E2C1FD /* ArchivingOptionResponseDTO+Mapping.swift */; };
@@ -124,6 +125,7 @@
 		D462E7792A852FEE00C5A8EC /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		D462E76B2A850D3F00C5A8EC /* IncludedBaseItemModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IncludedBaseItemModalViewController.swift; sourceTree = "<group>"; };
 		D462E77D2A85CCA900C5A8EC /* CombineGestureEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineGestureEvent.swift; sourceTree = "<group>"; };
+		D462E77F2A85F3D900C5A8EC /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		D4A68CF72A808D6300E2C1FD /* OptionRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionRequestDTO.swift; sourceTree = "<group>"; };
 		D4A68CF92A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArchivingColorResponseDTO+Mapping.swift"; sourceTree = "<group>"; };
 		D4A68CFB2A80925400E2C1FD /* ArchivingOptionResponseDTO+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArchivingOptionResponseDTO+Mapping.swift"; sourceTree = "<group>"; };
@@ -434,7 +436,7 @@
 				D462E7652A84C9BF00C5A8EC /* UIButton+.swift */,
 				D462E7672A84CAA100C5A8EC /* UIControl+.swift */,
 				D462E7772A852D3C00C5A8EC /* UIGestureRecognizer+.swift */,
-				D462E7792A852FEE00C5A8EC /* UIView+.swift */,
+				D462E77F2A85F3D900C5A8EC /* UIView+.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -637,8 +639,8 @@
 				7631E94B2A8382E100015363 /* BaseMyCarViewController.swift in Sources */,
 				D44B45952A7CB9CA00E8E207 /* APIEndPoints.swift in Sources */,
 				D4A68D402A80F0EE00E2C1FD /* Color.swift in Sources */,
+				D462E7802A85F3D900C5A8EC /* UIView+.swift in Sources */,
 				D4CFBAAD2A7A25B100CCB27E /* HyundaiFont.swift in Sources */,
-				D462E77A2A852FEE00C5A8EC /* UIView+.swift in Sources */,
 				D4A68D442A80F13500E2C1FD /* BasicOption.swift in Sources */,
 				D4A68D022A8093F800E2C1FD /* EstimationChangeRequestDTO.swift in Sources */,
 				D4A68D302A80EF2A00E2C1FD /* Archiving.swift in Sources */,
