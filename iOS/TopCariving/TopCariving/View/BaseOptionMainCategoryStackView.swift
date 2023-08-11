@@ -15,4 +15,8 @@ class BaseOptionMainCategoryStackView: UIStackView {
     // MARK: - Lifecycles
     
     // MARK: - Helpers
+    override func addArrangedSubview(_ view: UIView) {
+        guard let view = view as? BaseOptionMainCategoryView else { return }
+        super.addArrangedSubview(view)
+    }
 }

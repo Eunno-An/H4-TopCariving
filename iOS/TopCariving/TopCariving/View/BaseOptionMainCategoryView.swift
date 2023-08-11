@@ -5,6 +5,7 @@
 //  Created by Eunno An on 2023/08/12.
 //
 
+import Combine
 import UIKit
 
 class BaseOptionMainCategoryView: UIView {
@@ -26,18 +27,22 @@ class BaseOptionMainCategoryView: UIView {
     }()
     
     // MARK: - Properties
+    private var bag: Set<AnyCancellable> = .init()
+    private var isFolded: Bool = true
     
     // MARK: - Lifecycles
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUI()
         setLayout()
+        setArrowButtonAction()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUI()
         setLayout()
+        setArrowButtonAction()
     }
     
     // MARK: - Helpers
@@ -61,6 +66,22 @@ class BaseOptionMainCategoryView: UIView {
             arrow.topAnchor.constraint(equalTo: topAnchor, constant: 11),
             arrow.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -11)
         ])
+    }
+    
+    func setArrowButtonAction() {
+        arrow.touchUpPublisher.sink { [weak self] _ in
+            self?.toggleFold()
+        }.store(in: &bag)
+    }
+    
+    func toggleFold() {
+        isFolded.toggle()
+        switch isFolded {
+        case true:
+            arrow.setImage(UIImage(named: "arrow_down"), for: .normal)
+        case false:
+            arrow.setImage(UIImage(named: "arrow_up"), for: .normal)
+        }
     }
     
     func setTitle(to text: String) {

@@ -80,8 +80,8 @@ class IncludedBaseItemModalViewController: UIViewController {
     }
     
     func setCancelButtonAction() {
-        cancelButton.touchUpPublisher.sink {
-            self.dismiss(animated: true)
+        cancelButton.touchUpPublisher.sink { [weak self] _ in
+            self?.dismiss(animated: true)
         }.store(in: &bag)
     }
     
