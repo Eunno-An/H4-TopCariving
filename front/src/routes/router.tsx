@@ -2,7 +2,7 @@ import { Flex } from '@components/common';
 import MyCar from '@pages/MyCar';
 import BodyType from '@pages/MyCar/Trim/BodyType';
 import { createBrowserRouter } from 'react-router-dom';
-import Engine from '@pages/MyCar/Trim/Engine';
+import Engine, { engineInfoInterface } from '@pages/MyCar/Trim/Engine';
 import { Trim } from '@pages/MyCar/Trim';
 import Traction from '@pages/MyCar/Trim/Traction';
 import { MyCarOptions } from '@pages/MyCar/Option';
@@ -10,6 +10,9 @@ import Login from '@pages/Login';
 import Error from '@pages/Error';
 import Color from '@pages/MyCar/Color';
 import Complete from '@pages/MyCar/Complete';
+import { TrimUrl, apiInstance } from '@utils/api';
+import { TrimCardInterface } from '@components/myCar/trim';
+import { myCarOptionInterface } from '@interface/index';
 
 export const router = createBrowserRouter([
   { path: '/', element: <Login /> },
@@ -20,18 +23,42 @@ export const router = createBrowserRouter([
       {
         path: 'trim',
         element: <Trim />,
+        loader: async () => {
+          return (await apiInstance({
+            url: TrimUrl.MODELS,
+            method: 'GET',
+          })) as TrimCardInterface[];
+        },
       },
       {
         path: 'trim/engine',
         element: <Engine />,
+        loader: async () => {
+          return (await apiInstance({
+            url: TrimUrl.ENGINES,
+            method: 'GET',
+          })) as engineInfoInterface[];
+        },
       },
       {
         path: 'trim/body-type',
         element: <BodyType />,
+        loader: async () => {
+          return (await apiInstance({
+            url: TrimUrl.BODY_TYPE,
+            method: 'GET',
+          })) as myCarOptionInterface[];
+        },
       },
       {
         path: 'trim/traction',
         element: <Traction />,
+        loader: async () => {
+          return (await apiInstance({
+            url: TrimUrl.TRACTION,
+            method: 'GET',
+          })) as myCarOptionInterface[];
+        },
       },
       {
         path: 'color',

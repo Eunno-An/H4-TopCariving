@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import { myCarUrl } from '@pages/MyCar';
 import { theme } from '@styles/theme';
 import { TrimUrl, apiInstance } from '@utils/api';
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 interface footerProps {
@@ -15,6 +15,8 @@ interface footerProps {
 export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
   const navigate = useNavigate();
   const { myCarInfo } = useMyCar();
+
+  const [archivingId, setArchivingId] = useState(null);
 
   const onClickButton = async (moveNum: number) => {
     const nextIdx = myCarUrl.indexOf(currentUrl) + moveNum;
@@ -28,7 +30,7 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
     switch (currentUrl) {
       case '/my-car/trim':
         try {
-          await apiInstance({
+          const archivingId = await apiInstance({
             url: `${TrimUrl.MODELS}?carOptionId=${myCarInfo.trim.type?.id}`,
             method: 'POST',
             bodyData: JSON.stringify({
@@ -37,12 +39,63 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
               carOptionId: myCarInfo.trim.type?.id,
             }),
           });
-
+          setArchivingId(() => archivingId);
           onClickButton(+1);
         } catch (err) {
           console.error(err);
         }
         break;
+      case '/my-car/trim/engine':
+        try {
+          await apiInstance({
+            url: `${TrimUrl.ENGINES}?carOptionId=${myCarInfo.trim.engine?.id}`,
+            method: 'POST',
+            bodyData: JSON.stringify({
+              userId: 1,
+              archivingId: archivingId,
+              carOptionId: myCarInfo.trim.engine?.id,
+            }),
+          });
+          onClickButton(+1);
+        } catch (err) {
+          console.error(err);
+        }
+        break;
+
+      case '/my-car/trim/body-type':
+        try {
+          await apiInstance({
+            url: `${TrimUrl.BODY_TYPE}?carOptionId=${myCarInfo.trim.bodyType?.id}`,
+            method: 'POST',
+            bodyData: JSON.stringify({
+              userId: 1,
+              archivingId: archivingId,
+              carOptionId: myCarInfo.trim.bodyType?.id,
+            }),
+          });
+          onClickButton(+1);
+        } catch (err) {
+          console.error(err);
+        }
+        break;
+
+      case '/my-car/trim/traction':
+        try {
+          await apiInstance({
+            url: `${TrimUrl.TRACTION}?carOptionId=${myCarInfo.trim.traction?.id}`,
+            method: 'POST',
+            bodyData: JSON.stringify({
+              userId: 1,
+              archivingId: archivingId,
+              carOptionId: myCarInfo.trim.traction?.id,
+            }),
+          });
+          onClickButton(+1);
+        } catch (err) {
+          console.error(err);
+        }
+        break;
+
       default:
         onClickButton(+1);
     }

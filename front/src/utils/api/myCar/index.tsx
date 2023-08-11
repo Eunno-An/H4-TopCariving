@@ -3,6 +3,7 @@ export const TrimUrl = {
   DRIVING_METHOD: '/api/options/trims/driving-methods',
   ENGINES: '/api/options/trims/engines',
   MODELS: '/api/options/trims/models',
+  TRACTION: '/api/options/trims/driving-methods',
 };
 
 export const ColorUrl = {

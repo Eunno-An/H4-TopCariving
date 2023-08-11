@@ -4,15 +4,17 @@ import { ImgTag, InfoBox } from './Engine';
 import { myCarOptionInterface } from '@interface/index';
 import { BodyCard } from '@components/myCar/trim';
 import { useMyCar } from '@contexts/MyCarContext';
+import { useLoaderData } from 'react-router-dom';
 
 const Traction = () => {
+  const tractionInfo = useLoaderData() as myCarOptionInterface[];
   const { myCarInfo, setMyCarInfo } = useMyCar();
   const [isSelected, setIsSelected] = useState(0);
 
   useEffect(() => {
     const getData = async () => {
       if (tractionInfo) {
-        if (myCarInfo.trim.traction === null) {
+        if (!myCarInfo.trim.traction) {
           setMyCarInfo({
             ...myCarInfo,
             price: myCarInfo.price + tractionInfo[0].price,
@@ -90,24 +92,3 @@ const Traction = () => {
 };
 
 export default Traction;
-
-const tractionInfo = [
-  {
-    carOptionId: 1,
-    optionName: '2WD',
-    optionDetail:
-      '엔진에서 전달되는 동력이 전/후륜 바퀴 중 한쪽으로만 전달되어 차량을 움직이는 방식입니다차체가 가벼워 연료 효율이 높습니다',
-    price: 1000000,
-    photoUrl:
-      'https://topcariving.s3.ap-northeast-2.amazonaws.com/driving_method/2wd.jpg',
-  },
-  {
-    carOptionId: 1,
-    optionName: '4WD',
-    optionDetail:
-      '전자식 상시 4륜 구동 시스템 입니다도로의 상황이나 주행 환경에 맞춰 전후륜 구동력을 자동배분하여 주행 안전성을 높여줍니다',
-    price: 123456,
-    photoUrl:
-      'https://topcariving.s3.ap-northeast-2.amazonaws.com/driving_method/4wd.jpg',
-  },
-] as myCarOptionInterface[];

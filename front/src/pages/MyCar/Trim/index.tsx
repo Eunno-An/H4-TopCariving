@@ -1,38 +1,32 @@
 import { useEffect, useState } from 'react';
 import { CarModel, Flex } from '@components/common';
 import { TrimCard, TrimCardInterface } from '@components/myCar/trim';
-import { TrimUrl, apiInstance } from '@utils/api';
 import { MyCarContextType, useMyCar } from '@contexts/MyCarContext';
+import { useLoaderData } from 'react-router-dom';
 
 export const Trim = () => {
+  const modelInfo = useLoaderData() as TrimCardInterface[];
   const { myCarInfo, setMyCarInfo } = useMyCar() as MyCarContextType;
-  const [modelInfo, setModelInfo] = useState<TrimCardInterface[] | null>(null);
 
   const [isSelected, setIsSelected] = useState(0);
 
   useEffect(() => {
     const getData = async () => {
-      const res = (await apiInstance({
-        url: TrimUrl.MODELS,
-        method: 'GET',
-      })) as TrimCardInterface[];
-      setModelInfo(res);
-
-      if (res) {
-        if (myCarInfo.trim.type === null) {
+      if (modelInfo) {
+        if (!myCarInfo.trim.type) {
           setMyCarInfo({
             ...myCarInfo,
             trim: {
               ...myCarInfo.trim,
               type: {
-                id: res[0].carOptionId,
-                name: res[0].optionName,
+                id: modelInfo[0].carOptionId,
+                name: modelInfo[0].optionName,
               },
             },
-            price: myCarInfo.price + res[0].price,
+            price: myCarInfo.price + modelInfo[0].price,
           });
         } else {
-          res.forEach((model, selectIdx) => {
+          modelInfo.forEach((model, selectIdx) => {
             if (model.carOptionId === myCarInfo.trim.type?.id) {
               setIsSelected(selectIdx);
             }
