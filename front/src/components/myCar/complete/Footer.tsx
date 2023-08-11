@@ -27,10 +27,13 @@ export const Footer = () => {
         </Text>
         <Text typo="Body3_Medium">원</Text>
       </Flex>
-      <Button backgroundColor="Primary" heightType="medium" width={176}>
-        <Text palette="White" typo="Heading4_Bold">
-          이 차량 구매하기
-        </Text>
+      <Button
+        backgroundColor="Primary"
+        typo="Heading4_Bold"
+        heightType="medium"
+        width={176}
+      >
+        이 차량 구매하기
       </Button>
     </Flex>
   );

@@ -23,7 +23,7 @@ export const AlertModal = ({ content, buttonInfo }: alertModalInterface) => {
       <Container>
         <Flex direction="column" gap={6}>
           {content.map((text, idx) => (
-            <Text key={`modalText_${idx}`} typo="Body1_Medium">
+            <Text key={`modalText_${idx}`} typo="Body1_Regular">
               {text}
             </Text>
           ))}
@@ -32,11 +32,16 @@ export const AlertModal = ({ content, buttonInfo }: alertModalInterface) => {
         {buttonInfo && (
           <Flex gap={8}>
             {buttonInfo.map((btn, idx) => (
-              <div onClick={btn.onClick} key={`modalButton_${idx}`}>
+              <div
+                onClick={btn.onClick}
+                key={`modalButton_${idx}`}
+                style={{ width: '50%' }}
+              >
                 <Button
                   backgroundColor={btn.color}
-                  width="auto"
                   heightType="medium"
+                  typo="Heading4_Medium"
+                  width="100%"
                 >
                   {btn.text}
                 </Button>

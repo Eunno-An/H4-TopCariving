@@ -127,12 +127,22 @@ table {
 }
 
 @font-face {
-  font-family: 'hyundaiFont';
+  font-family: 'hyundaiFont_Regular';
+  src: url('./assets/font/HyundaiSansHeadKROTFRegular.woff2');
+}
+
+@font-face {
+  font-family: 'hyundaiFont_Medium';
   src: url('./assets/font/HyundaiSansHeadKRMedium.ttf');
 }
 
+@font-face {
+  font-family: 'hyundaiFont_Bold';
+  src: url('./assets/font/HyundaiSansHeadKROTFBold.woff2');
+}
+
 body {
-  font-family: 'hyundaiFont';
+  font-family: 'hyundaiFont_Regular';
 }
 
 img {

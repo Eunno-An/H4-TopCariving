@@ -50,10 +50,9 @@ export const OptionModal = ({ content, buttonInfo }: alertModalInterface) => {
                   backgroundColor={btn.color}
                   width={176}
                   heightType="medium"
+                  typo="Heading4_Bold"
                 >
-                  <Text palette="White" typo="Heading4_Bold">
-                    {btn.text}
-                  </Text>
+                  {btn.text}
                 </Button>
               </div>
             ))}

@@ -17,7 +17,7 @@ export const CompletedMessage = ({ carColor }: { carColor: string }) => {
         width={1024}
       >
         <Flex direction="column" align="flex-start" gap={13}>
-          <Text typo="Heading0_Bold">PALISADE</Text>
+          <Text typo="Heading0_Medium">PALISADE</Text>
           <TitleBorder />
         </Flex>
         <Flex direction="column" align="flex-start" gap={3}>

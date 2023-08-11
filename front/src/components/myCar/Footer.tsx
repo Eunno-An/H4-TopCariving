@@ -1,5 +1,6 @@
 import { Flex, Text, Button } from '@components/common';
 import { useMyCar } from '@contexts/MyCarContext';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { myCarUrl } from '@pages/MyCar';
 import { theme } from '@styles/theme';
@@ -172,7 +173,12 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
               gap={8}
               justify="flex-start"
               align="center"
-              style={{ overflow: 'auto' }}
+              css={css`
+                overflow: auto;
+                ::-webkit-scrollbar {
+                  display: none;
+                }
+              `}
             >
               {myCarInfo.selectedOption.map((option, idx) => (
                 <BlackTagChip key={`chip_${idx}`}>{option.name}</BlackTagChip>
@@ -204,10 +210,9 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
                     width={121}
                     heightType="medium"
                     backgroundColor="White"
+                    typo="Heading4_Bold"
                   >
-                    <Text palette="Primary" typo="Heading4_Bold">
-                      이전
-                    </Text>
+                    이전
                   </Button>
                 </div>
               ) : (
@@ -219,10 +224,9 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
                   width={176}
                   heightType="medium"
                   backgroundColor="Primary"
+                  typo="Heading4_Bold"
                 >
-                  <Text palette="White" typo="Heading4_Bold">
-                    다음 단계로
-                  </Text>
+                  다음 단계로
                 </Button>
               </div>
             </>
