@@ -7,3 +7,9 @@
 
 import Combine
 import UIKit
+
+extension UIView {
+    var tabPublisher: AnyPublisher<UITapGestureRecognizer, Never> {
+        UITapGestureRecognizer().tapPublisher
+    }
+}
