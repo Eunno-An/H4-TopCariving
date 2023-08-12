@@ -16,43 +16,44 @@ import com.backend.topcariving.domain.option.dto.request.SelectOptionsRequestDTO
 import com.backend.topcariving.domain.option.dto.response.selection.SelectionResponseDTO;
 import com.backend.topcariving.domain.option.dto.response.trim.BasicOptionResponseDTO;
 import com.backend.topcariving.domain.option.dto.response.trim.OptionResponseDTO;
+import com.backend.topcariving.domain.option.service.OptionService;
 import com.backend.topcariving.global.response.SuccessResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.RequiredArgsConstructor;
 
-@Tag(name = "내 차 만들기 - 선택, 기본, H Genuine, N performance 옵션")
+@Tag(name = "내 차 만들기 - 기본 포함 품목, 상세 품목, H Genuine, N performance 옵션")
 @RequestMapping("/api/options")
+@RequiredArgsConstructor
 @RestController
 public class OptionController {
+
+	private final OptionService optionService;
+
+	@GetMapping("/basics")
+	@Operation(summary = "기본 옵션 전체 반환", description = "내 차 만들기에서 기본 옵션 전체를 반환한다")
+	public BasicOptionResponseDTO getBasics() {
+		return optionService.getBasics();
+	}
 
 	@GetMapping("/selections")
 	@Operation(summary = "선택 옵션 전체 반환", description = "내 차 만들기에서 선택 옵션 전체를 반환한다")
 	public List<OptionResponseDTO> getSelections() {
-
-		return null;
+		return optionService.getSelections();
 	}
 
 	@GetMapping("/details/{carOptionId}")
 	@Operation(summary = "선택 옵션 디테일 반환", description = "내 차 만들기에서 선택한 옵션의 세부 내역을 반환한다")
 	public SelectionResponseDTO getSelectionDetails(@PathVariable Long carOptionId) {
-
-		return null;
+		return optionService.getSelectionDetails(carOptionId);
 	}
 
 	@PostMapping("/selections")
 	@Operation(summary = "선택 옵션 저장", description = "내 차 만들기에서 선택한 옵션들의 값을 저장하고, 차량 아카이브 PK 값을 반환함")
 	@ResponseStatus(HttpStatus.CREATED)
-	public SuccessResponse<Long> saveSelectionOptions(@RequestBody SelectOptionsRequestDTO requestDTO) {
-
-		return null;
-	}
-
-	@GetMapping("/basics")
-	@Operation(summary = "기본 옵션 전체 반환", description = "내 차 만들기에서 기본 옵션 전체를 반환한다")
-	public BasicOptionResponseDTO getBasics() {
-
-		return null;
+	public SuccessResponse<Long> saveSelectionOptions(@RequestBody SelectOptionsRequestDTO selectOptionsRequestDTO) {
+		return new SuccessResponse<>(optionService.saveSelectionOptions(selectOptionsRequestDTO));
 	}
 
 	@GetMapping("/accessories")
