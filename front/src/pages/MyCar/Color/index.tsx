@@ -33,8 +33,6 @@ const Color = () => {
     key: 'exteriorColorResponses',
     idx: 0,
   });
-  // const [modelColor, setModelColor] = useState('black');
-
   useEffect(() => {
     const getData = async () => {
       if (colorData) {
@@ -53,10 +51,12 @@ const Color = () => {
               exteriorColor: {
                 id: initExteriorColor.carOptionId,
                 name: initExteriorColor.optionName,
+                price: initExteriorColor.price,
               },
               interiorColor: {
                 id: initInteriorColor.carOptionId,
                 name: initInteriorColor.optionName,
+                price: initInteriorColor.price,
               },
             },
           });
@@ -91,11 +91,6 @@ const Color = () => {
       );
     }
 
-    // const lastColorItem = colorData[colorKey].find(
-    //   (item: exteriorColorResponseInterface | interiorColorResponseInterface) =>
-    //     item.carOptionId === myCarInfo.color[changeColorKey]?.id,
-    // );
-
     if (lastColorItem) {
       setMyCarInfo({
         ...myCarInfo,
@@ -104,6 +99,7 @@ const Color = () => {
           [changeColorKey]: {
             id: colorData[colorKey][idx].carOptionId,
             name: colorData[colorKey][idx].optionName,
+            price: colorData[colorKey][idx].price,
           },
         },
         price:

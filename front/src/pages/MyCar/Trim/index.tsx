@@ -21,6 +21,7 @@ export const Trim = () => {
               type: {
                 id: modelInfo[0].carOptionId,
                 name: modelInfo[0].optionName,
+                price: modelInfo[0].price,
               },
             },
             price: myCarInfo.price + modelInfo[0].price,
@@ -46,6 +47,7 @@ export const Trim = () => {
           type: {
             name: modelInfo[idx].optionName,
             id: modelInfo[idx].carOptionId,
+            price: modelInfo[idx].price,
           },
         },
         price:

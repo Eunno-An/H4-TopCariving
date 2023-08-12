@@ -2,12 +2,14 @@ import styled from '@emotion/styled';
 import {
   Button,
   Flex,
+  ModalContainerCss,
   Text,
   alertButtonInterface,
   backCss,
-  containerCss,
 } from '@components/common';
 import { theme } from '@styles/theme';
+import { CloseIcon } from '.';
+import close from '@assets/images/close.svg';
 
 export interface alertContentInterface {
   title: string;
@@ -22,11 +24,13 @@ interface alertModalInterface {
 
 export const OptionModal = ({ content, buttonInfo }: alertModalInterface) => {
   const closeAlert = buttonInfo[0].onClick;
-  const windowHeight = screen.height;
+
   return (
-    <Flex align="center" css={containerCss}>
+    <Flex align="center" css={ModalContainerCss}>
       <div css={backCss} onClick={closeAlert}></div>
-      <Container windowHeight={windowHeight}>
+
+      <Container>
+        <CloseIcon src={close} onClick={closeAlert} />
         <Flex direction="column" height="auto">
           <Text key={`modalText_${content.title}`} typo="Heading4_Medium">
             {content.title}
@@ -75,15 +79,15 @@ const ImgContainer = styled.img`
   border-radius: 8px;
 `;
 
-const Container = styled.div<{ windowHeight: number }>`
-  width: 'auto';
-  height: auto;
+const Container = styled.div`
   position: fixed;
-  top: ${({ windowHeight }) => windowHeight / 2};
 
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  width: auto;
+  height: auto;
 
   padding: 30px 80px;
   gap: 20px;

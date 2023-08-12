@@ -4,11 +4,11 @@ import styled from '@emotion/styled';
 import { theme } from '@styles/theme';
 import { useState } from 'react';
 import check from '@assets/images/check.svg';
-import { DimInfoMsg } from '.';
 import {
   optionItemInterface,
   selectOptionInterface,
 } from '@pages/MyCar/Option';
+import { DimInfoMsg } from '.';
 
 const cateName = {
   select: '선택항목',

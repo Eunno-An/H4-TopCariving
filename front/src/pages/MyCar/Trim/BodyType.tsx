@@ -23,6 +23,7 @@ const BodyType = () => {
               bodyType: {
                 id: bodyTypeInfo[0].carOptionId,
                 name: bodyTypeInfo[0].optionName,
+                price: bodyTypeInfo[0].price,
               },
             },
           });
@@ -48,6 +49,7 @@ const BodyType = () => {
           bodyType: {
             id: bodyTypeInfo[idx].carOptionId,
             name: bodyTypeInfo[idx].optionName,
+            price: bodyTypeInfo[idx].price,
           },
         },
         price:

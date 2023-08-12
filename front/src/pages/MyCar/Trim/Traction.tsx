@@ -23,6 +23,7 @@ const Traction = () => {
               traction: {
                 id: tractionInfo[0].carOptionId,
                 name: tractionInfo[0].optionName,
+                price: tractionInfo[0].price,
               },
             },
           });
@@ -47,6 +48,7 @@ const Traction = () => {
         traction: {
           id: tractionInfo[idx].carOptionId,
           name: tractionInfo[idx].optionName,
+          price: tractionInfo[idx].price,
         },
       },
       price:

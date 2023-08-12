@@ -32,6 +32,7 @@ const Engine = () => {
               engine: {
                 id: engineInfo[0].carOptionId,
                 name: engineInfo[0].optionName,
+                price: engineInfo[0].price,
               },
             },
           });
@@ -61,6 +62,7 @@ const Engine = () => {
           engine: {
             id: engineInfo[idx].carOptionId,
             name: engineInfo[idx].optionName,
+            price: engineInfo[idx].price,
           },
         },
       });

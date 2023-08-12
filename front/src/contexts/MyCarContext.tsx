@@ -19,17 +19,21 @@ export type trimKey = 'type' | 'engine' | 'bodyType' | 'traction';
 
 export interface MyCarInfoInterface {
   trim: {
-    type: { id: number; name: string } | null;
-    engine: { id: number; name: string } | null;
-    bodyType: { id: number; name: string } | null;
-    traction: { id: number; name: string } | null;
-    [key: string]: { id: number; name: string } | null;
+    type: { id: number; name: string; price: number } | null;
+    engine: { id: number; name: string; price: number } | null;
+    bodyType: { id: number; name: string; price: number } | null;
+    traction: { id: number; name: string; price: number } | null;
+    [key: string]: { id: number; name: string; price: number } | null;
   };
   color: {
-    exteriorColor: { id: number; name: exteriorColorType } | null;
-    interiorColor: { id: number; name: string } | null;
+    exteriorColor: {
+      id: number;
+      name: exteriorColorType;
+      price: number;
+    } | null;
+    interiorColor: { id: number; name: string; price: number } | null;
   };
-  selectedOption: { id: number; name: string }[];
+  selectedOption: { id: number; name: string; price: number }[];
   price: number;
 }
 

@@ -18,9 +18,9 @@ interface alertModalInterface {
 export const AlertModal = ({ content, buttonInfo }: alertModalInterface) => {
   const { closeAlert } = useAlert() as AlertContextType;
   return (
-    <Flex css={containerCss}>
+    <Flex css={ModalContainerCss}>
       <div css={backCss} onClick={closeAlert}></div>
-      <Container>
+      <ModalContainer>
         <Flex direction="column" gap={6}>
           {content.map((text, idx) => (
             <Text key={`modalText_${idx}`} typo="Body1_Regular">
@@ -49,12 +49,12 @@ export const AlertModal = ({ content, buttonInfo }: alertModalInterface) => {
             ))}
           </Flex>
         )}
-      </Container>
+      </ModalContainer>
     </Flex>
   );
 };
 
-export const containerCss = () => css`
+export const ModalContainerCss = () => css`
   position: absolute;
   top: 0;
   left: 0;
@@ -71,7 +71,7 @@ export const backCss = () => css`
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
-const Container = styled.div`
+const ModalContainer = styled.div`
   position: fixed;
   top: 409px;
 

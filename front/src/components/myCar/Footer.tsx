@@ -7,6 +7,7 @@ import { theme } from '@styles/theme';
 import { TrimUrl, apiInstance } from '@utils/api';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { DetailOptionModal } from './option/DetailOptionModal';
 
 interface footerProps {
   currentUrl: string;
@@ -26,6 +27,8 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
     navigate(nextUrl);
     setCurrentUrl(nextUrl);
   };
+
+  const [isOpenDetailModal, setIsOpenDetailModal] = useState(false);
 
   const postData = async () => {
     switch (currentUrl) {
@@ -111,8 +114,8 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
       justify="center"
     >
       <Flex width={1280} gap={30}>
-        <Flex>
-          <Section width={175}>
+        <Flex gap={18}>
+          <Section width={140}>
             <Text typo="Body3_Regular" palette="DarkGray">
               트림
             </Text>
@@ -131,7 +134,7 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
             </Flex>
           </Section>
           <ColumnImg src="/image/page/myCar/columnLine.svg" />
-          <Section width={220}>
+          <Section width={146}>
             <Text typo="Body3_Regular" palette="DarkGray">
               선택 색상
             </Text>
@@ -139,12 +142,7 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
               <Text typo="Body3_Medium" palette="Black">
                 외장
               </Text>
-              <Flex
-                backgroundColor="Primary"
-                borderRadius="100px"
-                width={16}
-                height={16}
-              />
+              <ColorCircle />
               <Text typo="Body3_Regular">
                 {myCarInfo.color.exteriorColor?.name}
               </Text>
@@ -153,19 +151,14 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
               <Text typo="Body3_Medium" palette="Black">
                 내장
               </Text>
-              <Flex
-                backgroundColor="Primary"
-                borderRadius="100px"
-                width={16}
-                height={16}
-              />
+              <ColorCircle />
               <Text typo="Body3_Regular">
                 {myCarInfo.color.interiorColor?.name}
               </Text>
             </Flex>
           </Section>
           <ColumnImg src="/image/page/myCar/columnLine.svg" />
-          <Section width={290}>
+          <Section width={324}>
             <Text typo="Body3_Regular" palette="DarkGray">
               선택 옵션
             </Text>
@@ -173,6 +166,7 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
               gap={8}
               justify="flex-start"
               align="center"
+              width={344}
               css={css`
                 overflow: auto;
                 ::-webkit-scrollbar {
@@ -180,14 +174,25 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
                 }
               `}
             >
-              {myCarInfo.selectedOption.map((option, idx) => (
-                <BlackTagChip key={`chip_${idx}`}>{option.name}</BlackTagChip>
-              ))}
+              {myCarInfo.selectedOption.slice(0, 3).map((option, idx) => {
+                return (
+                  <BlackTagChip key={`chip_${idx}`}>
+                    <SelectOptionText>{option.name}</SelectOptionText>
+                  </BlackTagChip>
+                );
+              })}
+              {myCarInfo.selectedOption.length - 3 > 0 && (
+                <BlackTagChip
+                  onClick={() => setIsOpenDetailModal(true)}
+                  css={css`
+                    cursor: pointer;
+                  `}
+                >{`+${myCarInfo.selectedOption.length - 3}`}</BlackTagChip>
+              )}
             </Flex>
           </Section>
-
           <ColumnImg src="/image/page/myCar/columnLine.svg" />
-          <Section width={170}>
+          <Section width={152}>
             <Text typo="Body3_Regular" palette="DarkGray">
               예상 가격
             </Text>
@@ -201,7 +206,7 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
             </Flex>
           </Section>
         </Flex>
-        <Flex gap={7} width="auto">
+        <Flex gap={7} width={304}>
           {myCarUrl.indexOf(currentUrl) != myCarUrl.length - 1 && (
             <>
               {myCarUrl.indexOf(currentUrl) !== 0 ? (
@@ -233,6 +238,9 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
           )}
         </Flex>
       </Flex>
+      {isOpenDetailModal && (
+        <DetailOptionModal closeModal={() => setIsOpenDetailModal(false)} />
+      )}
     </Flex>
   );
 };
@@ -243,7 +251,6 @@ const Section = styled(Flex)`
   align-items: flex-start;
 
   gap: 6px;
-  padding: 0 0 0 22px;
   box-sizing: border-box;
 `;
 
@@ -251,15 +258,32 @@ const ColumnImg = styled.img`
   height: 100%;
 `;
 
-const BlackTagChip = styled(Flex)`
-  width: auto;
-  height: 30px;
+const BlackTagChip = styled.div`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
 
-  padding: 0 8px;
+  max-width: calc(85px - 8px);
+  height: 22px;
+  padding: 4px 8px;
+  border-radius: 6px;
+
   background-color: ${theme.palette.Black};
   color: ${theme.palette.White};
-  ${theme.typo.Body3_Regular}
-  border-radius: 8px;
+`;
 
+const SelectOptionText = styled.span`
+  ${theme.typo.Body3_Regular};
+  color: ${theme.palette.White};
+
+  overflow: hidden;
+  text-overflow: ellipsis;
   white-space: nowrap;
+`;
+
+export const ColorCircle = styled.div`
+  background-color: ${theme.palette.Primary};
+  border-radius: 100px;
+  width: 16px;
+  height: 16px;
 `;

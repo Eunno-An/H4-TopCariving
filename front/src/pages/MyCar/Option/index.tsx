@@ -1,18 +1,19 @@
 import { Flex, Text } from '@components/common';
 import { Tag } from '@components/common/Tag';
-import styled from '@emotion/styled';
-import { theme } from '@styles/theme';
-import { OptionCard } from '@components/myCar/trim/OptionCard';
-import { useState } from 'react';
-import { OptionInfoCard } from '@components/myCar/trim/OptionInfoCard';
-import { css } from '@emotion/react';
-import vector478 from '@assets/images/Vector 478.svg';
+
 import {
   OptionModal,
   alertContentInterface,
-} from '@components/common/AlertModal/OptionModal';
+} from '@components/myCar/option/OptionModal';
 import { useMyCar } from '@contexts/MyCarContext';
 import { dummyOp, optionDummy } from './dummyOp';
+import { OptionCard, OptionInfoCard } from '@components/myCar/option';
+
+import { useState } from 'react';
+import styled from '@emotion/styled';
+import { theme } from '@styles/theme';
+import { css } from '@emotion/react';
+import vector478 from '@assets/images/Vector 478.svg';
 
 const optionCategory = [
   '파워 트레인/성능',
@@ -87,6 +88,7 @@ export const MyCarOptions = () => {
             {
               id: dummyData[optionIdx].carOptionId,
               name: dummyData[optionIdx].optionName,
+              price: dummyData[optionIdx].price,
             },
           ],
         });
