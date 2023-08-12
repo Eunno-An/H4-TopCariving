@@ -10,18 +10,14 @@ import UIKit
 
 extension Combine.Publishers {
     struct CustomTarget<Control: AnyObject>: Publisher {
-        // swiftlint: disable nesting
         typealias Output = Void
         typealias Failure = Never
-        // swiftlint: enable nesting
+        
         let control: Control
         let addTargetAction: (Control, AnyObject, Selector) -> Void
         let removeTargetAction: (Control, AnyObject, Selector) -> Void
         
-        init(
-            control: Control,
-            addTargetAction: @escaping (Control, AnyObject, Selector) -> Void,
-            removeTargetAction: @escaping (Control, AnyObject, Selector) -> Void) {
+        init(control: Control, addTargetAction: @escaping (Control, AnyObject, Selector) -> Void, removeTargetAction: @escaping (Control, AnyObject, Selector) -> Void) {
             self.control = control
             self.addTargetAction = addTargetAction
             self.removeTargetAction = removeTargetAction
@@ -46,11 +42,7 @@ extension Combine.Publishers.CustomTarget {
         let removeTargetAction: (Control, AnyObject, Selector) -> Void
         let action = #selector(handleAction)
         
-        init(
-            subscriber: S,
-            control: Control,
-            addTargetAction: @escaping (Control, AnyObject, Selector) -> Void,
-            removeTargetAction: @escaping (Control, AnyObject, Selector) -> Void) {
+        init(subscriber: S, control: Control, addTargetAction: @escaping (Control, AnyObject, Selector) -> Void, removeTargetAction: @escaping (Control, AnyObject, Selector) -> Void) {
             self.subscriber = subscriber
             self.control = control
             self.removeTargetAction = removeTargetAction
@@ -63,6 +55,7 @@ extension Combine.Publishers.CustomTarget {
         
         func cancel() {
             subscriber = nil
+            removeTargetAction(control!, self, action)
         }
         
         @objc func handleAction() {
