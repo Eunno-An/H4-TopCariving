@@ -2,22 +2,15 @@ package com.backend.topcariving.domain.archive.entity;
 
 import java.time.LocalDateTime;
 
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
-
 import lombok.Builder;
 import lombok.Getter;
 
 @Builder
 @Getter
-@Table("CAR_ARCHIVING")
 public class CarArchiving {
 
-	@Id
 	private Long archivingId;
 
-	@CreatedDate
 	private LocalDateTime dayTime;
 
 	private Boolean isComplete;

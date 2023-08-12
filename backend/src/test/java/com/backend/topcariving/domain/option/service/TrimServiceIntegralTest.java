@@ -4,53 +4,30 @@ import java.util.List;
 import java.util.Optional;
 
 import org.assertj.core.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.backend.topcariving.config.TestSupport;
 import com.backend.topcariving.domain.archive.entity.MyCar;
-import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
 import com.backend.topcariving.domain.archive.repository.MyCarRepository;
 import com.backend.topcariving.domain.option.dto.request.SelectOptionRequestDTO;
 import com.backend.topcariving.domain.option.dto.response.engine.EngineResponseDTO;
 import com.backend.topcariving.domain.option.dto.response.model.ModelResponseDTO;
 import com.backend.topcariving.domain.option.dto.response.trim.OptionResponseDTO;
 import com.backend.topcariving.domain.option.entity.CategoryDetail;
-import com.backend.topcariving.domain.option.repository.CarOptionRepository;
-import com.backend.topcariving.domain.option.repository.EngineDetailRepository;
-import com.backend.topcariving.domain.option.repository.ModelPhotoRepository;
 
-@DataJdbcTest
+@SpringBootTest
+@Transactional
 public class TrimServiceIntegralTest extends TestSupport {
-
-	@Autowired
-	private CarOptionRepository carOptionRepository;
-
-	@Autowired
-	private ModelPhotoRepository modelPhotoRepository;
-
-	@Autowired
-	private CarArchivingRepository carArchivingRepository;
 
 	@Autowired
 	private MyCarRepository myCarRepository;
 
 	@Autowired
-	private EngineDetailRepository engineDetailRepository;
-
-	@BeforeEach
-	void setup() {
-		trimService = new TrimService(carOptionRepository,
-			modelPhotoRepository,
-			carArchivingRepository,
-			myCarRepository,
-			engineDetailRepository);
-	}
-
 	private TrimService trimService;
 
 	@Nested

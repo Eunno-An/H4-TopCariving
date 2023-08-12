@@ -1,6 +1,5 @@
 package com.backend.topcariving.domain.option.service;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
 import java.util.List;
@@ -18,7 +17,6 @@ import com.backend.topcariving.domain.option.dto.request.SelectOptionsRequestDTO
 import com.backend.topcariving.domain.option.entity.CategoryDetail;
 import com.backend.topcariving.domain.option.exception.InvalidCarOptionIdException;
 import com.backend.topcariving.domain.option.repository.CarOptionRepository;
-import com.sun.jdi.connect.Connector;
 
 @ExtendWith(MockitoExtension.class)
 class OptionServiceTest {
@@ -31,6 +29,7 @@ class OptionServiceTest {
 
 	@InjectMocks
 	private OptionService optionService;
+
 	@Test
 	void 상세_품목의_자식_옵션_조회_시_상세_품목이_아닌_옵션을_선택하면_에러가_발생한다() {
 		// given

@@ -52,7 +52,7 @@ public class OptionService {
 	}
 
 	public List<OptionResponseDTO> getSelections() {
-		List<CarOption> selectedOptions = carOptionRepository.findByCategoryDetailAndParentOptionId(SELECTED.getName(), null);
+		List<CarOption> selectedOptions = carOptionRepository.findByCategoryDetailAndParentOptionIdIsNull(SELECTED.getName());
 
 		return selectedOptions.stream()
 			.map(OptionResponseDTO::from)

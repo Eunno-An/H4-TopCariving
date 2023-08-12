@@ -5,11 +5,14 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.backend.topcariving.config.TestSupport;
 import com.backend.topcariving.domain.option.dto.response.tag.TagResponseDTO;
 
-@DataJdbcTest
+@SpringBootTest
+@Transactional
 class TagReviewRepositoryTest extends TestSupport {
 
 	@Autowired

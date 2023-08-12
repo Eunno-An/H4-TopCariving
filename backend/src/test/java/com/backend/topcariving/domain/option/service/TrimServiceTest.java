@@ -18,30 +18,19 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.backend.topcariving.domain.archive.exception.InvalidAuthorityException;
 import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
-import com.backend.topcariving.domain.archive.repository.MyCarRepository;
 import com.backend.topcariving.domain.option.dto.request.SelectOptionRequestDTO;
 import com.backend.topcariving.domain.option.entity.CategoryDetail;
 import com.backend.topcariving.domain.option.exception.InvalidCarOptionIdException;
 import com.backend.topcariving.domain.option.repository.CarOptionRepository;
-import com.backend.topcariving.domain.option.repository.EngineDetailRepository;
-import com.backend.topcariving.domain.option.repository.ModelPhotoRepository;
 
 @ExtendWith(MockitoExtension.class)
 class TrimServiceTest {
 
 	@Mock
 	private CarOptionRepository carOptionRepository;
-	@Mock
-	private ModelPhotoRepository modelPhotoRepository;
 
 	@Mock
 	private CarArchivingRepository carArchivingRepository;
-
-	@Mock
-	private MyCarRepository myCarRepository;
-
-	@Mock
-	private EngineDetailRepository engineDetailRepository;
 
 	@InjectMocks
 	private TrimService trimService;

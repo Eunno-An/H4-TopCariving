@@ -1,6 +1,5 @@
 package com.backend.topcariving.domain.option.service;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.*;
 
 import org.assertj.core.api.Assertions;
@@ -14,20 +13,12 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.backend.topcariving.domain.archive.exception.InvalidAuthorityException;
 import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
-import com.backend.topcariving.domain.archive.repository.MyCarRepository;
-import com.backend.topcariving.domain.option.repository.CarOptionRepository;
 
 @ExtendWith(MockitoExtension.class)
 class EstimationServiceTest {
 
 	@Mock
 	private CarArchivingRepository carArchivingRepository;
-
-	@Mock
-	private MyCarRepository myCarRepository;
-
-	@Mock
-	private CarOptionRepository carOptionRepository;
 
 	@InjectMocks
 	private EstimationService estimationService;

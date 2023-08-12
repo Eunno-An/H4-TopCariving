@@ -1,36 +1,21 @@
 package com.backend.topcariving.domain.option.service;
 
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.backend.topcariving.config.TestSupport;
-import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
-import com.backend.topcariving.domain.archive.repository.MyCarRepository;
 import com.backend.topcariving.domain.option.dto.response.archiving.ArchivingResponseDTO;
-import com.backend.topcariving.domain.option.repository.CarOptionRepository;
 
-@DataJdbcTest
+@SpringBootTest
+@Transactional
 public class EstimationServiceIntegralTest extends TestSupport {
 
 	@Autowired
-	private CarArchivingRepository carArchivingRepository;
-
-	@Autowired
-	private MyCarRepository myCarRepository;
-
-	@Autowired
-	private CarOptionRepository carOptionRepository;
-
 	private EstimationService estimationService;
-
-	@BeforeEach
-	void setup() {
-		estimationService = new EstimationService(carArchivingRepository, myCarRepository, carOptionRepository);
-	}
 
 	@Nested
 	@DisplayName("내 차 만들기 결과 조회")

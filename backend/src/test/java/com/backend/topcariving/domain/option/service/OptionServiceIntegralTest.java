@@ -6,51 +6,29 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import org.assertj.core.api.Assertions;
-import org.assertj.core.api.SoftAssertions;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.backend.topcariving.config.TestSupport;
 import com.backend.topcariving.domain.archive.entity.MyCar;
-import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
 import com.backend.topcariving.domain.archive.repository.MyCarRepository;
 import com.backend.topcariving.domain.option.dto.request.SelectOptionsRequestDTO;
 import com.backend.topcariving.domain.option.dto.response.selection.SelectionResponseDTO;
 import com.backend.topcariving.domain.option.dto.response.trim.OptionResponseDTO;
-import com.backend.topcariving.domain.option.repository.CarOptionRepository;
 
-@DataJdbcTest
-public class OptionServiceIntegralTest {
-
-	@Autowired
-	private CarOptionRepository carOptionRepository;
-
-	@Autowired
-	private CarArchivingRepository carArchivingRepository;
+@SpringBootTest
+@Transactional
+public class OptionServiceIntegralTest extends TestSupport {
 
 	@Autowired
 	private MyCarRepository myCarRepository;
 
-	private SoftAssertions softAssertions;
-
+	@Autowired
 	private OptionService optionService;
-
-	@BeforeEach
-	void setup() {
-		softAssertions = new SoftAssertions();
-
-		optionService = new OptionService(carOptionRepository, carArchivingRepository, myCarRepository);
-	}
-
-	@AfterEach
-	void after() {
-		softAssertions.assertAll();
-	}
 
 	@Nested
 	@DisplayName("기본 포함 품목 테스트")
