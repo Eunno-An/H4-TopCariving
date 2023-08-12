@@ -25,6 +25,7 @@ class BaseOptionMainCategoryView: UIView {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    private var subCategoryStackView = BaseOptionSubCategoryStackView()
     
     // MARK: - Properties
     private var bag: Set<AnyCancellable> = .init()
@@ -36,6 +37,7 @@ class BaseOptionMainCategoryView: UIView {
         setUI()
         setLayout()
         setArrowButtonAction()
+        setSubCategoryStackView()
     }
     
     required init?(coder: NSCoder) {
@@ -43,13 +45,14 @@ class BaseOptionMainCategoryView: UIView {
         setUI()
         setLayout()
         setArrowButtonAction()
+        setSubCategoryStackView()
     }
     
     // MARK: - Helpers
     func setUI() {
         backgroundColor = .hyundaiLightSand
         layer.cornerRadius = 8
-        [title, arrow].forEach {
+        [title, arrow, subCategoryStackView].forEach {
             addSubview($0)
         }
     }
@@ -64,7 +67,13 @@ class BaseOptionMainCategoryView: UIView {
             arrow.heightAnchor.constraint(equalToConstant: 24),
             arrow.widthAnchor.constraint(equalToConstant: 24),
             arrow.topAnchor.constraint(equalTo: topAnchor, constant: 11),
-            arrow.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -11)
+            arrow.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -11),
+            
+            subCategoryStackView.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.991),
+            subCategoryStackView.centerXAnchor.constraint(equalTo: centerXAnchor),
+            subCategoryStackView.heightAnchor.constraint(
+                equalToConstant: CGFloat(12 + 71 * subCategoryStackView.arrangedSubviews.count)),
+            subCategoryStackView.topAnchor.constraint(equalTo: bottomAnchor, constant: 12)
         ])
     }
     
@@ -74,13 +83,19 @@ class BaseOptionMainCategoryView: UIView {
         }.store(in: &bag)
     }
     
+    func setSubCategoryStackView() {
+        subCategoryStackView.isHidden = true
+    }
+    
     func toggleFold() {
         isFolded.toggle()
         switch isFolded {
         case true:
             arrow.setImage(UIImage(named: "arrow_down"), for: .normal)
+            subCategoryStackView.isHidden = true
         case false:
             arrow.setImage(UIImage(named: "arrow_up"), for: .normal)
+            subCategoryStackView.isHidden = false
         }
     }
     
