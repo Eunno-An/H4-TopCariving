@@ -27,14 +27,13 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
+@Transactional(readOnly = true)
 public class EstimationService {
 
 	private final CarArchivingRepository carArchivingRepository;
 	private final MyCarRepository myCarRepository;
 	private final CarOptionRepository carOptionRepository;
 
-	@Transactional(readOnly = true)
 	public ArchivingResponseDTO getArchivingResult(Long userId, Long archivingId) {
 		verifyCarArchiving(userId, archivingId);
 

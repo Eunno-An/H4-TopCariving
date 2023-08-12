@@ -19,8 +19,6 @@ import com.backend.topcariving.domain.option.service.TrimService;
 import com.backend.topcariving.global.response.SuccessResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -61,7 +59,7 @@ public class TrimController {
 	@Operation(summary = "엔진 옵션 저장", description = "내 차 만들기에서 엔진을 선택한 값을 저장하고, 차량 아카이빙 PK 값을 반환한다")
 	public SuccessResponse<Long> saveEngine(@RequestBody SelectOptionRequestDTO selectOptionRequestDTO) {
 
-		return new SuccessResponse<>(trimService.saveTrim(selectOptionRequestDTO, CategoryDetail.ENGINE));
+		return new SuccessResponse<>(trimService.saveOption(selectOptionRequestDTO, CategoryDetail.ENGINE));
 	}
 
 	@GetMapping("/body-types")
@@ -76,7 +74,7 @@ public class TrimController {
 	@Operation(summary = "바디 타입 저장", description = "내 차 만들기에서 바디 타입 선택한 값을 저장하고, 차량 아카이빙 PK 값을 반환한다")
 	public SuccessResponse<Long> saveBodyTypes(@RequestBody SelectOptionRequestDTO selectOptionRequestDTO) {
 
-		return new SuccessResponse<>(trimService.saveTrim(selectOptionRequestDTO, CategoryDetail.BODY_TYPE));
+		return new SuccessResponse<>(trimService.saveOption(selectOptionRequestDTO, CategoryDetail.BODY_TYPE));
 	}
 
 	@GetMapping("/driving-methods")
@@ -91,7 +89,7 @@ public class TrimController {
 	@Operation(summary = "구동 방식 저장", description = "내 차 만들기에서 구동 방식 선택한 값을 저장하고, 차량 아카이빙 PK 값을 반환한다")
 	public SuccessResponse<Long> saveDrivingMethod(@RequestBody SelectOptionRequestDTO selectOptionRequestDTO) {
 
-		final Long archivingId = trimService.saveTrim(selectOptionRequestDTO, CategoryDetail.DRIVING_METHOD);
+		final Long archivingId = trimService.saveOption(selectOptionRequestDTO, CategoryDetail.DRIVING_METHOD);
 		return new SuccessResponse<>(archivingId);
 	}
 }

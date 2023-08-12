@@ -15,6 +15,9 @@ import com.backend.topcariving.domain.option.dto.request.color.BothColorRequestD
 import com.backend.topcariving.domain.option.dto.response.color.BothColorResponseDTO;
 import com.backend.topcariving.domain.option.dto.response.color.ExteriorColorResponseDTO;
 import com.backend.topcariving.domain.option.dto.response.color.InteriorColorResponseDTO;
+import com.backend.topcariving.domain.option.entity.CategoryDetail;
+import com.backend.topcariving.domain.option.service.ColorService;
+import com.backend.topcariving.domain.option.service.TrimService;
 import com.backend.topcariving.global.response.SuccessResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -27,17 +30,21 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ColorController {
 
+	private final ColorService colorService;
+	private final TrimService trimService;
+
 	@GetMapping("/exteriors")
 	@Operation(summary = "외장 색상 옵션 전체 반환", description = "내 차 만들기에서 모든 외장 색상 옵션을 반환한다")
 	public List<ExteriorColorResponseDTO> getExteriorColors() {
-		return null;
+		return colorService.getExteriorColors();
 	}
 
 	@PostMapping("/exteriors")
 	@ResponseStatus(HttpStatus.CREATED)
 	@Operation(summary = "외장 색상 옵션 저장", description = "내 차 만들기에서 외장 색상을 선택한 값을 저장하고, 아카이빙 PK 값을 반환한다")
 	public SuccessResponse<Long> saveExteriorColor(@RequestBody SelectOptionRequestDTO selectOptionRequestDTO) {
-		return null;
+		final Long archivingId = trimService.saveOption(selectOptionRequestDTO, CategoryDetail.EXTERIOR_COLOR);
+		return new SuccessResponse<>(archivingId);
 	}
 
 	@GetMapping("/interiors")
