@@ -13,6 +13,7 @@ import Complete from '@pages/MyCar/Complete';
 import { TrimUrl, apiInstance } from '@utils/api';
 import { TrimCardInterface } from '@components/myCar/trim';
 import { myCarOptionInterface } from '@interface/index';
+import { Archive } from '@pages/Archive/archive';
 
 export const router = createBrowserRouter([
   { path: '/', element: <Login /> },
@@ -80,8 +81,12 @@ export const router = createBrowserRouter([
   },
   { path: '/my-car/complete', element: <Complete /> },
   {
+    path: '/my-archive',
+    element: <Flex>마이 카이빙</Flex>,
+  },
+  {
     path: '/archive',
-    element: <Flex>아카이빙</Flex>,
+    element: <Archive />,
   },
   { path: '/*', element: <Error /> },
 ]);

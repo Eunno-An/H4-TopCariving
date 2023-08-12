@@ -31,6 +31,12 @@ export const typo = {
     font-size: 18px;
     line-height: 24px;
   `,
+  Heading5_Bold: css`
+    font-family: 'hyundaiFont_Bold';
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+  `,
 
   Heading1_Medium: css`
     font-family: 'hyundaiFont_Medium';
