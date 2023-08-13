@@ -24,7 +24,7 @@ public enum CategoryDetail {
 	CONVENIENCE("편의"),
 	MULTI_MEDIA("멀티미디어"),
 	SELECTED("상세 품목"),
-	H_GENUINE_ACCESSORIES("H Genuine"),
+	H_GENUINE_ACCESSORIES("H Genuine Accessories"),
 	N_PERFORMANCE("N Performance"),
 	EMPTY("empty");
 

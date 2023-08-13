@@ -56,35 +56,21 @@ public class OptionService {
 		return BasicOptionResponseDTO.of(basicOptions);
 	}
 
-	public List<OptionResponseDTO> getSelections() {
-		List<CarOption> selectedOptions = carOptionRepository.findByCategoryDetailAndParentOptionIdIsNull(SELECTED.getName());
+	public List<OptionResponseDTO> getSelections(CategoryDetail categoryDetail) {
+		List<CarOption> selectedOptions = carOptionRepository.findByCategoryDetailAndParentOptionIdIsNull(categoryDetail.getName());
 
 		return selectedOptions.stream()
 			.map(OptionResponseDTO::from)
 			.collect(Collectors.toList());
 	}
 
-	public SelectionResponseDTO getSelectionDetails(Long carOptionId) {
-		verifyCarOptionId(SELECTED, carOptionId);
-
-		List<CarOption> childSelectedOptions = carOptionRepository.findByParentOptionId(carOptionId);
-		CarOption carOption = carOptionRepository.findByCarOptionId(carOptionId)
-			.orElseThrow(InvalidCarOptionIdException::new);
-		List<SelectionDetailDTO> selectionDetailDTOs = childSelectedOptions.stream()
-			.map(SelectionDetailDTO::from)
-			.collect(Collectors.toList());
-		List<TagResponseDTO> tagResponseDTO = tagReviewRepository.findTagResponseDTOByCarOptionIdAndLimit(carOption.getCarOptionId(), TAG_LIMIT);
-
-		return SelectionResponseDTO.of(carOption, selectionDetailDTOs, tagResponseDTO);
-	}
-
-	public Long saveSelectionOptions(SelectOptionsRequestDTO selectOptionsRequestDTO) {
+	public Long saveSelectionOptions(SelectOptionsRequestDTO selectOptionsRequestDTO, CategoryDetail categoryDetail) {
 		Long userId = selectOptionsRequestDTO.getUserId();;
 		List<Long> selectedOptionIds = selectOptionsRequestDTO.getIds();
 		Long archivingId = selectOptionsRequestDTO.getArchivingId();
 
 		verifyCarArchiving(userId, archivingId);
-		verifyCarOptionId(SELECTED, selectedOptionIds);
+		verifyCarOptionId(categoryDetail, selectedOptionIds);
 
 		selectedOptionIds.stream().forEach(selectedOptionId -> {
 			MyCar myCar = MyCar.builder()
@@ -98,15 +84,21 @@ public class OptionService {
 		return archivingId;
 	}
 
+	public SelectionResponseDTO getSelectionDetails(Long carOptionId) {
+		List<CarOption> childSelectedOptions = carOptionRepository.findByParentOptionId(carOptionId);
+		CarOption carOption = carOptionRepository.findByCarOptionId(carOptionId)
+			.orElseThrow(InvalidCarOptionIdException::new);
+		List<SelectionDetailDTO> selectionDetailDTOs = childSelectedOptions.stream()
+			.map(SelectionDetailDTO::from)
+			.collect(Collectors.toList());
+		List<TagResponseDTO> tagResponseDTO = tagReviewRepository.findTagResponseDTOByCarOptionIdAndLimit(carOption.getCarOptionId(), TAG_LIMIT);
+
+		return SelectionResponseDTO.of(carOption, selectionDetailDTOs, tagResponseDTO);
+	}
+
 	private void verifyCarArchiving(Long userId, Long archivingId) {
 		if (!carArchivingRepository.existsByUserIdAndArchivingId(userId, archivingId)) {
 			throw new InvalidAuthorityException();
-		}
-	}
-
-	private void verifyCarOptionId(CategoryDetail categoryDetail, Long carOptionId) {
-		if (!carOptionRepository.existsByCarOptionIdAndCategoryDetail(carOptionId, categoryDetail.getName())) {
-			throw new InvalidCarOptionIdException();
 		}
 	}
 

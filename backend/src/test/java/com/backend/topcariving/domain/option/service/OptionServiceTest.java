@@ -31,17 +31,6 @@ class OptionServiceTest {
 	private OptionService optionService;
 
 	@Test
-	void 상세_품목의_자식_옵션_조회_시_상세_품목이_아닌_옵션을_선택하면_에러가_발생한다() {
-		// given
-		given(carOptionRepository.existsByCarOptionIdAndCategoryDetail(1L, "상세 품목"))
-			.willReturn(false);
-
-		// when, then
-		Assertions.assertThatThrownBy(() -> optionService.getSelectionDetails(1L))
-			.isInstanceOf(InvalidCarOptionIdException.class);
-	}
-
-	@Test
 	void 상세_품목_선택_시_내_차가_아닌_차에_옵션을_추가하면_에러가_발생한다() {
 		// given
 		given(carArchivingRepository.existsByUserIdAndArchivingId(1L, 22L))
@@ -49,7 +38,7 @@ class OptionServiceTest {
 		final SelectOptionsRequestDTO selectOptionsRequestDTO = new SelectOptionsRequestDTO(1L, List.of(103L, 110L), 22L);
 
 		// when, then
-		Assertions.assertThatThrownBy(() -> optionService.saveSelectionOptions(selectOptionsRequestDTO))
+		Assertions.assertThatThrownBy(() -> optionService.saveSelectionOptions(selectOptionsRequestDTO, CategoryDetail.SELECTED))
 			.isInstanceOf(InvalidAuthorityException.class);
 	}
 
@@ -63,7 +52,7 @@ class OptionServiceTest {
 		final SelectOptionsRequestDTO selectOptionsRequestDTO = new SelectOptionsRequestDTO(1L, List.of(1L), 22L);
 
 		// when, then
-		Assertions.assertThatThrownBy(() -> optionService.saveSelectionOptions(selectOptionsRequestDTO))
+		Assertions.assertThatThrownBy(() -> optionService.saveSelectionOptions(selectOptionsRequestDTO, CategoryDetail.SELECTED))
 			.isInstanceOf(InvalidCarOptionIdException.class);
 	}
 
