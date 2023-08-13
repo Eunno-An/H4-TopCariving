@@ -18,12 +18,14 @@ import com.backend.topcariving.domain.archive.repository.MyCarRepository;
 import com.backend.topcariving.domain.option.dto.request.SelectOptionsRequestDTO;
 import com.backend.topcariving.domain.option.dto.response.selection.SelectionDetailDTO;
 import com.backend.topcariving.domain.option.dto.response.selection.SelectionResponseDTO;
+import com.backend.topcariving.domain.option.dto.response.tag.TagResponseDTO;
 import com.backend.topcariving.domain.option.dto.response.trim.BasicOptionResponseDTO;
 import com.backend.topcariving.domain.option.dto.response.trim.OptionResponseDTO;
 import com.backend.topcariving.domain.option.entity.CarOption;
 import com.backend.topcariving.domain.option.entity.CategoryDetail;
 import com.backend.topcariving.domain.option.exception.InvalidCarOptionIdException;
 import com.backend.topcariving.domain.option.repository.CarOptionRepository;
+import com.backend.topcariving.domain.review.repository.TagReviewRepository;
 
 import lombok.RequiredArgsConstructor;
 
@@ -35,6 +37,9 @@ public class OptionService {
 	private final CarOptionRepository carOptionRepository;
 	private final CarArchivingRepository carArchivingRepository;
 	private final MyCarRepository myCarRepository;
+	private final TagReviewRepository tagReviewRepository;
+
+	private static final int TAG_LIMIT = 5;
 
 	public BasicOptionResponseDTO getBasics() {
 		Map<String, List<OptionResponseDTO>> basicOptions = new HashMap<>();
@@ -68,8 +73,9 @@ public class OptionService {
 		List<SelectionDetailDTO> selectionDetailDTOs = childSelectedOptions.stream()
 			.map(SelectionDetailDTO::from)
 			.collect(Collectors.toList());
+		List<TagResponseDTO> tagResponseDTO = tagReviewRepository.findTagResponseDTOByCarOptionIdAndLimit(carOption.getCarOptionId(), TAG_LIMIT);
 
-		return SelectionResponseDTO.of(carOption, selectionDetailDTOs, null);
+		return SelectionResponseDTO.of(carOption, selectionDetailDTOs, tagResponseDTO);
 	}
 
 	public Long saveSelectionOptions(SelectOptionsRequestDTO selectOptionsRequestDTO) {

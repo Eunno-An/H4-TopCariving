@@ -79,6 +79,7 @@ public class OptionServiceIntegralTest extends TestSupport {
 			softAssertions.assertThat(selectionResponseDTO.getPrice()).isEqualTo(1090000);
 			softAssertions.assertThat(selectionResponseDTO.getPhotoUrl()).isEqualTo("https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/roa.jpeg");
 			softAssertions.assertThat(selectionResponseDTO.getDetails()).hasSize(6);
+			softAssertions.assertThat(selectionResponseDTO.getTags()).hasSize(5);
 		}
 
 		@Test
