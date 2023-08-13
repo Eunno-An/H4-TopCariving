@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.backend.topcariving.config.TestSupport;
 import com.backend.topcariving.domain.archive.entity.MyCar;
 import com.backend.topcariving.domain.archive.repository.MyCarRepository;
+import com.backend.topcariving.domain.option.dto.request.SelectOptionRequestDTO;
 import com.backend.topcariving.domain.option.dto.request.SelectOptionsRequestDTO;
 import com.backend.topcariving.domain.option.dto.response.selection.SelectionResponseDTO;
 import com.backend.topcariving.domain.option.dto.response.trim.OptionResponseDTO;
@@ -132,6 +133,46 @@ public class OptionServiceIntegralTest extends TestSupport {
 			Optional<MyCar> myCarOption1 = myCarRepository.findByArchivingIdAndCarOptionId(archivingId, carOptionIds.get(1));
 			softAssertions.assertThat(myCarOption0).isPresent();
 			softAssertions.assertThat(myCarOption1).isPresent();
+		}
+	}
+
+	@Nested
+	@DisplayName("N Performance 테스트")
+	class NPerformance {
+		@Test
+		void N_Performance_옵션을_반환해야한다() {
+			// given, when
+			List<OptionResponseDTO> selectedOptions = optionService.getSelections(N_PERFORMANCE);
+
+			// then
+			softAssertions.assertThat(selectedOptions).hasSize(3);
+			OptionResponseDTO selectedOption = selectedOptions.get(0);
+			softAssertions.assertThat(selectedOption.getCarOptionId()).isEqualTo(128L);
+			softAssertions.assertThat(selectedOption.getOptionName()).isEqualTo("20인치 다크 스퍼터링 휠");
+			softAssertions.assertThat(selectedOption.getPrice()).isEqualTo(840000);
+			softAssertions.assertThat(selectedOption.getPhotoUrl()).isEqualTo("https://topcariving.s3.ap-northeast-2.amazonaws.com/N_performance/20_darkwheel.jpeg");
+		}
+
+		@Test
+		void N_Performance_옵션을_저장하고_아카이빙_아이디가_반환되어야_한다() {
+			// given
+			Long userId = 3L;
+			Long carOptionId = 130L;
+			Long archivingId = 3L;
+			final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(userId, carOptionId, archivingId);
+			MyCar myCar = MyCar.builder()
+				.archivingId(archivingId)
+				.carOptionId(1L)
+				.build();
+			myCarRepository.save(myCar);
+
+			// when
+			Long savedArchivingId = optionService.saveSelectionOption(selectOptionRequestDTO, N_PERFORMANCE);
+
+			// then
+			softAssertions.assertThat(savedArchivingId).isEqualTo(archivingId);
+			Optional<MyCar> myCarOption = myCarRepository.findByArchivingIdAndCarOptionId(archivingId, carOptionId);
+			softAssertions.assertThat(myCarOption).isPresent();
 		}
 	}
 

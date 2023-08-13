@@ -15,6 +15,7 @@ import com.backend.topcariving.domain.archive.entity.MyCar;
 import com.backend.topcariving.domain.archive.exception.InvalidAuthorityException;
 import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
 import com.backend.topcariving.domain.archive.repository.MyCarRepository;
+import com.backend.topcariving.domain.option.dto.request.SelectOptionRequestDTO;
 import com.backend.topcariving.domain.option.dto.request.SelectOptionsRequestDTO;
 import com.backend.topcariving.domain.option.dto.response.selection.SelectionDetailDTO;
 import com.backend.topcariving.domain.option.dto.response.selection.SelectionResponseDTO;
@@ -84,6 +85,22 @@ public class OptionService {
 		return archivingId;
 	}
 
+	public Long saveSelectionOption(SelectOptionRequestDTO selectOptionRequestDTO, CategoryDetail categoryDetail) {
+		Long userId = selectOptionRequestDTO.getUserId();
+		Long carOptionId = selectOptionRequestDTO.getCarOptionId();
+		Long archivingId = selectOptionRequestDTO.getArchivingId();
+
+		verifyCarArchiving(userId, archivingId);
+		verifyCarOptionId(categoryDetail, carOptionId);
+
+		MyCar myCar = MyCar.builder()
+			.carOptionId(carOptionId)
+			.archivingId(archivingId)
+			.build();
+		myCarRepository.save(myCar);
+		return archivingId;
+	}
+
 	public SelectionResponseDTO getSelectionDetails(Long carOptionId) {
 		List<CarOption> childSelectedOptions = carOptionRepository.findByParentOptionId(carOptionId);
 		CarOption carOption = carOptionRepository.findByCarOptionId(carOptionId)
@@ -99,6 +116,12 @@ public class OptionService {
 	private void verifyCarArchiving(Long userId, Long archivingId) {
 		if (!carArchivingRepository.existsByUserIdAndArchivingId(userId, archivingId)) {
 			throw new InvalidAuthorityException();
+		}
+	}
+
+	private void verifyCarOptionId(CategoryDetail categoryDetail, Long carOptionId) {
+		if (!carOptionRepository.existsByCarOptionIdAndCategoryDetail(carOptionId, categoryDetail.getName())) {
+			throw new InvalidCarOptionIdException();
 		}
 	}
 

@@ -67,16 +67,14 @@ public class OptionController {
 	@GetMapping("/performances")
 	@Operation(summary = "N Performance 전체 반환", description = "내 차 만들기에서 N Performance에 대한 옵션 전체를 반환한다")
 	public List<OptionResponseDTO> getPerformances() {
-
-		return null;
+		return optionService.getSelections(CategoryDetail.N_PERFORMANCE);
 	}
 
 	@PostMapping("/performances")
 	@Operation(summary = "N Performance 저장", description = "내 차 만들기에서 선택한 옵션들의 값을 저장하고, 차량 아카이브 PK 값을 반환함")
 	@ResponseStatus(HttpStatus.CREATED)
 	public SuccessResponse<Long> savePerformances(@RequestBody SelectOptionRequestDTO selectOptionRequestDTO) {
-
-		return null;
+		return new SuccessResponse<>(optionService.saveSelectionOption(selectOptionRequestDTO, CategoryDetail.N_PERFORMANCE));
 	}
 
 	@GetMapping("/details/{carOptionId}")
