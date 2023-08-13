@@ -142,14 +142,14 @@ const Dim = styled(Flex)<{ isHover: boolean }>`
 
 const selected = css`
   color: ${theme.palette.White};
-  background-color: #385da2;
+  background-color: ${theme.palette.OptionBlue};
 
   position: relative;
 `;
 
 const notSelected = css`
-  color: #385da2;
-  border: 2px solid #385da2;
+  color: ${theme.palette.OptionBlue};
+  border: 2px solid ${theme.palette.OptionBlue};
 
   position: relative;
 `;

@@ -1,6 +1,6 @@
 import { Flex } from '@components/common';
 import styled from '@emotion/styled';
-import { OptionCard } from '@components/archive/archiveOptionCard/OptionCard';
+import { OptionCard } from '@components/archive/detail/archiveOptionCard/OptionCard';
 
 export interface OptionInfoInterface {
   photoUrl: string;
@@ -130,30 +130,27 @@ const optionInfoDummy = [
 
 export const ArchiveOptionDetails = () => {
   return (
-    <Flex backgroundColor="White">
-      <Flex width={1024} justify="space-between" padding="40px 0 0 0" gap={24}>
+    <Flex
+      width={1044}
+      justify="space-between"
+      padding="40px 0 0 0"
+      gap={24}
+      backgroundColor="White"
+    >
+      {[0, 1, 2].map((number) => (
         <CardContainer>
           {optionInfoDummy.map(
-            (it, idx) => idx % 3 == 0 && <OptionCard info={it} />,
+            (it, idx) => idx % 3 == number && <OptionCard info={it} />,
           )}
         </CardContainer>
-        <CardContainer>
-          {optionInfoDummy.map(
-            (it, idx) => idx % 3 == 1 && <OptionCard info={it} />,
-          )}
-        </CardContainer>
-        <CardContainer>
-          {optionInfoDummy.map(
-            (it, idx) => idx % 3 == 2 && <OptionCard info={it} />,
-          )}
-        </CardContainer>
-      </Flex>
+      ))}
     </Flex>
   );
 };
 
 const CardContainer = styled(Flex)`
   flex-direction: column;
+  width: 331px;
   gap: 24px;
   justify-content: flex-start;
 `;

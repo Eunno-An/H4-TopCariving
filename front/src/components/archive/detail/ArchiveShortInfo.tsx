@@ -4,11 +4,11 @@ import { theme } from '@styles/theme';
 import bookmark from '@assets/images/bookmark.svg';
 export const ArchiveShortInfo = () => {
   return (
-    <Flex backgroundColor="White">
+    <Flex direction="column" justify="flex-start">
       <Flex
         direction="column"
         width={1024}
-        padding="16px 0 0 0"
+        padding="16px 0 30px 0"
         justify="flex-start"
         gap={47}
       >
@@ -76,6 +76,7 @@ export const ArchiveShortInfo = () => {
           </Flex>
         </Flex>
       </Flex>
+      <Flex height={18} backgroundColor="LightSand"></Flex>
     </Flex>
   );
 };

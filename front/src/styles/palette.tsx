@@ -19,6 +19,7 @@ export const palette = {
 
   White: '#FFFFFF',
   ActiveBlue: '#00AAD2',
+  OptionBlue: '#385DA2',
 
   Alert: {
     Primary: '#FA6253',

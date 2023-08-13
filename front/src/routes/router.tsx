@@ -13,7 +13,9 @@ import Complete from '@pages/MyCar/Complete';
 import { TrimUrl, apiInstance } from '@utils/api';
 import { TrimCardInterface } from '@components/myCar/trim';
 import { myCarOptionInterface } from '@interface/index';
-import { Archive } from '@pages/Archive/archive';
+import { ArchiveDetail } from '@pages/Archive/detail';
+import { Archive } from '@pages/Archive';
+import { ArchiveMain } from '@pages/Archive/main';
 
 export const router = createBrowserRouter([
   { path: '/', element: <Login /> },
@@ -87,6 +89,16 @@ export const router = createBrowserRouter([
   {
     path: '/archive',
     element: <Archive />,
+    children: [
+      {
+        path: '',
+        element: <ArchiveMain />,
+      },
+      {
+        path: 'detail',
+        element: <ArchiveDetail />,
+      },
+    ],
   },
   { path: '/*', element: <Error /> },
 ]);
