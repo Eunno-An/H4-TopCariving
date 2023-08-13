@@ -3,6 +3,7 @@ package com.backend.topcariving.domain.option.dto.response.color;
 import java.util.List;
 
 import com.backend.topcariving.domain.option.dto.response.tag.TagResponseDTO;
+import com.backend.topcariving.domain.option.entity.CarOption;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
@@ -30,4 +31,16 @@ public class InteriorColorResponseDTO {
 
 	@Schema(description = "다른 사용자들이 남긴 태그 후기")
 	private List<TagResponseDTO> tagResponses;
+
+	public static InteriorColorResponseDTO of(CarOption carOption, String photoUrl, List<TagResponseDTO> tagResponses) {
+		return InteriorColorResponseDTO.builder()
+			.carOptionId(carOption.getCarOptionId())
+			.optionName(carOption.getOptionName())
+			.photoUrl(photoUrl)
+			.colorUrl(carOption.getPhotoUrl())
+			.price(carOption.getPrice())
+			.tagResponses(tagResponses)
+			.build();
+	}
+
 }

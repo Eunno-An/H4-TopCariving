@@ -50,27 +50,35 @@ public class ColorController {
 	@GetMapping("/interiors")
 	@Operation(summary = "내장 색상 옵션 전체 반환", description = "내 차 만들기에서 모든 내장 색상 옵션을 반환한다")
 	public List<InteriorColorResponseDTO> getInteriorColors() {
-		return null;
+		return colorService.getInteriorColors();
 	}
 
 	@PostMapping("/interiors")
 	@ResponseStatus(HttpStatus.CREATED)
 	@Operation(summary = "내장 색상 옵션 저장", description = "내 차 만들기에서 내장 색상을 선택한 값을 저장하고, 아카이빙 PK 값을 반환한다")
 	public SuccessResponse<Long> saveInteriorColor(@RequestBody SelectOptionRequestDTO selectOptionRequestDTO) {
-		return null;
+		final Long archivingId = trimService.saveOption(selectOptionRequestDTO, CategoryDetail.INTERIOR_COLOR);
+		return new SuccessResponse<>(archivingId);
 	}
 
 	@GetMapping("/both")
 	@Operation(summary = "외장, 내장 색상 옵션 전체 반환", description = "내 차 만들기에서 모든 외장, 내장 색상 옵션을 반환한다")
 	public BothColorResponseDTO getBothColors() {
-		return null;
+		return colorService.getBothResponseDTO();
 	}
 
 	@PostMapping("/both")
 	@ResponseStatus(HttpStatus.CREATED)
 	@Operation(summary = "외장, 내장 색상 옵션 저장", description = "내 차 만들기에서 외장, 내장 색상을 선택한 값을 저장하고, 아카이빙 PK 값을 반환한다")
 	public SuccessResponse<Long> saveBothColor(@RequestBody BothColorRequestDTO bothColorRequestDTO) {
-		return null;
+		final Long userId = bothColorRequestDTO.getUserId();
+		final Long archivingId = bothColorRequestDTO.getArchivingId();
+		final Long interiorColorOptionId = bothColorRequestDTO.getInteriorColorOptionId();
+		final Long exteriorColorOptionId = bothColorRequestDTO.getExteriorColorOptionId();
+
+		trimService.saveOption(new SelectOptionRequestDTO(userId, interiorColorOptionId, archivingId), CategoryDetail.INTERIOR);
+		trimService.saveOption(new SelectOptionRequestDTO(userId, exteriorColorOptionId, archivingId), CategoryDetail.EXTERIOR);
+		return new SuccessResponse<>(archivingId);
 	}
 
 }
