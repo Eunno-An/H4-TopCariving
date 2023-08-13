@@ -5,6 +5,7 @@
 //  Created by Eunno An on 2023/08/13.
 //
 
+import Combine
 import UIKit
 
 class SubCategoryModalViewController: UIViewController {
@@ -23,7 +24,7 @@ class SubCategoryModalViewController: UIViewController {
         return button
     }()
     private var titleImage: UIImageView = {
-        var image = UIImage()
+        var image = UIImage(named: "baseOptionSample")
         var imageView = UIImageView(image: image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -32,21 +33,25 @@ class SubCategoryModalViewController: UIViewController {
         let label = UILabel()
         label.text = "신호 대기 상황이거나 정차 중일 때 차의 엔진을 일시 정지하여 연비를 향상시키고, 배출가스 발생을 억제하는 시스템입니다."
         label.font = .designSystem(.init(name: .regular, size: ._12))
+        label.numberOfLines = 0
+        label.lineBreakMode = .byWordWrapping
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     // MARK: - Properties
-    
+    private var bag = Set<AnyCancellable>()
     // MARK: - Lifecycles
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUI()
         setLayout()
+        setCacnelAction()
     }
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setUI()
         setLayout()
+        setCacnelAction()
     }
     init(title: String, imageURL: String, description: String) {
         super.init(nibName: nil, bundle: nil)
@@ -55,9 +60,13 @@ class SubCategoryModalViewController: UIViewController {
         setTitle(to: title)
         setImage(to: imageURL)
         setDescription(to: description)
+        setCacnelAction()
     }
+    
     // MARK: - Helpers
     func setUI() {
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 8
         [titleLabel, titleImage, detail, cancelButton].forEach {
             view.addSubview($0)
         }
@@ -71,15 +80,15 @@ class SubCategoryModalViewController: UIViewController {
             cancelButton.widthAnchor.constraint(equalToConstant: 37),
             cancelButton.heightAnchor.constraint(equalToConstant: 37),
             cancelButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 16),
-            cancelButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: 16),
+            cancelButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             
             titleImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             titleImage.widthAnchor.constraint(equalToConstant: 287),
             titleImage.heightAnchor.constraint(equalToConstant: 161),
-            titleImage.topAnchor.constraint(equalTo: titleLabel.bottomAnchor),
+            titleImage.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 17),
             
             detail.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            detail.topAnchor.constraint(equalTo: titleImage.topAnchor, constant: 20),
+            detail.topAnchor.constraint(equalTo: titleImage.bottomAnchor, constant: 20),
             detail.widthAnchor.constraint(equalToConstant: 287),
             detail.heightAnchor.constraint(equalToConstant: 40)
         ])
@@ -94,5 +103,10 @@ class SubCategoryModalViewController: UIViewController {
     }
     func setDescription(to text: String) {
         detail.text = text
+    }
+    func setCacnelAction() {
+        cancelButton.tapPublisher().sink {
+            self.dismiss(animated: false)
+        }.store(in: &bag)
     }
 }

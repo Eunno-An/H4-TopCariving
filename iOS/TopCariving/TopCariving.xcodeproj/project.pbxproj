@@ -36,6 +36,7 @@
 		D462E7902A8704A700C5A8EC /* BaseOptionSubCategoryStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E78F2A8704A700C5A8EC /* BaseOptionSubCategoryStackView.swift */; };
 		D462E7922A8778C800C5A8EC /* BaseOptionMainCategoryTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E7912A8778C800C5A8EC /* BaseOptionMainCategoryTitleView.swift */; };
 		D462E8122A88A3D700C5A8EC /* SubCategoryModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8112A88A3D700C5A8EC /* SubCategoryModalViewController.swift */; };
+		D462E8162A88D6E600C5A8EC /* ModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8152A88D6E600C5A8EC /* ModalPresentationController.swift */; };
 		D4A68CF82A808D6300E2C1FD /* OptionRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A68CF72A808D6300E2C1FD /* OptionRequestDTO.swift */; };
 		D4A68CFA2A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A68CF92A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift */; };
 		D4A68CFC2A80925400E2C1FD /* ArchivingOptionResponseDTO+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A68CFB2A80925400E2C1FD /* ArchivingOptionResponseDTO+Mapping.swift */; };
@@ -136,6 +137,7 @@
 		D462E78F2A8704A700C5A8EC /* BaseOptionSubCategoryStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseOptionSubCategoryStackView.swift; sourceTree = "<group>"; };
 		D462E7912A8778C800C5A8EC /* BaseOptionMainCategoryTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseOptionMainCategoryTitleView.swift; sourceTree = "<group>"; };
 		D462E8112A88A3D700C5A8EC /* SubCategoryModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCategoryModalViewController.swift; sourceTree = "<group>"; };
+		D462E8152A88D6E600C5A8EC /* ModalPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPresentationController.swift; sourceTree = "<group>"; };
 		D4A68CF72A808D6300E2C1FD /* OptionRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionRequestDTO.swift; sourceTree = "<group>"; };
 		D4A68CF92A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArchivingColorResponseDTO+Mapping.swift"; sourceTree = "<group>"; };
 		D4A68CFB2A80925400E2C1FD /* ArchivingOptionResponseDTO+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArchivingOptionResponseDTO+Mapping.swift"; sourceTree = "<group>"; };
@@ -434,6 +436,7 @@
 				D462E78F2A8704A700C5A8EC /* BaseOptionSubCategoryStackView.swift */,
 				D462E78B2A8700EC00C5A8EC /* BaseOptionSubCategoryCell.swift */,
 				D462E8112A88A3D700C5A8EC /* SubCategoryModalViewController.swift */,
+				D462E8152A88D6E600C5A8EC /* ModalPresentationController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -668,6 +671,7 @@
 				D4A68D302A80EF2A00E2C1FD /* Archiving.swift in Sources */,
 				D4A68D342A80EFC900E2C1FD /* Trim.swift in Sources */,
 				D4A68D4C2A81D2C300E2C1FD /* RotatableOptionImageView.swift in Sources */,
+				D462E8162A88D6E600C5A8EC /* ModalPresentationController.swift in Sources */,
 				D4A68D482A80F17C00E2C1FD /* EstimationChange.swift in Sources */,
 				7631E9472A82200C00015363 /* UILabel+.swift in Sources */,
 				D4A68D102A80968500E2C1FD /* ColorResponseDTO+Mapping.swift in Sources */,

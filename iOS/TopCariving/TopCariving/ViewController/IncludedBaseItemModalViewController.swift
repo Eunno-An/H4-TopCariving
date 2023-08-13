@@ -64,7 +64,7 @@ class IncludedBaseItemModalViewController: UIViewController {
         [modalTitle, separator, cancelButton, scrollView].forEach {
             view.addSubview($0)
         }
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(presentSubCategoryModal), name: Notification.Name("SubCategoryCellTapped"), object: nil)
     }
     
     // MARK: - Helpers
@@ -105,4 +105,21 @@ class IncludedBaseItemModalViewController: UIViewController {
             self?.dismiss(animated: true)
         }.store(in: &bag)
     }
+    
+    @objc func presentSubCategoryModal() {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            let modal = SubCategoryModalViewController()
+            modal.modalPresentationStyle = .custom
+            modal.modalTransitionStyle = .crossDissolve
+            modal.transitioningDelegate = self
+            present(modal, animated: true)
+        }
+    }
+}
+
+extension IncludedBaseItemModalViewController: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+           return ModalPresentationController(presentedViewController: presented, presenting: presenting)
+       }
 }
