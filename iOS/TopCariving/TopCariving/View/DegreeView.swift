@@ -28,21 +28,19 @@ class DegreeView: UIView {
         setLayout()
         setRadialGradient()
     }
-    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUI()
         setLayout()
         setRadialGradient()
     }
-    
+
     // MARK: - Helpers
     func setUI() {
         translatesAutoresizingMaskIntoConstraints = false
         degreeLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(degreeLabel)
     }
-    
     func setLayout() {
         NSLayoutConstraint.activate([
             degreeLabel.widthAnchor.constraint(equalToConstant: 32),
@@ -51,13 +49,11 @@ class DegreeView: UIView {
             degreeLabel.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -18)
         ])
     }
-
     override func layoutSublayers(of layer: CALayer) {
         super.layoutSublayers(of: layer)
         setRadialGradient()
         layer.insertSublayer(gradient, at: 0)
     }
-    
     func setRadialGradient() {
         gradient.type = .radial
         gradient.colors = [

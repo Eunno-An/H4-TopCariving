@@ -18,13 +18,11 @@ class BaseOptionSubCategoryStackView: UIStackView {
         setUpStackView()
         test()
     }
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpStackView()
         test()
     }
-    
     convenience init(arrangedSubviews views: [BaseOptionSubCategoryCell]) {
         self.init(frame: .zero)
         views.forEach {
@@ -39,7 +37,6 @@ class BaseOptionSubCategoryStackView: UIStackView {
         alignment = .fill
         spacing = 8
     }
-    
     func test() {
         self.addArrangedSubview(BaseOptionSubCategoryCell())
         self.addArrangedSubview(BaseOptionSubCategoryCell())

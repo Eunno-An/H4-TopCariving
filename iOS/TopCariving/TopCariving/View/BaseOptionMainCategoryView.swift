@@ -26,7 +26,6 @@ class BaseOptionMainCategoryView: UIView {
         setAction()
         setSubCategoryStackView()
     }
-    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUI()
@@ -42,11 +41,9 @@ class BaseOptionMainCategoryView: UIView {
         addSubview(titleView)
         addSubview(subCategoryStackView)
     }
-    
     func setLayout() {
         heightConstant = heightAnchor.constraint(equalToConstant: 46)
         heightConstant?.isActive = true
-        
         NSLayoutConstraint.activate([
             titleView.topAnchor.constraint(equalTo: topAnchor),
             titleView.heightAnchor.constraint(equalToConstant: 46),
@@ -55,21 +52,19 @@ class BaseOptionMainCategoryView: UIView {
             
             subCategoryStackView.topAnchor.constraint(equalTo: topAnchor, constant: 58),
             subCategoryStackView.widthAnchor.constraint(equalToConstant: 340),
-            subCategoryStackView.heightAnchor.constraint(equalToConstant: CGFloat((71 + 8) * subCategoryStackView.arrangedSubviews.count)),
+            subCategoryStackView.heightAnchor.constraint(
+                equalToConstant: CGFloat((71 + 8) * subCategoryStackView.arrangedSubviews.count)),
             subCategoryStackView.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }
-    
     func setAction() {
         titleView.tapPublisher().sink { [weak self] _ in
             self!.toggleFold()
         }.store(in: &bag)
     }
-    
     func setSubCategoryStackView() {
         subCategoryStackView.isHidden = true
     }
-    
     func toggleFold() {
         isFolded.toggle()
         switch isFolded {

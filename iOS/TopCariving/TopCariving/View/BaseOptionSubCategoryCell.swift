@@ -34,14 +34,12 @@ class BaseOptionSubCategoryCell: UIView {
         setLayout()
         setTapAction()
     }
-    
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUI()
         setLayout()
         setTapAction()
     }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
     }
@@ -52,7 +50,6 @@ class BaseOptionSubCategoryCell: UIView {
         addSubview(imageView)
         addSubview(titleLabel)
     }
-    
     func setLayout() {
         translatesAutoresizingMaskIntoConstraints = false
         heightAnchor.constraint(equalToConstant: 71).isActive = true
@@ -68,7 +65,6 @@ class BaseOptionSubCategoryCell: UIView {
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
-    
     func setTapAction() {
         tapPublisher().sink {
             NotificationCenter.default.post(name: Notification.Name("SubCategoryCellTapped"), object: nil)

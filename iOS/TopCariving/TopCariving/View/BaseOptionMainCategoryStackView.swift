@@ -18,13 +18,11 @@ class BaseOptionMainCategoryStackView: UIStackView {
         setUpStackView()
         test()
     }
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUpStackView()
         test()
     }
-    
     convenience init(arrangedSubviews views: [BaseOptionMainCategoryView]) {
         self.init(frame: .zero)
         views.forEach {
@@ -39,7 +37,6 @@ class BaseOptionMainCategoryStackView: UIStackView {
         self.addArrangedSubview(BaseOptionMainCategoryView())
         self.addArrangedSubview(BaseOptionMainCategoryView())
     }
-    
     func setUpStackView() {
         axis = .vertical
         distribution = .fill

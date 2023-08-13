@@ -62,7 +62,10 @@ class IncludedBaseItemModalViewController: UIViewController {
         setCancelButtonAction()
     }
     override func viewDidLoad() {
-        NotificationCenter.default.addObserver(self, selector: #selector(presentSubCategoryModal), name: Notification.Name("SubCategoryCellTapped"), object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(presentSubCategoryModal),
+            name: Notification.Name("SubCategoryCellTapped"), object: nil)
     }
     
     // MARK: - Helpers
@@ -83,7 +86,6 @@ class IncludedBaseItemModalViewController: UIViewController {
             separator.heightAnchor.constraint(equalToConstant: 1),
             separator.widthAnchor.constraint(equalTo: view.widthAnchor),
             separator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            
             
             cancelButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 25.41),
             cancelButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25.41),
@@ -115,7 +117,11 @@ class IncludedBaseItemModalViewController: UIViewController {
 }
 
 extension IncludedBaseItemModalViewController: UIViewControllerTransitioningDelegate {
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+    func presentationController(
+        forPresented presented: UIViewController,
+        presenting: UIViewController?,
+        source: UIViewController
+    ) -> UIPresentationController? {
            return ModalPresentationController(presentedViewController: presented, presenting: presenting)
        }
 }
