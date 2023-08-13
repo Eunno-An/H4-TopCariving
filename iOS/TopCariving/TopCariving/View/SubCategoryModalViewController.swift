@@ -73,24 +73,24 @@ class SubCategoryModalViewController: UIViewController {
     }
     func setLayout() {
         NSLayoutConstraint.activate([
-            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLabel.heightAnchor.constraint(equalToConstant: 24),
             titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 24),
+            titleLabel.heightAnchor.constraint(equalToConstant: 24),
+            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            cancelButton.widthAnchor.constraint(equalToConstant: 37),
-            cancelButton.heightAnchor.constraint(equalToConstant: 37),
             cancelButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 16),
             cancelButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            cancelButton.heightAnchor.constraint(equalToConstant: 37),
+            cancelButton.widthAnchor.constraint(equalToConstant: 37),
             
-            titleImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleImage.widthAnchor.constraint(equalToConstant: 287),
-            titleImage.heightAnchor.constraint(equalToConstant: 161),
             titleImage.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 17),
+            titleImage.heightAnchor.constraint(equalToConstant: 161),
+            titleImage.widthAnchor.constraint(equalToConstant: 287),
+            titleImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            detail.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             detail.topAnchor.constraint(equalTo: titleImage.bottomAnchor, constant: 20),
+            detail.heightAnchor.constraint(equalToConstant: 40),
             detail.widthAnchor.constraint(equalToConstant: 287),
-            detail.heightAnchor.constraint(equalToConstant: 40)
+            detail.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
     func setTitle(to text: String) {

@@ -58,14 +58,14 @@ class BaseOptionSubCategoryCell: UIView {
         heightAnchor.constraint(equalToConstant: 71).isActive = true
         
         NSLayoutConstraint.activate([
-            imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             imageView.heightAnchor.constraint(equalToConstant: 55),
             imageView.widthAnchor.constraint(equalToConstant: 93),
+            imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
             
-            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 17),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
+            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
     

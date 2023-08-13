@@ -49,15 +49,15 @@ class BaseOptionMainCategoryTitleView: UIView {
     
     func setLayout() {
         NSLayoutConstraint.activate([
-            title.heightAnchor.constraint(equalToConstant: 22),
             title.topAnchor.constraint(equalTo: topAnchor, constant: 12),
             title.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
             title.trailingAnchor.constraint(equalTo: arrow.leadingAnchor),
+            title.heightAnchor.constraint(equalToConstant: 22),
             
-            arrow.heightAnchor.constraint(equalToConstant: 24),
-            arrow.widthAnchor.constraint(equalToConstant: 24),
             arrow.topAnchor.constraint(equalTo: topAnchor, constant: 11),
-            arrow.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -11)
+            arrow.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -11),
+            arrow.heightAnchor.constraint(equalToConstant: 24),
+            arrow.widthAnchor.constraint(equalToConstant: 24)
         ])
     }
     

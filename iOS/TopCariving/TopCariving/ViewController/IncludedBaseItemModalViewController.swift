@@ -55,14 +55,12 @@ class IncludedBaseItemModalViewController: UIViewController {
         setLayout()
         setCancelButtonAction()
     }
-    
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setUI()
         setLayout()
         setCancelButtonAction()
     }
-    
     override func viewDidLoad() {
         NotificationCenter.default.addObserver(self, selector: #selector(presentSubCategoryModal), name: Notification.Name("SubCategoryCellTapped"), object: nil)
     }
@@ -74,38 +72,36 @@ class IncludedBaseItemModalViewController: UIViewController {
             view.addSubview($0)
         }
     }
-    
     func setLayout() {
         NSLayoutConstraint.activate([
+            modalTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 21),
             modalTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.2346),
             modalTitle.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 0.0295),
             modalTitle.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            modalTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 21),
             
-            separator.widthAnchor.constraint(equalTo: view.widthAnchor),
             separator.topAnchor.constraint(equalTo: modalTitle.bottomAnchor, constant: 15),
-            separator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             separator.heightAnchor.constraint(equalToConstant: 1),
+            separator.widthAnchor.constraint(equalTo: view.widthAnchor),
+            separator.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
-            cancelButton.widthAnchor.constraint(equalToConstant: 13.18),
-            cancelButton.heightAnchor.constraint(equalToConstant: 13.18),
+            
             cancelButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 25.41),
             cancelButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25.41),
+            cancelButton.heightAnchor.constraint(equalToConstant: 13.18),
+            cancelButton.widthAnchor.constraint(equalToConstant: 13.18),
             
             scrollView.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 32),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
-    
     func setCancelButtonAction() {
         cancelButton.touchUpPublisher.sink { [weak self] _ in
             self?.dismiss(animated: true)
         }.store(in: &bag)
     }
-    
     @objc func presentSubCategoryModal() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }

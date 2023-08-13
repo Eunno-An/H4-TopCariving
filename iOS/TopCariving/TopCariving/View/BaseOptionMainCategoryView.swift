@@ -48,10 +48,10 @@ class BaseOptionMainCategoryView: UIView {
         heightConstant?.isActive = true
         
         NSLayoutConstraint.activate([
-            titleView.widthAnchor.constraint(equalToConstant: 343),
-            titleView.heightAnchor.constraint(equalToConstant: 46),
-            titleView.centerXAnchor.constraint(equalTo: centerXAnchor),
             titleView.topAnchor.constraint(equalTo: topAnchor),
+            titleView.heightAnchor.constraint(equalToConstant: 46),
+            titleView.widthAnchor.constraint(equalToConstant: 343),
+            titleView.centerXAnchor.constraint(equalTo: centerXAnchor),
             
             subCategoryStackView.topAnchor.constraint(equalTo: topAnchor, constant: 58),
             subCategoryStackView.widthAnchor.constraint(equalToConstant: 340),
