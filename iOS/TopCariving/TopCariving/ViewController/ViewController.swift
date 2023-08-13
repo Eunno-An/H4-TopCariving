@@ -9,21 +9,20 @@ import Combine
 import UIKit
 
 class ViewController: BaseMyCarViewController {
-    var bag: Set<AnyCancellable> = .init()
-    var myView: UIView = {
-        var view: UIView = UIView(frame: .init(x: 100, y: 150, width: 200, height: 200))
-        view.backgroundColor = .red
-        return view
-    }()
-    
+    private var asd: Set<AnyCancellable> = .init()
+    let modalVC = IncludedBaseItemModalViewController()
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         view.backgroundColor = .white
+        let uiView = UIView(frame: .init(x: 100, y: 300, width: 200, height: 200))
         
-        view.addSubview(myView)
-        myView.tapPublisher().sink { _ in
-            print("Hi 배남석")
-        }.store(in: &bag)
-        
+        uiView.backgroundColor = .hyundaiBlackGray
+        view.addSubview(uiView)
+        uiView.tapPublisher().sink { _ in
+            print("Hi")
+            self.modalVC.modalPresentationStyle = .automatic
+            self.present(self.modalVC, animated: true)
+        }.store(in: &asd)
     }
 }
