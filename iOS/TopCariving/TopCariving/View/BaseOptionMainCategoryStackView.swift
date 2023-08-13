@@ -37,6 +37,7 @@ class BaseOptionMainCategoryStackView: UIStackView {
         self.addArrangedSubview(BaseOptionMainCategoryView())
         self.addArrangedSubview(BaseOptionMainCategoryView())
         self.addArrangedSubview(BaseOptionMainCategoryView())
+        self.addArrangedSubview(BaseOptionMainCategoryView())
     }
     
     func setUpStackView() {

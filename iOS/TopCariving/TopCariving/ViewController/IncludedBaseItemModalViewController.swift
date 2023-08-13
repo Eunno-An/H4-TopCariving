@@ -26,7 +26,21 @@ class IncludedBaseItemModalViewController: UIViewController {
         button.setImage(UIImage(named: "cancelButton"), for: .normal)
         return button
     }()
-    private let stackView = BaseOptionMainCategoryStackView()
+    private let scrollView: UIScrollView = {
+        let scrollView = UIScrollView()
+        let stackView = BaseOptionMainCategoryStackView()
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(stackView)
+        NSLayoutConstraint.activate([
+            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
+        ])
+        return scrollView
+    }()
+    
     // MARK: - Properties
     private var bag: Set<AnyCancellable> = Set<AnyCancellable>()
     
@@ -47,7 +61,7 @@ class IncludedBaseItemModalViewController: UIViewController {
     
     override func viewDidLoad() {
         view.backgroundColor = .white
-        [modalTitle, separator, cancelButton, stackView].forEach {
+        [modalTitle, separator, cancelButton, scrollView].forEach {
             view.addSubview($0)
         }
     }
@@ -57,6 +71,7 @@ class IncludedBaseItemModalViewController: UIViewController {
         modalTitle.translatesAutoresizingMaskIntoConstraints = false
         separator.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
     }
     
     func setLayout() {
@@ -76,10 +91,11 @@ class IncludedBaseItemModalViewController: UIViewController {
             cancelButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 25.41),
             cancelButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25.41),
             
-            stackView.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 32),
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            scrollView.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 32),
+            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
     
