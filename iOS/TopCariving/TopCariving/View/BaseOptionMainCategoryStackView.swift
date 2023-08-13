@@ -13,10 +13,37 @@ class BaseOptionMainCategoryStackView: UIStackView {
     // MARK: - Properties
     
     // MARK: - Lifecycles
+    required init(coder: NSCoder) {
+        super.init(coder: coder)
+        setUpStackView()
+        test()
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUpStackView()
+        test()
+    }
+    
+    convenience init(arrangedSubviews views: [BaseOptionMainCategoryView]) {
+        self.init(frame: .zero)
+        views.forEach {
+            addArrangedSubview($0)
+        }
+    }
     
     // MARK: - Helpers
-    override func addArrangedSubview(_ view: UIView) {
-        guard let view = view as? BaseOptionMainCategoryView else { return }
-        super.addArrangedSubview(view)
+    func test() {
+        self.addArrangedSubview(BaseOptionMainCategoryView())
+        self.addArrangedSubview(BaseOptionMainCategoryView())
+        self.addArrangedSubview(BaseOptionMainCategoryView())
+    }
+    
+    func setUpStackView() {
+        axis = .vertical
+        distribution = .fill
+        alignment = .fill
+        spacing = 12
+        translatesAutoresizingMaskIntoConstraints = false
     }
 }

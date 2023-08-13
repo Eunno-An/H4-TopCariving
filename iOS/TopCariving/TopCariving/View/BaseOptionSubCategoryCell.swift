@@ -32,7 +32,6 @@ class BaseOptionSubCategoryCell: UIView {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        print(bounds)
         temp.frame = bounds
     }
     
@@ -42,6 +41,8 @@ class BaseOptionSubCategoryCell: UIView {
     }
     
     func setLayout() {
+        translatesAutoresizingMaskIntoConstraints = false
         temp.translatesAutoresizingMaskIntoConstraints = false
+        heightAnchor.constraint(equalToConstant: 71).isActive = true
     }
 }

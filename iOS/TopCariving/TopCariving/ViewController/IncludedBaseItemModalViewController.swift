@@ -26,6 +26,7 @@ class IncludedBaseItemModalViewController: UIViewController {
         button.setImage(UIImage(named: "cancelButton"), for: .normal)
         return button
     }()
+    private let stackView = BaseOptionMainCategoryStackView()
     // MARK: - Properties
     private var bag: Set<AnyCancellable> = Set<AnyCancellable>()
     
@@ -35,7 +36,6 @@ class IncludedBaseItemModalViewController: UIViewController {
         setUI()
         setLayout()
         setCancelButtonAction()
-        test()
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
@@ -43,14 +43,13 @@ class IncludedBaseItemModalViewController: UIViewController {
         setUI()
         setLayout()
         setCancelButtonAction()
-        test()
     }
     
     override func viewDidLoad() {
         view.backgroundColor = .white
-        view.addSubview(modalTitle)
-        view.addSubview(separator)
-        view.addSubview(cancelButton)
+        [modalTitle, separator, cancelButton, stackView].forEach {
+            view.addSubview($0)
+        }
     }
     
     // MARK: - Helpers
@@ -75,7 +74,12 @@ class IncludedBaseItemModalViewController: UIViewController {
             cancelButton.widthAnchor.constraint(equalToConstant: 13.18),
             cancelButton.heightAnchor.constraint(equalToConstant: 13.18),
             cancelButton.topAnchor.constraint(equalTo: view.topAnchor, constant: 25.41),
-            cancelButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25.41)
+            cancelButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -25.41),
+            
+            stackView.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 32),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            stackView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
     
@@ -83,10 +87,5 @@ class IncludedBaseItemModalViewController: UIViewController {
         cancelButton.touchUpPublisher.sink { [weak self] _ in
             self?.dismiss(animated: true)
         }.store(in: &bag)
-    }
-    
-    func test() {
-        let testView = BaseOptionMainCategoryView(frame: .init(x: 16, y: 100, width: 343, height: 46))
-        view.addSubview(testView)
     }
 }

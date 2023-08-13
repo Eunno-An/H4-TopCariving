@@ -27,20 +27,22 @@ class BaseOptionSubCategoryStackView: UIStackView {
     
     convenience init(arrangedSubviews views: [BaseOptionSubCategoryCell]) {
         self.init(frame: .zero)
-        views.forEach { addArrangedSubview($0) }
+        views.forEach {
+            addArrangedSubview($0)
+        }
     }
     
     // MARK: - Helpers
-    func test() {
-        self.addArrangedSubview(BaseOptionSubCategoryCell())
-        self.addArrangedSubview(BaseOptionSubCategoryCell())
-    }
-    
     func setUpStackView() {
         axis = .vertical
         distribution = .fillEqually
         alignment = .fill
         spacing = 8
         translatesAutoresizingMaskIntoConstraints = false
+    }
+    
+    func test() {
+        self.addArrangedSubview(BaseOptionSubCategoryCell())
+        self.addArrangedSubview(BaseOptionSubCategoryCell())
     }
 }
