@@ -14,22 +14,26 @@ class IncludedBaseItemModalViewController: UIViewController {
         let label: UILabel = UILabel()
         label.text = "기본 포함 품목"
         label.font = .designSystem(.init(name: .medium, size: ._16))
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     private let separator: UILabel = {
         let label: UILabel = UILabel()
         label.backgroundColor = UIColor(red: 242/255, green: 242/255, blue: 242/255, alpha: 1)
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     private let cancelButton: UIButton = {
         let button: UIButton = UIButton()
         button.setImage(UIImage(named: "cancelButton"), for: .normal)
+        button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
     private let scrollView: UIScrollView = {
         let scrollView = UIScrollView()
         let stackView = BaseOptionMainCategoryStackView()
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
         scrollView.addSubview(stackView)
         NSLayoutConstraint.activate([
             stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
@@ -60,19 +64,15 @@ class IncludedBaseItemModalViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        view.backgroundColor = .white
-        [modalTitle, separator, cancelButton, scrollView].forEach {
-            view.addSubview($0)
-        }
         NotificationCenter.default.addObserver(self, selector: #selector(presentSubCategoryModal), name: Notification.Name("SubCategoryCellTapped"), object: nil)
     }
     
     // MARK: - Helpers
     func setUI() {
-        modalTitle.translatesAutoresizingMaskIntoConstraints = false
-        separator.translatesAutoresizingMaskIntoConstraints = false
-        cancelButton.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .white
+        [modalTitle, separator, cancelButton, scrollView].forEach {
+            view.addSubview($0)
+        }
     }
     
     func setLayout() {

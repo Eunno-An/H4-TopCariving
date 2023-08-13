@@ -14,12 +14,14 @@ class BaseOptionSubCategoryCell: UIView {
         let image: UIImage = UIImage(named: "baseOptionSample")!
         let imageView: UIImageView = UIImageView(image: image)
         imageView.layer.cornerRadius = 8
+        imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     private let titleLabel: UILabel = {
         let label: UILabel = UILabel()
         label.text = "ISG 시스템"
         label.font = .designSystem(.init(name: .regular, size: ._14))
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     // MARK: - Properties
@@ -47,8 +49,6 @@ class BaseOptionSubCategoryCell: UIView {
     // MARK: - Helpers
     func setUI() {
         backgroundColor = .hyundaiNeutral
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         addSubview(imageView)
         addSubview(titleLabel)
     }

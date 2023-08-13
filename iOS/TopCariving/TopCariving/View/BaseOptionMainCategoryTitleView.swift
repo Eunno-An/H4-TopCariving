@@ -45,7 +45,6 @@ class BaseOptionMainCategoryTitleView: UIView {
         [title, arrow].forEach {
             addSubview($0)
         }
-        translatesAutoresizingMaskIntoConstraints = false
     }
     
     func setLayout() {

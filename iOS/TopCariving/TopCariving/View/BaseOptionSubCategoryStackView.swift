@@ -38,7 +38,6 @@ class BaseOptionSubCategoryStackView: UIStackView {
         distribution = .fillEqually
         alignment = .fill
         spacing = 8
-        translatesAutoresizingMaskIntoConstraints = false
     }
     
     func test() {

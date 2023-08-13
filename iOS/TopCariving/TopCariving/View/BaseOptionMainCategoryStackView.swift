@@ -45,6 +45,5 @@ class BaseOptionMainCategoryStackView: UIStackView {
         distribution = .fill
         alignment = .fill
         spacing = 12
-        translatesAutoresizingMaskIntoConstraints = false
     }
 }
