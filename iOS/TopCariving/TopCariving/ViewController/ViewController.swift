@@ -24,5 +24,17 @@ class ViewController: BaseMyCarViewController {
             self.modalVC.modalPresentationStyle = .automatic
             self.present(self.modalVC, animated: true)
         }.store(in: &asd)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(presentSubCategoryModal), name: Notification.Name("SubCategoryCellTapped"), object: nil)
+    }
+    @objc func presentSubCategoryModal() {
+        print("HI")
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
+            let modal = SubCategoryModalViewController()
+            modal.modalPresentationStyle = .overFullScreen
+            modal.modalTransitionStyle = .crossDissolve
+            present(modal, animated: true)
+        }
     }
 }

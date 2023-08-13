@@ -5,6 +5,7 @@
 //  Created by Eunno An on 2023/08/12.
 //
 
+import Combine
 import UIKit
 
 class BaseOptionSubCategoryCell: UIView {
@@ -22,18 +23,21 @@ class BaseOptionSubCategoryCell: UIView {
         return label
     }()
     // MARK: - Properties
+    private var bag = Set<AnyCancellable>()
     
     // MARK: - Lifecycles
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUI()
         setLayout()
+        setTapAction()
     }
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUI()
         setLayout()
+        setTapAction()
     }
     
     override func layoutSubviews() {
@@ -63,5 +67,11 @@ class BaseOptionSubCategoryCell: UIView {
             titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 17),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
+    }
+    
+    func setTapAction() {
+        tapPublisher().sink {
+            NotificationCenter.default.post(name: Notification.Name("SubCategoryCellTapped"), object: nil)
+        }.store(in: &bag)
     }
 }

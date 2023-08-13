@@ -64,6 +64,7 @@ class IncludedBaseItemModalViewController: UIViewController {
         [modalTitle, separator, cancelButton, scrollView].forEach {
             view.addSubview($0)
         }
+        
     }
     
     // MARK: - Helpers

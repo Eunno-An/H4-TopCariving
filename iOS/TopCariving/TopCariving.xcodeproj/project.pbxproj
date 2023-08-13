@@ -35,6 +35,7 @@
 		D462E78C2A8700EC00C5A8EC /* BaseOptionSubCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E78B2A8700EC00C5A8EC /* BaseOptionSubCategoryCell.swift */; };
 		D462E7902A8704A700C5A8EC /* BaseOptionSubCategoryStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E78F2A8704A700C5A8EC /* BaseOptionSubCategoryStackView.swift */; };
 		D462E7922A8778C800C5A8EC /* BaseOptionMainCategoryTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E7912A8778C800C5A8EC /* BaseOptionMainCategoryTitleView.swift */; };
+		D462E8122A88A3D700C5A8EC /* SubCategoryModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8112A88A3D700C5A8EC /* SubCategoryModalViewController.swift */; };
 		D4A68CF82A808D6300E2C1FD /* OptionRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A68CF72A808D6300E2C1FD /* OptionRequestDTO.swift */; };
 		D4A68CFA2A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A68CF92A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift */; };
 		D4A68CFC2A80925400E2C1FD /* ArchivingOptionResponseDTO+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A68CFB2A80925400E2C1FD /* ArchivingOptionResponseDTO+Mapping.swift */; };
@@ -134,6 +135,7 @@
 		D462E78B2A8700EC00C5A8EC /* BaseOptionSubCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseOptionSubCategoryCell.swift; sourceTree = "<group>"; };
 		D462E78F2A8704A700C5A8EC /* BaseOptionSubCategoryStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseOptionSubCategoryStackView.swift; sourceTree = "<group>"; };
 		D462E7912A8778C800C5A8EC /* BaseOptionMainCategoryTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseOptionMainCategoryTitleView.swift; sourceTree = "<group>"; };
+		D462E8112A88A3D700C5A8EC /* SubCategoryModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCategoryModalViewController.swift; sourceTree = "<group>"; };
 		D4A68CF72A808D6300E2C1FD /* OptionRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionRequestDTO.swift; sourceTree = "<group>"; };
 		D4A68CF92A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArchivingColorResponseDTO+Mapping.swift"; sourceTree = "<group>"; };
 		D4A68CFB2A80925400E2C1FD /* ArchivingOptionResponseDTO+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArchivingOptionResponseDTO+Mapping.swift"; sourceTree = "<group>"; };
@@ -427,10 +429,11 @@
 				D4A68D4B2A81D2C300E2C1FD /* RotatableOptionImageView.swift */,
 				D4A68D512A8384AC00E2C1FD /* DegreeView.swift */,
 				D462E7812A868B7D00C5A8EC /* BaseOptionMainCategoryStackView.swift */,
+				D462E7912A8778C800C5A8EC /* BaseOptionMainCategoryTitleView.swift */,
 				D462E7832A86918D00C5A8EC /* BaseOptionMainCategoryView.swift */,
 				D462E78F2A8704A700C5A8EC /* BaseOptionSubCategoryStackView.swift */,
 				D462E78B2A8700EC00C5A8EC /* BaseOptionSubCategoryCell.swift */,
-				D462E7912A8778C800C5A8EC /* BaseOptionMainCategoryTitleView.swift */,
+				D462E8112A88A3D700C5A8EC /* SubCategoryModalViewController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -626,6 +629,7 @@
 				D4A68D3A2A80F04100E2C1FD /* Selection.swift in Sources */,
 				D4A68D062A8094EA00E2C1FD /* ModelPhotoResponseDTO.swift in Sources */,
 				D44B45732A7B969200E8E207 /* RequestError.swift in Sources */,
+				D462E8122A88A3D700C5A8EC /* SubCategoryModalViewController.swift in Sources */,
 				D4A68D002A8093B200E2C1FD /* ModifyOptionResponseDTO+Mapping.swift in Sources */,
 				D4ACBA842A78CE62002B6A5B /* DummyViewController.swift in Sources */,
 				D462E7842A86918D00C5A8EC /* BaseOptionMainCategoryView.swift in Sources */,
