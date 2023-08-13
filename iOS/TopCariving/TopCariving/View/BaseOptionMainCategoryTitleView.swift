@@ -18,7 +18,7 @@ class BaseOptionMainCategoryTitleView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    private var arrow: UIButton = {
+    var arrow: UIButton = {
         let button: UIButton = UIButton()
         button.setImage(UIImage(named: "arrow_down"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
