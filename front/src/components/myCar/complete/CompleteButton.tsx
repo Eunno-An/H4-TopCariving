@@ -46,9 +46,10 @@ export const CompleteButton = () => {
               width={249}
               backgroundColor="LightSand"
               heightType="medium"
+              typo="Body3_Medium"
               key={`button_${idx}`}
             >
-              <Text typo="Body3_Medium">{text}</Text>
+              {text}
             </Button>
           ))}
         </Grid>

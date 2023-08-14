@@ -18,12 +18,12 @@ interface alertModalInterface {
 export const AlertModal = ({ content, buttonInfo }: alertModalInterface) => {
   const { closeAlert } = useAlert() as AlertContextType;
   return (
-    <Flex css={containerCss}>
+    <Flex css={ModalContainerCss}>
       <div css={backCss} onClick={closeAlert}></div>
-      <Container>
+      <ModalContainer>
         <Flex direction="column" gap={6}>
           {content.map((text, idx) => (
-            <Text key={`modalText_${idx}`} typo="Body1_Medium">
+            <Text key={`modalText_${idx}`} typo="Body1_Regular">
               {text}
             </Text>
           ))}
@@ -32,11 +32,16 @@ export const AlertModal = ({ content, buttonInfo }: alertModalInterface) => {
         {buttonInfo && (
           <Flex gap={8}>
             {buttonInfo.map((btn, idx) => (
-              <div onClick={btn.onClick} key={`modalButton_${idx}`}>
+              <div
+                onClick={btn.onClick}
+                key={`modalButton_${idx}`}
+                style={{ width: '50%' }}
+              >
                 <Button
                   backgroundColor={btn.color}
-                  width="auto"
                   heightType="medium"
+                  typo="Heading4_Medium"
+                  width="100%"
                 >
                   {btn.text}
                 </Button>
@@ -44,12 +49,12 @@ export const AlertModal = ({ content, buttonInfo }: alertModalInterface) => {
             ))}
           </Flex>
         )}
-      </Container>
+      </ModalContainer>
     </Flex>
   );
 };
 
-export const containerCss = () => css`
+export const ModalContainerCss = () => css`
   position: absolute;
   top: 0;
   left: 0;
@@ -58,7 +63,7 @@ export const containerCss = () => css`
 `;
 
 export const backCss = () => css`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   bottom: 0;
@@ -66,7 +71,7 @@ export const backCss = () => css`
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
-const Container = styled.div`
+const ModalContainer = styled.div`
   position: fixed;
   top: 409px;
 

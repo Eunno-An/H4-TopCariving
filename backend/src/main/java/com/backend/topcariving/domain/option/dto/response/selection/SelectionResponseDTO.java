@@ -3,14 +3,16 @@ package com.backend.topcariving.domain.option.dto.response.selection;
 import java.util.List;
 
 import com.backend.topcariving.domain.option.dto.response.tag.TagResponseDTO;
+import com.backend.topcariving.domain.option.entity.CarOption;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@Builder
-@Schema(description = "선택, 기본, H Genuine, N Performance에서 저장하는 DTO")
+@Builder(access = AccessLevel.PRIVATE)
+@Schema(description = "기본, 상세 품목, H Genuine, N Performance에서 저장하는 DTO")
 public class SelectionResponseDTO {
 
 	@Schema(description = "옵션 ID", example = "1")
@@ -30,4 +32,15 @@ public class SelectionResponseDTO {
 
 	@Schema(description = "옵션에 대한 태그들")
 	private List<TagResponseDTO> tags;
+
+	public static SelectionResponseDTO of(CarOption carOption, List<SelectionDetailDTO> details, List<TagResponseDTO> tags) {
+		return SelectionResponseDTO.builder()
+			.carOptionId(carOption.getCarOptionId())
+			.optionName(carOption.getOptionName())
+			.price(carOption.getPrice())
+			.photoUrl(carOption.getPhotoUrl())
+			.details(details)
+			.tags(tags)
+			.build();
+	}
 }

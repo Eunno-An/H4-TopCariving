@@ -60,6 +60,14 @@ jobs:
           script: |
             cd ~/deploy/
             ./deploy.sh
+
+      - name: Commit 메시지에서 개행문자 분리
+        id: extract_message
+        run: |
+          MESSAGE="${{ github.event.head_commit.message }}"
+          EXTRACTED_MESSAGE=$(echo "$MESSAGE" | awk -F '\\n' '{print $1}')
+          echo "::set-output name=message::$EXTRACTED_MESSAGE"
+
       - name: slack-send message
         id: slack
         uses: slackapi/slack-github-action@v1.24.0
@@ -69,7 +77,7 @@ jobs:
               "text": "☀️*Backend 배포 현황*☀️: `${{ job.status }}`\n",
               "attachments": [
                 {
-                    "text": "Backend가 재배포를 시작했습니다😎: ${{ github.event.pull_request.title }}",
+                    "text": "😎Backend가 재배포를 시작했습니다😎: *${{ steps.extract_message.outputs.message }}*",
                     "color": "${{ job.status == 'success' && '#36a64f' || '#d9534f' }}",
                     "attachment_type": "default",
                     "actions": [
@@ -93,4 +101,4 @@ jobs:
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK }}
           SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
-      
+

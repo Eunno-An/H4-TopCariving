@@ -19,17 +19,27 @@ export type trimKey = 'type' | 'engine' | 'bodyType' | 'traction';
 
 export interface MyCarInfoInterface {
   trim: {
-    type: { id: number; name: string } | null;
-    engine: { id: number; name: string } | null;
-    bodyType: { id: number; name: string } | null;
-    traction: { id: number; name: string } | null;
-    [key: string]: { id: number; name: string } | null;
+    type: { id: number; name: string; price: number } | null;
+    engine: { id: number; name: string; price: number } | null;
+    bodyType: { id: number; name: string; price: number } | null;
+    traction: { id: number; name: string; price: number } | null;
+    [key: string]: { id: number; name: string; price: number } | null;
   };
   color: {
-    exteriorColor: { id: number; name: exteriorColorType } | null;
-    interiorColor: { id: number; name: string } | null;
+    exteriorColor: {
+      id: number;
+      name: exteriorColorType;
+      url: string;
+      price: number;
+    } | null;
+    interiorColor: {
+      id: number;
+      name: string;
+      url: string;
+      price: number;
+    } | null;
   };
-  selectedOption: string[];
+  selectedOption: { id: number; name: string; price: number }[];
   price: number;
 }
 
@@ -37,6 +47,13 @@ export interface MyCarContextType {
   myCarInfo: MyCarInfoInterface;
   setMyCarInfo: Dispatch<SetStateAction<MyCarInfoInterface>>;
 }
+
+export const initMyCarInfo = {
+  trim: { type: null, engine: null, bodyType: null, traction: null },
+  color: { exteriorColor: null, interiorColor: null },
+  selectedOption: [],
+  price: 0,
+};
 
 const MyCarContext = createContext<MyCarContextType | null>(null);
 
@@ -49,12 +66,10 @@ export function useMyCar() {
 }
 
 export function MyCarProvider({ children }: { children: ReactNode }) {
-  const [myCarInfo, setMyCarInfo] = useState<MyCarInfoInterface>({
-    trim: { type: null, engine: null, bodyType: null, traction: null },
-    color: { exteriorColor: null, interiorColor: null },
-    selectedOption: [],
-    price: 0,
-  });
+  const localMyCarInfo = localStorage.getItem('myCarInfo');
+  const [myCarInfo, setMyCarInfo] = useState<MyCarInfoInterface>(
+    localMyCarInfo ? JSON.parse(localMyCarInfo) : initMyCarInfo,
+  );
 
   const value = {
     myCarInfo,

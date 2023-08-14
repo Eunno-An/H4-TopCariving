@@ -3,11 +3,11 @@ package com.backend.topcariving.domain.option.dto.response.color;
 import java.util.List;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.Builder;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@Builder
+@AllArgsConstructor
 @Schema(description = "외장, 내장 색상에 대한 응답 DTO")
 public class BothColorResponseDTO {
 

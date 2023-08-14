@@ -1,17 +1,18 @@
 import styled from '@emotion/styled';
-import { KeyOfPalette, theme } from '@styles/theme';
+import { KeyOfPalette, KeyOfTypo, theme } from '@styles/theme';
 
 export const Button = styled.button<{
-  width?: number | 'auto';
+  width?: number | 'auto' | string;
   heightType?: 'large' | 'medium' | 'small';
   backgroundColor: KeyOfPalette;
   padding?: string;
   border?: number;
+  typo?: KeyOfTypo;
 }>`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: ${({ width }) => (width ? `${width}px` : 'auto')};
+  width: ${({ width }) => (typeof width === 'number' ? `${width}px` : width)};
   height: ${({ heightType }) =>
     heightType === 'large'
       ? '56px'
@@ -21,13 +22,21 @@ export const Button = styled.button<{
 
   background-color: ${({ backgroundColor }) => theme.palette[backgroundColor]};
   color: ${({ backgroundColor }) =>
-    backgroundColor === 'Primary' ? theme.palette.White : theme.palette.White}
+    backgroundColor === 'Primary'
+      ? theme.palette.White
+      : backgroundColor === 'LightGray'
+      ? theme.palette.DarkGray
+      : backgroundColor === 'LightSand'
+      ? theme.palette.Black
+      : theme.palette.Primary};
 
-  padding: ${({ padding }) => (padding ? padding : '0')};
+  padding: ${({ padding, width }) =>
+    padding ? padding : width === 'auto' ? '8px 24px' : '0'};
 
   border-radius: ${({ border }) => (border ? `${border}px` : '8px')};
   border: none;
   box-sizing: border-box;
 
+  ${({ typo }) => (typo ? theme.typo[typo] : '')};
   cursor: pointer;
 `;

@@ -70,7 +70,7 @@ export const TrimCard = ({
       </Flex>
       <img src="/image/page/myCar/rowLine.svg" />
       <Text typo="Heading3_Bold" palette={isSelected ? 'Primary' : 'Black'}>
-        {`${price.toLocaleString('ko-KR')}원`}
+        {`${price.toLocaleString()}원`}
       </Text>
     </CustomFlex>
   );

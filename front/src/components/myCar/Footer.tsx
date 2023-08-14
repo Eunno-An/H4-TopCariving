@@ -1,10 +1,13 @@
 import { Flex, Text, Button } from '@components/common';
 import { useMyCar } from '@contexts/MyCarContext';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { myCarUrl } from '@pages/MyCar';
-import { TrimUrl, apiInstance } from '@utils/api';
-import { Dispatch, SetStateAction } from 'react';
+import { theme } from '@styles/theme';
+import { ColorUrl, TrimUrl, apiInstance } from '@utils/api';
+import { Dispatch, SetStateAction, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { DetailOptionModal } from './option/DetailOptionModal';
 
 interface footerProps {
   currentUrl: string;
@@ -15,6 +18,8 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
   const navigate = useNavigate();
   const { myCarInfo } = useMyCar();
 
+  const [archivingId, setArchivingId] = useState(null);
+
   const onClickButton = async (moveNum: number) => {
     const nextIdx = myCarUrl.indexOf(currentUrl) + moveNum;
     const nextUrl = myCarUrl[nextIdx];
@@ -23,11 +28,17 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
     setCurrentUrl(nextUrl);
   };
 
+  const [isOpenDetailModal, setIsOpenDetailModal] = useState(false);
+
+  const setLocalData = () => {
+    localStorage.setItem('myCarInfo', JSON.stringify(myCarInfo));
+  };
+
   const postData = async () => {
     switch (currentUrl) {
       case '/my-car/trim':
         try {
-          await apiInstance({
+          const archivingId = await apiInstance({
             url: `${TrimUrl.MODELS}?carOptionId=${myCarInfo.trim.type?.id}`,
             method: 'POST',
             bodyData: JSON.stringify({
@@ -36,12 +47,81 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
               carOptionId: myCarInfo.trim.type?.id,
             }),
           });
-
+          setArchivingId(() => archivingId.data);
           onClickButton(+1);
         } catch (err) {
           console.error(err);
         }
         break;
+      case '/my-car/trim/engine':
+        try {
+          await apiInstance({
+            url: `${TrimUrl.ENGINES}?carOptionId=${myCarInfo.trim.engine?.id}`,
+            method: 'POST',
+            bodyData: JSON.stringify({
+              userId: 1,
+              archivingId: archivingId,
+              carOptionId: myCarInfo.trim.engine?.id,
+            }),
+          });
+          onClickButton(+1);
+        } catch (err) {
+          console.error(err);
+        }
+        break;
+
+      case '/my-car/trim/body-type':
+        try {
+          await apiInstance({
+            url: `${TrimUrl.BODY_TYPE}?carOptionId=${myCarInfo.trim.bodyType?.id}`,
+            method: 'POST',
+            bodyData: JSON.stringify({
+              userId: 1,
+              archivingId: archivingId,
+              carOptionId: myCarInfo.trim.bodyType?.id,
+            }),
+          });
+          onClickButton(+1);
+        } catch (err) {
+          console.error(err);
+        }
+        break;
+
+      case '/my-car/trim/traction':
+        try {
+          await apiInstance({
+            url: `${TrimUrl.TRACTION}?carOptionId=${myCarInfo.trim.traction?.id}`,
+            method: 'POST',
+            bodyData: JSON.stringify({
+              userId: 1,
+              archivingId: archivingId,
+              carOptionId: myCarInfo.trim.traction?.id,
+            }),
+          });
+          onClickButton(+1);
+        } catch (err) {
+          console.error(err);
+        }
+        break;
+
+      case '/my-car/color':
+        try {
+          await apiInstance({
+            url: `${ColorUrl.BOTH}`,
+            method: 'POST',
+            bodyData: JSON.stringify({
+              userId: 1,
+              archivingId: archivingId,
+              exteriorColorOptionId: myCarInfo.color.exteriorColor?.id,
+              interiorColorOptionId: myCarInfo.color.interiorColor?.id,
+            }),
+          });
+          onClickButton(+1);
+        } catch (err) {
+          console.error(err);
+        }
+        break;
+
       default:
         onClickButton(+1);
     }
@@ -55,9 +135,9 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
       padding="12px 36px 24px 36px"
       justify="center"
     >
-      <Flex width={1280} gap={30}>
-        <Flex>
-          <Section width={175}>
+      <Flex width={1280} gap={20}>
+        <Flex gap={18}>
+          <Section width={140}>
             <Text typo="Body3_Regular" palette="DarkGray">
               트림
             </Text>
@@ -76,7 +156,7 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
             </Flex>
           </Section>
           <ColumnImg src="/image/page/myCar/columnLine.svg" />
-          <Section width={220}>
+          <Section width={186}>
             <Text typo="Body3_Regular" palette="DarkGray">
               선택 색상
             </Text>
@@ -84,12 +164,9 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
               <Text typo="Body3_Medium" palette="Black">
                 외장
               </Text>
-              <Flex
-                backgroundColor="Primary"
-                borderRadius="100px"
-                width={16}
-                height={16}
-              />
+              {myCarInfo.color.exteriorColor?.url && (
+                <ColorCircle src={myCarInfo.color.exteriorColor?.url} />
+              )}
               <Text typo="Body3_Regular">
                 {myCarInfo.color.exteriorColor?.name}
               </Text>
@@ -98,31 +175,56 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
               <Text typo="Body3_Medium" palette="Black">
                 내장
               </Text>
-              <Flex
-                backgroundColor="Primary"
-                borderRadius="100px"
-                width={16}
-                height={16}
-              />
+              {myCarInfo.color.exteriorColor?.url && (
+                <ColorCircle src={myCarInfo.color.interiorColor?.url} />
+              )}
               <Text typo="Body3_Regular">
                 {myCarInfo.color.interiorColor?.name}
               </Text>
             </Flex>
           </Section>
           <ColumnImg src="/image/page/myCar/columnLine.svg" />
-          <Section width={290}>
+          <Section width={324}>
             <Text typo="Body3_Regular" palette="DarkGray">
               선택 옵션
             </Text>
+            <Flex
+              gap={8}
+              justify="flex-start"
+              align="center"
+              width={344}
+              css={css`
+                overflow: auto;
+                ::-webkit-scrollbar {
+                  display: none;
+                }
+              `}
+            >
+              {myCarInfo.selectedOption.slice(0, 3).map((option, idx) => {
+                return (
+                  <BlackTagChip key={`chip_${idx}`}>
+                    <SelectOptionText>{option.name}</SelectOptionText>
+                  </BlackTagChip>
+                );
+              })}
+              {myCarInfo.selectedOption.length - 3 > 0 && (
+                <BlackTagChip
+                  onClick={() => setIsOpenDetailModal(true)}
+                  css={css`
+                    cursor: pointer;
+                  `}
+                >{`+${myCarInfo.selectedOption.length - 3}`}</BlackTagChip>
+              )}
+            </Flex>
           </Section>
           <ColumnImg src="/image/page/myCar/columnLine.svg" />
-          <Section width={170}>
+          <Section width={142}>
             <Text typo="Body3_Regular" palette="DarkGray">
               예상 가격
             </Text>
             <Flex width="auto">
               <Text typo="Heading1_Bold" palette="Black">
-                {`${myCarInfo.price.toLocaleString('ko-KR')}`}
+                {`${myCarInfo.price.toLocaleString()}`}
               </Text>
               <Text typo="Body3_Regular" palette="Black">
                 원
@@ -130,40 +232,51 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
             </Flex>
           </Section>
         </Flex>
-        <Flex gap={7} width="auto">
+        <Flex gap={7} width={304}>
           {myCarUrl.indexOf(currentUrl) != myCarUrl.length - 1 && (
             <>
               {myCarUrl.indexOf(currentUrl) !== 0 ? (
-                <div onClick={() => onClickButton(-1)}>
+                <div
+                  onClick={() => {
+                    setLocalData();
+                    onClickButton(-1);
+                  }}
+                >
                   <Button
                     width={121}
                     heightType="medium"
                     backgroundColor="White"
+                    typo="Heading4_Bold"
                   >
-                    <Text palette="Primary" typo="Heading4_Bold">
-                      이전
-                    </Text>
+                    이전
                   </Button>
                 </div>
               ) : (
                 <Flex width={121}></Flex>
               )}
 
-              <div onClick={() => postData()}>
+              <div
+                onClick={() => {
+                  setLocalData();
+                  postData();
+                }}
+              >
                 <Button
                   width={176}
                   heightType="medium"
                   backgroundColor="Primary"
+                  typo="Heading4_Bold"
                 >
-                  <Text palette="White" typo="Heading4_Bold">
-                    다음 단계로
-                  </Text>
+                  다음 단계로
                 </Button>
               </div>
             </>
           )}
         </Flex>
       </Flex>
+      {isOpenDetailModal && (
+        <DetailOptionModal closeModal={() => setIsOpenDetailModal(false)} />
+      )}
     </Flex>
   );
 };
@@ -174,10 +287,39 @@ const Section = styled(Flex)`
   align-items: flex-start;
 
   gap: 6px;
-  padding: 0 0 0 22px;
   box-sizing: border-box;
 `;
 
 const ColumnImg = styled.img`
   height: 100%;
+`;
+
+const BlackTagChip = styled.div`
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  max-width: calc(85px - 8px);
+  height: 22px;
+  padding: 4px 8px;
+  border-radius: 6px;
+
+  background-color: ${theme.palette.Black};
+  color: ${theme.palette.White};
+`;
+
+const SelectOptionText = styled.span`
+  ${theme.typo.Body3_Regular};
+  color: ${theme.palette.White};
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;
+
+export const ColorCircle = styled.img`
+  background-color: ${theme.palette.Primary};
+  border-radius: 100px;
+  width: 16px;
+  height: 16px;
 `;

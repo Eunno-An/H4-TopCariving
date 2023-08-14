@@ -1,12 +1,9 @@
 import { Button, Flex, Text } from '@components/common';
+import { useMyCar } from '@contexts/MyCarContext';
 import { css } from '@emotion/react';
-import { myCarFooterInterface } from '@interface/index';
 
-export const Footer = ({
-  footerInfo,
-}: {
-  footerInfo: myCarFooterInterface;
-}) => {
+export const Footer = () => {
+  const { myCarInfo } = useMyCar();
   return (
     <Flex
       backgroundColor="Sand"
@@ -16,22 +13,25 @@ export const Footer = ({
       justify="flex-end"
       gap={24}
       css={css`
-        flex-shrink: 0;
+        position: fixed;
+        right: 0;
+        bottom: 0;
       `}
     >
       <Flex width="auto" gap={4} margin="18px 0 0 0">
         <Text typo="Body3_Medium" palette="DarkGray">
           예상 견적 가격
         </Text>
-        <Text typo="Heading1_Bold">
-          {footerInfo.price.toLocaleString('ko-KR')}
-        </Text>
+        <Text typo="Heading1_Bold">{myCarInfo.price.toLocaleString()}</Text>
         <Text typo="Body3_Medium">원</Text>
       </Flex>
-      <Button backgroundColor="Primary" heightType="medium" width={176}>
-        <Text palette="White" typo="Heading4_Bold">
-          이 차량 구매하기
-        </Text>
+      <Button
+        backgroundColor="Primary"
+        typo="Heading4_Bold"
+        heightType="medium"
+        width={176}
+      >
+        이 차량 구매하기
       </Button>
     </Flex>
   );

@@ -1,6 +1,5 @@
 import { Flex, Text } from '@components/common';
 import styled from '@emotion/styled';
-import vector481 from '@assets/images/Vector 481.svg';
 import { theme } from '@styles/theme';
 
 interface completeOptionInterface {
@@ -17,18 +16,17 @@ export const CompleteOptionCard = ({
   details,
 }: completeOptionInterface) => {
   return (
-    <CompleteFlex width={462} height={99} gap={20}>
+    <CompleteFlex width={462} height="auto" padding="20px" gap={20}>
       <Flex width={69} height={69}>
         <ImgContainer src={photoUrl} alt="" />
       </Flex>
-      <Flex direction="column">
-        <Flex justify="flex-start" gap={8}>
-          <Text typo="Body3_Medium">{optionName}</Text>
-          <img src={vector481} alt="" />
-          <Text typo="Body3_Medium">{price.toLocaleString('ko-KR')}원</Text>
+      <Flex direction="column" gap={10}>
+        <Flex justify="space-between">
+          <Text typo="Body1_Medium">{optionName}</Text>
+          <Text typo="Body1_Medium">{price.toLocaleString()}원</Text>
         </Flex>
         <Flex align="flex-start">
-          <Text typo="Caption_Regular">
+          <Text typo="Body3_Regular">
             {details.map((it, idx) =>
               idx + 1 !== details.length ? <>{it} / </> : <>{it}</>,
             )}
@@ -40,8 +38,9 @@ export const CompleteOptionCard = ({
 };
 
 const CompleteFlex = styled(Flex)`
-  border-top: 1px solid ${theme.palette.Sand};
-  border-bottom: 1px solid ${theme.palette.Sand};
+  border: 2px solid ${theme.palette.Sand};
+  border-radius: 20px;
+  // border-bottom: 1px solid ${theme.palette.Sand};
 `;
 
 const ImgContainer = styled.img`

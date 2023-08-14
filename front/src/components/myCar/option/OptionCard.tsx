@@ -4,6 +4,10 @@ import styled from '@emotion/styled';
 import { theme } from '@styles/theme';
 import { useState } from 'react';
 import check from '@assets/images/check.svg';
+import {
+  optionItemInterface,
+  selectOptionInterface,
+} from '@pages/MyCar/Option';
 import { DimInfoMsg } from '.';
 
 const cateName = {
@@ -14,24 +18,12 @@ const cateName = {
 export const OptionCard = ({
   idx,
   isSelected,
-  optionName,
-  userOptionList,
-  price,
-  photo,
+  optionItem,
   selectedMenu,
-  userOptionHandler,
-}: {
-  idx: number;
-  isSelected: boolean;
-  optionName: string;
-  userOptionList: string[];
-  price: number;
-  photo: string;
-  selectedMenu: string;
-  userOptionHandler: (option: string, actionType: string) => void;
-}) => {
-  const btnCheck = userOptionList.includes(optionName);
-  const [isAddBtnClicked, setIsBtnClicked] = useState(btnCheck);
+  dimData,
+  changeUserOptionList,
+}: optionCardInterface) => {
+  const [isAddBtnClicked, setIsAddBtnClicked] = useState(isSelected);
   const [hover, setHover] = useState(false);
   return (
     <Card
@@ -44,7 +36,7 @@ export const OptionCard = ({
       {selectedMenu === cateName.select && (
         <Dim isHover={hover}>
           <DimContent>
-            {dummyInfoData[idx].map((it, idx) => (
+            {dimData.split('\n').map((it, idx) => (
               <DimInfoMsg key={`dimInfo_${idx}`} desc={it} />
             ))}
           </DimContent>
@@ -56,32 +48,38 @@ export const OptionCard = ({
         height={selectedMenu === cateName.select ? 93 : 82}
         borderRadius="8px"
       >
-        <ImgContainer src={photo} selectedMenu={selectedMenu} />
+        <ImgContainer src={optionItem.photoUrl} selectedMenu={selectedMenu} />
       </Flex>
       {/* 옵션이름 */}
       <Flex
         direction="column"
         align="flex-start"
-        padding="20px 9px"
-        gap={8}
+        padding="0 9px"
+        gap={5}
         height={selectedMenu === cateName.select ? 104 : 80}
       >
-        <Text typo="Body3_Medium" style={{ whiteSpace: 'nowrap' }}>
-          {optionName}
-        </Text>
+        <div
+          css={css`
+            width: 125px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          `}
+        >
+          <OptionTitleName>{optionItem.optionName}</OptionTitleName>
+        </div>
         {/* 가격 & 추가하기 & 추가완료 버튼은 '선택항목'일때만 보여진다 */}
         {selectedMenu === cateName.select && (
           <>
             {/* 가격 */}
             <Text typo="Body3_Medium">
-              + {price.toLocaleString('ko-KR')} 원
+              + {optionItem.price.toLocaleString()} 원
             </Text>
             {/* 버튼 */}
             <div
               onClick={() => {
-                isAddBtnClicked && userOptionHandler(optionName, 'DELETE');
-                !isAddBtnClicked && userOptionHandler(optionName, 'ADD');
-                setIsBtnClicked(!isAddBtnClicked);
+                changeUserOptionList(idx);
+                setIsAddBtnClicked(!isAddBtnClicked);
               }}
             >
               <Button
@@ -113,6 +111,10 @@ export const OptionCard = ({
     </Card>
   );
 };
+
+const OptionTitleName = styled.span`
+  ${theme.typo.Body3_Medium}
+`;
 
 const DimContent = styled(Flex)`
   height: 140px;
@@ -146,14 +148,14 @@ const Dim = styled(Flex)<{ isHover: boolean }>`
 
 const selected = css`
   color: ${theme.palette.White};
-  background-color: #385da2;
+  background-color: ${theme.palette.OptionBlue};
 
   position: relative;
 `;
 
 const notSelected = css`
-  color: #385da2;
-  border: 2px solid #385da2;
+  color: ${theme.palette.OptionBlue};
+  border: 2px solid ${theme.palette.OptionBlue};
 
   position: relative;
 `;
@@ -166,11 +168,13 @@ const Card = styled(Flex)<{ isSelected: boolean; selectedMenu: string }>`
 
   border-radius: 8px;
 
-  background-color: ${({ isSelected }) =>
-    isSelected ? 'rgba(0, 44, 95, 0.1)' : theme.palette.LightSand};
+  background-color: ${({ isSelected, selectedMenu }) =>
+    isSelected && selectedMenu === '선택항목'
+      ? 'rgba(0, 44, 95, 0.1)'
+      : theme.palette.LightSand};
 
-  border: ${({ isSelected }) =>
-    isSelected
+  border: ${({ isSelected, selectedMenu }) =>
+    isSelected && selectedMenu === '선택항목'
       ? `2px solid ${theme.palette.Primary}`
       : `2px solid ${theme.palette.LightSand}`};
 
@@ -180,7 +184,7 @@ const Card = styled(Flex)<{ isSelected: boolean; selectedMenu: string }>`
 `;
 
 const ImgContainer = styled.img<{ selectedMenu: string }>`
-  width: 157px;
+  width: 156px;
   height: ${({ selectedMenu }) =>
     selectedMenu === '선택항목' ? '90px' : '79px'};
 
@@ -188,28 +192,11 @@ const ImgContainer = styled.img<{ selectedMenu: string }>`
   border-top-right-radius: 8px;
 `;
 
-const dummyInfoData = [
-  [
-    '전방 충돌방지 보조(교차 차량/추월시 대향차/측방 접근차)',
-    '내비게이션 기반 스마트 크루즈 컨트롤(진출입로)',
-    '고속도로 주행 보조',
-  ],
-  ['전방 충돌방지 보조', '내비게이션 기반 스마트 크루즈'],
-  ['내비게이션 기반 스마트 크루즈 컨트롤(진출입로)', '고속도로 주행 보조'],
-  [
-    '전방 충돌방지 보조(교차 차량/추월시 대향차/측방 접근차)',
-    '내비게이션 기반 스마트 크루즈 컨트롤(진출입로)',
-    '고속도로 주행 보조',
-    '내비게이션 기반 스마트 크루즈 컨트롤(진출입로)',
-    '내비게이션 기반 스마트 크루즈 컨트롤(진출입로)',
-    '내비게이션 기반 스마트 크루즈 컨트롤(진출입로)',
-    '내비게이션 기반 스마트 크루즈 컨트롤(진출입로)',
-  ],
-  [
-    '전방 충돌방지 보조(교차 차량/추월시 대향차/측방 접근차)',
-    '내비게이션 기반 스마트 크루즈 컨트롤(진출입로)',
-    '고속도로 주행 보조',
-    '전방 충돌방지 보조(교차 차량/추월시 대향차/측방 접근차)',
-  ],
-  ['전방 충돌방지 보조(교차 차량/추월시 대향차/측방 접근차)'],
-];
+interface optionCardInterface {
+  idx: number;
+  isSelected: boolean;
+  optionItem: selectOptionInterface | optionItemInterface;
+  selectedMenu: string;
+  dimData: string;
+  changeUserOptionList: (optionIdx: number) => void;
+}

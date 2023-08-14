@@ -1,10 +1,12 @@
 package com.backend.topcariving.domain.review.repository;
 
-import org.springframework.data.repository.CrudRepository;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
-import com.backend.topcariving.domain.review.entity.TagReview;
+import com.backend.topcariving.domain.option.dto.response.tag.TagResponseDTO;
 
-@Repository
-public interface TagReviewRepository extends CrudRepository<TagReview, Long> {
+public interface TagReviewRepository {
+
+	List<TagResponseDTO> findTagResponseDTOByCarOptionId(Long carOptionId);
+
+	List<TagResponseDTO> findTagResponseDTOByCarOptionIdAndLimit(Long carOptionId, int limit);
 }

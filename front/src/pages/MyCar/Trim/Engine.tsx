@@ -3,7 +3,7 @@ import { Flex, Text } from '@components/common';
 import { useEffect, useState } from 'react';
 import { EngineCard } from '@components/myCar/trim';
 import { MyCarContextType, useMyCar } from '@contexts/MyCarContext';
-import { TrimUrl, apiInstance } from '@utils/api';
+import { useLoaderData } from 'react-router-dom';
 
 export interface engineInfoInterface {
   carOptionId: number;
@@ -16,35 +16,28 @@ export interface engineInfoInterface {
 }
 
 const Engine = () => {
+  const engineInfo = useLoaderData() as engineInfoInterface[];
   const { myCarInfo, setMyCarInfo } = useMyCar() as MyCarContextType;
-  const [engineInfo, setEngineInfo] = useState<engineInfoInterface[] | null>(
-    null,
-  );
   const [isSelected, setIsSelected] = useState(0);
 
   useEffect(() => {
     const getData = async () => {
-      const res = (await apiInstance({
-        url: TrimUrl.ENGINES,
-        method: 'GET',
-      })) as engineInfoInterface[];
-      setEngineInfo(res);
-
-      if (res) {
-        if (myCarInfo.trim.engine === null) {
+      if (engineInfo) {
+        if (!myCarInfo.trim.engine) {
           setMyCarInfo({
             ...myCarInfo,
-            price: myCarInfo.price + res[0].price,
+            price: myCarInfo.price + engineInfo[0].price,
             trim: {
               ...myCarInfo.trim,
               engine: {
-                id: res[0].carOptionId,
-                name: res[0].optionName,
+                id: engineInfo[0].carOptionId,
+                name: engineInfo[0].optionName,
+                price: engineInfo[0].price,
               },
             },
           });
         } else {
-          res.forEach((engine, selectIdx) => {
+          engineInfo.forEach((engine, selectIdx) => {
             if (engine.carOptionId === myCarInfo.trim.engine?.id) {
               setIsSelected(selectIdx);
             }
@@ -69,6 +62,7 @@ const Engine = () => {
           engine: {
             id: engineInfo[idx].carOptionId,
             name: engineInfo[idx].optionName,
+            price: engineInfo[idx].price,
           },
         },
       });
@@ -89,7 +83,7 @@ const Engine = () => {
                   {engineInfo[isSelected].optionName}
                 </Text>
                 <Text typo="Heading2_Bold">
-                  +{engineInfo[isSelected].price.toLocaleString('ko-KR')}원
+                  +{engineInfo[isSelected].price.toLocaleString()}원
                 </Text>
               </InfoBox>
             </Flex>

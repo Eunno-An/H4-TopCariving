@@ -39,6 +39,7 @@ CREATE TABLE IF NOT EXISTS CAR_ARCHIVING
     day_time     datetime,
     is_complete  boolean default false,
     is_alive     boolean default true,
+    archiving_type varchar(10),
     CONSTRAINT pk_car_archiving PRIMARY KEY (archiving_id),
     CONSTRAINT fk_car_archiving_to_user_info FOREIGN KEY (user_id) REFERENCES USER_INFO (user_id)
     );

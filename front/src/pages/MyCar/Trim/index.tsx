@@ -1,38 +1,39 @@
 import { useEffect, useState } from 'react';
 import { CarModel, Flex } from '@components/common';
 import { TrimCard, TrimCardInterface } from '@components/myCar/trim';
-import { TrimUrl, apiInstance } from '@utils/api';
 import { MyCarContextType, useMyCar } from '@contexts/MyCarContext';
+import { useLoaderData } from 'react-router-dom';
 
 export const Trim = () => {
+  const modelInfo = useLoaderData() as TrimCardInterface[];
   const { myCarInfo, setMyCarInfo } = useMyCar() as MyCarContextType;
-  const [modelInfo, setModelInfo] = useState<TrimCardInterface[] | null>(null);
 
   const [isSelected, setIsSelected] = useState(0);
 
   useEffect(() => {
     const getData = async () => {
-      const res = (await apiInstance({
-        url: TrimUrl.MODELS,
-        method: 'GET',
-      })) as TrimCardInterface[];
-      setModelInfo(res);
+      const localMyCarInfo = localStorage.getItem('myCarInfo');
+      const localMyCar = localMyCarInfo
+        ? JSON.parse(localMyCarInfo)
+        : myCarInfo;
 
-      if (res) {
-        if (myCarInfo.trim.type === null) {
-          setMyCarInfo({
-            ...myCarInfo,
+      if (modelInfo) {
+        if (!localMyCar.trim.type) {
+          const newMyCarInfo = {
+            ...localMyCar,
             trim: {
-              ...myCarInfo.trim,
+              ...localMyCar.trim,
               type: {
-                id: res[0].carOptionId,
-                name: res[0].optionName,
+                id: modelInfo[0].carOptionId,
+                name: modelInfo[0].optionName,
+                price: modelInfo[0].price,
               },
             },
-            price: myCarInfo.price + res[0].price,
-          });
+            price: localMyCar.price + modelInfo[0].price,
+          };
+          setMyCarInfo(newMyCarInfo);
         } else {
-          res.forEach((model, selectIdx) => {
+          modelInfo.forEach((model, selectIdx) => {
             if (model.carOptionId === myCarInfo.trim.type?.id) {
               setIsSelected(selectIdx);
             }
@@ -52,6 +53,7 @@ export const Trim = () => {
           type: {
             name: modelInfo[idx].optionName,
             id: modelInfo[idx].carOptionId,
+            price: modelInfo[idx].price,
           },
         },
         price:

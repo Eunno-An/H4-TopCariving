@@ -4,36 +4,17 @@ import { ImgTag, InfoBox } from './Engine';
 import { myCarOptionInterface } from '@interface/index';
 import { BodyCard } from '@components/myCar/trim';
 import { useMyCar } from '@contexts/MyCarContext';
-
-const bodyTypeInfo = [
-  {
-    carOptionId: 1,
-    optionName: '7인승',
-    optionDetail:
-      '기존 8인승 시트(1열 2명, 2열 3명, 3열 3명)에서 2열 가운데 시트를 없애 2열 탑승객의 편의는 물론, 3열 탑승객의 승하차가 편리합니다.',
-    price: 200000,
-    photoUrl:
-      'https://topcariving.s3.ap-northeast-2.amazonaws.com/body_type/seven.jpg',
-  },
-  {
-    carOptionId: 1,
-    optionName: '8인승',
-    optionDetail:
-      '1열 2명, 2열 3명, 3열 3명이 탑승할 수 있는 구조로, 많은 인원이 탑승할 수 있도록 배려하였습니다',
-    price: 0,
-    photoUrl:
-      'https://topcariving.s3.ap-northeast-2.amazonaws.com/body_type/eight.jpg',
-  },
-] as myCarOptionInterface[];
+import { useLoaderData } from 'react-router-dom';
 
 const BodyType = () => {
+  const bodyTypeInfo = useLoaderData() as myCarOptionInterface[];
   const { myCarInfo, setMyCarInfo } = useMyCar();
   const [isSelected, setIsSelected] = useState(0);
 
   useEffect(() => {
     const getData = async () => {
       if (bodyTypeInfo) {
-        if (myCarInfo.trim.bodyType === null) {
+        if (!myCarInfo.trim.bodyType) {
           setMyCarInfo({
             ...myCarInfo,
             price: myCarInfo.price + bodyTypeInfo[0].price,
@@ -42,6 +23,7 @@ const BodyType = () => {
               bodyType: {
                 id: bodyTypeInfo[0].carOptionId,
                 name: bodyTypeInfo[0].optionName,
+                price: bodyTypeInfo[0].price,
               },
             },
           });
@@ -67,6 +49,7 @@ const BodyType = () => {
           bodyType: {
             id: bodyTypeInfo[idx].carOptionId,
             name: bodyTypeInfo[idx].optionName,
+            price: bodyTypeInfo[idx].price,
           },
         },
         price:
@@ -89,7 +72,7 @@ const BodyType = () => {
               {bodyTypeInfo[isSelected].optionName}
             </Text>
             <Text typo="Heading2_Bold">
-              +{bodyTypeInfo[isSelected].price.toLocaleString('ko-KR')}원
+              +{bodyTypeInfo[isSelected].price.toLocaleString()}원
             </Text>
           </InfoBox>
         </Flex>

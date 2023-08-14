@@ -77,7 +77,7 @@ export const NavBar = ({ currentUrl }: navBarProps) => {
             </Flex>
             <Flex width="auto" gap={4}>
               {Object.values(navBarText[step].children).map((text, idx) => (
-                <Flex width="auto" gap={4}>
+                <Flex key={`navbar_${idx}`} width="auto" gap={4}>
                   {idx !== 0 && (
                     <Text palette="MediumGray" typo="Body3_Medium">
                       {'>'}

@@ -1,5 +1,8 @@
 package com.backend.topcariving.domain.option.dto.response.archiving;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.backend.topcariving.domain.option.entity.CarOption;
 
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -27,5 +30,13 @@ public class ArchivingOptionResponseDTO {
 			.optionName(carOption.getOptionName())
 			.price(carOption.getPrice())
 			.build();
+	}
+
+	public static List<ArchivingOptionResponseDTO> from(List<CarOption> carOptions) {
+		List<ArchivingOptionResponseDTO> archivingOptionResponseDTOs = new ArrayList<>();
+		carOptions.forEach(carOption -> {
+			archivingOptionResponseDTOs.add(from(carOption));
+		});
+		return archivingOptionResponseDTOs;
 	}
 }

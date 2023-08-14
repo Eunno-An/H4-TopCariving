@@ -2,11 +2,15 @@ package com.backend.topcariving.domain.option.dto.request;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
+@AllArgsConstructor
 @Schema(description = "선택한 옵션이 여러 개일 때 받는 RequestDTO")
 public class SelectOptionsRequestDTO {
 
@@ -19,10 +23,4 @@ public class SelectOptionsRequestDTO {
 	@Schema(description = "차량 아카이빙 ID", example = "1")
 	private Long archivingId;
 
-	@Builder
-	public SelectOptionsRequestDTO(final Long userId, final List<Long> ids, final Long archivingId) {
-		this.userId = userId;
-		this.ids = ids;
-		this.archivingId = archivingId;
-	}
 }

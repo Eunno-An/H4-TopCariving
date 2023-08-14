@@ -6,8 +6,32 @@ import save from '@assets/images/save.svg';
 import vector845 from '@assets/images/vector845.svg';
 import vector850 from '@assets/images/vector850.svg';
 import { css } from '@emotion/react';
+import { useAlert } from '@contexts/AlertContext';
+import { useNavigate } from 'react-router-dom';
 
 export const Header = () => {
+  const { openAlert, closeAlert } = useAlert();
+
+  const navigate = useNavigate();
+  const moveToArchiving = () => {
+    closeAlert();
+    navigate('/archive');
+  };
+
+  const onClickArchiving = () => {
+    openAlert({
+      newContent: [
+        '내 차 만들기를 그만하시겠어요?',
+        '만들던 차량은 아카이빙 > 내가 만든 차량에',
+        '저장해둘게요',
+      ],
+      newButtonInfo: [
+        { text: '취소', color: 'LightGray', onClick: closeAlert },
+        { text: '확인', color: 'Primary', onClick: moveToArchiving },
+      ],
+    });
+  };
+
   return (
     <Flex
       backgroundColor="Sand"
@@ -15,6 +39,9 @@ export const Header = () => {
       justify="center"
       padding="0 100px 0 100px"
       css={css`
+        position: fixed;
+        top: 0;
+        left: 0;
         flex-shrink: 0;
       `}
     >
@@ -44,6 +71,7 @@ export const Header = () => {
               css={css`
                 cursor: pointer;
               `}
+              onClick={onClickArchiving}
             >
               <img src={cargo} alt="아카이빙 카고" />
               <Text palette="Sand" typo="Body4_Medium">

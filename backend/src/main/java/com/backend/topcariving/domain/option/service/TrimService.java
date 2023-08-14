@@ -1,5 +1,7 @@
 package com.backend.topcariving.domain.option.service;
 
+import static com.backend.topcariving.domain.archive.entity.ArchivingType.*;
+
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +31,7 @@ import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
+@Transactional(readOnly = true)
 public class TrimService {
 
 	private final CarOptionRepository carOptionRepository;
@@ -38,7 +40,6 @@ public class TrimService {
 	private final MyCarRepository myCarRepository;
 	private final EngineDetailRepository engineDetailRepository;
 
-	@Transactional(readOnly = true)
 	public List<ModelResponseDTO> getModels() {
 		List<CarOption> options = carOptionRepository.findByCategoryDetail(CategoryDetail.MODEL.getName());
 
@@ -55,6 +56,7 @@ public class TrimService {
 			.collect(Collectors.toList());
 	}
 
+	@Transactional
 	public Long saveModel(SelectOptionRequestDTO selectOptionRequestDTO) {
 		Long userId = selectOptionRequestDTO.getUserId();
 		Long carOptionId = selectOptionRequestDTO.getCarOptionId();
@@ -62,10 +64,11 @@ public class TrimService {
 		verifyCarOptionId(CategoryDetail.MODEL, carOptionId);
 
 		CarArchiving carArchiving = CarArchiving.builder()
-										.userId(userId)
-										.isComplete(false)
-										.isAlive(true)
-										.build();
+			.userId(userId)
+			.isComplete(false)
+			.isAlive(true)
+			.archivingType(MAKE.getType())
+			.build();
 		carArchiving = carArchivingRepository.save(carArchiving);
 
 		MyCar mycar = MyCar.builder()
@@ -78,7 +81,6 @@ public class TrimService {
 		return carArchiving.getArchivingId();
 	}
 
-	@Transactional(readOnly = true)
 	public List<EngineResponseDTO> getEngines() {
 		List<CarOption> engines = carOptionRepository.findByCategoryDetail(CategoryDetail.ENGINE.getName());
 
@@ -93,7 +95,6 @@ public class TrimService {
 		return EngineResponseDTO.of(engine, engineDetail);
 	}
 
-	@Transactional(readOnly = true)
 	public List<OptionResponseDTO> getOptions(CategoryDetail categoryDetail) {
 		final List<CarOption> carOptions = carOptionRepository.findByCategoryDetail(categoryDetail.getName());
 
@@ -102,16 +103,17 @@ public class TrimService {
 			.collect(Collectors.toList());
 	}
 
-	@Transactional(readOnly = true)
 	public List<OptionResponseDTO> getDrivingMethods() {
-		final List<CarOption> carOptions = carOptionRepository.findByCategoryDetail(CategoryDetail.DRIVING_METHOD.getName());
+		final List<CarOption> carOptions = carOptionRepository.findByCategoryDetail(
+			CategoryDetail.DRIVING_METHOD.getName());
 
 		return carOptions.stream()
 			.map(OptionResponseDTO::from)
 			.collect(Collectors.toList());
 	}
 
-	public Long saveTrim(SelectOptionRequestDTO selectOptionRequestDTO, CategoryDetail categoryDetail) {
+	@Transactional
+	public Long saveOption(SelectOptionRequestDTO selectOptionRequestDTO, CategoryDetail categoryDetail) {
 		Long userId = selectOptionRequestDTO.getUserId();
 		Long carOptionId = selectOptionRequestDTO.getCarOptionId();
 		Long archivingId = selectOptionRequestDTO.getArchivingId();

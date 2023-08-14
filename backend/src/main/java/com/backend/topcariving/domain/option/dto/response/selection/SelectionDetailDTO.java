@@ -1,11 +1,14 @@
 package com.backend.topcariving.domain.option.dto.response.selection;
 
+import com.backend.topcariving.domain.option.entity.CarOption;
+
 import io.swagger.v3.oas.annotations.media.Schema;
+import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@Builder
+@Builder(access = AccessLevel.PRIVATE)
 @Schema(description = "옵션의 하위항목에 대한 정보")
 public class SelectionDetailDTO {
 
@@ -17,4 +20,12 @@ public class SelectionDetailDTO {
 
 	@Schema(description = "옵션 설명", example = "주요 주행 정보를 전면 윈드실드에 표시합니다.")
 	private String optionDetail;
+
+	public static SelectionDetailDTO from(CarOption carOption) {
+		return SelectionDetailDTO.builder()
+			.carOptionId(carOption.getCarOptionId())
+			.optionName((carOption.getOptionName()))
+			.optionDetail(carOption.getOptionDetail())
+			.build();
+	}
 }

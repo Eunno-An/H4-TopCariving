@@ -19,9 +19,7 @@ export const EngineCard = ({
     >
       <Flex justify="space-between">
         <Text typo="Heading3_Bold">{engine.optionName}</Text>
-        <Text typo="Heading4_Bold">
-          +{engine.price.toLocaleString('ko-KR')}원
-        </Text>
+        <Text typo="Heading4_Bold">+{engine.price.toLocaleString()}원</Text>
       </Flex>
       <Flex>
         <Text typo="Body3_Regular">{engine.optionDetail}</Text>

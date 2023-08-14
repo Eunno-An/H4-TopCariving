@@ -11,9 +11,9 @@ INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, o
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (8, '트림', '바디타입', '8인승', '1열 2명, 2열 3명, 3열 3명이 탑승할 수 있는 구조로, 많은 인원이 탑승할 수 있도록 배려하였습니다', 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/body_type/eight.jpg', null);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (7, '트림', '바디타입', '7인승', '기존 8인승 시트(1열 2명, 2열 3명, 3열 3명)에서 2열 가운데 시트를 없애 2열 탑승객의 편의는 물론, 3열 탑승객의 승하차가 편리합니다', 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/body_type/seven.jpg', null);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (9, '트림', '구동방식', '2WD', '엔진에서 전달되는 동력이 전/후륜 바퀴 중 한쪽으로만 전달되어 차량을 움직이는 방식입니다
-차체가 가벼워 연료 효율이 높습니다', 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/driving_method/2wd.jpg', null);
+차체가 가벼워 연료 효율이 높습니다', 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/driving_method/2wd.png', null);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (10, '트림', '구동방식', '4WD', '전자식 상시 4륜 구동 시스템 입니다
-도로의 상황이나 주행 환경에 맞춰 전후륜 구동력을 자동배분하여 주행 안전성을 높여줍니다', 2370000, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/driving_method/4wd.jpg', null);
+도로의 상황이나 주행 환경에 맞춰 전후륜 구동력을 자동배분하여 주행 안전성을 높여줍니다', 2370000, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/driving_method/4wd.png', null);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (11, '색상', '외장색상', '어비스블랙펄', null, 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/external_color/black.png', null);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (12, '색상', '외장색상', '쉬머링 실버 메탈릭', null, 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/external_color/silver.png', null);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (13, '색상', '외장색상', '문라이프 블루 펄', null, 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/external_color/blue.png', null);
@@ -22,8 +22,8 @@ INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, o
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (16, '색상', '외장색상', '크리미 화이트 펄', null, 100000, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/external_color/white.png', null);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (17, '색상', '내장색상', '퀄팅천연(블랙)', null, 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/internal_color/black.png', null);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (18, '색상', '내장색상', '쿨그레이', null, 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/internal_color/gray.png', null);
-INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (19, '색상', '내장색상-이미지', '퀄팅천연(블랙) 내장 이미지', null, 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/internal_color/black_internal.png', null);
-INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (20, '색상', '내장색상-이미지', '쿨그레이 내장 이미지', null, 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/internal_color/gray_internal.png', null);
+INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (19, '색상', '내장색상-이미지', '퀄팅천연(블랙) 내장 이미지', null, 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/internal_color/black_internal.png', 17);
+INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (20, '색상', '내장색상-이미지', '쿨그레이 내장 이미지', null, 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/internal_color/gray_internal.png', 18);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (21, '기본 포함 품목', '파워트레인/성능', '8단 자동변속기', '전달 효율 증대로 전 엔진 동급 최고의 연비를 구현함은 물론, 최적의 변속 성능으로 드라이빙 감성까지 향상시켜줍니다.', 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/power/transmission.jpg', null);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (22, '기본 포함 품목', '파워트레인/성능', 'ISG 시스템', '신호 대기 상황이거나 정차 중일 때 차의 엔진을 일시 정지하여 연비를 향상시키고, 배출가스 발생을 억제하는 시스템입니다.', 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/power/ISG.jpg', null);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (23, '기본 포함 품목', '파워트레인/성능', '통합주행모드', 'COMFORT, ECO, SPORT, SMART 4가지 드라이브 모드를 지원하여 운전자의 니즈에 따른 다양한 주행 모드를 선택할 수 있습니다. 각 주행모드의 상태는 클러스터와 AVN을 통해 확인 가능합니다.', 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/power/driving_mode.jpg', null);
@@ -157,8 +157,8 @@ INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, o
 메탈 도어스커프
 3열 파워폴딩시트
 3열 열선시트
-헤드업 디스플레이', 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/roa.jpeg', null);
-INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (104, '선택품목', '상세 품목', '후석 승객 알림', '초음파 센서를 통해 뒷좌석에 남아있는 승객의 움직임을 감지하여 운전자에게 경고함으로써 부주의에 의한 유아 또는 반려 동물 등의 방치 사고를 예방하는 신기술입니다.[메탈 리어범퍼스텝]러기지 룸 앞쪽 하단부를 메탈로 만들어 물건을 싣고 내릴 때나 사람이 올라갈 때 차체를 보호해줍니다.[메탈 도어스커프]자동차를 타고 내리는 도어의 문틈 하부를 보호하는 도어스커프 부분을 메탈로 만들어 차체를 보호하고 메탈 디자인으로 고급스러운 감성을 전달합니다.[3열 파워폴딩', 1090000, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/roa.jpeg', 103);
+헤드업 디스플레이', 1090000, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/roa.jpeg', null);
+INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (104, '선택품목', '상세 품목', '후석 승객 알림', '초음파 센서를 통해 뒷좌석에 남아있는 승객의 움직임을 감지하여 운전자에게 경고함으로써 부주의에 의한 유아 또는 반려 동물 등의 방치 사고를 예방하는 신기술입니다.[메탈 리어범퍼스텝]러기지 룸 앞쪽 하단부를 메탈로 만들어 물건을 싣고 내릴 때나 사람이 올라갈 때 차체를 보호해줍니다.[메탈 도어스커프]자동차를 타고 내리는 도어의 문틈 하부를 보호하는 도어스커프 부분을 메탈로 만들어 차체를 보호하고 메탈 디자인으로 고급스러운 감성을 전달합니다.[3열 파워폴딩', 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/roa.jpeg', 103);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (105, '선택품목', '상세 품목', '메탈 리어범퍼스텝', '러기지 룸 앞쪽 하단부를 메탈로 만들어 물건을 싣고 내릴 때나 사람이 올라갈 때 차체를 보호해줍니다.', 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/metalrearbumper.jpeg', 103);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (106, '선택품목', '상세 품목', '메탈 도어스커프', '자동차를 타고 내리는 도어의 문틈 하부를 보호하는 도어스커프 부분을 메탈로 만들어 차체를 보호하고 메탈 디자인으로 고급스러운 감성을 전달합니다.
 
@@ -167,16 +167,16 @@ INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, o
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (108, '선택품목', '상세 품목', '3열 열선시트', '시동이 걸린 상태에서 해당 좌석 히터 스위치를 누르면 강약조절 표시등이 켜져 사용 중임을 나타내고 해당 좌석이 따뜻해집니다.', 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/3_heated.jpeg', 103);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (109, '선택품목', '상세 품목', '헤드업 디스플레이', '주요 주행 정보를 전면 윈드실드에 표시하며, 밝기가 최적화되어 주간에도 시인성이 뛰어납니다.', 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/headupdisplay.jpeg', 103);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (110, '선택품목', '상세 품목', '주차보조 시스템 II', '후방 주차 충돌방지 보조
-원격 스마트 주차 보조', 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/pca.jpeg', null);
-INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (111, '선택품목', '상세 품목', '후방 주차 충돌방지 보조', '주차 또는 출차 시 저속 후진 중 후방카메라와 센서로 정후면에 위치한 보행자 및 장애물과의 충돌이 예상되면 운전자에게 경고하고 차량의 제동을 제어하여 충돌방지를 보조합니다.[원격 스마트 주차 보조]주차 보조 기능을 활성화 한 후 주차공간을 발견하게 되면 차량 내 안내에 따라 하차한 다음, 스마트키의 작동 버튼을 누르고만 있으면 차가 스스로 주차합니다. 직각주차 및 평행주차 모두 가능하며, 운전자 탑승 시에도 차량 내부의 작동 버튼을 누르고 있으면 자동 ', 690000, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/pca.jpeg', 111);
-INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (112, '선택품목', '상세 품목', '원격 스마트 주차 보조', '주차 보조 기능을 활성화 한 후 주차공간을 발견하게 되면 차량 내 안내에 따라 하차한 다음, 스마트키의 작동 버튼을 누르고만 있으면 차가 스스로 주차합니다. 직각주차 및 평행주차 모두 가능하며, 운전자 탑승 시에도 차량 내부의 작동 버튼을 누르고 있으면 자동 주차 보조를 지원합니다.', 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/rspa.jpeg', 111);
+원격 스마트 주차 보조', 690000, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/pca.jpeg', null);
+INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (111, '선택품목', '상세 품목', '후방 주차 충돌방지 보조', '주차 또는 출차 시 저속 후진 중 후방카메라와 센서로 정후면에 위치한 보행자 및 장애물과의 충돌이 예상되면 운전자에게 경고하고 차량의 제동을 제어하여 충돌방지를 보조합니다.[원격 스마트 주차 보조]주차 보조 기능을 활성화 한 후 주차공간을 발견하게 되면 차량 내 안내에 따라 하차한 다음, 스마트키의 작동 버튼을 누르고만 있으면 차가 스스로 주차합니다. 직각주차 및 평행주차 모두 가능하며, 운전자 탑승 시에도 차량 내부의 작동 버튼을 누르고 있으면 자동 ', 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/pca.jpeg', 110);
+INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (112, '선택품목', '상세 품목', '원격 스마트 주차 보조', '주차 보조 기능을 활성화 한 후 주차공간을 발견하게 되면 차량 내 안내에 따라 하차한 다음, 스마트키의 작동 버튼을 누르고만 있으면 차가 스스로 주차합니다. 직각주차 및 평행주차 모두 가능하며, 운전자 탑승 시에도 차량 내부의 작동 버튼을 누르고 있으면 자동 주차 보조를 지원합니다.', 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/rspa.jpeg', 110);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (113, '선택품목', '상세 품목', '2열 통풍 시트', '시동이 걸린 상태에서 해당 좌석의 통풍 스위치를 누르면 표시등이 켜지면서 해당 좌석에 바람이 나오는 편의장치입니다.', 400000, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/2_cooling.jpeg', null);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (114, '선택품목', '상세 품목', '듀얼 와이드 선루프', '후석에 고정 글라스를 적용한 듀얼 파노라믹 선루프로 2/3열의 탑승객에게도 넓은 개방감을 선사합니다.', 890000, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/sun_roof.jpg', null);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (115, '선택품목', '상세 품목', '빌트인 캠(보조배터리 포함)', '빌트인 적용된 영상기록장치로, 내비게이션 화면을 통해 영상 확인 및 앱 연동을 통해 영상 확인 및 SNS 공유가 가능합니다.', 690000, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/cam.jpg', null);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (116, '선택품목', '상세 품목', '현대스마트센스 I', '전방 추돌방지 보조
 내비게이션 기반 스마트 크루즈 컨트롤
-고속도로 주행 보조 2', 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/smart_front_collision.jpeg', null);
-INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (117, '선택품목', '상세 품목', '전방 추돌방지 보조', '선행 차량이 갑자기 속도를 줄이거나, 앞에 정지 차량 혹은 보행자가 나타나는 등 전방 충돌 위험이 감지되면 경고를 해줍니다. 경고 후에도 충돌 위험이 높아지면 자동으로 제동을 도와줍니다. 주행 중 전방의 자전거 탑승자 및 교차로에서 좌회전 시 맞은편에서 다가오는 차량과 충돌 위험이 있다면 자동으로 제동을 도와줍니다.[내비게이션 기반 스마트 크루즈 컨트롤(진출입로)]스마트 크루즈 작동 중 고속도로/도시고속도로/자동차전용 도로 내 고속도로 진출입로 주행 시', 790000, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/smart_front_collision.jpeg', 116);
+고속도로 주행 보조 2', 790000, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/smart_front_collision.jpeg', null);
+INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (117, '선택품목', '상세 품목', '전방 추돌방지 보조', '선행 차량이 갑자기 속도를 줄이거나, 앞에 정지 차량 혹은 보행자가 나타나는 등 전방 충돌 위험이 감지되면 경고를 해줍니다. 경고 후에도 충돌 위험이 높아지면 자동으로 제동을 도와줍니다. 주행 중 전방의 자전거 탑승자 및 교차로에서 좌회전 시 맞은편에서 다가오는 차량과 충돌 위험이 있다면 자동으로 제동을 도와줍니다.[내비게이션 기반 스마트 크루즈 컨트롤(진출입로)]스마트 크루즈 작동 중 고속도로/도시고속도로/자동차전용 도로 내 고속도로 진출입로 주행 시', 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/smart_front_collision.jpeg', 116);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (118, '선택품목', '상세 품목', '내비게이션 기반 스마트 크루즈 컨트롤', '[내비게이션 기반 스마트 크루즈 컨트롤(진출입로)]차량 후면부에 스포티함을 한층 강화시켜주는 듀얼 머플러와 디자인 리어 스키드 상품입니다.
 1) 듀얼 머플러 & 리어 스키드 (캘리그래피 트림)
 2) 듀얼 머플러 & 리어 스키드 (일반 트림)', 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/smar_ncss.jpeg', 116);
@@ -189,13 +189,13 @@ INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, o
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (124, '선택품목', 'H Genuine Accessories', '차량 보호 필름', '카 라이프중 손상되기 쉬운 프론트/리어 범프등 7부위에 우레탄 계열의 투명한 보호 필름을 부착하여 스톤칩으로 인한 페인트 손상 및 생활 스크래치를 예방하여 깨끗한 바디를 유지하는데 도움을 줍니다.
 - 적용부위: 프론트 범퍼 사이드, 도어컵, 도어 엣지, 도어 스텝, 주유구 도어, 리어 범퍼 사이드, 사이드 미러', 490000, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/H_Genuine_Accessories/carprotector.jpeg', null);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (125, '선택품목', 'H Genuine Accessories', '프로텍션 매트 패키지 I', '러기지 프로텍션 매트
-플로어매트1, 2열', 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/H_Genuine_Accessories/carprotector.jpeg', null);
+플로어매트1, 2열', 250000, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/H_Genuine_Accessories/luggageprotectmat.jpeg', null);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (126, '선택품목', 'H Genuine Accessories', '러기지 프로텍션 매트', '차량 설계 데이터를 반영한 3D 형상 디자인으로 차량에 딱 맞는 완벽한 일체감과 실내 고급감을 제공합니다.
 방오/방수 효과로 매트 오염시 세척/건조가 탁월합니다.
 
 [프로텍션 매트 패키지]
-- 구성품목 : 프론트 플로어 매트 2개(좌/우), 리어 플로어 매트, 러기지 매트', 250000, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/H_Genuine_Accessories/luggageprotectmat.jpeg', 124);
-INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (127, '선택품목', 'H Genuine Accessories', '플로어매트1, 2열', null, 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/H_Genuine_Accessories/floormat.jpeg', 124);
+- 구성품목 : 프론트 플로어 매트 2개(좌/우), 리어 플로어 매트, 러기지 매트', 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/H_Genuine_Accessories/luggageprotectmat.jpeg', 125);
+INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (127, '선택품목', 'H Genuine Accessories', '플로어매트1, 2열', null, 0, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/H_Genuine_Accessories/floormat.jpeg', 125);
 INSERT INTO CAR_OPTION (car_option_id, category, category_detail, option_name, option_detail, price, photo_url, parent_option_id) VALUES (128, '선택품목', 'N performance', '20인치 다크 스퍼터링 휠', '스포티한 디자인 감성을 원하는 고객을 위한 N 퍼포먼스 파츠 휠입니다.
 
 * 단품 선택만 가능하며, 알콘 브레이크와 동시 선택은 불가', 840000, 'https://topcariving.s3.ap-northeast-2.amazonaws.com/N_performance/20_darkwheel.jpeg', null);
@@ -252,26 +252,26 @@ INSERT INTO USER_INFO (name, email, password) VALUES ('고길동', 'go@gmail.com
 /**
   CAR_ARCHIVING
  */
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (1, '2023-08-01 12:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (2, '2023-08-01 17:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (3, '2023-08-02 12:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (4, '2023-08-02 18:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (5, '2023-08-03 08:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (6, '2023-08-03 12:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (7, '2023-08-03 14:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (8, '2023-08-04 07:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (9, '2023-08-04 12:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (10, '2023-08-04 14:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (1, '2023-08-04 18:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (2, '2023-08-04 20:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (3, '2023-08-05 05:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (4, '2023-08-05 11:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (5, '2023-08-05 14:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (6, '2023-08-05 18:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (7, '2023-08-05 22:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (8, '2023-08-06 12:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (9, '2023-08-07 12:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (9, '2023-08-07 23:00:00', 'false', 'true');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (1, '2023-08-01 12:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (2, '2023-08-01 17:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (3, '2023-08-02 12:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (4, '2023-08-02 18:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (5, '2023-08-03 08:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (6, '2023-08-03 12:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (7, '2023-08-03 14:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (8, '2023-08-04 07:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (9, '2023-08-04 12:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (10, '2023-08-04 14:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (1, '2023-08-04 18:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (2, '2023-08-04 20:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (3, '2023-08-05 05:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (4, '2023-08-05 11:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (5, '2023-08-05 14:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (6, '2023-08-05 18:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (7, '2023-08-05 22:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (8, '2023-08-06 12:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (9, '2023-08-07 12:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (9, '2023-08-07 23:00:00', 'false', 'true', '내 차 만들기');
 
 /**
   MY_CAR

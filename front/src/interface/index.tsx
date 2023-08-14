@@ -1,3 +1,5 @@
+import { optionDetailInterface } from '@pages/MyCar/Option';
+
 export type colorEng =
   | '어비스블랙펄'
   | '쉬머링 실버 메탈릭'
@@ -41,6 +43,11 @@ export interface trimModelInterface {
 
 export interface optionInfoInterface {
   carOptionId: number;
+  details?: optionDetailInterface[];
   optionName: string;
-  optionDetail: string;
+  photoUrl: string;
+  price: string;
+  tags?: {
+    tagContent: string;
+  }[];
 }

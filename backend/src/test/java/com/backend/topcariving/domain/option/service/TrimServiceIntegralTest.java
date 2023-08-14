@@ -4,57 +4,30 @@ import java.util.List;
 import java.util.Optional;
 
 import org.assertj.core.api.Assertions;
-import org.assertj.core.api.SoftAssertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.data.jdbc.DataJdbcTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.backend.topcariving.config.TestSupport;
 import com.backend.topcariving.domain.archive.entity.MyCar;
-import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
 import com.backend.topcariving.domain.archive.repository.MyCarRepository;
 import com.backend.topcariving.domain.option.dto.request.SelectOptionRequestDTO;
 import com.backend.topcariving.domain.option.dto.response.engine.EngineResponseDTO;
 import com.backend.topcariving.domain.option.dto.response.model.ModelResponseDTO;
 import com.backend.topcariving.domain.option.dto.response.trim.OptionResponseDTO;
 import com.backend.topcariving.domain.option.entity.CategoryDetail;
-import com.backend.topcariving.domain.option.repository.CarOptionRepository;
-import com.backend.topcariving.domain.option.repository.EngineDetailRepository;
-import com.backend.topcariving.domain.option.repository.ModelPhotoRepository;
 
-@DataJdbcTest
-public class TrimServiceIntegralTest {
-
-	@Autowired
-	private CarOptionRepository carOptionRepository;
-
-	@Autowired
-	private ModelPhotoRepository modelPhotoRepository;
-
-	@Autowired
-	private CarArchivingRepository carArchivingRepository;
+@SpringBootTest
+@Transactional
+public class TrimServiceIntegralTest extends TestSupport {
 
 	@Autowired
 	private MyCarRepository myCarRepository;
 
 	@Autowired
-	private EngineDetailRepository engineDetailRepository;
-
-	private SoftAssertions softAssertions;
-
-	@BeforeEach
-	void setup() {
-		softAssertions = new SoftAssertions();
-
-		trimService = new TrimService(carOptionRepository,
-			modelPhotoRepository,
-			carArchivingRepository,
-			myCarRepository,
-			engineDetailRepository);
-	}
-
 	private TrimService trimService;
 
 	@Nested
@@ -71,7 +44,6 @@ public class TrimServiceIntegralTest {
 			softAssertions.assertThat(model.getCarOptionId()).as("옵션 아이디 테스트").isEqualTo(1L);
 			softAssertions.assertThat(model.getOptionName()).as("옵션 이름 테스트").isEqualTo("Le Blanc");
 			softAssertions.assertThat(model.getPrice()).as("옵션 가격 테스트").isEqualTo(41980000);
-			softAssertions.assertAll();
 		}
 
 		@Test
@@ -101,7 +73,6 @@ public class TrimServiceIntegralTest {
 			softAssertions.assertThat(engines).hasSize(2);
 			EngineResponseDTO engineResponseDTO = engines.get(0);
 			softAssertions.assertThat(engineResponseDTO.getOptionName()).isEqualTo("디젤 2.2");
-			softAssertions.assertAll();
 		}
 
 		@Test
@@ -119,7 +90,7 @@ public class TrimServiceIntegralTest {
 			myCarRepository.save(myCar);
 
 			// when
-			Long savedArchivingId = trimService.saveTrim(selectOptionRequestDTO, CategoryDetail.ENGINE);
+			Long savedArchivingId = trimService.saveOption(selectOptionRequestDTO, CategoryDetail.ENGINE);
 
 			// then
 			Assertions.assertThat(savedArchivingId).isEqualTo(archivingId);
@@ -141,7 +112,6 @@ public class TrimServiceIntegralTest {
 			final OptionResponseDTO optionResponseDTO = bodyTypes.get(0);
 			softAssertions.assertThat(optionResponseDTO.getCarOptionId()).as("옵션 아이디 테스트").isEqualTo(7L);
 			softAssertions.assertThat(optionResponseDTO.getOptionName()).as("옵션 이름 테스트").isEqualTo("7인승");
-			softAssertions.assertAll();
 		}
 
 		@Test
@@ -159,7 +129,7 @@ public class TrimServiceIntegralTest {
 			myCarRepository.save(myCar);
 
 			// when
-			Long savedArchivingId = trimService.saveTrim(selectOptionRequestDTO, CategoryDetail.BODY_TYPE);
+			Long savedArchivingId = trimService.saveOption(selectOptionRequestDTO, CategoryDetail.BODY_TYPE);
 
 			// then
 			Assertions.assertThat(savedArchivingId).isEqualTo(archivingId);

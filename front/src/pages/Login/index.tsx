@@ -4,12 +4,20 @@ import styled from '@emotion/styled';
 import { theme } from '@styles/theme';
 import { useNavigate } from 'react-router-dom';
 import hyundai from '@assets/images/hyundaiLogo.png';
+import { initMyCarInfo } from '@contexts/MyCarContext';
+import { useEffect } from 'react';
 
 const Login = () => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    localStorage.setItem('myCarInfo', JSON.stringify(initMyCarInfo));
+  }, []);
+
   const onSubmit = () => {
     navigate('/my-car/trim');
   };
+
   return (
     <Flex direction="column" align="center" justify="center">
       <Flex direction="column" width="auto" height="auto">
@@ -33,10 +41,13 @@ const Login = () => {
           </Flex>
 
           <div onClick={onSubmit}>
-            <Button width={600} heightType="medium" backgroundColor="Primary">
-              <Text palette="White" typo="Heading4_Bold">
-                로그인
-              </Text>
+            <Button
+              width={600}
+              heightType="medium"
+              backgroundColor="Primary"
+              typo="Heading4_Bold"
+            >
+              로그인
             </Button>
           </div>
         </Flex>
