@@ -1,26 +1,32 @@
 import styled from '@emotion/styled';
-import { Flex } from '@components/common';
+import { Flex, Text } from '@components/common';
 import { CompleteOptionCard } from './CompleteOptionCard';
 
 export const SelectOptionContainer = () => {
   return (
-    <SelectedOption
-      width={1040}
-      justify="space-between"
-      backgroundColor="LightSand"
-      gap={10}
-      padding="20px"
-      borderRadius="8px"
-    >
-      {result.selectOptions.map(({ photoUrl, optionName, details, price }) => (
-        <CompleteOptionCard
-          photoUrl={photoUrl}
-          optionName={optionName}
-          price={price}
-          details={details}
-        />
-      ))}
-    </SelectedOption>
+    <Flex direction="column" width={1040} gap={10}>
+      <Flex gap={21} justify="flex-start">
+        <Text typo="Heading1_Medium">선택 옵션</Text>
+        <Flex width="auto">
+          <Text typo="Heading2_Medium" palette="Gold">
+            {`${result.selectOptions.length + 1}`}
+          </Text>
+          <Text typo="Heading2_Medium">개</Text>
+        </Flex>
+      </Flex>
+      <SelectedOption justify="space-between" borderRadius="8px" gap={10}>
+        {result.selectOptions.map(
+          ({ photoUrl, optionName, details, price }) => (
+            <CompleteOptionCard
+              photoUrl={photoUrl}
+              optionName={optionName}
+              price={price}
+              details={details}
+            />
+          ),
+        )}
+      </SelectedOption>
+    </Flex>
   );
 };
 

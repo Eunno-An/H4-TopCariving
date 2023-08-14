@@ -6,13 +6,14 @@ import { theme } from '@styles/theme';
 import check from '@assets/images/blueCheck.svg';
 import { exteriorColorType, useMyCar } from '@contexts/MyCarContext';
 import { css } from '@emotion/react';
-import { colorData } from './colorData';
+
 import {
   colorInfoInterface,
   colorKey,
   exteriorColorResponseInterface,
   interiorColorResponseInterface,
 } from './interface';
+import { useLoaderData } from 'react-router-dom';
 
 export const colorPath = {
   어비스블랙펄: 'black',
@@ -25,6 +26,7 @@ export const colorPath = {
 
 const Color = () => {
   const { myCarInfo, setMyCarInfo } = useMyCar();
+  const colorInfo = useLoaderData() as colorInfoInterface;
 
   const [isLastClick, setIsLastClick] = useState<{
     key: keyof colorInfoInterface;
@@ -35,11 +37,11 @@ const Color = () => {
   });
   useEffect(() => {
     const getData = async () => {
-      if (colorData) {
+      if (colorInfo) {
         if (myCarInfo.color.exteriorColor === null) {
           const [initExteriorColor, initInteriorColor] = [
-            colorData.exteriorColorResponses[0],
-            colorData.interiorColorResponses[0],
+            colorInfo.exteriorColorResponses[0],
+            colorInfo.interiorColorResponses[0],
           ];
           setMyCarInfo({
             ...myCarInfo,
@@ -51,17 +53,19 @@ const Color = () => {
               exteriorColor: {
                 id: initExteriorColor.carOptionId,
                 name: initExteriorColor.optionName,
+                url: initExteriorColor.colorUrl,
                 price: initExteriorColor.price,
               },
               interiorColor: {
                 id: initInteriorColor.carOptionId,
                 name: initInteriorColor.optionName,
+                url: initInteriorColor.colorUrl,
                 price: initInteriorColor.price,
               },
             },
           });
         } else {
-          const lastIdx = colorData.exteriorColorResponses.findIndex(
+          const lastIdx = colorInfo.exteriorColorResponses.findIndex(
             (item) => item.carOptionId === myCarInfo.color.exteriorColor?.id,
           );
           setIsLastClick({
@@ -80,12 +84,12 @@ const Color = () => {
 
     let lastColorItem;
     if (colorKey === 'exteriorColorResponses') {
-      lastColorItem = colorData[colorKey].find(
+      lastColorItem = colorInfo[colorKey].find(
         (item: exteriorColorResponseInterface) =>
           item.carOptionId === myCarInfo.color[changeColorKey]?.id,
       );
     } else {
-      lastColorItem = colorData[colorKey].find(
+      lastColorItem = colorInfo[colorKey].find(
         (item: interiorColorResponseInterface) =>
           item.carOptionId === myCarInfo.color[changeColorKey]?.id,
       );
@@ -97,15 +101,16 @@ const Color = () => {
         color: {
           ...myCarInfo.color,
           [changeColorKey]: {
-            id: colorData[colorKey][idx].carOptionId,
-            name: colorData[colorKey][idx].optionName,
-            price: colorData[colorKey][idx].price,
+            id: colorInfo[colorKey][idx].carOptionId,
+            name: colorInfo[colorKey][idx].optionName,
+            url: colorInfo[colorKey][idx].colorUrl,
+            price: colorInfo[colorKey][idx].price,
           },
         },
         price:
           myCarInfo.price -
           lastColorItem.price +
-          colorData[colorKey][idx].price,
+          colorInfo[colorKey][idx].price,
       });
     }
 
@@ -129,7 +134,7 @@ const Color = () => {
             />
           ) : (
             <ImgTag
-              src={colorData[isLastClick.key][isLastClick.idx].photoUrl}
+              src={colorInfo[isLastClick.key][isLastClick.idx].photoUrl}
               alt=""
             />
           )}
@@ -137,10 +142,10 @@ const Color = () => {
         <Flex width={620} direction="column" justify="space-between">
           <InfoBox justify="space-between" align="flex-start" height={48}>
             <Text typo="Heading1_Bold">
-              {colorData[isLastClick.key][isLastClick.idx].optionName}
+              {colorInfo[isLastClick.key][isLastClick.idx].optionName}
             </Text>
             <Text typo="Heading2_Bold">
-              {`+${colorData[isLastClick.key][
+              {`+${colorInfo[isLastClick.key][
                 isLastClick.idx
               ].price.toLocaleString('ko-KR')}원`}
             </Text>
@@ -153,7 +158,7 @@ const Color = () => {
             gap: 4px;
           `}
         >
-          {colorData[isLastClick.key][isLastClick.idx].tagResponses.map(
+          {colorInfo[isLastClick.key][isLastClick.idx].tagResponses.map(
             (tag, idx) => (
               <Tag desc={tag.tagContent} key={`tag_${idx}`} />
             ),
@@ -177,7 +182,7 @@ const Color = () => {
           </Flex>
           <Line />
           <GridContainer>
-            {colorData.exteriorColorResponses.map((item, idx) => (
+            {colorInfo.exteriorColorResponses.map((item, idx) => (
               <Flex direction="column" justify="flex-start" gap={8}>
                 <ColorWrapper
                   isSelected={
@@ -219,7 +224,7 @@ const Color = () => {
           </Flex>
           <Line />
           <Flex direction="column" gap={16}>
-            {colorData.interiorColorResponses.map((item, idx) => (
+            {colorInfo.interiorColorResponses.map((item, idx) => (
               <ColorWrapper
                 key={`interiorCard_${idx}`}
                 isSelected={

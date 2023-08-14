@@ -65,7 +65,7 @@ export const DetailOptionModal = ({
           <Content gap={12}>
             <Flex gap={12} width="auto">
               <p>외장</p>
-              <ColorCircle />
+              <ColorCircle src={myCarInfo.color.exteriorColor?.url} />
               <p>{myCarInfo.color.exteriorColor?.name}</p>
             </Flex>
             <div>{`+${myCarInfo.color.exteriorColor?.price.toLocaleString(
@@ -75,7 +75,7 @@ export const DetailOptionModal = ({
           <Content gap={12}>
             <Flex gap={12} width="auto">
               <p>내장</p>
-              <ColorCircle />
+              <ColorCircle src={myCarInfo.color.interiorColor?.url} />
               <p>{myCarInfo.color.interiorColor?.name}</p>
             </Flex>
             <div>{`+${myCarInfo.color.interiorColor?.price.toLocaleString(

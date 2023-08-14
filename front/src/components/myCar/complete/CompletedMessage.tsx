@@ -89,7 +89,7 @@ const SandImg = styled.img`
 
 const PalmTreeImg = styled.img`
   position: absolute;
-  width: 260px;
+  width: 220px;
 
   right: -18px;
   bottom: 50px;

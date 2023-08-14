@@ -63,7 +63,7 @@ export const ModalContainerCss = () => css`
 `;
 
 export const backCss = () => css`
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   bottom: 0;

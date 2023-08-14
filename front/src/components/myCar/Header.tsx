@@ -39,6 +39,9 @@ export const Header = () => {
       justify="center"
       padding="0 100px 0 100px"
       css={css`
+        position: fixed;
+        top: 0;
+        left: 0;
         flex-shrink: 0;
       `}
     >

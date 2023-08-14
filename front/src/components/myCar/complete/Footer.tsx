@@ -14,8 +14,8 @@ export const Footer = () => {
       gap={24}
       css={css`
         position: fixed;
-        bottom: 0px;
-        flex-shrink: 0;
+        right: 0;
+        bottom: 0;
       `}
     >
       <Flex width="auto" gap={4} margin="18px 0 0 0">

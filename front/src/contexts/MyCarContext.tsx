@@ -29,9 +29,15 @@ export interface MyCarInfoInterface {
     exteriorColor: {
       id: number;
       name: exteriorColorType;
+      url: string;
       price: number;
     } | null;
-    interiorColor: { id: number; name: string; price: number } | null;
+    interiorColor: {
+      id: number;
+      name: string;
+      url: string;
+      price: number;
+    } | null;
   };
   selectedOption: { id: number; name: string; price: number }[];
   price: number;

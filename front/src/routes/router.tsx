@@ -10,12 +10,13 @@ import Login from '@pages/Login';
 import Error from '@pages/Error';
 import Color from '@pages/MyCar/Color';
 import Complete from '@pages/MyCar/Complete';
-import { TrimUrl, apiInstance } from '@utils/api';
+import { ColorUrl, TrimUrl, apiInstance } from '@utils/api';
 import { TrimCardInterface } from '@components/myCar/trim';
 import { myCarOptionInterface } from '@interface/index';
 import { ArchiveDetail } from '@pages/Archive/detail';
 import { Archive } from '@pages/Archive';
 import { ArchiveMain } from '@pages/Archive/main';
+import { colorInfoInterface } from '@pages/MyCar/Color/interface';
 
 export const router = createBrowserRouter([
   { path: '/', element: <Login /> },
@@ -66,6 +67,12 @@ export const router = createBrowserRouter([
       {
         path: 'color',
         element: <Color />,
+        loader: async () => {
+          return (await apiInstance({
+            url: ColorUrl.BOTH,
+            method: 'GET',
+          })) as colorInfoInterface;
+        },
       },
       {
         path: 'option',

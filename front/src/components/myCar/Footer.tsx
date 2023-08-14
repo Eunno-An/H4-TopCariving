@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { myCarUrl } from '@pages/MyCar';
 import { theme } from '@styles/theme';
-import { TrimUrl, apiInstance } from '@utils/api';
+import { ColorUrl, TrimUrl, apiInstance } from '@utils/api';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DetailOptionModal } from './option/DetailOptionModal';
@@ -43,7 +43,7 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
               carOptionId: myCarInfo.trim.type?.id,
             }),
           });
-          setArchivingId(() => archivingId);
+          setArchivingId(() => archivingId.data);
           onClickButton(+1);
         } catch (err) {
           console.error(err);
@@ -100,6 +100,24 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
         }
         break;
 
+      case '/my-car/color':
+        try {
+          await apiInstance({
+            url: `${ColorUrl.BOTH}`,
+            method: 'POST',
+            bodyData: JSON.stringify({
+              userId: 1,
+              archivingId: archivingId,
+              exteriorColorOptionId: myCarInfo.color.exteriorColor?.id,
+              interiorColorOptionId: myCarInfo.color.interiorColor?.id,
+            }),
+          });
+          onClickButton(+1);
+        } catch (err) {
+          console.error(err);
+        }
+        break;
+
       default:
         onClickButton(+1);
     }
@@ -113,7 +131,7 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
       padding="12px 36px 24px 36px"
       justify="center"
     >
-      <Flex width={1280} gap={30}>
+      <Flex width={1280} gap={20}>
         <Flex gap={18}>
           <Section width={140}>
             <Text typo="Body3_Regular" palette="DarkGray">
@@ -134,7 +152,7 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
             </Flex>
           </Section>
           <ColumnImg src="/image/page/myCar/columnLine.svg" />
-          <Section width={146}>
+          <Section width={186}>
             <Text typo="Body3_Regular" palette="DarkGray">
               선택 색상
             </Text>
@@ -142,7 +160,7 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
               <Text typo="Body3_Medium" palette="Black">
                 외장
               </Text>
-              <ColorCircle />
+              <ColorCircle src={myCarInfo.color.exteriorColor?.url} />
               <Text typo="Body3_Regular">
                 {myCarInfo.color.exteriorColor?.name}
               </Text>
@@ -151,7 +169,7 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
               <Text typo="Body3_Medium" palette="Black">
                 내장
               </Text>
-              <ColorCircle />
+              <ColorCircle src={myCarInfo.color.interiorColor?.url} />
               <Text typo="Body3_Regular">
                 {myCarInfo.color.interiorColor?.name}
               </Text>
@@ -192,7 +210,7 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
             </Flex>
           </Section>
           <ColumnImg src="/image/page/myCar/columnLine.svg" />
-          <Section width={152}>
+          <Section width={142}>
             <Text typo="Body3_Regular" palette="DarkGray">
               예상 가격
             </Text>
@@ -281,7 +299,7 @@ const SelectOptionText = styled.span`
   white-space: nowrap;
 `;
 
-export const ColorCircle = styled.div`
+export const ColorCircle = styled.img`
   background-color: ${theme.palette.Primary};
   border-radius: 100px;
   width: 16px;
