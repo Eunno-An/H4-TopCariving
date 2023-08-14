@@ -31,13 +31,13 @@ class CarSummaryContainer: FoldableView {
     override func fold() {
         super.fold()
         iconStackView.isHidden = true
-        heightConstant?.constant = 71
+        heightConstraint?.constant = 71
     }
     
     override func unfold() {
         super.unfold()
         iconStackView.isHidden = false
-        heightConstant?.constant = 215
+        heightConstraint?.constant = 215
     }
     
     func setInfo(to trimName: String, price: String, icons: [(image: URL, text: String)]) {

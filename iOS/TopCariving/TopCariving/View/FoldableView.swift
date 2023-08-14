@@ -9,7 +9,7 @@ import Combine
 import UIKit
 
 protocol Foldable {
-    var heightConstant: NSLayoutConstraint? { get set }
+    var heightConstraint: NSLayoutConstraint? { get set }
     
     func fold()
     func unfold()
@@ -52,7 +52,7 @@ class FoldableView: TappableView, Foldable {
     }()
     
     // MARK: - Properties
-    var heightConstant: NSLayoutConstraint?
+    var heightConstraint: NSLayoutConstraint?
     
     // MARK: - Lifecycles
     override init(frame: CGRect) {
@@ -80,8 +80,8 @@ class FoldableView: TappableView, Foldable {
     
     func setLayout() {
         separator.translatesAutoresizingMaskIntoConstraints = false
-        heightConstant = heightAnchor.constraint(equalToConstant: 71)
-        heightConstant?.isActive = true
+        heightConstraint = heightAnchor.constraint(equalToConstant: 71)
+        heightConstraint?.isActive = true
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 25),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),

@@ -12,7 +12,7 @@ class BaseOptionMainCategoryView: UIView {
     // MARK: - UI properties
     private var titleView = BaseOptionMainCategoryTitleView()
     private var subCategoryStackView = BaseOptionSubCategoryStackView()
-    private var heightConstant: NSLayoutConstraint?
+    private var heightConstraint: NSLayoutConstraint?
     
     // MARK: - Properties
     private var bag = Set<AnyCancellable>()
@@ -42,8 +42,8 @@ class BaseOptionMainCategoryView: UIView {
         addSubview(subCategoryStackView)
     }
     func setLayout() {
-        heightConstant = heightAnchor.constraint(equalToConstant: 46)
-        heightConstant?.isActive = true
+        heightConstraint = heightAnchor.constraint(equalToConstant: 46)
+        heightConstraint?.isActive = true
         NSLayoutConstraint.activate([
             titleView.topAnchor.constraint(equalTo: topAnchor),
             titleView.heightAnchor.constraint(equalToConstant: 46),
@@ -74,11 +74,11 @@ class BaseOptionMainCategoryView: UIView {
         case true:
             titleView.setArrowImage(to: "arrow_down")
             subCategoryStackView.isHidden = true
-            heightConstant?.constant = 46
+            heightConstraint?.constant = 46
         case false:
             titleView.setArrowImage(to: "arrow_up")
             subCategoryStackView.isHidden = false
-            heightConstant?.constant = CGFloat(46 + (71+8) * subCategoryStackView.arrangedSubviews.count + 12)
+            heightConstraint?.constant = CGFloat(46 + (71+8) * subCategoryStackView.arrangedSubviews.count + 12)
         }
     }
 }
