@@ -48,6 +48,13 @@ export interface MyCarContextType {
   setMyCarInfo: Dispatch<SetStateAction<MyCarInfoInterface>>;
 }
 
+export const initMyCarInfo = {
+  trim: { type: null, engine: null, bodyType: null, traction: null },
+  color: { exteriorColor: null, interiorColor: null },
+  selectedOption: [],
+  price: 0,
+};
+
 const MyCarContext = createContext<MyCarContextType | null>(null);
 
 export function useMyCar() {
@@ -59,12 +66,10 @@ export function useMyCar() {
 }
 
 export function MyCarProvider({ children }: { children: ReactNode }) {
-  const [myCarInfo, setMyCarInfo] = useState<MyCarInfoInterface>({
-    trim: { type: null, engine: null, bodyType: null, traction: null },
-    color: { exteriorColor: null, interiorColor: null },
-    selectedOption: [],
-    price: 0,
-  });
+  const localMyCarInfo = localStorage.getItem('myCarInfo');
+  const [myCarInfo, setMyCarInfo] = useState<MyCarInfoInterface>(
+    localMyCarInfo ? JSON.parse(localMyCarInfo) : initMyCarInfo,
+  );
 
   const value = {
     myCarInfo,

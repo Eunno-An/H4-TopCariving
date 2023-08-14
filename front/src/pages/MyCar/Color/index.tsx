@@ -147,7 +147,7 @@ const Color = () => {
             <Text typo="Heading2_Bold">
               {`+${colorInfo[isLastClick.key][
                 isLastClick.idx
-              ].price.toLocaleString('ko-KR')}원`}
+              ].price.toLocaleString()}원`}
             </Text>
           </InfoBox>
         </Flex>

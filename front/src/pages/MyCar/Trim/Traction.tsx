@@ -71,7 +71,7 @@ const Traction = () => {
               {tractionInfo[isSelected].optionName}
             </Text>
             <Text typo="Heading2_Bold">
-              +{tractionInfo[isSelected].price.toLocaleString('ko-KR')}원
+              +{tractionInfo[isSelected].price.toLocaleString()}원
             </Text>
           </InfoBox>
         </Flex>

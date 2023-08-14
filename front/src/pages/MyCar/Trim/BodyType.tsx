@@ -72,7 +72,7 @@ const BodyType = () => {
               {bodyTypeInfo[isSelected].optionName}
             </Text>
             <Text typo="Heading2_Bold">
-              +{bodyTypeInfo[isSelected].price.toLocaleString('ko-KR')}원
+              +{bodyTypeInfo[isSelected].price.toLocaleString()}원
             </Text>
           </InfoBox>
         </Flex>

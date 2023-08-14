@@ -30,6 +30,10 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
 
   const [isOpenDetailModal, setIsOpenDetailModal] = useState(false);
 
+  const setLocalData = () => {
+    localStorage.setItem('myCarInfo', JSON.stringify(myCarInfo));
+  };
+
   const postData = async () => {
     switch (currentUrl) {
       case '/my-car/trim':
@@ -160,7 +164,9 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
               <Text typo="Body3_Medium" palette="Black">
                 외장
               </Text>
-              <ColorCircle src={myCarInfo.color.exteriorColor?.url} />
+              {myCarInfo.color.exteriorColor?.url && (
+                <ColorCircle src={myCarInfo.color.exteriorColor?.url} />
+              )}
               <Text typo="Body3_Regular">
                 {myCarInfo.color.exteriorColor?.name}
               </Text>
@@ -169,7 +175,9 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
               <Text typo="Body3_Medium" palette="Black">
                 내장
               </Text>
-              <ColorCircle src={myCarInfo.color.interiorColor?.url} />
+              {myCarInfo.color.exteriorColor?.url && (
+                <ColorCircle src={myCarInfo.color.interiorColor?.url} />
+              )}
               <Text typo="Body3_Regular">
                 {myCarInfo.color.interiorColor?.name}
               </Text>
@@ -216,7 +224,7 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
             </Text>
             <Flex width="auto">
               <Text typo="Heading1_Bold" palette="Black">
-                {`${myCarInfo.price.toLocaleString('ko-KR')}`}
+                {`${myCarInfo.price.toLocaleString()}`}
               </Text>
               <Text typo="Body3_Regular" palette="Black">
                 원
@@ -228,7 +236,12 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
           {myCarUrl.indexOf(currentUrl) != myCarUrl.length - 1 && (
             <>
               {myCarUrl.indexOf(currentUrl) !== 0 ? (
-                <div onClick={() => onClickButton(-1)}>
+                <div
+                  onClick={() => {
+                    setLocalData();
+                    onClickButton(-1);
+                  }}
+                >
                   <Button
                     width={121}
                     heightType="medium"
@@ -242,7 +255,12 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
                 <Flex width={121}></Flex>
               )}
 
-              <div onClick={() => postData()}>
+              <div
+                onClick={() => {
+                  setLocalData();
+                  postData();
+                }}
+              >
                 <Button
                   width={176}
                   heightType="medium"

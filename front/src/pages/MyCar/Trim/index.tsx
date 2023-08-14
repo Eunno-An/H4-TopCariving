@@ -12,20 +12,26 @@ export const Trim = () => {
 
   useEffect(() => {
     const getData = async () => {
+      const localMyCarInfo = localStorage.getItem('myCarInfo');
+      const localMyCar = localMyCarInfo
+        ? JSON.parse(localMyCarInfo)
+        : myCarInfo;
+
       if (modelInfo) {
-        if (!myCarInfo.trim.type) {
-          setMyCarInfo({
-            ...myCarInfo,
+        if (!localMyCar.trim.type) {
+          const newMyCarInfo = {
+            ...localMyCar,
             trim: {
-              ...myCarInfo.trim,
+              ...localMyCar.trim,
               type: {
                 id: modelInfo[0].carOptionId,
                 name: modelInfo[0].optionName,
                 price: modelInfo[0].price,
               },
             },
-            price: myCarInfo.price + modelInfo[0].price,
-          });
+            price: localMyCar.price + modelInfo[0].price,
+          };
+          setMyCarInfo(newMyCarInfo);
         } else {
           modelInfo.forEach((model, selectIdx) => {
             if (model.carOptionId === myCarInfo.trim.type?.id) {

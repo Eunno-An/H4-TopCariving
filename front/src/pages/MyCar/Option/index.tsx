@@ -166,7 +166,7 @@ export const MyCarOptions = () => {
               {dummyData[selectedItem].optionName}
             </Text>
             <Text typo="Heading2_Bold">
-              +{dummyData[selectedItem].price.toLocaleString('ko-KR')} 원
+              +{dummyData[selectedItem].price.toLocaleString()} 원
             </Text>
           </OptionContainer>
           {/* 옵션에대한 태그칩 */}

@@ -22,9 +22,7 @@ export const Footer = () => {
         <Text typo="Body3_Medium" palette="DarkGray">
           예상 견적 가격
         </Text>
-        <Text typo="Heading1_Bold">
-          {myCarInfo.price.toLocaleString('ko-KR')}
-        </Text>
+        <Text typo="Heading1_Bold">{myCarInfo.price.toLocaleString()}</Text>
         <Text typo="Body3_Medium">원</Text>
       </Flex>
       <Button

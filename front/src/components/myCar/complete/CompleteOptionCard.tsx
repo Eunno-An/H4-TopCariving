@@ -23,7 +23,7 @@ export const CompleteOptionCard = ({
       <Flex direction="column" gap={10}>
         <Flex justify="space-between">
           <Text typo="Body1_Medium">{optionName}</Text>
-          <Text typo="Body1_Medium">{price.toLocaleString('ko-KR')}원</Text>
+          <Text typo="Body1_Medium">{price.toLocaleString()}원</Text>
         </Flex>
         <Flex align="flex-start">
           <Text typo="Body3_Regular">

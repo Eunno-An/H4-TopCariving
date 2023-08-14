@@ -29,16 +29,14 @@ export const DetailOptionModal = ({
         <Title>
           <Text>총 견적 금액</Text>
           <Flex justify="flex-end" gap={2}>
-            <Text typo="Heading4_Bold">
-              {myCarInfo.price.toLocaleString('ko-KR')}
-            </Text>
+            <Text typo="Heading4_Bold">{myCarInfo.price.toLocaleString()}</Text>
             <Text typo="Body4_Medium">원</Text>
           </Flex>
         </Title>
         <ContentWrapper>
           <Content>
             <p>{`펠리세이드 ${myCarInfo.trim.type?.name}`}</p>
-            <p>{`${myCarInfo.trim.type?.price.toLocaleString('ko-KR')}원`}</p>
+            <p>{`${myCarInfo.trim.type?.price.toLocaleString()}원`}</p>
           </Content>
           <Content>
             <p>
@@ -56,7 +54,7 @@ export const DetailOptionModal = ({
                   (accumulator, currentValue) => accumulator + currentValue,
                   0,
                 )
-                .toLocaleString('ko-KR')}원`}
+                .toLocaleString()}원`}
             </p>
           </Content>
         </ContentWrapper>
@@ -88,7 +86,7 @@ export const DetailOptionModal = ({
           {myCarInfo.selectedOption.map((item) => (
             <Content>
               <p>{item.name}</p>
-              <div>{`+${item.price.toLocaleString('ko-KR')}원`}</div>
+              <div>{`+${item.price.toLocaleString()}원`}</div>
             </Content>
           ))}
           <Content></Content>

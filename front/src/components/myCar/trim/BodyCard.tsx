@@ -19,9 +19,7 @@ export const BodyCard = ({
     >
       <Flex justify="space-between">
         <Text typo="Heading3_Bold">{option.optionName}</Text>
-        <Text typo="Heading4_Bold">
-          +{option.price.toLocaleString('ko-KR')}원
-        </Text>
+        <Text typo="Heading4_Bold">+{option.price.toLocaleString()}원</Text>
       </Flex>
       <Flex>
         <Text typo="Body3_Regular">{option.optionDetail}</Text>

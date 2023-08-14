@@ -83,7 +83,7 @@ const Engine = () => {
                   {engineInfo[isSelected].optionName}
                 </Text>
                 <Text typo="Heading2_Bold">
-                  +{engineInfo[isSelected].price.toLocaleString('ko-KR')}원
+                  +{engineInfo[isSelected].price.toLocaleString()}원
                 </Text>
               </InfoBox>
             </Flex>
