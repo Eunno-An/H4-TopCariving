@@ -74,6 +74,7 @@ class SubCategoryModalViewController: UIViewController {
     func setLayout() {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 24),
+            titleLabel.bottomAnchor.constraint(equalTo: titleImage.topAnchor, constant: -17),
             titleLabel.heightAnchor.constraint(equalToConstant: 24),
             titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             

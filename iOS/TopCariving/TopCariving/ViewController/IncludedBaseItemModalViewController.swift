@@ -95,8 +95,7 @@ class IncludedBaseItemModalViewController: UIViewController {
             scrollView.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 32),
             scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            scrollView.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
     func setCancelButtonAction() {

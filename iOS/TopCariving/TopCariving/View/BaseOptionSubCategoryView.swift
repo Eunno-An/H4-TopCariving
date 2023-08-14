@@ -51,9 +51,6 @@ class BaseOptionSubCategoryView: UIView {
         addSubview(titleLabel)
     }
     func setLayout() {
-        translatesAutoresizingMaskIntoConstraints = false
-        heightAnchor.constraint(equalToConstant: 71).isActive = true
-        
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             imageView.heightAnchor.constraint(equalToConstant: 55),
@@ -62,6 +59,7 @@ class BaseOptionSubCategoryView: UIView {
             
             titleLabel.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 17),
             titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor),
+            titleLabel.heightAnchor.constraint(equalToConstant: 22),
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }

@@ -78,7 +78,7 @@ class BaseOptionMainCategoryView: UIView {
         case false:
             titleView.setArrowImage(to: "arrow_up")
             subCategoryStackView.isHidden = false
-            heightConstraint?.constant = CGFloat(46 + (71+8) * subCategoryStackView.arrangedSubviews.count + 12)
+            heightConstraint?.constant = CGFloat(46 + (71 + 8) * subCategoryStackView.arrangedSubviews.count + 12)
         }
     }
 }
