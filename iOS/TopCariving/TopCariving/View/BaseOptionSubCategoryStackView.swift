@@ -15,12 +15,12 @@ class BaseOptionSubCategoryStackView: UIStackView {
     // MARK: - Lifecycles
     required init(coder: NSCoder) {
         super.init(coder: coder)
-        setUpStackView()
+        setUI()
         test()
     }
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setUpStackView()
+        setUI()
         test()
     }
     convenience init(arrangedSubviews views: [BaseOptionSubCategoryView]) {
@@ -31,8 +31,7 @@ class BaseOptionSubCategoryStackView: UIStackView {
     }
     
     // MARK: - Helpers
-    #warning("setUI로 수정")
-    private func setUpStackView() {
+    private func setUI() {
         axis = .vertical
         distribution = .fillEqually
         alignment = .fill
