@@ -252,26 +252,26 @@ INSERT INTO USER_INFO (name, email, password) VALUES ('고길동', 'go@gmail.com
 /**
   CAR_ARCHIVING
  */
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (1, '2023-08-01 12:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (2, '2023-08-01 17:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (3, '2023-08-02 12:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (4, '2023-08-02 18:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (5, '2023-08-03 08:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (6, '2023-08-03 12:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (7, '2023-08-03 14:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (8, '2023-08-04 07:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (9, '2023-08-04 12:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (10, '2023-08-04 14:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (1, '2023-08-04 18:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (2, '2023-08-04 20:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (3, '2023-08-05 05:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (4, '2023-08-05 11:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (5, '2023-08-05 14:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (6, '2023-08-05 18:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (7, '2023-08-05 22:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (8, '2023-08-06 12:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (9, '2023-08-07 12:00:00', 'false', 'true');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive) VALUES (9, '2023-08-07 23:00:00', 'false', 'true');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (1, '2023-08-01 12:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (2, '2023-08-01 17:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (3, '2023-08-02 12:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (4, '2023-08-02 18:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (5, '2023-08-03 08:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (6, '2023-08-03 12:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (7, '2023-08-03 14:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (8, '2023-08-04 07:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (9, '2023-08-04 12:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (10, '2023-08-04 14:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (1, '2023-08-04 18:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (2, '2023-08-04 20:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (3, '2023-08-05 05:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (4, '2023-08-05 11:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (5, '2023-08-05 14:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (6, '2023-08-05 18:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (7, '2023-08-05 22:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (8, '2023-08-06 12:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (9, '2023-08-07 12:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (9, '2023-08-07 23:00:00', 'false', 'true', '내 차 만들기');
 
 /**
   MY_CAR

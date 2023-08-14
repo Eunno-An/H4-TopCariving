@@ -29,6 +29,7 @@ public class CarArchivingRepositoryImpl implements CarArchivingRepository {
 		parameters.put("day_time", LocalDateTime.now());
 		parameters.put("is_complete", carArchiving.getIsComplete());
 		parameters.put("is_alive", carArchiving.getIsAlive());
+		parameters.put("archiving_type", carArchiving.getArchivingType());
 		parameters.put("user_id", carArchiving.getUserId());
 
 		Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
@@ -37,6 +38,7 @@ public class CarArchivingRepositoryImpl implements CarArchivingRepository {
 			.dayTime(carArchiving.getDayTime())
 			.isComplete(carArchiving.getIsComplete())
 			.isAlive(carArchiving.getIsAlive())
+			.archivingType(carArchiving.getArchivingType())
 			.userId(carArchiving.getUserId())
 			.build();
 	}
@@ -55,6 +57,7 @@ public class CarArchivingRepositoryImpl implements CarArchivingRepository {
 				.dayTime(rs.getTimestamp("day_time").toLocalDateTime())
 				.isComplete(rs.getBoolean("is_complete"))
 				.isAlive(rs.getBoolean("is_alive"))
+				.archivingType(rs.getString("archiving_type"))
 				.userId(rs.getLong("user_id"))
 				.build();
 

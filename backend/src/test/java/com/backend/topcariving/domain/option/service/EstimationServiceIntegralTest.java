@@ -78,7 +78,7 @@ public class EstimationServiceIntegralTest extends TestSupport {
 		}
 
 		@Test
-		void 요약보기에서_변경된_결과가_제대로_반영이_되야한다() {
+		void 요약보기에서_변경된_결과가_제대로_반영이_되어야한다() {
 			// given
 			final EstimationChangeRequestDTO request = EstimationChangeRequestDTO.builder()
 				.archivingId(1L)

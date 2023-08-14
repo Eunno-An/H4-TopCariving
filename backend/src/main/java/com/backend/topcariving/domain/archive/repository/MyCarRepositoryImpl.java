@@ -61,11 +61,12 @@ public class MyCarRepositoryImpl implements MyCarRepository {
 
 	@Override
 	public List<OptionSummaryDTO> findOptionSummaryByArchivingId(final Long archivingId) {
-		String sql = "SELECT option_name, category, category_detail, price, photo_url "
+		String sql = "SELECT MC.car_option_id, option_name, category, category_detail, price, photo_url "
 			+ "FROM MY_CAR AS MC INNER JOIN CAR_OPTION AS CO ON MC.car_option_id = CO.car_option_id "
 			+ "WHERE archiving_id = ?;";
 
 		return jdbcTemplate.query(sql, (rs, rowNum) -> new OptionSummaryDTO(
+			rs.getLong("car_option_id"),
 			rs.getString("option_name"),
 			rs.getString("category"),
 			rs.getString("category_detail"),

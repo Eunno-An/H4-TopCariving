@@ -17,6 +17,8 @@ public class CarArchiving {
 
 	private Boolean isAlive;
 
+	private String archivingType;
+
 	// FK
 	private Long userId;
 }

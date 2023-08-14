@@ -6,8 +6,11 @@ import lombok.Getter;
 
 @AllArgsConstructor
 @Getter
-@Schema(description = "옵션들을 저장하는 DTO")
+@Schema(description = "옵션들을 반환하는 DTO")
 public class OptionSummaryDTO {
+
+	@Schema(description = "옵션 ID")
+	private Long carOptionId;
 
 	@Schema(description = "옵션의 이름")
 	private String name;
