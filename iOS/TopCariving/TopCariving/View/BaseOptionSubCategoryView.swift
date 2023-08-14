@@ -24,6 +24,7 @@ class BaseOptionSubCategoryView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
     // MARK: - Properties
     private var bag = Set<AnyCancellable>()
     
@@ -39,9 +40,6 @@ class BaseOptionSubCategoryView: UIView {
         setUI()
         setLayout()
         setTapAction()
-    }
-    override func layoutSubviews() {
-        super.layoutSubviews()
     }
     
     // MARK: - Helpers

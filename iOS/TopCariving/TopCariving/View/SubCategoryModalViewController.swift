@@ -38,8 +38,10 @@ class SubCategoryModalViewController: UIViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
+    
     // MARK: - Properties
     private var bag = Set<AnyCancellable>()
+    
     // MARK: - Lifecycles
     required init?(coder: NSCoder) {
         super.init(coder: coder)

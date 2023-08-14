@@ -5,6 +5,7 @@
 //  Created by Eunno An on 2023/08/12.
 //
 
+import Combine
 import UIKit
 
 class BaseOptionMainCategoryTitleView: UIView {
@@ -18,24 +19,28 @@ class BaseOptionMainCategoryTitleView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    var arrow: UIButton = {
+    private var arrow: UIButton = {
         let button: UIButton = UIButton()
         button.setImage(UIImage(named: "arrow_down"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
+    
     // MARK: - Properties
+    var arrowTouchUpPublilsher: AnyPublisher<Void, Never>?
     
     // MARK: - Lifecycles
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUI()
         setLayout()
+        setArrowButtonPublisher()
     }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUI()
         setLayout()
+        setArrowButtonPublisher()
     }
     
     // MARK: - Helpers
@@ -64,5 +69,8 @@ class BaseOptionMainCategoryTitleView: UIView {
     }
     func setTitle(to text: String) {
         title.text = text
+    }
+    func setArrowButtonPublisher() {
+        arrowTouchUpPublilsher = arrow.touchUpPublisher
     }
 }

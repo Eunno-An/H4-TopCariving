@@ -20,7 +20,6 @@ class ViewController: BaseMyCarViewController {
         uiView.backgroundColor = .hyundaiBlackGray
         view.addSubview(uiView)
         uiView.tapPublisher().sink { _ in
-            print("Hi")
             self.modalVC.modalPresentationStyle = .automatic
             self.present(self.modalVC, animated: true)
         }.store(in: &asd)

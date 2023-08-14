@@ -61,7 +61,7 @@ class BaseOptionMainCategoryView: UIView {
         titleView.tapPublisher().sink { [weak self] _ in
             self?.toggleFold()
         }.store(in: &bag)
-        titleView.arrow.touchUpPublisher.sink { [weak self] _ in
+        titleView.arrowTouchUpPublilsher?.sink { [weak self] _ in
             self?.toggleFold()
         }.store(in: &bag)
     }
