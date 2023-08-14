@@ -14,7 +14,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.backend.topcariving.config.TestSupport;
+import com.backend.topcariving.domain.archive.entity.CarArchiving;
 import com.backend.topcariving.domain.archive.entity.MyCar;
+import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
 import com.backend.topcariving.domain.archive.repository.MyCarRepository;
 import com.backend.topcariving.domain.option.dto.request.SelectOptionRequestDTO;
 import com.backend.topcariving.domain.option.dto.request.SelectOptionsRequestDTO;
@@ -27,6 +29,9 @@ public class OptionServiceIntegralTest extends TestSupport {
 
 	@Autowired
 	private MyCarRepository myCarRepository;
+
+	@Autowired
+	private CarArchivingRepository carArchivingRepository;
 
 	@Autowired
 	private OptionService optionService;
@@ -92,6 +97,34 @@ public class OptionServiceIntegralTest extends TestSupport {
 			softAssertions.assertThat(myCarOption0).isPresent();
 			softAssertions.assertThat(myCarOption1).isPresent();
 		}
+
+		@Test
+		void 상세_품목_변경_시_이미_값이_있을_경우_값이_업데이트_되어야_한다() {
+			// given
+			Long userId = 1L;
+			List<Long> ids = List.of(113L, 114L, 115L);
+			Long archivingId = 1L;
+			final SelectOptionsRequestDTO selectOptionsRequestDTO = new SelectOptionsRequestDTO(userId, ids,
+				archivingId);
+
+			// when
+			final Long returnedArchivingId = optionService.saveSelectionOptions(selectOptionsRequestDTO, SELECTED);
+
+			// then
+			final List<MyCar> myCars = myCarRepository.findByArchivingId(archivingId);
+			softAssertions.assertThat(myCars.stream()
+				.filter(myCar -> myCar.getCarOptionId() == 103L || myCar.getCarOptionId() == 110L)
+				.findFirst()).isEmpty();
+			softAssertions.assertThat(myCars.stream()
+				.filter(myCar -> myCar.getCarOptionId() == 113L)
+				.findFirst()).isPresent();
+			softAssertions.assertThat(myCars.stream()
+				.filter(myCar -> myCar.getCarOptionId() == 114L)
+				.findFirst()).isPresent();
+			softAssertions.assertThat(myCars.stream()
+				.filter(myCar -> myCar.getCarOptionId() == 115L)
+				.findFirst()).isPresent();
+		}
 	}
 
 	@Nested
@@ -134,6 +167,32 @@ public class OptionServiceIntegralTest extends TestSupport {
 			softAssertions.assertThat(myCarOption0).isPresent();
 			softAssertions.assertThat(myCarOption1).isPresent();
 		}
+
+		@Test
+		void H_Genuine_Accessories_변경_시_이미_값이_있을_경우_값이_업데이트_되어야_한다() {
+			// given
+			Long userId = 1L;
+			List<Long> ids = List.of(123L, 125L);
+			Long archivingId = 1L;
+			final SelectOptionsRequestDTO selectOptionsRequestDTO = new SelectOptionsRequestDTO(userId, ids,
+				archivingId);
+
+			final SelectOptionsRequestDTO selectedSavedData = new SelectOptionsRequestDTO(userId, List.of(121L),
+				archivingId);
+			optionService.saveSelectionOptions(selectedSavedData, H_GENUINE_ACCESSORIES);
+
+			// when
+			final Long returnedArchivingId = optionService.saveSelectionOptions(selectOptionsRequestDTO, H_GENUINE_ACCESSORIES);
+
+			// then
+			final List<MyCar> myCars = myCarRepository.findByArchivingId(archivingId);
+			softAssertions.assertThat(myCars.stream()
+				.filter(myCar -> myCar.getCarOptionId() == 123L)
+				.findFirst()).isPresent();
+			softAssertions.assertThat(myCars.stream()
+				.filter(myCar -> myCar.getCarOptionId() == 125L)
+				.findFirst()).isPresent();
+		}
 	}
 
 	@Nested
@@ -173,6 +232,34 @@ public class OptionServiceIntegralTest extends TestSupport {
 			softAssertions.assertThat(savedArchivingId).isEqualTo(archivingId);
 			Optional<MyCar> myCarOption = myCarRepository.findByArchivingIdAndCarOptionId(archivingId, carOptionId);
 			softAssertions.assertThat(myCarOption).isPresent();
+		}
+
+		@Test
+		void N_Performance_변경_시_이미_값이_있을_경우_값이_업데이트_되고_아카이빙의_is_complete_값이_true가_되어야_한다() {
+			// given
+			Long userId = 1L;
+			Long carOptionId = 128L;
+			Long archivingId = 1L;
+			final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(userId, carOptionId, archivingId);
+
+			final SelectOptionRequestDTO selectedSavedData = new SelectOptionRequestDTO(userId, 130L, archivingId);
+			optionService.saveSelectionOption(selectedSavedData, N_PERFORMANCE);
+
+			// when
+			final Long returnedArchivingId = optionService.saveSelectionOption(selectOptionRequestDTO, N_PERFORMANCE);
+
+			// then
+			final List<MyCar> myCars = myCarRepository.findByArchivingId(archivingId);
+			softAssertions.assertThat(myCars.stream()
+				.filter(myCar -> myCar.getCarOptionId() == 130L)
+				.findFirst()).isEmpty();
+			softAssertions.assertThat(myCars.stream()
+				.filter(myCar -> myCar.getCarOptionId() == 128L)
+				.findFirst()).isPresent();
+
+			Optional<CarArchiving> findCarArchiving = carArchivingRepository.findById(archivingId);
+			final CarArchiving carArchiving = findCarArchiving.get();
+			softAssertions.assertThat(carArchiving.getIsComplete()).isTrue();
 		}
 	}
 

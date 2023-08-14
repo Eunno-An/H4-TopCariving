@@ -4,6 +4,7 @@ import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
@@ -48,6 +49,24 @@ public class CarArchivingRepositoryImpl implements CarArchivingRepository {
 		String sql = "SELECT * FROM CAR_ARCHIVING WHERE user_id = ? AND archiving_id = ?;";
 		List<CarArchiving> results = jdbcTemplate.query(sql, carArchivingRowMapper(), userId, archivingId);
 		return !results.isEmpty();
+	}
+
+	@Override
+	public void updateIsCompleteByArchivingId(final Long archivingId, final Boolean isComplete) {
+		String sql = "UPDATE CAR_ARCHIVING SET is_complete = ? WHERE archiving_id = ?";
+
+		jdbcTemplate.update(sql, isComplete, archivingId);
+	}
+
+	@Override
+	public Optional<CarArchiving> findById(final Long archivingId) {
+		String sql = "SELECT * FROM CAR_ARCHIVING WHERE archiving_id = ?";
+
+		final List<CarArchiving> results = jdbcTemplate.query(sql, carArchivingRowMapper(), archivingId);
+
+		if (results.isEmpty())
+			return Optional.empty();
+		return Optional.ofNullable(results.get(0));
 	}
 
 	private RowMapper<CarArchiving> carArchivingRowMapper() {

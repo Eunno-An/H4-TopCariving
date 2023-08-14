@@ -60,8 +60,13 @@ public class TrimService {
 	public Long saveModel(SelectOptionRequestDTO selectOptionRequestDTO) {
 		Long userId = selectOptionRequestDTO.getUserId();
 		Long carOptionId = selectOptionRequestDTO.getCarOptionId();
+		Long archivingId = selectOptionRequestDTO.getArchivingId();
 
 		verifyCarOptionId(CategoryDetail.MODEL, carOptionId);
+
+		if (archivingId != null) {
+			return updateModel(userId, carOptionId, archivingId);
+		}
 
 		CarArchiving carArchiving = CarArchiving.builder()
 			.userId(userId)
@@ -79,6 +84,13 @@ public class TrimService {
 		myCarRepository.save(mycar);
 
 		return carArchiving.getArchivingId();
+	}
+
+	private Long updateModel(Long userId, Long carOptionId, Long archivingId) {
+		verifyCarArchiving(userId, archivingId);
+
+		myCarRepository.updateCarOptionIdByArchivingIdAndCategoryDetail(archivingId, carOptionId, CategoryDetail.MODEL.getName());
+		return archivingId;
 	}
 
 	public List<EngineResponseDTO> getEngines() {
@@ -103,15 +115,6 @@ public class TrimService {
 			.collect(Collectors.toList());
 	}
 
-	public List<OptionResponseDTO> getDrivingMethods() {
-		final List<CarOption> carOptions = carOptionRepository.findByCategoryDetail(
-			CategoryDetail.DRIVING_METHOD.getName());
-
-		return carOptions.stream()
-			.map(OptionResponseDTO::from)
-			.collect(Collectors.toList());
-	}
-
 	@Transactional
 	public Long saveOption(SelectOptionRequestDTO selectOptionRequestDTO, CategoryDetail categoryDetail) {
 		Long userId = selectOptionRequestDTO.getUserId();
@@ -126,7 +129,9 @@ public class TrimService {
 			.archivingId(archivingId)
 			.build();
 
+		myCarRepository.deleteByArchivingIdAndCategoryDetail(archivingId, categoryDetail.getName());
 		myCarRepository.save(myCar);
+
 		return archivingId;
 	}
 

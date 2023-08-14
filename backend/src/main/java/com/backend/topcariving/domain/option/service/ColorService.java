@@ -25,14 +25,16 @@ public class ColorService {
 	private final TagReviewRepository tagReviewRepository;
 	private final CarOptionRepository carOptionRepository;
 
+	private static final int TAG_LIMIT = 5;
+
 	public List<ExteriorColorResponseDTO> getExteriorColors() {
 		final List<CarOption> carOptions = carOptionRepository.findByCategoryDetail(
 			CategoryDetail.EXTERIOR_COLOR.getName());
 
 		return carOptions.stream()
 			.map(carOption -> {
-				final List<TagResponseDTO> tagResponseDTO = tagReviewRepository.findTagResponseDTOByCarOptionId(
-					carOption.getCarOptionId());
+				final List<TagResponseDTO> tagResponseDTO = tagReviewRepository.findTagResponseDTOByCarOptionIdAndLimit(
+					carOption.getCarOptionId(), TAG_LIMIT);
 				return ExteriorColorResponseDTO.of(carOption, tagResponseDTO);
 			}).collect(Collectors.toList());
 	}
@@ -43,8 +45,8 @@ public class ColorService {
 
 		return carOptions.stream()
 			.map(carOption -> {
-				final List<TagResponseDTO> tagResponseDTO = tagReviewRepository.findTagResponseDTOByCarOptionId(
-					carOption.getCarOptionId());
+				final List<TagResponseDTO> tagResponseDTO = tagReviewRepository.findTagResponseDTOByCarOptionIdAndLimit(
+					carOption.getCarOptionId(), TAG_LIMIT);
 				final List<CarOption> parent = carOptionRepository.findByParentOptionId(
 					carOption.getCarOptionId());
 

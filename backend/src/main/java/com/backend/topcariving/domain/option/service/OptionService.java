@@ -65,6 +65,7 @@ public class OptionService {
 			.collect(Collectors.toList());
 	}
 
+	@Transactional
 	public Long saveSelectionOptions(SelectOptionsRequestDTO selectOptionsRequestDTO, CategoryDetail categoryDetail) {
 		Long userId = selectOptionsRequestDTO.getUserId();;
 		List<Long> selectedOptionIds = selectOptionsRequestDTO.getIds();
@@ -73,7 +74,9 @@ public class OptionService {
 		verifyCarArchiving(userId, archivingId);
 		verifyCarOptionId(categoryDetail, selectedOptionIds);
 
-		selectedOptionIds.stream().forEach(selectedOptionId -> {
+		myCarRepository.deleteByArchivingIdAndCategoryDetail(archivingId, categoryDetail.getName());
+
+		selectedOptionIds.forEach(selectedOptionId -> {
 			MyCar myCar = MyCar.builder()
 				.carOptionId(selectedOptionId)
 				.archivingId(archivingId)
@@ -85,6 +88,7 @@ public class OptionService {
 		return archivingId;
 	}
 
+	@Transactional
 	public Long saveSelectionOption(SelectOptionRequestDTO selectOptionRequestDTO, CategoryDetail categoryDetail) {
 		Long userId = selectOptionRequestDTO.getUserId();
 		Long carOptionId = selectOptionRequestDTO.getCarOptionId();
@@ -93,10 +97,17 @@ public class OptionService {
 		verifyCarArchiving(userId, archivingId);
 		verifyCarOptionId(categoryDetail, carOptionId);
 
+		myCarRepository.deleteByArchivingIdAndCategoryDetail(archivingId, categoryDetail.getName());
+
 		MyCar myCar = MyCar.builder()
 			.carOptionId(carOptionId)
 			.archivingId(archivingId)
 			.build();
+
+		if (categoryDetail == N_PERFORMANCE) {
+			carArchivingRepository.updateIsCompleteByArchivingId(archivingId, true);
+		}
+
 		myCarRepository.save(myCar);
 		return archivingId;
 	}
@@ -126,7 +137,7 @@ public class OptionService {
 	}
 
 	private void verifyCarOptionId(CategoryDetail categoryDetail, List<Long> carOptionIds) {
-		carOptionIds.stream().forEach(carOptionId -> {
+		carOptionIds.forEach(carOptionId -> {
 			if (!carOptionRepository.existsByCarOptionIdAndCategoryDetail(carOptionId, categoryDetail.getName())) {
 				throw new InvalidCarOptionIdException();
 			}
