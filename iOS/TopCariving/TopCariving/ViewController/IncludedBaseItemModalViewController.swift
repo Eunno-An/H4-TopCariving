@@ -67,11 +67,19 @@ class IncludedBaseItemModalViewController: UIViewController {
     // MARK: - Helpers
     private func setUI() {
         view.backgroundColor = .white
-        tableView.translatesAutoresizingMaskIntoConstraints = false
-        tableView.separatorStyle = .none
+        setTableView()
         [modalTitle, separator, cancelButton, tableView].forEach {
             view.addSubview($0)
         }
+    }
+    private func setTableView() {
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.separatorStyle = .none
+        tableView.sectionHeaderTopPadding = 12
+        testTableViewData.enumerated().map { (index, _) in
+            hiddenSections.insert(index)
+        }
+        
     }
     private func setLayout() {
         NSLayoutConstraint.activate([
@@ -90,7 +98,7 @@ class IncludedBaseItemModalViewController: UIViewController {
             cancelButton.heightAnchor.constraint(equalToConstant: 13.18),
             cancelButton.widthAnchor.constraint(equalToConstant: 13.18),
             
-            tableView.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 32),
+            tableView.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 20),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
@@ -137,7 +145,34 @@ extension IncludedBaseItemModalViewController: UITableViewDataSource {
 }
 
 extension IncludedBaseItemModalViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let sectionHeader = BaseOptionMainCategoryView()
+        sectionHeader.tag = section
+        sectionHeader.tapPublisher().sink { [weak self] in
+            self?.hideSection(sender: sectionHeader)
+        }.store(in: &bag)
+        return sectionHeader
+    }
+    func hideSection(sender: UIView) {
+        let section = sender.tag
+        let isContainSection = hiddenSections.contains(section)
+        switch isContainSection {
+        case true:
+            hiddenSections.remove(section)
+            tableView.insertRows(at: indexPathsForSection(with: section), with: .fade)
+        case false:
+            hiddenSections.insert(section)
+            tableView.deleteRows(at: indexPathsForSection(with: section), with: .fade)
+        }
+    }
+    func indexPathsForSection(with tag: Int) -> [IndexPath] {
+        var indexPaths = [IndexPath]()
+        for row in 0..<self.testTableViewData[tag].count {
+            indexPaths.append(IndexPath(row: row,
+                                        section: tag))
+        }
+        return indexPaths
+    }
 }
 
 extension IncludedBaseItemModalViewController: UIViewControllerTransitioningDelegate {
