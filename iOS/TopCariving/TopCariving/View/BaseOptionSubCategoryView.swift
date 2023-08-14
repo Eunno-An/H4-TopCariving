@@ -33,13 +33,11 @@ class BaseOptionSubCategoryView: UIView {
         super.init(frame: frame)
         setUI()
         setLayout()
-        setTapAction()
     }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUI()
         setLayout()
-        setTapAction()
     }
     
     // MARK: - Helpers
@@ -60,10 +58,5 @@ class BaseOptionSubCategoryView: UIView {
             titleLabel.heightAnchor.constraint(equalToConstant: 22),
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
-    }
-    private func setTapAction() {
-        tapPublisher().sink {
-            NotificationCenter.default.post(name: Notification.Name("SubCategoryCellTapped"), object: nil)
-        }.store(in: &bag)
     }
 }

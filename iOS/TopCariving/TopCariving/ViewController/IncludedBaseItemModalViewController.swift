@@ -79,7 +79,6 @@ class IncludedBaseItemModalViewController: UIViewController {
         testTableViewData.enumerated().map { (index, _) in
             hiddenSections.insert(index)
         }
-        
     }
     private func setLayout() {
         NSLayoutConstraint.activate([
