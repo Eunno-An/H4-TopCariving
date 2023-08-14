@@ -20,15 +20,10 @@ export const OptionCard = ({
   isSelected,
   optionItem,
   selectedMenu,
+  dimData,
   changeUserOptionList,
-}: {
-  idx: number;
-  isSelected: boolean;
-  optionItem: selectOptionInterface | optionItemInterface;
-  selectedMenu: string;
-  changeUserOptionList: (optionIdx: number) => void;
-}) => {
-  const [isAddBtnClicked, setIsBtnClicked] = useState(isSelected);
+}: optionCardInterface) => {
+  const [isAddBtnClicked, setIsAddBtnClicked] = useState(isSelected);
   const [hover, setHover] = useState(false);
   return (
     <Card
@@ -41,7 +36,7 @@ export const OptionCard = ({
       {selectedMenu === cateName.select && (
         <Dim isHover={hover}>
           <DimContent>
-            {dummyInfoData[idx].map((it, idx) => (
+            {dimData.split('\n').map((it, idx) => (
               <DimInfoMsg key={`dimInfo_${idx}`} desc={it} />
             ))}
           </DimContent>
@@ -59,25 +54,32 @@ export const OptionCard = ({
       <Flex
         direction="column"
         align="flex-start"
-        padding="20px 9px"
-        gap={8}
+        padding="0 9px"
+        gap={5}
         height={selectedMenu === cateName.select ? 104 : 80}
       >
-        <Text typo="Body3_Medium" style={{ whiteSpace: 'nowrap' }}>
-          {optionItem.optionName}
-        </Text>
+        <div
+          css={css`
+            width: 125px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          `}
+        >
+          <OptionTitleName>{optionItem.optionName}</OptionTitleName>
+        </div>
         {/* 가격 & 추가하기 & 추가완료 버튼은 '선택항목'일때만 보여진다 */}
         {selectedMenu === cateName.select && (
           <>
             {/* 가격 */}
             <Text typo="Body3_Medium">
-              + {optionItem.price.toLocaleString('ko-KR')} 원
+              + {optionItem.price.toLocaleString()} 원
             </Text>
             {/* 버튼 */}
             <div
               onClick={() => {
                 changeUserOptionList(idx);
-                setIsBtnClicked(!isAddBtnClicked);
+                setIsAddBtnClicked(!isAddBtnClicked);
               }}
             >
               <Button
@@ -109,6 +111,10 @@ export const OptionCard = ({
     </Card>
   );
 };
+
+const OptionTitleName = styled.span`
+  ${theme.typo.Body3_Medium}
+`;
 
 const DimContent = styled(Flex)`
   height: 140px;
@@ -162,11 +168,13 @@ const Card = styled(Flex)<{ isSelected: boolean; selectedMenu: string }>`
 
   border-radius: 8px;
 
-  background-color: ${({ isSelected }) =>
-    isSelected ? 'rgba(0, 44, 95, 0.1)' : theme.palette.LightSand};
+  background-color: ${({ isSelected, selectedMenu }) =>
+    isSelected && selectedMenu === '선택항목'
+      ? 'rgba(0, 44, 95, 0.1)'
+      : theme.palette.LightSand};
 
-  border: ${({ isSelected }) =>
-    isSelected
+  border: ${({ isSelected, selectedMenu }) =>
+    isSelected && selectedMenu === '선택항목'
       ? `2px solid ${theme.palette.Primary}`
       : `2px solid ${theme.palette.LightSand}`};
 
@@ -176,7 +184,7 @@ const Card = styled(Flex)<{ isSelected: boolean; selectedMenu: string }>`
 `;
 
 const ImgContainer = styled.img<{ selectedMenu: string }>`
-  width: 157px;
+  width: 156px;
   height: ${({ selectedMenu }) =>
     selectedMenu === '선택항목' ? '90px' : '79px'};
 
@@ -184,28 +192,11 @@ const ImgContainer = styled.img<{ selectedMenu: string }>`
   border-top-right-radius: 8px;
 `;
 
-const dummyInfoData = [
-  [
-    '전방 충돌방지 보조(교차 차량/추월시 대향차/측방 접근차)',
-    '내비게이션 기반 스마트 크루즈 컨트롤(진출입로)',
-    '고속도로 주행 보조',
-  ],
-  ['전방 충돌방지 보조', '내비게이션 기반 스마트 크루즈'],
-  ['내비게이션 기반 스마트 크루즈 컨트롤(진출입로)', '고속도로 주행 보조'],
-  [
-    '전방 충돌방지 보조(교차 차량/추월시 대향차/측방 접근차)',
-    '내비게이션 기반 스마트 크루즈 컨트롤(진출입로)',
-    '고속도로 주행 보조',
-    '내비게이션 기반 스마트 크루즈 컨트롤(진출입로)',
-    '내비게이션 기반 스마트 크루즈 컨트롤(진출입로)',
-    '내비게이션 기반 스마트 크루즈 컨트롤(진출입로)',
-    '내비게이션 기반 스마트 크루즈 컨트롤(진출입로)',
-  ],
-  [
-    '전방 충돌방지 보조(교차 차량/추월시 대향차/측방 접근차)',
-    '내비게이션 기반 스마트 크루즈 컨트롤(진출입로)',
-    '고속도로 주행 보조',
-    '전방 충돌방지 보조(교차 차량/추월시 대향차/측방 접근차)',
-  ],
-  ['전방 충돌방지 보조(교차 차량/추월시 대향차/측방 접근차)'],
-];
+interface optionCardInterface {
+  idx: number;
+  isSelected: boolean;
+  optionItem: selectOptionInterface | optionItemInterface;
+  selectedMenu: string;
+  dimData: string;
+  changeUserOptionList: (optionIdx: number) => void;
+}

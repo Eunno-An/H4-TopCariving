@@ -10,61 +10,100 @@ export const OptionInfoCard = ({
   onMovePage,
   cardPageIdx,
 }: {
-  info: optionInfoInterface[];
+  info: optionInfoInterface;
   onMovePage: ({ pageParam }: { pageParam: number }) => void;
   cardPageIdx: number;
 }) => {
-  const total = info.length;
+  const total = info.details?.length;
 
   return (
     <InfoContainer>
-      <InfoTitleContainer>
-        <Flex justify="flex-start" gap={8}>
-          <Flex
-            backgroundColor="Primary"
-            borderRadius="50%"
-            width={22}
-            height={22}
-            padding="6px"
-          >
-            <Text palette="LightSand">{cardPageIdx + 1}</Text>
-          </Flex>
-          <Text palette="Primary">{info[cardPageIdx].optionName}</Text>
-        </Flex>
-        <Flex
-          justify="flex-end"
-          backgroundColor="DarkGray"
-          borderRadius="13px"
-          width="auto"
-          padding="0 9px"
-        >
-          <Text palette="LightSand" typo="Caption_Regular">
-            {cardPageIdx + 1}/{total}
-          </Text>
-        </Flex>
-      </InfoTitleContainer>
-      <Flex justify="space-between">
-        <ButtonContainer onClick={() => onMovePage({ pageParam: -1 })}>
-          <img src={leftBtn} alt="" />
-        </ButtonContainer>
-        <Text typo="Body3_Regular" palette="Primary">
-          {info[cardPageIdx].optionDetail}
+      {info.details?.length ? (
+        <>
+          <InfoTitleContainer height={59} isContent={info.details?.length}>
+            <Flex justify="flex-start" gap={8}>
+              <Flex
+                backgroundColor="Primary"
+                borderRadius="50%"
+                width={22}
+                height={22}
+                padding="6px"
+              >
+                <Text palette="LightSand">{cardPageIdx + 1}</Text>
+              </Flex>
+
+              <Text palette="Primary">
+                {info.details[cardPageIdx].optionName}
+              </Text>
+            </Flex>
+
+            <Flex
+              justify="flex-end"
+              backgroundColor="DarkGray"
+              borderRadius="13px"
+              width="auto"
+              padding="0 9px"
+            >
+              <Text palette="LightSand" typo="Caption_Regular">
+                {cardPageIdx + 1}/{total}
+              </Text>
+            </Flex>
+          </InfoTitleContainer>
+
+          <DetatilInfoContainer justify="space-between">
+            <Text typo="Body3_Regular" palette="Primary">
+              {info.details[cardPageIdx].optionDetail}
+            </Text>
+          </DetatilInfoContainer>
+
+          <LeftButtonContainer onClick={() => onMovePage({ pageParam: -1 })}>
+            <img src={leftBtn} alt="" />
+          </LeftButtonContainer>
+          <RightButtonContainer onClick={() => onMovePage({ pageParam: +1 })}>
+            <img src={rightBtn} alt="" />
+          </RightButtonContainer>
+        </>
+      ) : (
+        <Text alertPalette="Primary" typo="Body2_Medium">
+          하위옵션이 존재하지 않습니다
         </Text>
-        <ButtonContainer onClick={() => onMovePage({ pageParam: +1 })}>
-          <img src={rightBtn} alt="" />
-        </ButtonContainer>
-      </Flex>
+      )}
     </InfoContainer>
   );
 };
 
-const ButtonContainer = styled.div`
+const LeftButtonContainer = styled.div`
+  position: absolute;
   cursor: pointer;
+
+  top: 80px;
+  right: 457px;
+`;
+const RightButtonContainer = styled.div`
+  position: absolute;
+  cursor: pointer;
+
+  top: 80px;
+  right: -3px;
 `;
 
-const InfoTitleContainer = styled(Flex)`
+const DetatilInfoContainer = styled(Flex)`
+  padding: 15px;
+  align-items: flex-start;
+
+  overflow: scroll;
+
+  width: 400px;
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const InfoTitleContainer = styled(Flex)<{ isContent: number }>`
   justify-content: space-between;
-  border-bottom: 2px solid ${theme.palette.Primary};
+
+  border-bottom: ${({ isContent }) =>
+    isContent ? `2px solid ${theme.palette.Primary}` : `none`};
 
   width: 443px;
   height: auto;
@@ -73,11 +112,13 @@ const InfoTitleContainer = styled(Flex)`
 `;
 
 const InfoContainer = styled(Flex)`
+  position: relative;
   flex-direction: column;
   width: 507px;
   height: 152px;
 
   border: 2px solid ${theme.palette.Primary};
+
   border-radius: 8px;
 
   background-color: rgba(0, 44, 95, 0.1);

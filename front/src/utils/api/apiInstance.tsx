@@ -1,4 +1,4 @@
-export const SERVER_URL = 'http://dev.topcariving.com:8080';
+export const SERVER_URL = 'http://test.topcariving.com:8080';
 
 interface apiInstanceInterface {
   url: string;

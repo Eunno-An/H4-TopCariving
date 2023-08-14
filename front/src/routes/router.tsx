@@ -10,7 +10,8 @@ import Login from '@pages/Login';
 import Error from '@pages/Error';
 import Color from '@pages/MyCar/Color';
 import Complete from '@pages/MyCar/Complete';
-import { ColorUrl, TrimUrl, apiInstance } from '@utils/api';
+
+import { OptionUrl, ColorUrl, TrimUrl, apiInstance } from '@utils/api';
 import { TrimCardInterface } from '@components/myCar/trim';
 import { myCarOptionInterface } from '@interface/index';
 import { ArchiveDetail } from '@pages/Archive/detail';
@@ -76,15 +77,75 @@ export const router = createBrowserRouter([
       },
       {
         path: 'option',
-        element: <MyCarOptions />,
+        element: <MyCarOptions key={'option'} />,
+        loader: async () => {
+          const res1 = await apiInstance({
+            url: OptionUrl.SELECTION,
+            method: 'GET',
+          });
+          const res2 = await apiInstance({
+            url: OptionUrl.BASIC,
+            method: 'GET',
+          });
+
+          const [selectOptionData, defaultData] = await Promise.all([
+            res1,
+            res2,
+          ]);
+
+          return {
+            selectOptionData: selectOptionData,
+            defaultOptionData: defaultData.data,
+          };
+        },
       },
       {
         path: 'option/genuine',
-        element: <Flex>H genuine</Flex>,
+        element: <MyCarOptions key={'genuine'} />,
+        loader: async () => {
+          const res1 = await apiInstance({
+            url: OptionUrl.ACCESSORY,
+            method: 'GET',
+          });
+          const res2 = await apiInstance({
+            url: OptionUrl.BASIC,
+            method: 'GET',
+          });
+
+          const [selectOptionData, defaultData] = await Promise.all([
+            res1,
+            res2,
+          ]);
+
+          return {
+            selectOptionData: selectOptionData,
+            defaultOptionData: defaultData.data,
+          };
+        },
       },
       {
         path: 'option/performance',
-        element: <Flex>N Performance</Flex>,
+        element: <MyCarOptions key={'performance'} />,
+        loader: async () => {
+          const res1 = await apiInstance({
+            url: OptionUrl.PERFORMANCE,
+            method: 'GET',
+          });
+          const res2 = await apiInstance({
+            url: OptionUrl.BASIC,
+            method: 'GET',
+          });
+
+          const [selectOptionData, defaultData] = await Promise.all([
+            res1,
+            res2,
+          ]);
+
+          return {
+            selectOptionData: selectOptionData,
+            defaultOptionData: defaultData.data,
+          };
+        },
       },
     ],
   },
