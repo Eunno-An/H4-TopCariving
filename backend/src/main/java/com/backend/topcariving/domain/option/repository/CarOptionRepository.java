@@ -18,4 +18,6 @@ public interface CarOptionRepository {
 	List<CarOption> findByCategoryDetailAndParentOptionIdIsNull(String categoryDetail);
 
 	boolean existsByCarOptionIdAndCategoryDetail(Long carOptionId, String categoryDetail);
+
+	List<CarOption> findByIds(List<Long> ids);
 }

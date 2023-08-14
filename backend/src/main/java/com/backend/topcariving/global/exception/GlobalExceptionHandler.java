@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import com.backend.topcariving.domain.archive.exception.InvalidAuthorityException;
 import com.backend.topcariving.domain.option.exception.InvalidArchivingIdException;
 import com.backend.topcariving.domain.option.exception.InvalidCarOptionIdException;
+import com.backend.topcariving.domain.option.exception.InvalidCategoryException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -24,6 +25,11 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(InvalidArchivingIdException.class)
 	public ResponseEntity<String> invalidArchivingIdHandler(Exception e) {
+		return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(InvalidCategoryException.class)
+	public ResponseEntity<String> invalidCategory(Exception e) {
 		return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 	}
 }

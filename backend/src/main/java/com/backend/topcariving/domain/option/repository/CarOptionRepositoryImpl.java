@@ -1,10 +1,13 @@
 package com.backend.topcariving.domain.option.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.backend.topcariving.domain.option.entity.CarOption;
@@ -55,19 +58,28 @@ public class CarOptionRepositoryImpl implements CarOptionRepository {
 		return !results.isEmpty();
 	}
 
+	@Override
+	public List<CarOption> findByIds(final List<Long> ids) {
+		String sql = "SELECT * FROM CAR_OPTION WHERE car_option_id IN (:ids)";
+
+		NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
+
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("ids", ids);
+
+		return namedParameterJdbcTemplate.query(sql, paramMap,carOptionRowMapper());
+	}
+
 	private RowMapper<CarOption> carOptionRowMapper() {
-		return (rs, rowNum) -> {
-			CarOption carOption = new CarOption(
-				rs.getLong("car_option_id"),
-				rs.getString("category"),
-				rs.getString("category_detail"),
-				rs.getString("option_name"),
-				rs.getString("option_detail"),
-				rs.getInt("price"),
-				rs.getString("photo_url"),
-				rs.getLong("parent_option_id")
-			);
-			return carOption;
-		};
+		return (rs, rowNum) -> new CarOption(
+			rs.getLong("car_option_id"),
+			rs.getString("category"),
+			rs.getString("category_detail"),
+			rs.getString("option_name"),
+			rs.getString("option_detail"),
+			rs.getInt("price"),
+			rs.getString("photo_url"),
+			rs.getLong("parent_option_id")
+		);
 	}
 }
