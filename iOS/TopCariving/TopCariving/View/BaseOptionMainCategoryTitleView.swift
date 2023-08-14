@@ -64,7 +64,7 @@ class BaseOptionMainCategoryTitleView: UIView {
             arrow.widthAnchor.constraint(equalToConstant: 24)
         ])
     }
-    private func setArrowImage(to name: String) {
+    func setArrowImage(to name: String) {
         arrow.setImage(UIImage(named: name), for: .normal)
     }
     private func setTitle(to text: String) {
