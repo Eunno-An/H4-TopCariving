@@ -59,10 +59,10 @@ class BaseOptionMainCategoryView: UIView {
     }
     func setAction() {
         titleView.tapPublisher().sink { [weak self] _ in
-            self!.toggleFold()
+            self?.toggleFold()
         }.store(in: &bag)
         titleView.arrow.touchUpPublisher.sink { [weak self] _ in
-            self!.toggleFold()
+            self?.toggleFold()
         }.store(in: &bag)
     }
     func setSubCategoryStackView() {
