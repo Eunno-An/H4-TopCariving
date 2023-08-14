@@ -44,14 +44,14 @@ class BaseOptionMainCategoryTitleView: UIView {
     }
     
     // MARK: - Helpers
-    func setUI() {
+    private func setUI() {
         backgroundColor = .hyundaiLightSand
         layer.cornerRadius = 8
         [title, arrow].forEach {
             addSubview($0)
         }
     }
-    func setLayout() {
+    private func setLayout() {
         NSLayoutConstraint.activate([
             title.topAnchor.constraint(equalTo: topAnchor, constant: 12),
             title.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
@@ -64,13 +64,13 @@ class BaseOptionMainCategoryTitleView: UIView {
             arrow.widthAnchor.constraint(equalToConstant: 24)
         ])
     }
-    func setArrowImage(to name: String) {
+    private func setArrowImage(to name: String) {
         arrow.setImage(UIImage(named: name), for: .normal)
     }
-    func setTitle(to text: String) {
+    private func setTitle(to text: String) {
         title.text = text
     }
-    func setArrowButtonPublisher() {
+    private func setArrowButtonPublisher() {
         arrowTouchUpPublilsher = arrow.touchUpPublisher
     }
 }

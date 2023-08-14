@@ -69,13 +69,13 @@ class IncludedBaseItemModalViewController: UIViewController {
     }
     
     // MARK: - Helpers
-    func setUI() {
+    private func setUI() {
         view.backgroundColor = .white
         [modalTitle, separator, cancelButton, scrollView].forEach {
             view.addSubview($0)
         }
     }
-    func setLayout() {
+    private func setLayout() {
         NSLayoutConstraint.activate([
             modalTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 21),
             modalTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.2346),
@@ -98,12 +98,12 @@ class IncludedBaseItemModalViewController: UIViewController {
             scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
-    func setCancelButtonAction() {
+    private func setCancelButtonAction() {
         cancelButton.touchUpPublisher.sink { [weak self] _ in
             self?.dismiss(animated: true)
         }.store(in: &bag)
     }
-    @objc func presentSubCategoryModal() {
+    @objc private func presentSubCategoryModal() {
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             let modal = SubCategoryModalViewController()

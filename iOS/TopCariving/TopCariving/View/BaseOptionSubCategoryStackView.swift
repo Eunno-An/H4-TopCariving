@@ -31,13 +31,14 @@ class BaseOptionSubCategoryStackView: UIStackView {
     }
     
     // MARK: - Helpers
-    func setUpStackView() {
+    #warning("setUI로 수정")
+    private func setUpStackView() {
         axis = .vertical
         distribution = .fillEqually
         alignment = .fill
         spacing = 8
     }
-    func test() {
+    private func test() {
         self.addArrangedSubview(BaseOptionSubCategoryView())
         self.addArrangedSubview(BaseOptionSubCategoryView())
     }

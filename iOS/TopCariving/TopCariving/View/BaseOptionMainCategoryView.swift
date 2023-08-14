@@ -35,13 +35,13 @@ class BaseOptionMainCategoryView: UIView {
     }
     
     // MARK: - Helpers
-    func setUI() {
+    private func setUI() {
         titleView.translatesAutoresizingMaskIntoConstraints = false
         subCategoryStackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(titleView)
         addSubview(subCategoryStackView)
     }
-    func setLayout() {
+    private func setLayout() {
         heightConstraint = heightAnchor.constraint(equalToConstant: 46)
         heightConstraint?.isActive = true
         NSLayoutConstraint.activate([
@@ -57,7 +57,7 @@ class BaseOptionMainCategoryView: UIView {
             subCategoryStackView.centerXAnchor.constraint(equalTo: centerXAnchor)
         ])
     }
-    func setAction() {
+    private func setAction() {
         titleView.tapPublisher().sink { [weak self] _ in
             self?.toggleFold()
         }.store(in: &bag)
@@ -65,10 +65,10 @@ class BaseOptionMainCategoryView: UIView {
             self?.toggleFold()
         }.store(in: &bag)
     }
-    func setSubCategoryStackView() {
+    private func setSubCategoryStackView() {
         subCategoryStackView.isHidden = true
     }
-    func toggleFold() {
+    private func toggleFold() {
         isFolded.toggle()
         switch isFolded {
         case true:

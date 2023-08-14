@@ -43,12 +43,12 @@ class BaseOptionSubCategoryView: UIView {
     }
     
     // MARK: - Helpers
-    func setUI() {
+    private func setUI() {
         backgroundColor = .hyundaiNeutral
         addSubview(imageView)
         addSubview(titleLabel)
     }
-    func setLayout() {
+    private func setLayout() {
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             imageView.heightAnchor.constraint(equalToConstant: 55),
@@ -61,7 +61,7 @@ class BaseOptionSubCategoryView: UIView {
             titleLabel.centerYAnchor.constraint(equalTo: centerYAnchor)
         ])
     }
-    func setTapAction() {
+    private func setTapAction() {
         tapPublisher().sink {
             NotificationCenter.default.post(name: Notification.Name("SubCategoryCellTapped"), object: nil)
         }.store(in: &bag)
