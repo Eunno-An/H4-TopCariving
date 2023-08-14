@@ -23,7 +23,7 @@ class BaseOptionSubCategoryStackView: UIStackView {
         setUpStackView()
         test()
     }
-    convenience init(arrangedSubviews views: [BaseOptionSubCategoryCell]) {
+    convenience init(arrangedSubviews views: [BaseOptionSubCategoryView]) {
         self.init(frame: .zero)
         views.forEach {
             addArrangedSubview($0)
@@ -38,7 +38,7 @@ class BaseOptionSubCategoryStackView: UIStackView {
         spacing = 8
     }
     func test() {
-        self.addArrangedSubview(BaseOptionSubCategoryCell())
-        self.addArrangedSubview(BaseOptionSubCategoryCell())
+        self.addArrangedSubview(BaseOptionSubCategoryView())
+        self.addArrangedSubview(BaseOptionSubCategoryView())
     }
 }

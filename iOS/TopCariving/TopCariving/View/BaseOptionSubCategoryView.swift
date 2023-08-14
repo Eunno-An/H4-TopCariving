@@ -1,5 +1,5 @@
 //
-//  BaseOptionSubCategoryCell.swift
+//  BaseOptionSubCategoryView.swift
 //  TopCariving
 //
 //  Created by Eunno An on 2023/08/12.
@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-class BaseOptionSubCategoryCell: UIView {
+class BaseOptionSubCategoryView: UIView {
     // MARK: - UI properties
     private let imageView: UIImageView = {
         let image: UIImage = UIImage(named: "baseOptionSample")!
