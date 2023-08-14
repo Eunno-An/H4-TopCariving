@@ -29,24 +29,18 @@ class IncludedBaseItemModalViewController: UIViewController {
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
     }()
-    private let scrollView: UIScrollView = {
-        let scrollView = UIScrollView()
-        let stackView = BaseOptionMainCategoryStackView()
-        stackView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.addSubview(stackView)
-        NSLayoutConstraint.activate([
-            stackView.topAnchor.constraint(equalTo: scrollView.topAnchor),
-            stackView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
-            stackView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            stackView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
-            stackView.widthAnchor.constraint(equalTo: scrollView.widthAnchor)
-        ])
-        return scrollView
-    }()
+    private let testTableViewData = [
+        ["1","2","3"],
+        ["1","2","3","4","5"],
+        ["1","2"],
+        ["1","2","3","4"],
+        ["1"],
+    ]
+    private let tableView = UITableView()
     
     // MARK: - Properties
     private var bag = Set<AnyCancellable>()
+    private var hiddenSections = Set<Int>()
     
     // MARK: - Lifecycles
     required init?(coder: NSCoder) {
@@ -54,12 +48,14 @@ class IncludedBaseItemModalViewController: UIViewController {
         setUI()
         setLayout()
         setCancelButtonAction()
+        attribute()
     }
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setUI()
         setLayout()
         setCancelButtonAction()
+        attribute()
     }
     override func viewDidLoad() {
         NotificationCenter.default.addObserver(
@@ -71,7 +67,9 @@ class IncludedBaseItemModalViewController: UIViewController {
     // MARK: - Helpers
     private func setUI() {
         view.backgroundColor = .white
-        [modalTitle, separator, cancelButton, scrollView].forEach {
+        tableView.translatesAutoresizingMaskIntoConstraints = false
+        tableView.separatorStyle = .none
+        [modalTitle, separator, cancelButton, tableView].forEach {
             view.addSubview($0)
         }
     }
@@ -92,10 +90,10 @@ class IncludedBaseItemModalViewController: UIViewController {
             cancelButton.heightAnchor.constraint(equalToConstant: 13.18),
             cancelButton.widthAnchor.constraint(equalToConstant: 13.18),
             
-            scrollView.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 32),
-            scrollView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            scrollView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            scrollView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            tableView.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 32),
+            tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
     private func setCancelButtonAction() {
@@ -113,6 +111,33 @@ class IncludedBaseItemModalViewController: UIViewController {
             present(modal, animated: true)
         }
     }
+}
+
+extension IncludedBaseItemModalViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if hiddenSections.contains(section) {
+            return 0
+        }
+        return testTableViewData[section].count
+    }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return testTableViewData.count
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = BaseOptionSubCategoryCell()
+        return cell
+    }
+    func attribute() {
+        tableView.register(
+            BaseOptionSubCategoryCell.self,
+            forCellReuseIdentifier: BaseOptionSubCategoryCell.identifier)
+        tableView.delegate = self
+        tableView.dataSource = self
+    }
+}
+
+extension IncludedBaseItemModalViewController: UITableViewDelegate {
+    
 }
 
 extension IncludedBaseItemModalViewController: UIViewControllerTransitioningDelegate {
