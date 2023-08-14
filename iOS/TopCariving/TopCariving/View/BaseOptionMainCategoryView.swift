@@ -15,7 +15,7 @@ class BaseOptionMainCategoryView: UIView {
     private var heightConstant: NSLayoutConstraint?
     
     // MARK: - Properties
-    private var bag: Set<AnyCancellable> = .init()
+    private var bag = Set<AnyCancellable>()
     private var isFolded: Bool = true
     
     // MARK: - Lifecycles

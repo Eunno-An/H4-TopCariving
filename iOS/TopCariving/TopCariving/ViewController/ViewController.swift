@@ -9,7 +9,7 @@ import Combine
 import UIKit
 
 class ViewController: BaseMyCarViewController {
-    private var asd: Set<AnyCancellable> = .init()
+    private var asd = Set<AnyCancellable>()
     let modalVC = IncludedBaseItemModalViewController()
     override func viewDidLoad() {
         super.viewDidLoad()

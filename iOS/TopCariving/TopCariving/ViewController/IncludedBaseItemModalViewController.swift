@@ -46,7 +46,7 @@ class IncludedBaseItemModalViewController: UIViewController {
     }()
     
     // MARK: - Properties
-    private var bag: Set<AnyCancellable> = Set<AnyCancellable>()
+    private var bag = Set<AnyCancellable>()
     
     // MARK: - Lifecycles
     required init?(coder: NSCoder) {
