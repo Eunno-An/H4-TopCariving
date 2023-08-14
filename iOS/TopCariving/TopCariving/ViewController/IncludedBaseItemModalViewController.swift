@@ -57,12 +57,6 @@ class IncludedBaseItemModalViewController: UIViewController {
         setCancelButtonAction()
         attribute()
     }
-    override func viewDidLoad() {
-        NotificationCenter.default.addObserver(
-            self,
-            selector: #selector(presentSubCategoryModal),
-            name: Notification.Name("SubCategoryCellTapped"), object: nil)
-    }
     
     // MARK: - Helpers
     private func setUI() {
@@ -108,7 +102,9 @@ class IncludedBaseItemModalViewController: UIViewController {
             self?.dismiss(animated: true)
         }.store(in: &bag)
     }
-    @objc private func presentSubCategoryModal() {
+    
+    @objc private func presentSubCategoryModal(with indexPath: IndexPath) {
+        #warning("indexPath에 해당하는 데이터 testTableViewData에 맞는 데이터를 SubCategoryModalViewController로 보내게끔 수정하기")
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             let modal = SubCategoryModalViewController()
@@ -144,6 +140,9 @@ extension IncludedBaseItemModalViewController: UITableViewDataSource {
 }
 
 extension IncludedBaseItemModalViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presentSubCategoryModal(with: indexPath)
+    }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionHeader = BaseOptionMainCategoryView()
         sectionHeader.tag = section
