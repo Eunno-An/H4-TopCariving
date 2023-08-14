@@ -76,8 +76,8 @@ public class ColorController {
 		final Long interiorColorOptionId = bothColorRequestDTO.getInteriorColorOptionId();
 		final Long exteriorColorOptionId = bothColorRequestDTO.getExteriorColorOptionId();
 
-		trimService.saveOption(new SelectOptionRequestDTO(userId, interiorColorOptionId, archivingId), CategoryDetail.INTERIOR);
-		trimService.saveOption(new SelectOptionRequestDTO(userId, exteriorColorOptionId, archivingId), CategoryDetail.EXTERIOR);
+		trimService.saveOption(new SelectOptionRequestDTO(userId, interiorColorOptionId, archivingId), CategoryDetail.INTERIOR_COLOR);
+		trimService.saveOption(new SelectOptionRequestDTO(userId, exteriorColorOptionId, archivingId), CategoryDetail.EXTERIOR_COLOR);
 		return new SuccessResponse<>(archivingId);
 	}
 
