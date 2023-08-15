@@ -40,6 +40,12 @@ public class CarOptionRepositoryImpl implements CarOptionRepository {
 	}
 
 	@Override
+	public List<CarOption> findByCategoryAndParentOptionIdIsNull(String category) {
+		String sql = "SELECT * FROM CAR_OPTION WHERE category = ? AND parent_option_id IS NULL ORDER BY car_option_id ASC;";
+		return jdbcTemplate.query(sql, carOptionRowMapper(), category);
+	}
+
+	@Override
 	public List<CarOption> findByCategoryDetail(String categoryDetail) {
 		String sql = "SELECT * FROM CAR_OPTION WHERE category_detail = ?;";
 		return jdbcTemplate.query(sql, carOptionRowMapper(), categoryDetail);

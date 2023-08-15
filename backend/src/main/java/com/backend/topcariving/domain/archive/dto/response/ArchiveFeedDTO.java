@@ -4,7 +4,9 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+import com.backend.topcariving.domain.archive.entity.CarArchiving;
 import com.backend.topcariving.domain.option.dto.response.tag.TagResponseDTO;
+import com.backend.topcariving.domain.review.entity.CarReview;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
@@ -33,4 +35,16 @@ public class ArchiveFeedDTO {
 
 	@Schema(description = "시승, 구매 종류", example = "시승")
 	private String type;
+
+	public static ArchiveFeedDTO of(CarArchiving carArchiving, Map<String, List<String>> carArchiveResult,
+		CarReview carReview, List<TagResponseDTO> tags) {
+		return ArchiveFeedDTO.builder()
+			.archivingId(carArchiving.getArchivingId())
+			.carArchiveResult(carArchiveResult)
+			.dayTime(carArchiving.getDayTime())
+			.carReview(carReview == null ? null : carReview.getReview())
+			.tags(tags)
+			.type(carArchiving.getArchivingType())
+			.build();
+	}
 }

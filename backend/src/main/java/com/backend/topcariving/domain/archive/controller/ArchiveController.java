@@ -17,6 +17,7 @@ import com.backend.topcariving.domain.archive.dto.response.ArchiveDetailResponse
 import com.backend.topcariving.domain.archive.dto.response.ArchiveFeedDTO;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveResponseDTO;
 import com.backend.topcariving.domain.archive.dto.response.CreatedCarDTO;
+import com.backend.topcariving.domain.archive.service.ArchiveService;
 import com.backend.topcariving.domain.bookmark.service.BookmarkService;
 import com.backend.topcariving.global.response.SuccessResponse;
 
@@ -30,12 +31,13 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/archiving")
 public class ArchiveController {
 
+	private final ArchiveService archiveService;
 	private final BookmarkService bookmarkService;
 
-	@GetMapping("/")
+	@GetMapping("/result")
 	@Operation(summary = "아카이빙 메인 전체 결과 확인", description = "서비스 사용자들이 시승/구매한 차량 정보 조회")
 	public ArchiveResponseDTO archivingSearch(@RequestParam(required = false) List<Long> optionIds) {
-		return null;
+		return archiveService.archivingSearch(optionIds);
 	}
 
 	@GetMapping("/created-cars")

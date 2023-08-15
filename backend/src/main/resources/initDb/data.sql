@@ -252,9 +252,9 @@ INSERT INTO USER_INFO (name, email, password) VALUES ('고길동', 'go@gmail.com
 /**
   CAR_ARCHIVING
  */
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (1, '2023-08-01 12:00:00', 'false', 'true', '내 차 만들기');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (2, '2023-08-01 17:00:00', 'false', 'true', '내 차 만들기');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (3, '2023-08-02 12:00:00', 'false', 'true', '내 차 만들기');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (1, '2023-08-01 12:00:00', 'false', 'true', '시승');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (2, '2023-08-01 17:00:00', 'false', 'true', '구매');
+INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (3, '2023-08-02 12:00:00', 'false', 'true', '시승');
 INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (4, '2023-08-02 18:00:00', 'false', 'true', '내 차 만들기');
 INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (5, '2023-08-03 08:00:00', 'false', 'true', '내 차 만들기');
 INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (6, '2023-08-03 12:00:00', 'false', 'true', '내 차 만들기');
@@ -285,6 +285,7 @@ INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (11, 1);
 INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (17, 1);
 INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (103, 1);
 INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (110, 1);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (null, 1);
 -- 2
 INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (2, 2);
 INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (6, 2);
@@ -297,6 +298,18 @@ INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (113, 2);
 INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (114, 2);
 INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (115, 2);
 INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (116, 2);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (null, 2);
+-- 3
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (1, 3);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (5, 3);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (7, 3);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (9, 3);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (11, 3);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (17, 3);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (103, 3);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (110, 3);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (113, 3);
+INSERT INTO MY_CAR (car_option_id, archiving_id) VALUES (null, 3);
 
 /**
   Engine Detail
@@ -581,6 +594,11 @@ INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(13, 8);
 INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(14, 8);
 INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(15, 8);
 INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(16, 8);
+
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES (108, 9);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES (109, 9);
+INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES (110, 9);
+
 INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(4, 13);
 INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(5, 13);
 INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(6, 13);
@@ -602,3 +620,8 @@ INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(43, 18);
 INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(20, 19);
 INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(21, 19);
 INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(22, 19);
+
+/**
+  CAR_REVIEW
+ */
+INSERT INTO CAR_REVIEW (review, my_car_id) VALUES ('너무 좋아요', 9);

@@ -38,6 +38,18 @@ class CarOptionRepositoryTest {
 	}
 
 	@Test
+	void findByCategoryAndParentOptionIdIsNull() {
+		// given
+		String category = CategoryDetail.CHOICE.getName();
+
+		// when
+		List<CarOption> carOptions = carOptionRepository.findByCategoryAndParentOptionIdIsNull(category);
+
+		// then
+		Assertions.assertThat(carOptions).hasSize(15);
+	}
+
+	@Test
 	void findByCategoryDetailAndParentOptionIdIsNull() {
 		// given
 		String categoryDetail = CategoryDetail.N_PERFORMANCE.getName();

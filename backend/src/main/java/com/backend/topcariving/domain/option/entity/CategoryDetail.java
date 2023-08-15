@@ -23,6 +23,7 @@ public enum CategoryDetail {
 	SEAT("시트"),
 	CONVENIENCE("편의"),
 	MULTI_MEDIA("멀티미디어"),
+	CHOICE("선택품목"),
 	SELECTED("상세 품목"),
 	H_GENUINE_ACCESSORIES("H Genuine Accessories"),
 	N_PERFORMANCE("N performance"),

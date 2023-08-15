@@ -17,4 +17,11 @@ public class ArchiveResponseDTO {
 
 	@Schema(description = "피드에서 조회한 결과")
 	private List<ArchiveFeedDTO> archiveSearchResponses;
+
+	public static ArchiveResponseDTO of(List<SearchOptionDTO> options, List<ArchiveFeedDTO> archiveSearchResponses) {
+		return ArchiveResponseDTO.builder()
+			.options(options)
+			.archiveSearchResponses(archiveSearchResponses)
+			.build();
+	}
 }

@@ -31,4 +31,15 @@ public class TagReviewRepositoryImpl implements TagReviewRepository {
 				return new TagResponseDTO(rs.getString("tag_content"));
 			}, carOptionId, limit);
 	}
+
+	@Override
+	public List<TagResponseDTO> findTagResponseDTOByMyCarId(Long myCarId) {
+		String sql = "SELECT TAG.tag_text AS TAG_CONTENT "
+			+ "FROM TAG_REVIEW TR "
+			+ "INNER JOIN TAG ON TAG.tag_id = TR.tag_id "
+			+ "WHERE my_car_id = ?;";
+		return jdbcTemplate.query(sql,
+			(rs, rowNum) -> new TagResponseDTO(rs.getString("tag_content")),
+			myCarId);
+	}
 }

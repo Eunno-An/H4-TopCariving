@@ -45,14 +45,14 @@ public class OptionServiceIntegralTest extends TestSupport {
 			Map<String, List<OptionResponseDTO>> basicOptions = optionService.getBasics().getData();
 
 			// then
-			softAssertions.assertThat(basicOptions.get(POWER_TRAIN.getName())).hasSize(5);
-			softAssertions.assertThat(basicOptions.get(SMART_SAFE_TECHNOLOGY.getName())).hasSize(13);
-			softAssertions.assertThat(basicOptions.get(SAFETY.getName())).hasSize(4);
-			softAssertions.assertThat(basicOptions.get(EXTERIOR.getName())).hasSize(18);
-			softAssertions.assertThat(basicOptions.get(INTERIOR.getName())).hasSize(6);
-			softAssertions.assertThat(basicOptions.get(SEAT.getName())).hasSize(7);
-			softAssertions.assertThat(basicOptions.get(CONVENIENCE.getName())).hasSize(23);
-			softAssertions.assertThat(basicOptions.get(MULTI_MEDIA.getName())).hasSize(6);
+			softAssertions.assertThat(basicOptions.get(POWER_TRAIN.getName())).as("5가 반환되어야 함").hasSize(5);
+			softAssertions.assertThat(basicOptions.get(SMART_SAFE_TECHNOLOGY.getName())).as("13이 반환되어야 함").hasSize(13);
+			softAssertions.assertThat(basicOptions.get(SAFETY.getName())).as("4가 반환되어야 함").hasSize(4);
+			softAssertions.assertThat(basicOptions.get(EXTERIOR.getName())).as("18이 반환되어야 함").hasSize(18);
+			softAssertions.assertThat(basicOptions.get(INTERIOR.getName())).as("6이 반환되어야 함").hasSize(6);
+			softAssertions.assertThat(basicOptions.get(SEAT.getName())).as("7이 반환되어야 함").hasSize(7);
+			softAssertions.assertThat(basicOptions.get(CONVENIENCE.getName())).as("23이 반환되어야 함").hasSize(23);
+			softAssertions.assertThat(basicOptions.get(MULTI_MEDIA.getName())).as("6이 반환되어야 함").hasSize(6);
 
 		}
 	}
@@ -66,12 +66,12 @@ public class OptionServiceIntegralTest extends TestSupport {
 			List<OptionResponseDTO> selectedOptions = optionService.getSelections(SELECTED);
 
 			// then
-			softAssertions.assertThat(selectedOptions).hasSize(6);
+			softAssertions.assertThat(selectedOptions).as("6이 반환되어야 함").hasSize(6);
 			OptionResponseDTO selectedOption = selectedOptions.get(0);
-			softAssertions.assertThat(selectedOption.getCarOptionId()).isEqualTo(103L);
-			softAssertions.assertThat(selectedOption.getOptionName()).isEqualTo("컴포트 II");
-			softAssertions.assertThat(selectedOption.getPrice()).isEqualTo(1090000);
-			softAssertions.assertThat(selectedOption.getPhotoUrl()).isEqualTo("https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/roa.jpeg");
+			softAssertions.assertThat(selectedOption.getCarOptionId()).as("103이 반환되어야 함").isEqualTo(103L);
+			softAssertions.assertThat(selectedOption.getOptionName()).as("'컴포트 II'가 반환되어야 함").isEqualTo("컴포트 II");
+			softAssertions.assertThat(selectedOption.getPrice()).as("1090000이 반환되어야 함").isEqualTo(1090000);
+			softAssertions.assertThat(selectedOption.getPhotoUrl()).as("사진 경로가 반환되어야 함").isEqualTo("https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/roa.jpeg");
 		}
 
 		@Test
@@ -91,11 +91,11 @@ public class OptionServiceIntegralTest extends TestSupport {
 			Long savedArchivingId = optionService.saveSelectionOptions(selectOptionsRequestDTO, SELECTED);
 
 			// then
-			softAssertions.assertThat(savedArchivingId).isEqualTo(archivingId);
+			softAssertions.assertThat(savedArchivingId).as("3이 반환되어야 함").isEqualTo(archivingId);
 			Optional<MyCar> myCarOption0 = myCarRepository.findByArchivingIdAndCarOptionId(archivingId, carOptionIds.get(0));
 			Optional<MyCar> myCarOption1 = myCarRepository.findByArchivingIdAndCarOptionId(archivingId, carOptionIds.get(1));
-			softAssertions.assertThat(myCarOption0).isPresent();
-			softAssertions.assertThat(myCarOption1).isPresent();
+			softAssertions.assertThat(myCarOption0).as("0번째 요소 존재 여부 검증").isPresent();
+			softAssertions.assertThat(myCarOption1).as("1번째 요소 존재 여부 검증").isPresent();
 		}
 
 		@Test

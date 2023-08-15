@@ -13,6 +13,8 @@ public interface CarOptionRepository {
 
 	List<CarOption> findByCategory(String category);
 
+	List<CarOption> findByCategoryAndParentOptionIdIsNull(String category);
+
 	List<CarOption> findByCategoryDetail(String categoryDetail);
 
 	List<CarOption> findByCategoryDetailAndParentOptionIdIsNull(String categoryDetail);
