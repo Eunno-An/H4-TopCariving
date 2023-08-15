@@ -30,11 +30,36 @@ class IncludedBaseItemModalViewController: UIViewController {
         return button
     }()
     private let testTableViewData = [
-        ["1", "2", "3"],
-        ["1", "2", "3", "4", "5"],
-        ["1", "2"],
-        ["1", "2", "3", "4"],
-        ["1"]
+        BaseOptionMainCategoryModel(
+            title: "a",
+            subCategories: [
+                BaseOptionSubCategoryModel(title: "subOption1"),
+                BaseOptionSubCategoryModel(title: "subOption2"),
+                BaseOptionSubCategoryModel(title: "subOption3")
+            ]
+        ),
+        BaseOptionMainCategoryModel(
+            title: "b",
+            subCategories: [
+                BaseOptionSubCategoryModel(title: "subOption1"),
+                BaseOptionSubCategoryModel(title: "subOption2")
+            ]
+        ),
+        BaseOptionMainCategoryModel(
+            title: "c",
+            subCategories: [
+                BaseOptionSubCategoryModel(title: "subOption1"),
+                BaseOptionSubCategoryModel(title: "subOption2"),
+                BaseOptionSubCategoryModel(title: "subOption3"),
+                BaseOptionSubCategoryModel(title: "subOption4")
+            ]
+        ),
+        BaseOptionMainCategoryModel(
+            title: "d",
+            subCategories: [
+                BaseOptionSubCategoryModel(title: "subOption1")
+            ]
+        )
     ]
     private let tableView = UITableView()
     
@@ -109,7 +134,9 @@ class IncludedBaseItemModalViewController: UIViewController {
         #warning("indexPath에 해당하는 데이터 testTableViewData에 맞는 데이터를 SubCategoryModalViewController로 보내게끔 수정하기")
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
-            let modal = SubCategoryModalViewController()
+            let modal = SubCategoryModalViewController(
+                data: testTableViewData[indexPath.section].subCategories[indexPath.row]
+            )
             modal.modalPresentationStyle = .custom
             modal.modalTransitionStyle = .crossDissolve
             modal.transitioningDelegate = self
@@ -130,7 +157,7 @@ class IncludedBaseItemModalViewController: UIViewController {
     }
     func indexPathsForSection(with tag: Int) -> [IndexPath] {
         var indexPaths = [IndexPath]()
-        for row in 0..<self.testTableViewData[tag].count {
+        for row in 0..<self.testTableViewData[tag].subCategories.count {
             indexPaths.append(IndexPath(row: row,
                                         section: tag))
         }
@@ -143,13 +170,13 @@ extension IncludedBaseItemModalViewController: UITableViewDataSource {
         if hiddenSections.contains(section) {
             return 0
         }
-        return testTableViewData[section].count
+        return testTableViewData[section].subCategories.count
     }
     func numberOfSections(in tableView: UITableView) -> Int {
         return testTableViewData.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = BaseOptionSubCategoryCell()
+        let cell = BaseOptionSubCategoryCell(data: testTableViewData[indexPath.section].subCategories[indexPath.row])
         return cell
     }
 }
@@ -159,7 +186,7 @@ extension IncludedBaseItemModalViewController: UITableViewDelegate {
         presentSubCategoryModal(with: indexPath)
     }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let sectionHeader = BaseOptionMainCategoryView()
+        let sectionHeader = BaseOptionMainCategoryView(data: testTableViewData[section])
         sectionHeader.tag = section
         sectionHeader.tapPublisher().sink { [weak self] in
             self?.hideSection(sender: sectionHeader)

@@ -38,6 +38,12 @@ class BaseOptionSubCategoryCell: UITableViewCell {
         setUI()
         setLayout()
     }
+    init(data: BaseOptionSubCategoryModel) {
+        self.init(frame: .zero)
+        titleLabel.text = data.title
+        titleImage.image = UIImage(named: data.imageURL)
+    }
+    
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.backgroundColor = .hyundaiLightSand

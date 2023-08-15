@@ -55,13 +55,13 @@ class SubCategoryModalViewController: UIViewController {
         setLayout()
         setCacnelAction()
     }
-    init(title: String, imageURL: String, description: String) {
+    init(data: BaseOptionSubCategoryModel) {
         super.init(nibName: nil, bundle: nil)
         setUI()
         setLayout()
-        setTitle(to: title)
-        setImage(to: imageURL)
-        setDescription(to: description)
+        setTitle(to: data.title)
+        setImage(to: data.imageURL)
+        setDescription(to: data.optionInfo)
         setCacnelAction()
     }
     

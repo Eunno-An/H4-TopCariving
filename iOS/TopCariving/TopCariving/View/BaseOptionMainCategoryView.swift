@@ -14,7 +14,7 @@ class BaseOptionMainCategoryView: UIView {
     
     // MARK: - Properties
     private var bag = Set<AnyCancellable>()
-    
+
     // MARK: - Lifecycles
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,6 +25,10 @@ class BaseOptionMainCategoryView: UIView {
         super.init(coder: coder)
         setUI()
         setLayout()
+    }
+    convenience init(data: BaseOptionMainCategoryModel) {
+        self.init(frame: .zero)
+        titleView.setTitle(to: data.title)
     }
     
     // MARK: - Helpers
