@@ -36,6 +36,8 @@
 		D462E8122A88A3D700C5A8EC /* SubCategoryModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8112A88A3D700C5A8EC /* SubCategoryModalViewController.swift */; };
 		D462E8162A88D6E600C5A8EC /* ModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8152A88D6E600C5A8EC /* ModalPresentationController.swift */; };
 		D462E81C2A8A700E00C5A8EC /* BaseOptonSubCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E81B2A8A700E00C5A8EC /* BaseOptonSubCategoryCell.swift */; };
+		D462E85A2A8B79C300C5A8EC /* BaseOptonMainCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8592A8B79C300C5A8EC /* BaseOptonMainCategoryModel.swift */; };
+		D462E85C2A8B79D000C5A8EC /* BaseOptionSubCategoryModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E85B2A8B79D000C5A8EC /* BaseOptionSubCategoryModel.swift */; };
 		D4A68CF82A808D6300E2C1FD /* OptionRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A68CF72A808D6300E2C1FD /* OptionRequestDTO.swift */; };
 		D4A68CFA2A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A68CF92A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift */; };
 		D4A68CFC2A80925400E2C1FD /* ArchivingOptionResponseDTO+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A68CFB2A80925400E2C1FD /* ArchivingOptionResponseDTO+Mapping.swift */; };
@@ -136,6 +138,8 @@
 		D462E8112A88A3D700C5A8EC /* SubCategoryModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCategoryModalViewController.swift; sourceTree = "<group>"; };
 		D462E8152A88D6E600C5A8EC /* ModalPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPresentationController.swift; sourceTree = "<group>"; };
 		D462E81B2A8A700E00C5A8EC /* BaseOptonSubCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseOptonSubCategoryCell.swift; sourceTree = "<group>"; };
+		D462E8592A8B79C300C5A8EC /* BaseOptonMainCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseOptonMainCategoryModel.swift; sourceTree = "<group>"; };
+		D462E85B2A8B79D000C5A8EC /* BaseOptionSubCategoryModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseOptionSubCategoryModel.swift; sourceTree = "<group>"; };
 		D4A68CF72A808D6300E2C1FD /* OptionRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionRequestDTO.swift; sourceTree = "<group>"; };
 		D4A68CF92A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArchivingColorResponseDTO+Mapping.swift"; sourceTree = "<group>"; };
 		D4A68CFB2A80925400E2C1FD /* ArchivingOptionResponseDTO+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArchivingOptionResponseDTO+Mapping.swift"; sourceTree = "<group>"; };
@@ -391,6 +395,8 @@
 			isa = PBXGroup;
 			children = (
 				D4ACBA812A78CE56002B6A5B /* DummyModel.swift */,
+				D462E8592A8B79C300C5A8EC /* BaseOptonMainCategoryModel.swift */,
+				D462E85B2A8B79D000C5A8EC /* BaseOptionSubCategoryModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -677,6 +683,7 @@
 				D4A68D042A80946D00E2C1FD /* TrimResponseDTO+Mapping.swift in Sources */,
 				D4ACBA822A78CE56002B6A5B /* DummyModel.swift in Sources */,
 				D4A68D132A8096CC00E2C1FD /* ColorBothResponseDTO+Mapping.swift in Sources */,
+				D462E85C2A8B79D000C5A8EC /* BaseOptionSubCategoryModel.swift in Sources */,
 				D4A68D2E2A80EF0C00E2C1FD /* ArchivingOption.swift in Sources */,
 				D4A68D4A2A80F1AA00E2C1FD /* Option.swift in Sources */,
 				D4A68D3C2A80F06E00E2C1FD /* Tag.swift in Sources */,
@@ -689,6 +696,7 @@
 				D462E81C2A8A700E00C5A8EC /* BaseOptonSubCategoryCell.swift in Sources */,
 				763F60422A7B9B08000D11D9 /* FoldableStackView.swift in Sources */,
 				D4ACBA822A78CE56002B6A5B /* DummyModel.swift in Sources */,
+				D462E85A2A8B79C300C5A8EC /* BaseOptonMainCategoryModel.swift in Sources */,
 				C313500C2A7E98DE00D5D401 /* FoldableView.swift in Sources */,
 				763F60402A7B75D1000D11D9 /* CarSummaryContainer.swift in Sources */,
 				D4ACBA802A78CE4D002B6A5B /* ViewModelProtocol.swift in Sources */,
