@@ -82,7 +82,9 @@ class ColorServiceIntegralTest {
 	private InteriorColorResponseDTO getInteriorColorResponseDTO() {
 		final List<TagResponseDTO> tagResponseDTOS = List.of(new TagResponseDTO("청소하기 좋아요\uD83E\uDDF9"),
 			new TagResponseDTO("밝고화사해요✨"),
-			new TagResponseDTO("무난한 색상\uD83D\uDE19"));
+			new TagResponseDTO("무난한 색상\uD83D\uDE19"),
+			new TagResponseDTO("마음에 들어요\uD83D\uDE04"),
+			new TagResponseDTO("깔끔해요👍"));
 		return InteriorColorResponseDTO.builder()
 			.carOptionId(17L)
 			.optionName("퀄팅천연(블랙)")
@@ -96,7 +98,9 @@ class ColorServiceIntegralTest {
 	private ExteriorColorResponseDTO getExteriorColorResponseDTO() {
 		final List<TagResponseDTO> tagResponseDTOS = List.of(new TagResponseDTO("흔하지 않은 색\uD83E\uDD2D"),
 			new TagResponseDTO("트렌디해요😎"),
-			new TagResponseDTO("밝고화사해요✨"));
+			new TagResponseDTO("밝고화사해요✨"),
+			new TagResponseDTO("무게감있는 톤🌑"),
+			new TagResponseDTO("모두가 좋아하는 색상🥰"));
 		return ExteriorColorResponseDTO.builder()
 			.carOptionId(11L)
 			.optionName("어비스블랙펄")

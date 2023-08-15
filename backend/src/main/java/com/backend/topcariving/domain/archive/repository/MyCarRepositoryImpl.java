@@ -26,6 +26,16 @@ public class MyCarRepositoryImpl implements MyCarRepository {
 	private final JdbcTemplate jdbcTemplate;
 
 	@Override
+	public Optional<MyCar> findById(final Long myCarId) {
+		String sql = "SELECT * FROM MY_CAR WHERE my_car_id = ?";
+
+		final List<MyCar> result = jdbcTemplate.query(sql, myCarRowMapper(), myCarId);
+		if (result.isEmpty())
+			return Optional.empty();
+		return Optional.ofNullable(result.get(0));
+	}
+
+	@Override
 	public MyCar save(MyCar myCar) {
 		SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
 		jdbcInsert.withTableName("MY_CAR").usingGeneratedKeyColumns("my_car_id");
@@ -107,6 +117,15 @@ public class MyCarRepositoryImpl implements MyCarRepository {
 				return myCars.size();
 			}
 		});
+	}
+
+	@Override
+	public void updateCarOptionIdByArchivingIdAndCategoryDetail(final Long archivingId, final Long carOptionId, final String categoryDetail) {
+		String sql = "UPDATE MY_CAR SET car_option_id = ? "
+			+ "WHERE archiving_id = ? AND "
+			+ "car_option_id IN (SELECT car_option_id FROM CAR_OPTION WHERE category_detail = ?)";
+
+		jdbcTemplate.update(sql, carOptionId, archivingId, categoryDetail);
 	}
 
 	private RowMapper<MyCar> myCarRowMapper() {

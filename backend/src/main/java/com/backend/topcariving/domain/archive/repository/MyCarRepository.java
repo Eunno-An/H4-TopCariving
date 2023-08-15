@@ -8,6 +8,8 @@ import com.backend.topcariving.domain.option.dto.response.estimation.OptionSumma
 
 public interface MyCarRepository {
 
+	Optional<MyCar> findById(Long myCarId);
+
 	MyCar save(MyCar myCar);
 
 	Optional<MyCar> findByArchivingIdAndCarOptionId(Long archivingId, Long carOptionId);
@@ -19,4 +21,6 @@ public interface MyCarRepository {
 	void deleteByArchivingIdAndCategoryDetail(Long archivingId, String categoryDetail);
 
 	void saveMultipleData(List<MyCar> myCars);
+
+	void updateCarOptionIdByArchivingIdAndCategoryDetail(Long archivingId, Long carOptionId, String categoryDetail);
 }

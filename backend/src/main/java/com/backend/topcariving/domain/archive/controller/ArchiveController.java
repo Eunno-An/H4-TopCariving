@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.topcariving.domain.archive.dto.request.BookmarkRequestDTO;
+import com.backend.topcariving.domain.archive.dto.request.FeedCopyRequestDTO;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveDetailResponseDTO;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveFeedDTO;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveResponseDTO;
@@ -43,6 +44,12 @@ public class ArchiveController {
 	@GetMapping("/feeds")
 	@Operation(summary = "마이카이빙 피드에서 저장한 차량 목록 조회", description = "서비스 사용자들이 피드에서 저장한 차량 정보 조회")
 	public List<ArchiveFeedDTO> getFeedCars(@RequestParam Integer offset, @RequestParam Integer pageSize) {
+		return null;
+	}
+
+	@PostMapping("/feeds")
+	@Operation(summary = "마이카이빙 피드에 있는 차량을 내가 만든 차량으로 복사", description = "마이카이빙 피드에서 '이 차량으로 내 차 만들기' 버튼을 누르면 실행되는 연산(반환 값은 새로 만들어진 아카이빙 ID입니다)")
+	public SuccessResponse<Long> saveFeedToCreatedCar(@RequestBody FeedCopyRequestDTO feedCopyRequestDTO) {
 		return null;
 	}
 

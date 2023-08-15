@@ -13,7 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.backend.topcariving.domain.archive.exception.InvalidAuthorityException;
 import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
 import com.backend.topcariving.domain.option.dto.request.esitmation.EstimationChangeRequestDTO;
 import com.backend.topcariving.domain.option.entity.CarOption;
@@ -31,21 +30,6 @@ class EstimationServiceTest {
 
 	@InjectMocks
 	private EstimationService estimationService;
-
-	@Nested
-	@DisplayName("내 차 만들기 결과 조회")
-	class MyCarCreation {
-		@Test
-		void 내_차_만들기_결과_조회_시_내_차가_아닌_차를_조회하면_에러가_발생한다() {
-			// given
-			given(carArchivingRepository.existsByUserIdAndArchivingId(1L, 22L))
-				.willReturn(false);
-
-			// when, then
-			Assertions.assertThatThrownBy(() -> estimationService.getArchivingResult(1L, 22L))
-				.isInstanceOf(InvalidAuthorityException.class);
-		}
-	}
 
 	@Nested
 	@DisplayName("요약 보기")

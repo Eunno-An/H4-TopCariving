@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.backend.topcariving.config.TestSupport;
 import com.backend.topcariving.domain.archive.entity.MyCar;
+import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
 import com.backend.topcariving.domain.archive.repository.MyCarRepository;
 import com.backend.topcariving.domain.option.dto.request.SelectOptionRequestDTO;
 import com.backend.topcariving.domain.option.dto.response.engine.EngineResponseDTO;
@@ -26,6 +27,9 @@ public class TrimServiceIntegralTest extends TestSupport {
 
 	@Autowired
 	private MyCarRepository myCarRepository;
+
+	@Autowired
+	private CarArchivingRepository carArchivingRepository;
 
 	@Autowired
 	private TrimService trimService;
@@ -57,7 +61,27 @@ public class TrimServiceIntegralTest extends TestSupport {
 			Long archivingId = trimService.saveModel(selectOptionRequestDTO);
 
 			// then
-			Assertions.assertThat(archivingId).isEqualTo(21);
+			final boolean isExists = carArchivingRepository.existsByUserIdAndArchivingId(userId, archivingId);
+			Assertions.assertThat(isExists).isTrue();
+		}
+
+		@Test
+		void 모델_변경_시_아카이빙_아이디가_있을_경우_값이_업데이트_되어야_한다() {
+			// given
+			Long userId = 1L;
+			Long carOptionId = 2L;
+			Long archivingId = 1L;
+			final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(userId, carOptionId,
+				archivingId);
+
+			// when
+			final Long returnedArchivingId = trimService.saveModel(selectOptionRequestDTO);
+
+			// then
+			final List<MyCar> myCars = myCarRepository.findByArchivingId(archivingId);
+			MyCar myCar = myCars.stream().filter(findCar -> findCar.getCarOptionId().equals(carOptionId)).findFirst()
+				.orElse(null);
+			Assertions.assertThat(myCar.getCarOptionId()).isEqualTo(carOptionId);
 		}
 	}
 
@@ -97,6 +121,25 @@ public class TrimServiceIntegralTest extends TestSupport {
 			Optional<MyCar> findMyCar = myCarRepository.findByArchivingIdAndCarOptionId(archivingId, carOptionId);
 			Assertions.assertThat(findMyCar).isPresent();
 		}
+
+		@Test
+		void 엔진_변경_시_이미_값이_있을_경우_값이_업데이트_되어야_한다() {
+			// given
+			Long userId = 1L;
+			Long carOptionId = 6L;
+			Long archivingId = 1L;
+			final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(userId, carOptionId,
+				archivingId);
+
+			// when
+			final Long returnedArchivingId = trimService.saveOption(selectOptionRequestDTO, CategoryDetail.ENGINE);
+
+			// then
+			final List<MyCar> myCars = myCarRepository.findByArchivingId(archivingId);
+			MyCar myCar = myCars.stream().filter(findCar -> findCar.getCarOptionId().equals(carOptionId)).findFirst()
+				.orElse(null);
+			Assertions.assertThat(myCar.getCarOptionId()).isEqualTo(carOptionId);
+		}
 	}
 
 	@Nested
@@ -135,6 +178,25 @@ public class TrimServiceIntegralTest extends TestSupport {
 			Assertions.assertThat(savedArchivingId).isEqualTo(archivingId);
 			Optional<MyCar> findMyCar = myCarRepository.findByArchivingIdAndCarOptionId(archivingId, carOptionId);
 			Assertions.assertThat(findMyCar).isPresent();
+		}
+
+		@Test
+		void 바디타입_변경_시_이미_값이_있을_경우_값이_업데이트_되어야_한다() {
+			// given
+			Long userId = 1L;
+			Long carOptionId = 8L;
+			Long archivingId = 1L;
+			final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(userId, carOptionId,
+				archivingId);
+
+			// when
+			final Long returnedArchivingId = trimService.saveOption(selectOptionRequestDTO, CategoryDetail.BODY_TYPE);
+
+			// then
+			final List<MyCar> myCars = myCarRepository.findByArchivingId(archivingId);
+			MyCar myCar = myCars.stream().filter(findCar -> findCar.getCarOptionId().equals(carOptionId)).findFirst()
+				.orElse(null);
+			Assertions.assertThat(myCar.getCarOptionId()).isEqualTo(carOptionId);
 		}
 	}
 }
