@@ -137,7 +137,7 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
     >
       <Flex width={1280} gap={20}>
         <Flex gap={18}>
-          <Section width={140}>
+          <Section width={135}>
             <Text typo="Body3_Regular" palette="DarkGray">
               트림
             </Text>
@@ -156,7 +156,7 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
             </Flex>
           </Section>
           <ColumnImg src="/image/page/myCar/columnLine.svg" />
-          <Section width={186}>
+          <Section width={191}>
             <Text typo="Body3_Regular" palette="DarkGray">
               선택 색상
             </Text>

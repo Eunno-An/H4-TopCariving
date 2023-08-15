@@ -130,7 +130,7 @@ export const MyCarOptions = () => {
     setIsOpen(false);
   };
 
-  const fetchDetilsData = async (optionId: number) => {
+  const fetchDetailsData = async (optionId: number) => {
     const res = (await await apiInstance({
       url: `/api/options/details/${optionId}`,
       method: 'GET',
@@ -141,7 +141,7 @@ export const MyCarOptions = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const data = (await fetchDetilsData(
+      const data = (await fetchDetailsData(
         dummyData[selectedItem].carOptionId,
       )) as optionInfoInterface;
 
@@ -151,15 +151,15 @@ export const MyCarOptions = () => {
   }, [selectedItem]);
 
   return (
-    <Flex direction="column" justify="flex-start" height={561} gap={15}>
+    <Flex direction="column" justify="flex-start" height="auto" gap={15}>
       {/* 옵션 상단 */}
-      <Flex gap={39}>
+      <Flex gap={39} height={320}>
         {/* 이미지 */}
-        <Flex width={479} height={304}>
+        <Flex width={479}>
           <ImgContainer src={dummyData[selectedItem].photoUrl} alt="" />
         </Flex>
         {/* 옵션 Info */}
-        <Flex direction="column">
+        <Flex direction="column" justify="flex-start">
           {/* 옵션 이름 / 가격 */}
           <OptionContainer>
             <Text typo="Heading1_Bold">
@@ -172,18 +172,21 @@ export const MyCarOptions = () => {
           {/* 옵션에대한 태그칩 */}
           <Flex
             width={507}
-            height={108}
-            padding="10px 0 10px 0"
+            height="auto"
+            margin="12px 0 18px 0"
+            gap={12}
             direction="column"
-            align="flex-start"
+            justify="flex-start"
           >
-            <Text>
-              {dummyData[selectedItem].optionName}
+            <Flex justify="flex-start" gap={4} height="auto">
+              <Text typo="Heading3_Medium">
+                {dummyData[selectedItem].optionName}
+              </Text>
               <Text typo="Body3_Regular">
                 에 대해 시승자들은 이런 후기를 남겼어요
               </Text>
-            </Text>
-            <Flex gap={4} height={70} justify="flex-start" css={TagWrap}>
+            </Flex>
+            <Flex gap={4} height="auto" justify="flex-start" css={TagWrap}>
               {info?.tags &&
                 info.tags.map((it, idx) => (
                   <Tag key={`tags_${idx}`} desc={it.tagContent} />
@@ -235,7 +238,7 @@ export const MyCarOptions = () => {
             {defaultCategoryList.map((it, idx) => (
               <React.Fragment key={`optionTag_${idx}`}>
                 <OptionTag
-                  typo="Body4_Medium"
+                  typo="Body3_Medium"
                   palette={defaultOption === idx ? 'Black' : 'MediumGray'}
                   onClick={() => {
                     setCurrentDefaultCategory(defaultCategoryList[idx]);
@@ -314,7 +317,22 @@ const MenuName = styled(Text)<{ isSelected: boolean }>`
   ${({ isSelected }) =>
     isSelected ? theme.typo.Body1_Medium : theme.typo.Heading4_Bold};
   color: ${({ isSelected }) => !isSelected && theme.palette.LightGray};
+
   cursor: pointer;
+  position: relative; /* 부모 요소에 대해 상대 위치 설정 */
+  white-space: nowrap;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 3px;
+    background-color: ${theme.palette.Black};
+    opacity: ${({ isSelected }) => (isSelected ? 1 : 0)};
+    transition: opacity 0.3s;
+  }
 `;
 
 const TagWrap = css`
@@ -322,13 +340,15 @@ const TagWrap = css`
 `;
 
 const OptionMenu = styled(Flex)`
-  border-bottom: 3px solid ${theme.palette.LightGray};
+  padding: 4px;
+  border-bottom: 2px solid ${theme.palette.LightGray};
 `;
 
 const OptionContainer = styled(Flex)`
   width: 507px;
   height: 44px;
   justify-content: space-between;
+  align-items: flex-start;
 
   border-bottom: 2px solid #545454;
 `;

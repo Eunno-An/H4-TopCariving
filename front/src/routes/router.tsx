@@ -21,6 +21,7 @@ import { colorInfoInterface } from '@pages/MyCar/Color/interface';
 
 export const router = createBrowserRouter([
   { path: '/', element: <Login /> },
+  { path: '/*', element: <Error /> },
   {
     path: '/my-car',
     element: <MyCar />,
@@ -168,5 +169,4 @@ export const router = createBrowserRouter([
       },
     ],
   },
-  { path: '/*', element: <Error /> },
 ]);

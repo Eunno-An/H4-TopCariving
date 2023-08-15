@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Flex } from '@components/common';
 import { Footer, Header, NavBar } from '@components/myCar';
+import styled from '@emotion/styled';
 
 export const myCarUrl = [
   '/my-car/trim',
@@ -20,9 +21,22 @@ const MyCar = () => {
     window.location.pathname as string,
   );
 
+  useEffect(() => {
+    const handleLocationChange = () => {
+      setCurrentUrl(window.location.pathname);
+    };
+
+    window.addEventListener('popstate', handleLocationChange);
+
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange);
+    };
+  }, []);
+
   return (
     <Flex direction="column" align="center">
       <Header />
+      <Margin height={60} />
       <NavBar currentUrl={currentUrl} />
       <Flex direction="column" width={1040}>
         <Outlet />
@@ -33,3 +47,7 @@ const MyCar = () => {
 };
 
 export default MyCar;
+
+const Margin = styled(Flex)`
+  flex-shrink: 0;
+`;
