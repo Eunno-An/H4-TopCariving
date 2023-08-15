@@ -66,14 +66,14 @@ class SubCategoryModalViewController: UIViewController {
     }
     
     // MARK: - Helpers
-    private func setUI() {
+    func setUI() {
         view.backgroundColor = .white
         view.layer.cornerRadius = 8
         [titleLabel, titleImage, detail, cancelButton].forEach {
             view.addSubview($0)
         }
     }
-    private func setLayout() {
+    func setLayout() {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 24),
             titleLabel.bottomAnchor.constraint(equalTo: titleImage.topAnchor, constant: -17),
@@ -96,18 +96,18 @@ class SubCategoryModalViewController: UIViewController {
             detail.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
     }
-    private func setTitle(to text: String) {
+    func setTitle(to text: String) {
         titleLabel.text = text
     }
-    private func setImage(to url: String) {
+    func setImage(to url: String) {
         #warning("url로 변경 필요")
         let image = UIImage(named: url)
         titleImage.image = image
     }
-    private func setDescription(to text: String) {
+    func setDescription(to text: String) {
         detail.text = text
     }
-    private func setCacnelAction() {
+    func setCacnelAction() {
         cancelButton.tapPublisher().sink {
             self.dismiss(animated: false)
         }.store(in: &bag)

@@ -28,11 +28,11 @@ class BaseOptionMainCategoryView: UIView {
     }
     
     // MARK: - Helpers
-    private func setUI() {
+    func setUI() {
         titleView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(titleView)
     }
-    private func setLayout() {
+    func setLayout() {
         heightAnchor.constraint(equalToConstant: 46).isActive = true
         NSLayoutConstraint.activate([
             titleView.topAnchor.constraint(equalTo: topAnchor),

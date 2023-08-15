@@ -59,14 +59,14 @@ class IncludedBaseItemModalViewController: UIViewController {
     }
     
     // MARK: - Helpers
-    private func setUI() {
+    func setUI() {
         view.backgroundColor = .white
         setTableView()
         [modalTitle, separator, cancelButton, tableView].forEach {
             view.addSubview($0)
         }
     }
-    private func setTableView() {
+    func setTableView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
         tableView.sectionHeaderTopPadding = 12
@@ -74,7 +74,7 @@ class IncludedBaseItemModalViewController: UIViewController {
             hiddenSections.insert(index)
         }
     }
-    private func setLayout() {
+    func setLayout() {
         NSLayoutConstraint.activate([
             modalTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 21),
             modalTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.2346),
@@ -97,7 +97,7 @@ class IncludedBaseItemModalViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
-    private func setCancelButtonAction() {
+    func setCancelButtonAction() {
         cancelButton.touchUpPublisher.sink { [weak self] _ in
             self?.dismiss(animated: true)
         }.store(in: &bag)

@@ -41,12 +41,12 @@ class BaseOptionSubCategoryView: UIView {
     }
     
     // MARK: - Helpers
-    private func setUI() {
+    func setUI() {
         backgroundColor = .hyundaiNeutral
         addSubview(imageView)
         addSubview(titleLabel)
     }
-    private func setLayout() {
+    func setLayout() {
         NSLayoutConstraint.activate([
             imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             imageView.heightAnchor.constraint(equalToConstant: 55),
