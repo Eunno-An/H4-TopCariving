@@ -12,15 +12,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.backend.topcariving.domain.archive.entity.MyCar;
-import com.backend.topcariving.domain.archive.exception.InvalidAuthorityException;
 import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
 import com.backend.topcariving.domain.archive.repository.MyCarRepository;
 import com.backend.topcariving.domain.option.dto.request.esitmation.EstimationChangeRequestDTO;
 import com.backend.topcariving.domain.option.dto.response.estimation.OptionSummaryDTO;
 import com.backend.topcariving.domain.option.dto.response.estimation.SummaryResponseDTO;
 import com.backend.topcariving.domain.option.entity.CarOption;
-import com.backend.topcariving.domain.option.exception.InvalidCategoryException;
+import com.backend.topcariving.domain.option.entity.CategoryDetail;
 import com.backend.topcariving.domain.option.repository.CarOptionRepository;
+import com.backend.topcariving.global.utils.Validator;
 
 import lombok.RequiredArgsConstructor;
 
@@ -33,8 +33,10 @@ public class EstimationService {
 	private final MyCarRepository myCarRepository;
 	private final CarOptionRepository carOptionRepository;
 
+	private final Validator validator;
+
 	public SummaryResponseDTO summary(Long userId, Long archivingId) {
-		verifyCarArchiving(userId, archivingId);
+		validator.verifyCarArchiving(userId, archivingId);
 
 		final List<OptionSummaryDTO> OptionSummaryDTOs = myCarRepository.findOptionSummaryByArchivingId(
 			archivingId);
@@ -51,12 +53,12 @@ public class EstimationService {
 		final Long userId = estimationChangeRequestDTO.getUserId();
 		final List<Long> optionIds = estimationChangeRequestDTO.getOptionIds();
 
-		verifyCarArchiving(userId, archivingId);
+		validator.verifyCarArchiving(userId, archivingId);
 
 		final List<CarOption> carOptions = carOptionRepository.findByIds(optionIds);
-		verifySameCategory(carOptions);
-
 		final CarOption carOption = carOptions.get(0);
+		validator.verifySameCategory(carOptions, CategoryDetail.valueOfName(carOption.getCategoryDetail()));
+
 		myCarRepository.deleteByArchivingIdAndCategoryDetail(archivingId, carOption.getCategoryDetail());
 
 		final List<MyCar> myCars = optionIds.stream()
@@ -95,21 +97,5 @@ public class EstimationService {
 		final List<OptionSummaryDTO> values = result.get(optionSummaryDTO.getCategory());
 		values.add(optionSummaryDTO);
 		result.put(optionSummaryDTO.getCategory(), values);
-	}
-
-	private void verifyCarArchiving(Long userId, Long archivingId) {
-		if (!carArchivingRepository.existsByUserIdAndArchivingId(userId, archivingId)) {
-			throw new InvalidAuthorityException();
-		}
-	}
-
-	private void verifySameCategory(List<CarOption> carOptions) {
-		final CarOption carOption = carOptions.get(0);
-		final String category = carOption.getCategoryDetail();
-
-		for (CarOption option : carOptions) {
-			if (!option.getCategoryDetail().equals(category))
-				throw new InvalidCategoryException();
-		}
 	}
 }

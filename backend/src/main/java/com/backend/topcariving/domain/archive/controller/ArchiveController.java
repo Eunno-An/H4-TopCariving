@@ -17,6 +17,7 @@ import com.backend.topcariving.domain.archive.dto.response.ArchiveDetailResponse
 import com.backend.topcariving.domain.archive.dto.response.ArchiveFeedDTO;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveResponseDTO;
 import com.backend.topcariving.domain.archive.dto.response.CreatedCarDTO;
+import com.backend.topcariving.domain.bookmark.service.BookmarkService;
 import com.backend.topcariving.global.response.SuccessResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,6 +29,8 @@ import lombok.RequiredArgsConstructor;
 @RestController
 @RequestMapping("/api/archiving")
 public class ArchiveController {
+
+	private final BookmarkService bookmarkService;
 
 	@GetMapping("/")
 	@Operation(summary = "아카이빙 메인 전체 결과 확인", description = "서비스 사용자들이 시승/구매한 차량 정보 조회")
@@ -62,7 +65,8 @@ public class ArchiveController {
 	@PostMapping("/feeds/bookmarks")
 	@Operation(summary = "차량 북마크 추가 및 삭제", description = "차량을 피드에서 저장한 차량 목록에 저장 및 삭제")
 	public SuccessResponse<Boolean> toggleBookmark(@RequestBody BookmarkRequestDTO bookmarkRequestDTO) {
-		return null;
+		Boolean isAlive = bookmarkService.toggleBookmark(bookmarkRequestDTO);
+		return new SuccessResponse<>(isAlive);
 	}
 
 	@DeleteMapping("/created-cars/{userId}/{archivingId}")

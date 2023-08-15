@@ -10,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.backend.topcariving.domain.archive.entity.CarArchiving;
 import com.backend.topcariving.domain.archive.entity.MyCar;
-import com.backend.topcariving.domain.archive.exception.InvalidAuthorityException;
 import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
 import com.backend.topcariving.domain.archive.repository.MyCarRepository;
 import com.backend.topcariving.domain.option.dto.request.SelectOptionRequestDTO;
@@ -26,6 +25,7 @@ import com.backend.topcariving.domain.option.exception.InvalidCarOptionIdExcepti
 import com.backend.topcariving.domain.option.repository.CarOptionRepository;
 import com.backend.topcariving.domain.option.repository.EngineDetailRepository;
 import com.backend.topcariving.domain.option.repository.ModelPhotoRepository;
+import com.backend.topcariving.global.utils.Validator;
 
 import lombok.RequiredArgsConstructor;
 
@@ -39,6 +39,8 @@ public class TrimService {
 	private final CarArchivingRepository carArchivingRepository;
 	private final MyCarRepository myCarRepository;
 	private final EngineDetailRepository engineDetailRepository;
+
+	private final Validator validator;
 
 	public List<ModelResponseDTO> getModels() {
 		List<CarOption> options = carOptionRepository.findByCategoryDetail(CategoryDetail.MODEL.getName());
@@ -62,7 +64,7 @@ public class TrimService {
 		Long carOptionId = selectOptionRequestDTO.getCarOptionId();
 		Long archivingId = selectOptionRequestDTO.getArchivingId();
 
-		verifyCarOptionId(CategoryDetail.MODEL, carOptionId);
+		validator.verifyCarOptionId(CategoryDetail.MODEL, carOptionId);
 
 		if (archivingId != null) {
 			return updateModel(userId, carOptionId, archivingId);
@@ -87,7 +89,7 @@ public class TrimService {
 	}
 
 	private Long updateModel(Long userId, Long carOptionId, Long archivingId) {
-		verifyCarArchiving(userId, archivingId);
+		validator.verifyCarArchiving(userId, archivingId);
 
 		myCarRepository.updateCarOptionIdByArchivingIdAndCategoryDetail(archivingId, carOptionId, CategoryDetail.MODEL.getName());
 		return archivingId;
@@ -121,8 +123,8 @@ public class TrimService {
 		Long carOptionId = selectOptionRequestDTO.getCarOptionId();
 		Long archivingId = selectOptionRequestDTO.getArchivingId();
 
-		verifyCarArchiving(userId, archivingId);
-		verifyCarOptionId(categoryDetail, carOptionId);
+		validator.verifyCarArchiving(userId, archivingId);
+		validator.verifyCarOptionId(categoryDetail, carOptionId);
 
 		MyCar myCar = MyCar.builder()
 			.carOptionId(carOptionId)
@@ -135,15 +137,4 @@ public class TrimService {
 		return archivingId;
 	}
 
-	private void verifyCarArchiving(Long userId, Long archivingId) {
-		if (!carArchivingRepository.existsByUserIdAndArchivingId(userId, archivingId)) {
-			throw new InvalidAuthorityException();
-		}
-	}
-
-	private void verifyCarOptionId(CategoryDetail categoryDetail, Long carOptionId) {
-		if (!carOptionRepository.existsByCarOptionIdAndCategoryDetail(carOptionId, categoryDetail.getName())) {
-			throw new InvalidCarOptionIdException();
-		}
-	}
 }

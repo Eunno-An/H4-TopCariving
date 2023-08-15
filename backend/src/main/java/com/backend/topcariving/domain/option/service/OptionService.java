@@ -12,7 +12,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.backend.topcariving.domain.archive.entity.MyCar;
-import com.backend.topcariving.domain.archive.exception.InvalidAuthorityException;
 import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
 import com.backend.topcariving.domain.archive.repository.MyCarRepository;
 import com.backend.topcariving.domain.option.dto.request.SelectOptionRequestDTO;
@@ -27,6 +26,7 @@ import com.backend.topcariving.domain.option.entity.CategoryDetail;
 import com.backend.topcariving.domain.option.exception.InvalidCarOptionIdException;
 import com.backend.topcariving.domain.option.repository.CarOptionRepository;
 import com.backend.topcariving.domain.review.repository.TagReviewRepository;
+import com.backend.topcariving.global.utils.Validator;
 
 import lombok.RequiredArgsConstructor;
 
@@ -35,12 +35,14 @@ import lombok.RequiredArgsConstructor;
 @Transactional(readOnly = true)
 public class OptionService {
 
+	private static final int TAG_LIMIT = 5;
+
 	private final CarOptionRepository carOptionRepository;
 	private final CarArchivingRepository carArchivingRepository;
 	private final MyCarRepository myCarRepository;
 	private final TagReviewRepository tagReviewRepository;
 
-	private static final int TAG_LIMIT = 5;
+	private final Validator validator;
 
 	public BasicOptionResponseDTO getBasics() {
 		Map<String, List<OptionResponseDTO>> basicOptions = new HashMap<>();
@@ -67,12 +69,14 @@ public class OptionService {
 
 	@Transactional
 	public Long saveSelectionOptions(SelectOptionsRequestDTO selectOptionsRequestDTO, CategoryDetail categoryDetail) {
-		Long userId = selectOptionsRequestDTO.getUserId();;
+		Long userId = selectOptionsRequestDTO.getUserId();
 		List<Long> selectedOptionIds = selectOptionsRequestDTO.getIds();
 		Long archivingId = selectOptionsRequestDTO.getArchivingId();
 
-		verifyCarArchiving(userId, archivingId);
-		verifyCarOptionId(categoryDetail, selectedOptionIds);
+		validator.verifyCarArchiving(userId, archivingId);
+
+		final List<CarOption> carOptions = carOptionRepository.findByIds(selectedOptionIds);
+		validator.verifySameCategory(carOptions, categoryDetail);
 
 		myCarRepository.deleteByArchivingIdAndCategoryDetail(archivingId, categoryDetail.getName());
 
@@ -94,8 +98,8 @@ public class OptionService {
 		Long carOptionId = selectOptionRequestDTO.getCarOptionId();
 		Long archivingId = selectOptionRequestDTO.getArchivingId();
 
-		verifyCarArchiving(userId, archivingId);
-		verifyCarOptionId(categoryDetail, carOptionId);
+		validator.verifyCarArchiving(userId, archivingId);
+		validator.verifyCarOptionId(categoryDetail, carOptionId);
 
 		myCarRepository.deleteByArchivingIdAndCategoryDetail(archivingId, categoryDetail.getName());
 
@@ -122,25 +126,5 @@ public class OptionService {
 		List<TagResponseDTO> tagResponseDTO = tagReviewRepository.findTagResponseDTOByCarOptionIdAndLimit(carOption.getCarOptionId(), TAG_LIMIT);
 
 		return SelectionResponseDTO.of(carOption, selectionDetailDTOs, tagResponseDTO);
-	}
-
-	private void verifyCarArchiving(Long userId, Long archivingId) {
-		if (!carArchivingRepository.existsByUserIdAndArchivingId(userId, archivingId)) {
-			throw new InvalidAuthorityException();
-		}
-	}
-
-	private void verifyCarOptionId(CategoryDetail categoryDetail, Long carOptionId) {
-		if (!carOptionRepository.existsByCarOptionIdAndCategoryDetail(carOptionId, categoryDetail.getName())) {
-			throw new InvalidCarOptionIdException();
-		}
-	}
-
-	private void verifyCarOptionId(CategoryDetail categoryDetail, List<Long> carOptionIds) {
-		carOptionIds.forEach(carOptionId -> {
-			if (!carOptionRepository.existsByCarOptionIdAndCategoryDetail(carOptionId, categoryDetail.getName())) {
-				throw new InvalidCarOptionIdException();
-			}
-		});
 	}
 }
