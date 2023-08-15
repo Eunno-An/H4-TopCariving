@@ -55,7 +55,8 @@ public class ArchiveController {
 	@PostMapping("/feeds")
 	@Operation(summary = "마이카이빙 피드에 있는 차량을 내가 만든 차량으로 복사", description = "마이카이빙 피드에서 '이 차량으로 내 차 만들기' 버튼을 누르면 실행되는 연산(반환 값은 새로 만들어진 아카이빙 ID입니다)")
 	public SuccessResponse<Long> saveFeedToCreatedCar(@RequestBody FeedCopyRequestDTO feedCopyRequestDTO) {
-		return null;
+		Long archivingId = archiveService.saveFeedToCreatedCar(feedCopyRequestDTO);
+		return new SuccessResponse<>(archivingId);
 	}
 
 	@GetMapping("/details/{archivingId}")

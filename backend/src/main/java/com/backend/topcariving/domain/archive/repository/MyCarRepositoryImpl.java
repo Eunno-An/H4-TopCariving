@@ -2,6 +2,7 @@ package com.backend.topcariving.domain.archive.repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -135,7 +136,11 @@ public class MyCarRepositoryImpl implements MyCarRepository {
 			@Override
 			public void setValues(final PreparedStatement ps, final int i) throws SQLException {
 				final MyCar myCar = myCars.get(i);
-				ps.setLong(1, myCar.getCarOptionId());
+				if (myCar.getCarOptionId() == null) {
+					ps.setNull(1, Types.BIGINT);
+				} else {
+					ps.setLong(1, myCar.getCarOptionId());
+				}
 				ps.setLong(2, myCar.getArchivingId());
 			}
 
@@ -159,7 +164,7 @@ public class MyCarRepositoryImpl implements MyCarRepository {
 		return (rs, rowNum) ->
 			MyCar.builder()
 				.myCarId(rs.getLong("my_car_id"))
-				.carOptionId(rs.getLong("car_option_id"))
+				.carOptionId(rs.getObject("car_option_id", Long.class))
 				.archivingId(rs.getLong("archiving_id"))
 				.build();
 	}

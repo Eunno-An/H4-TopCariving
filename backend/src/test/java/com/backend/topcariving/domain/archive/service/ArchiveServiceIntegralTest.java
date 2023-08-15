@@ -10,9 +10,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.backend.topcariving.config.TestSupport;
+import com.backend.topcariving.domain.archive.dto.request.FeedCopyRequestDTO;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveFeedDTO;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveResponseDTO;
 import com.backend.topcariving.domain.archive.dto.response.SearchOptionDTO;
+import com.backend.topcariving.domain.archive.entity.MyCar;
+import com.backend.topcariving.domain.archive.repository.MyCarRepository;
 import com.backend.topcariving.domain.option.repository.CarOptionRepository;
 
 @SpringBootTest
@@ -21,6 +24,9 @@ class ArchiveServiceIntegralTest extends TestSupport {
 
 	@Autowired
 	private CarOptionRepository carOptionRepository;
+
+	@Autowired
+	private MyCarRepository myCarRepository;
 
 	@Autowired
 	private ArchiveService archiveService;
@@ -72,6 +78,31 @@ class ArchiveServiceIntegralTest extends TestSupport {
 			softAssertions.assertThat(archiveFeedDTOs).hasSize(2);
 			softAssertions.assertThat(archiveFeedDTOs.get(0).getArchivingId()).as("1이 반환되어야 함").isEqualTo(1L);
 			softAssertions.assertThat(archiveFeedDTOs.get(1).getArchivingId()).as("3이 반환되어야 함").isEqualTo(3L);
+		}
+	}
+
+	@Nested
+	@DisplayName("Feed 테스트")
+	class Feed {
+
+		@Test
+		void 제대로_같은_피드에_있는_선택_값과_같은_값이_복사되어야_한다() {
+			// given
+			FeedCopyRequestDTO feedCopyRequestDTO = new FeedCopyRequestDTO(3L, 1L);
+
+			// when
+			Long archivingId = archiveService.saveFeedToCreatedCar(feedCopyRequestDTO);
+
+			// then
+			List<MyCar> copyMyCars = myCarRepository.findByArchivingId(archivingId);
+			List<MyCar> originMyCars = myCarRepository.findByArchivingId(archivingId);
+
+			softAssertions.assertThat(copyMyCars.size()).as("원본과 크기가 같은지 확인").isEqualTo(originMyCars.size());
+			for (int i = 0; i < copyMyCars.size(); i++) {
+				MyCar originMyCar = originMyCars.get(i);
+				MyCar copyMyCar = copyMyCars.get(i);
+				softAssertions.assertThat(originMyCar.getCarOptionId()).as("선택한 옵션이 같은지 확인").isEqualTo(copyMyCar.getCarOptionId());
+			}
 		}
 	}
 

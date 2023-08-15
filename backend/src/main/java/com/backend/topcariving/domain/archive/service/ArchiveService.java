@@ -2,15 +2,18 @@ package com.backend.topcariving.domain.archive.service;
 
 import static com.backend.topcariving.domain.archive.entity.ArchivingType.*;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.backend.topcariving.domain.archive.dto.request.FeedCopyRequestDTO;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveFeedDTO;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveResponseDTO;
 import com.backend.topcariving.domain.archive.dto.response.SearchOptionDTO;
@@ -80,7 +83,7 @@ public class ArchiveService {
 
 	private Map<String, List<String>> createOptionMap(CarArchiving carArchiving) {
 		List<MyCar> myCars = myCarRepository.findByArchivingId(carArchiving.getArchivingId());
-		myCars.removeIf(myCar -> myCar.getCarOptionId() == CAR);
+		myCars.removeIf(myCar -> Objects.equals(myCar.getCarOptionId(), CAR));
 
 		List<Long> optionIds = myCars.stream()
 			.map(MyCar::getCarOptionId)
@@ -104,5 +107,24 @@ public class ArchiveService {
 		carArchiveResult.put(carOption.getCategoryDetail(), values);
 	}
 
+	@Transactional
+	public Long saveFeedToCreatedCar(FeedCopyRequestDTO feedCopyRequestDTO) {
 
+		CarArchiving newCarArchiving = CarArchiving.builder()
+			.dayTime(LocalDateTime.now())
+			.isComplete(true)
+			.isAlive(true)
+			.userId(feedCopyRequestDTO.getUserId())
+			.build();
+
+		newCarArchiving = carArchivingRepository.save(newCarArchiving);
+
+		List<MyCar> myCars = myCarRepository.findByArchivingId(feedCopyRequestDTO.getArchivingId());
+		List<MyCar> newCars = myCars.stream()
+				.map(myCar -> new MyCar(null, myCar.getCarOptionId(), myCar.getArchivingId())).collect(Collectors.toList());
+
+		myCarRepository.saveMultipleData(newCars);
+
+		return newCarArchiving.getArchivingId();
+	}
 }
