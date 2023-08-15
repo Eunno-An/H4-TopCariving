@@ -32,7 +32,6 @@
 		D462E7802A85F3D900C5A8EC /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E77F2A85F3D900C5A8EC /* UIView+.swift */; };
 		D462E7842A86918D00C5A8EC /* BaseOptionMainCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E7832A86918D00C5A8EC /* BaseOptionMainCategoryView.swift */; };
 		D462E78C2A8700EC00C5A8EC /* BaseOptionSubCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E78B2A8700EC00C5A8EC /* BaseOptionSubCategoryView.swift */; };
-		D462E7922A8778C800C5A8EC /* BaseOptionMainCategoryTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E7912A8778C800C5A8EC /* BaseOptionMainCategoryTitleView.swift */; };
 		D462E8122A88A3D700C5A8EC /* SubCategoryModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8112A88A3D700C5A8EC /* SubCategoryModalViewController.swift */; };
 		D462E8162A88D6E600C5A8EC /* ModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8152A88D6E600C5A8EC /* ModalPresentationController.swift */; };
 		D462E81C2A8A700E00C5A8EC /* BaseOptonSubCategoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E81B2A8A700E00C5A8EC /* BaseOptonSubCategoryCell.swift */; };
@@ -134,7 +133,6 @@
 		D462E77F2A85F3D900C5A8EC /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		D462E7832A86918D00C5A8EC /* BaseOptionMainCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseOptionMainCategoryView.swift; sourceTree = "<group>"; };
 		D462E78B2A8700EC00C5A8EC /* BaseOptionSubCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseOptionSubCategoryView.swift; sourceTree = "<group>"; };
-		D462E7912A8778C800C5A8EC /* BaseOptionMainCategoryTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseOptionMainCategoryTitleView.swift; sourceTree = "<group>"; };
 		D462E8112A88A3D700C5A8EC /* SubCategoryModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCategoryModalViewController.swift; sourceTree = "<group>"; };
 		D462E8152A88D6E600C5A8EC /* ModalPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPresentationController.swift; sourceTree = "<group>"; };
 		D462E81B2A8A700E00C5A8EC /* BaseOptonSubCategoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseOptonSubCategoryCell.swift; sourceTree = "<group>"; };
@@ -434,7 +432,6 @@
 				7631E9422A81D3CF00015363 /* CTAButton.swift */,
 				D4A68D4B2A81D2C300E2C1FD /* RotatableOptionImageView.swift */,
 				D4A68D512A8384AC00E2C1FD /* DegreeView.swift */,
-				D462E7912A8778C800C5A8EC /* BaseOptionMainCategoryTitleView.swift */,
 				D462E7832A86918D00C5A8EC /* BaseOptionMainCategoryView.swift */,
 				D462E78B2A8700EC00C5A8EC /* BaseOptionSubCategoryView.swift */,
 				D462E8112A88A3D700C5A8EC /* SubCategoryModalViewController.swift */,
@@ -643,7 +640,6 @@
 				C313500A2A7E826C00D5D401 /* UIImage+.swift in Sources */,
 				D4ACBA482A78A3AD002B6A5B /* ViewController.swift in Sources */,
 				D44B456F2A7B968200E8E207 /* HTTPClient.swift in Sources */,
-				D462E7922A8778C800C5A8EC /* BaseOptionMainCategoryTitleView.swift in Sources */,
 				D4CFBAAF2A7A3E6500CCB27E /* UIFont+.swift in Sources */,
 				D4A68CFA2A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift in Sources */,
 				D4A68D3E2A80F0C400E2C1FD /* TagResponseDTO.swift in Sources */,

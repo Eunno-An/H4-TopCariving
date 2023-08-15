@@ -188,8 +188,13 @@ extension IncludedBaseItemModalViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionHeader = BaseOptionMainCategoryView(data: testTableViewData[section])
         sectionHeader.tag = section
-        sectionHeader.tapPublisher().sink { [weak self] in
+        (sectionHeader.tapPublisher()).sink { [weak self] in
             self?.hideSection(sender: sectionHeader)
+            sectionHeader.toggleArrow()
+        }.store(in: &bag)
+        sectionHeader.arrowTouchUpPublilsher?.sink { [weak self] in
+            self?.hideSection(sender: sectionHeader)
+            sectionHeader.toggleArrow()
         }.store(in: &bag)
         return sectionHeader
     }
