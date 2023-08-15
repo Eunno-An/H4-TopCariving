@@ -5,15 +5,15 @@ import { theme } from '@styles/theme';
 interface completeOptionInterface {
   photoUrl: string;
   optionName: string;
+  optionDetail: string;
   price: number;
-  details: string[];
 }
 
 export const CompleteOptionCard = ({
   photoUrl,
   optionName,
   price,
-  details,
+  optionDetail,
 }: completeOptionInterface) => {
   return (
     <CompleteFlex width={462} height="auto" padding="20px" gap={20}>
@@ -25,12 +25,8 @@ export const CompleteOptionCard = ({
           <Text typo="Body1_Medium">{optionName}</Text>
           <Text typo="Body1_Medium">{price.toLocaleString()}원</Text>
         </Flex>
-        <Flex align="flex-start">
-          <Text typo="Body3_Regular">
-            {details.map((it, idx) =>
-              idx + 1 !== details.length ? <>{it} / </> : <>{it}</>,
-            )}
-          </Text>
+        <Flex justify="flex-start" align="flex-start">
+          <Text typo="Body3_Regular">{optionDetail}</Text>
         </Flex>
       </Flex>
     </CompleteFlex>
@@ -40,7 +36,6 @@ export const CompleteOptionCard = ({
 const CompleteFlex = styled(Flex)`
   border: 2px solid ${theme.palette.Sand};
   border-radius: 20px;
-  // border-bottom: 1px solid ${theme.palette.Sand};
 `;
 
 const ImgContainer = styled.img`

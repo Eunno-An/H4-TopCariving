@@ -102,7 +102,7 @@ export const NavBar = ({ currentUrl }: navBarProps) => {
 
           <Flex justify="flex-end">
             {[1, 2, 3].slice(stepIdx).map((num, idx) => (
-              <>
+              <div key={`step_${idx}`}>
                 <Flex
                   borderRadius="50%"
                   backgroundColor="LightGray"
@@ -115,7 +115,7 @@ export const NavBar = ({ currentUrl }: navBarProps) => {
                   </Text>
                 </Flex>
                 {num === 2 && <img src={vector455} alt="" />}
-              </>
+              </div>
             ))}
           </Flex>
         </Flex>

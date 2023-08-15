@@ -1,4 +1,3 @@
-import { Flex } from '@components/common';
 import MyCar from '@pages/MyCar';
 import BodyType from '@pages/MyCar/Trim/BodyType';
 import { createBrowserRouter } from 'react-router-dom';
@@ -11,7 +10,7 @@ import Error from '@pages/Error';
 import Color from '@pages/MyCar/Color';
 import Complete from '@pages/MyCar/Complete';
 
-import { OptionUrl, ColorUrl, TrimUrl, apiInstance } from '@utils/api';
+import { OptionUrl, ColorUrl, TrimUrl, apiInstance, Summary } from '@utils/api';
 import { TrimCardInterface } from '@components/myCar/trim';
 import { myCarOptionInterface } from '@interface/index';
 import { ArchiveDetail } from '@pages/Archive/detail';
@@ -19,6 +18,7 @@ import { Archive } from '@pages/Archive';
 import { ArchiveMain } from '@pages/Archive/main';
 import { colorInfoInterface } from '@pages/MyCar/Color/interface';
 import { MyCariving } from '@pages/Archive/mycariving';
+import { getArchivingId } from '@components/myCar';
 
 export const router = createBrowserRouter([
   { path: '/', element: <Login /> },
@@ -151,7 +151,18 @@ export const router = createBrowserRouter([
       },
     ],
   },
-  { path: '/my-car/complete', element: <Complete /> },
+  {
+    path: '/my-car/complete',
+    element: <Complete />,
+    loader: async () => {
+      const { options } = await apiInstance({
+        // userId 후에 삭제 필요
+        url: `${Summary.ESTIMATION}/${1}/${getArchivingId()}`,
+        method: 'GET',
+      });
+      return options;
+    },
+  },
   {
     path: '/my-archive',
     element: <MyCariving />,

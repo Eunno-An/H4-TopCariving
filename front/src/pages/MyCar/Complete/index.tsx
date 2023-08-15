@@ -12,9 +12,11 @@ import { useMyCar } from '@contexts/MyCarContext';
 import styled from '@emotion/styled';
 import { theme } from '@styles/theme';
 import { css } from '@emotion/react';
+import { useLoaderData } from 'react-router-dom';
 
 const Complete = () => {
   const { myCarInfo } = useMyCar();
+  const options = useLoaderData() as completeOptionInterface;
 
   return (
     <Flex direction="column">
@@ -35,7 +37,7 @@ const Complete = () => {
           }
         />
         <Information />
-        <SelectOptionContainer />
+        <SelectOptionContainer options={options.선택품목} />
         <RowLine />
         <CompleteButton />
         <Flex
@@ -59,3 +61,20 @@ const RowLine = styled(Flex)`
   background: ${theme.palette.LightSand};
   flex-shrink: 0;
 `;
+
+export type completeOptionKeyType = '모델' | '색상' | '선택품목' | '트림';
+export interface completeOptionValue {
+  carOptionId: number;
+  category: string;
+  categoryDetail: string;
+  name: string;
+  photoUrl: string;
+  price: number;
+}
+
+export interface completeOptionInterface {
+  모델: completeOptionValue[];
+  색상: completeOptionValue[];
+  선택품목: completeOptionValue[];
+  트림: completeOptionValue[];
+}

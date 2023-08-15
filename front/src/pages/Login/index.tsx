@@ -11,7 +11,9 @@ const Login = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    localStorage.clear();
     localStorage.setItem('myCarInfo', JSON.stringify(initMyCarInfo));
+    localStorage.setItem('archivingId', JSON.stringify(null));
   }, []);
 
   const onSubmit = () => {
