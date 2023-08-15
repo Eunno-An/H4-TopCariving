@@ -25,7 +25,7 @@ class BaseOptionSubCategoryCell: UITableViewCell {
     }()
     
     // MARK: - Properties
-    static let identifier = "BaseOptonSubCategoryCell"
+    static let identifier = "BaseOptionSubCategoryCell"
     
     // MARK: - Lifecycles
     required init?(coder: NSCoder) {
@@ -43,13 +43,13 @@ class BaseOptionSubCategoryCell: UITableViewCell {
         titleLabel.text = data.title
         titleImage.image = UIImage(named: data.imageURL)
     }
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         contentView.backgroundColor = .hyundaiLightSand
         contentView.layer.cornerRadius = 8
         contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16))
     }
+    
     // MARK: - Helpers
     func setUI() {
         contentView.addSubview(titleImage)
