@@ -2,14 +2,20 @@ package com.backend.topcariving.domain.option.service;
 
 import static com.backend.topcariving.domain.option.entity.CategoryDetail.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Stream;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,6 +29,7 @@ import com.backend.topcariving.domain.option.dto.request.SelectOptionRequestDTO;
 import com.backend.topcariving.domain.option.dto.request.SelectOptionsRequestDTO;
 import com.backend.topcariving.domain.option.dto.response.selection.SelectionResponseDTO;
 import com.backend.topcariving.domain.option.dto.response.trim.OptionResponseDTO;
+import com.backend.topcariving.domain.option.entity.CategoryDetail;
 
 @SpringBootTest
 @Transactional
@@ -277,6 +284,20 @@ public class OptionServiceIntegralTest extends TestSupport {
 			final CarArchiving carArchiving = findCarArchiving.get();
 			softAssertions.assertThat(carArchiving.getIsComplete()).isTrue();
 		}
+
+		@Test
+		void N_Performance에서_아무것도_입력하지_않는다면_저장하지_않고_그대로_아카이빙_아이디를_반환한다() {
+			// given
+			SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(1L, null, 1L);
+
+			// when
+			Long archivingId = optionService.saveSelectionOption(selectOptionRequestDTO, N_PERFORMANCE);
+
+			// then
+			List<MyCar> findCar = myCarRepository.findByCategoryDetailAndArchivingId(N_PERFORMANCE.getName(),
+				archivingId);
+			Assertions.assertThat(findCar).isEmpty();
+		}
 	}
 
 	@Nested
@@ -296,5 +317,25 @@ public class OptionServiceIntegralTest extends TestSupport {
 			softAssertions.assertThat(selectionResponseDTO.getDetails()).hasSize(6);
 			softAssertions.assertThat(selectionResponseDTO.getTags()).hasSize(5);
 		}
+	}
+
+	@ParameterizedTest
+	@MethodSource("generateCategoryAndSelectOptions")
+	void 선택_옵션에서_아무것도_입력하지_않는다면_저장하지_않고_그대로_아카이빙_아이디를_반환한다(CategoryDetail categoryDetail,
+		SelectOptionsRequestDTO selectOptionsRequestDTO) {
+		//given, when
+		Long archivingId = optionService.saveSelectionOptions(selectOptionsRequestDTO, categoryDetail);
+
+		// then
+		List<MyCar> findCar = myCarRepository.findByCategoryDetailAndArchivingId(categoryDetail.getName(),
+			archivingId);
+		Assertions.assertThat(findCar).isEmpty();
+	}
+
+	static Stream<Arguments> generateCategoryAndSelectOptions() {
+		return Stream.of(
+			Arguments.of(SELECTED, new SelectOptionsRequestDTO(1L, new ArrayList<>(), 1L)),
+			Arguments.of(H_GENUINE_ACCESSORIES, new SelectOptionsRequestDTO(1L, new ArrayList<>(), 1L))
+		);
 	}
 }

@@ -160,6 +160,14 @@ public class MyCarRepositoryImpl implements MyCarRepository {
 		jdbcTemplate.update(sql, carOptionId, archivingId, categoryDetail);
 	}
 
+	@Override
+	public List<MyCar> findByCategoryDetailAndArchivingId(String categoryDetail, Long archivingId) {
+		String sql = "SELECT * FROM MY_CAR MC INNER JOIN CAR_OPTION AS CO ON CO.car_option_id = MC.car_option_id"
+			+ " WHERE category_detail = ? AND archiving_id = ?";
+
+		return jdbcTemplate.query(sql, myCarRowMapper(), categoryDetail, archivingId);
+	}
+
 	private RowMapper<MyCar> myCarRowMapper() {
 		return (rs, rowNum) ->
 			MyCar.builder()

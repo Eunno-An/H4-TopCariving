@@ -75,6 +75,11 @@ public class OptionService {
 
 		validator.verifyCarArchiving(userId, archivingId);
 
+		if (selectedOptionIds.isEmpty() || selectedOptionIds.get(0) == null) {
+			myCarRepository.deleteByArchivingIdAndCategoryDetail(archivingId, categoryDetail.getName());
+			return archivingId;
+		}
+
 		final List<CarOption> carOptions = carOptionRepository.findByIds(selectedOptionIds);
 		validator.verifySameCategory(carOptions, categoryDetail);
 
@@ -99,6 +104,11 @@ public class OptionService {
 		Long archivingId = selectOptionRequestDTO.getArchivingId();
 
 		validator.verifyCarArchiving(userId, archivingId);
+
+		if (carOptionId == null) {
+			myCarRepository.deleteByArchivingIdAndCategoryDetail(archivingId, categoryDetail.getName());
+			return archivingId;
+		}
 		validator.verifyCarOptionId(categoryDetail, carOptionId);
 
 		myCarRepository.deleteByArchivingIdAndCategoryDetail(archivingId, categoryDetail.getName());
