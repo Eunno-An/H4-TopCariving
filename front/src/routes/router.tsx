@@ -18,6 +18,7 @@ import { ArchiveDetail } from '@pages/Archive/detail';
 import { Archive } from '@pages/Archive';
 import { ArchiveMain } from '@pages/Archive/main';
 import { colorInfoInterface } from '@pages/MyCar/Color/interface';
+import { MyCariving } from '@pages/Archive/mycariving';
 
 export const router = createBrowserRouter([
   { path: '/', element: <Login /> },
@@ -153,7 +154,7 @@ export const router = createBrowserRouter([
   { path: '/my-car/complete', element: <Complete /> },
   {
     path: '/my-archive',
-    element: <Flex>마이 카이빙</Flex>,
+    element: <MyCariving />,
   },
   {
     path: '/archive',

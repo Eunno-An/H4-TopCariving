@@ -7,7 +7,11 @@ import { css } from '@emotion/react';
 import { useAlert } from '@contexts/AlertContext';
 import { useNavigate } from 'react-router-dom';
 
-export const ArchiveHeader = () => {
+export const ArchiveHeader = ({
+  pageTitle = '아카이빙',
+}: {
+  pageTitle?: string;
+}) => {
   const { openAlert, closeAlert } = useAlert();
 
   const navigate = useNavigate();
@@ -40,7 +44,7 @@ export const ArchiveHeader = () => {
         <Flex gap={9.58} justify="flex-start">
           <img src={hyundaiBlack} alt="현대자동차 로고" />
           <img src={vector845} alt="벽" />
-          <Text typo="Body4_Medium">아카이빙</Text>
+          <Text typo="Body4_Medium">{pageTitle}</Text>
         </Flex>
 
         <Flex justify="flex-end" gap={21}>
@@ -48,23 +52,27 @@ export const ArchiveHeader = () => {
             <Text typo="Heading5_Bold" palette="Black">
               펠리세이드
             </Text>
-            <img src={vector850} alt="" />
-            <Flex
-              backgroundColor="DarkGray"
-              borderRadius="4px"
-              padding="4px 8px"
-              width="auto"
-              height="auto"
-              gap={4}
-              css={css`
-                cursor: pointer;
-              `}
-              onClick={onClickArchiving}
-            >
-              <Text palette="Neutral" typo="Body2_Medium">
-                마이 카이빙
-              </Text>
-            </Flex>
+            {pageTitle === '아카이빙' && (
+              <>
+                <img src={vector850} alt="" />
+                <Flex
+                  backgroundColor="DarkGray"
+                  borderRadius="4px"
+                  padding="4px 8px"
+                  width="auto"
+                  height="auto"
+                  gap={4}
+                  css={css`
+                    cursor: pointer;
+                  `}
+                  onClick={onClickArchiving}
+                >
+                  <Text palette="Neutral" typo="Body2_Medium">
+                    마이 카이빙
+                  </Text>
+                </Flex>
+              </>
+            )}
           </Flex>
         </Flex>
       </Flex>

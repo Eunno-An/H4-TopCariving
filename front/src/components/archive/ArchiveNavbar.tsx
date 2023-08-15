@@ -4,7 +4,11 @@ import cargoBlack from '@assets/images/cargoBlack.svg';
 import car from '@assets/images/car.svg';
 import styled from '@emotion/styled';
 
-export const ArchiveNavbar = () => {
+export const ArchiveNavbar = ({
+  pageTitle = '아카이빙',
+}: {
+  pageTitle?: string;
+}) => {
   return (
     <Flex height={91} backgroundColor="White">
       <Flex justify="space-between" padding="23px 0 23px 0 " width={1040}>
@@ -19,7 +23,7 @@ export const ArchiveNavbar = () => {
         >
           <img src={cargoBlack} color="red" alt="아카이빙 카고" />
           <Text palette="Black" typo="Heading3_Medium">
-            아카이빙
+            {pageTitle}
           </Text>
         </Flex>
         <MyCarDirect gap={8} width="auto">
