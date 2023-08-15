@@ -48,14 +48,12 @@ class IncludedBaseItemModalViewController: UIViewController {
         setUI()
         setLayout()
         setCancelButtonAction()
-        attribute()
     }
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         setUI()
         setLayout()
         setCancelButtonAction()
-        attribute()
     }
     
     // MARK: - Helpers
@@ -73,6 +71,11 @@ class IncludedBaseItemModalViewController: UIViewController {
         testTableViewData.enumerated().map { (index, _) in
             hiddenSections.insert(index)
         }
+        tableView.register(
+            BaseOptionSubCategoryCell.self,
+            forCellReuseIdentifier: BaseOptionSubCategoryCell.identifier)
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     func setLayout() {
         NSLayoutConstraint.activate([
@@ -102,7 +105,6 @@ class IncludedBaseItemModalViewController: UIViewController {
             self?.dismiss(animated: true)
         }.store(in: &bag)
     }
-    
     @objc private func presentSubCategoryModal(with indexPath: IndexPath) {
         #warning("indexPath에 해당하는 데이터 testTableViewData에 맞는 데이터를 SubCategoryModalViewController로 보내게끔 수정하기")
         DispatchQueue.main.async { [weak self] in
@@ -113,43 +115,6 @@ class IncludedBaseItemModalViewController: UIViewController {
             modal.transitioningDelegate = self
             present(modal, animated: true)
         }
-    }
-}
-
-extension IncludedBaseItemModalViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if hiddenSections.contains(section) {
-            return 0
-        }
-        return testTableViewData[section].count
-    }
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return testTableViewData.count
-    }
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = BaseOptionSubCategoryCell()
-        return cell
-    }
-    func attribute() {
-        tableView.register(
-            BaseOptionSubCategoryCell.self,
-            forCellReuseIdentifier: BaseOptionSubCategoryCell.identifier)
-        tableView.delegate = self
-        tableView.dataSource = self
-    }
-}
-
-extension IncludedBaseItemModalViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        presentSubCategoryModal(with: indexPath)
-    }
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let sectionHeader = BaseOptionMainCategoryView()
-        sectionHeader.tag = section
-        sectionHeader.tapPublisher().sink { [weak self] in
-            self?.hideSection(sender: sectionHeader)
-        }.store(in: &bag)
-        return sectionHeader
     }
     func hideSection(sender: UIView) {
         let section = sender.tag
@@ -170,6 +135,36 @@ extension IncludedBaseItemModalViewController: UITableViewDelegate {
                                         section: tag))
         }
         return indexPaths
+    }
+}
+
+extension IncludedBaseItemModalViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if hiddenSections.contains(section) {
+            return 0
+        }
+        return testTableViewData[section].count
+    }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return testTableViewData.count
+    }
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = BaseOptionSubCategoryCell()
+        return cell
+    }
+}
+
+extension IncludedBaseItemModalViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        presentSubCategoryModal(with: indexPath)
+    }
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let sectionHeader = BaseOptionMainCategoryView()
+        sectionHeader.tag = section
+        sectionHeader.tapPublisher().sink { [weak self] in
+            self?.hideSection(sender: sectionHeader)
+        }.store(in: &bag)
+        return sectionHeader
     }
 }
 
