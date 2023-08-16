@@ -400,8 +400,8 @@
 		D4ACBA7A2A78CDD2002B6A5B /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				D4ACBA7F2A78CE4D002B6A5B /* ViewModelProtocol.swift */,
 				D44B45742A7BC3DF00E8E207 /* DummyViewModel.swift */,
+				D4ACBA7F2A78CE4D002B6A5B /* ViewModelProtocol.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";

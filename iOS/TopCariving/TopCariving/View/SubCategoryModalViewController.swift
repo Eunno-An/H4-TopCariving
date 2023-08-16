@@ -91,9 +91,9 @@ class SubCategoryModalViewController: UIViewController {
             titleImage.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             
             detail.topAnchor.constraint(equalTo: titleImage.bottomAnchor, constant: 20),
-            detail.heightAnchor.constraint(equalToConstant: 40),
-            detail.widthAnchor.constraint(equalToConstant: 287),
-            detail.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            detail.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            detail.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            detail.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
     func setTitle(to text: String) {

@@ -194,6 +194,9 @@ extension IncludedBaseItemModalViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presentSubCategoryModal(with: indexPath)
     }
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 58
+    }
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 79
     }
@@ -212,14 +215,27 @@ extension IncludedBaseItemModalViewController: UITableViewDelegate {
         headerView.layer.cornerRadius = 8
         
         sectionHeader.tag = section
+        (hiddenSections.contains(section) ?
+         sectionHeader.setArrowImage(to: "arrow_down") :
+            sectionHeader.setArrowImage(to: "arrow_up"))
         sectionHeader.tabPublisher.sink { [weak self] _ in
             self?.hideSection(sender: sectionHeader)
-            sectionHeader.toggleArrow()
+            guard let exist = (self?.hiddenSections.contains(section)) else {
+                return
+            }
+            (exist ?
+             sectionHeader.setArrowImage(to: "arrow_down") :
+                sectionHeader.setArrowImage(to: "arrow_up"))
         }.store(in: &bag)
-        sectionHeader.arrowTouchUpPublilsher?.sink { [weak self] in
+        sectionHeader.arrow.touchUpPublisher.sink { [weak self] _ in
             self?.hideSection(sender: sectionHeader)
-            sectionHeader.toggleArrow()
-        }.store(in: &bag)
+            guard let exist = (self?.hiddenSections.contains(section)) else {
+                return
+            }
+            (exist ?
+             sectionHeader.setArrowImage(to: "arrow_down") :
+                sectionHeader.setArrowImage(to: "arrow_up"))
+        }.store(in: &sectionHeader.bag)
         return sectionHeader
     }
 }
@@ -230,6 +246,6 @@ extension IncludedBaseItemModalViewController: UIViewControllerTransitioningDele
         presenting: UIViewController?,
         source: UIViewController
     ) -> UIPresentationController? {
-           return ModalPresentationController(presentedViewController: presented, presenting: presenting)
-       }
+        return ModalPresentationController(presentedViewController: presented, presenting: presenting)
+    }
 }

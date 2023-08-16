@@ -19,7 +19,7 @@ class BaseOptionMainCategoryView: UITableViewHeaderFooterView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    private var arrow: UIButton = {
+    var arrow: UIButton = {
         let button: UIButton = UIButton()
         button.setImage(UIImage(named: "arrow_down"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -27,9 +27,8 @@ class BaseOptionMainCategoryView: UITableViewHeaderFooterView {
     }()
     
     // MARK: - Properties
-    private var bag = Set<AnyCancellable>()
+    var bag = Set<AnyCancellable>()
     var arrowTouchUpPublilsher: AnyPublisher<Void, Never>?
-    private var isClicked = false
     static let identifier = "BaseOptionMainCategoryView"
     
     // MARK: - Lifecycles
@@ -37,7 +36,6 @@ class BaseOptionMainCategoryView: UITableViewHeaderFooterView {
         super.init(reuseIdentifier: reuseIdentifier)
         setUI()
         setLayout()
-        setArrowButtonPublisher()
     }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -51,7 +49,15 @@ class BaseOptionMainCategoryView: UITableViewHeaderFooterView {
         setLayout()
         setArrowButtonPublisher()
         setTitle(to: data.title)
-        setArrowImage(to: "arrow_up")
+    }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        contentView.layer.cornerRadius = 8
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 6, left: 16, bottom: 6, right: 16))
+    }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        bag = Set<AnyCancellable>()
     }
     
     // MARK: - Helpers
@@ -62,7 +68,6 @@ class BaseOptionMainCategoryView: UITableViewHeaderFooterView {
         }
     }
     func setLayout() {
-        heightAnchor.constraint(equalToConstant: 46).isActive = true
         NSLayoutConstraint.activate([
             title.centerYAnchor.constraint(equalTo: centerYAnchor),
             title.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),
@@ -86,11 +91,5 @@ class BaseOptionMainCategoryView: UITableViewHeaderFooterView {
     }
     func setData(to data: BaseOptionMainCategoryModel) {
         setTitle(to: data.title)
-    }
-    func toggleArrow() {
-        isClicked ?
-        arrow.setImage(UIImage(named: "arrow_up"), for: .normal):
-        arrow.setImage(UIImage(named: "arrow_down"), for: .normal)
-        isClicked.toggle()
     }
 }
