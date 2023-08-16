@@ -22,9 +22,8 @@ public class BookmarkService {
 	private final Validator validator;
 
 	@Transactional
-	public Boolean toggleBookmark(BookmarkRequestDTO bookmarkRequestDTO) {
+	public Boolean toggleBookmark(Long userId, BookmarkRequestDTO bookmarkRequestDTO) {
 		final Boolean isBookmarked = bookmarkRequestDTO.getIsBookmarked();
-		final Long userId = bookmarkRequestDTO.getUserId();
 		final Long archivingId = bookmarkRequestDTO.getArchivingId();
 
 		final Optional<Bookmark> findBookmark = bookmarkRepository.findByUserIdAndArchivingId(

@@ -27,6 +27,11 @@ spring:
       schema-locations: classpath*:initDb/schema.sql
       data-locations: classpath*:initDb/data.sql
 
+token:
+  access-token-expiration: 600000
+  secret-key: sE2SFJ4239fsDJ392dsfljk521LK426j2SKfisefjseLEesi
+  refresh-token-expiration: 180000
+
 logging:
   level:
     org:

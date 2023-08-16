@@ -18,9 +18,11 @@ import com.backend.topcariving.domain.option.dto.response.color.InteriorColorRes
 import com.backend.topcariving.domain.option.entity.CategoryDetail;
 import com.backend.topcariving.domain.option.service.ColorService;
 import com.backend.topcariving.domain.option.service.TrimService;
+import com.backend.topcariving.global.auth.annotation.Login;
 import com.backend.topcariving.global.response.SuccessResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
@@ -42,8 +44,8 @@ public class ColorController {
 	@PostMapping("/exteriors")
 	@ResponseStatus(HttpStatus.CREATED)
 	@Operation(summary = "외장 색상 옵션 저장", description = "내 차 만들기에서 외장 색상을 선택한 값을 저장하고, 아카이빙 PK 값을 반환한다")
-	public SuccessResponse<Long> saveExteriorColor(@RequestBody SelectOptionRequestDTO selectOptionRequestDTO) {
-		final Long archivingId = trimService.saveOption(selectOptionRequestDTO, CategoryDetail.EXTERIOR_COLOR);
+	public SuccessResponse<Long> saveExteriorColor(@Parameter(hidden = true) @Login Long userId, @RequestBody SelectOptionRequestDTO selectOptionRequestDTO) {
+		final Long archivingId = trimService.saveOption(userId, selectOptionRequestDTO, CategoryDetail.EXTERIOR_COLOR);
 		return new SuccessResponse<>(archivingId);
 	}
 
@@ -56,8 +58,8 @@ public class ColorController {
 	@PostMapping("/interiors")
 	@ResponseStatus(HttpStatus.CREATED)
 	@Operation(summary = "내장 색상 옵션 저장", description = "내 차 만들기에서 내장 색상을 선택한 값을 저장하고, 아카이빙 PK 값을 반환한다")
-	public SuccessResponse<Long> saveInteriorColor(@RequestBody SelectOptionRequestDTO selectOptionRequestDTO) {
-		final Long archivingId = trimService.saveOption(selectOptionRequestDTO, CategoryDetail.INTERIOR_COLOR);
+	public SuccessResponse<Long> saveInteriorColor(@Parameter(hidden = true) @Login Long userId, @RequestBody SelectOptionRequestDTO selectOptionRequestDTO) {
+		final Long archivingId = trimService.saveOption(userId, selectOptionRequestDTO, CategoryDetail.INTERIOR_COLOR);
 		return new SuccessResponse<>(archivingId);
 	}
 
@@ -70,14 +72,13 @@ public class ColorController {
 	@PostMapping("/both")
 	@ResponseStatus(HttpStatus.CREATED)
 	@Operation(summary = "외장, 내장 색상 옵션 저장", description = "내 차 만들기에서 외장, 내장 색상을 선택한 값을 저장하고, 아카이빙 PK 값을 반환한다")
-	public SuccessResponse<Long> saveBothColor(@RequestBody BothColorRequestDTO bothColorRequestDTO) {
-		final Long userId = bothColorRequestDTO.getUserId();
+	public SuccessResponse<Long> saveBothColor(@Parameter(hidden = true) @Login Long userId, @RequestBody BothColorRequestDTO bothColorRequestDTO) {
 		final Long archivingId = bothColorRequestDTO.getArchivingId();
 		final Long interiorColorOptionId = bothColorRequestDTO.getInteriorColorOptionId();
 		final Long exteriorColorOptionId = bothColorRequestDTO.getExteriorColorOptionId();
 
-		trimService.saveOption(new SelectOptionRequestDTO(userId, interiorColorOptionId, archivingId), CategoryDetail.INTERIOR_COLOR);
-		trimService.saveOption(new SelectOptionRequestDTO(userId, exteriorColorOptionId, archivingId), CategoryDetail.EXTERIOR_COLOR);
+		trimService.saveOption(userId, new SelectOptionRequestDTO(interiorColorOptionId, archivingId), CategoryDetail.INTERIOR_COLOR);
+		trimService.saveOption(userId, new SelectOptionRequestDTO(exteriorColorOptionId, archivingId), CategoryDetail.EXTERIOR_COLOR);
 		return new SuccessResponse<>(archivingId);
 	}
 

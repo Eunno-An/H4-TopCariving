@@ -58,12 +58,11 @@ public class EstimationServiceIntegralTest extends TestSupport {
 			// given
 			final EstimationChangeRequestDTO request = EstimationChangeRequestDTO.builder()
 				.archivingId(1L)
-				.userId(1L)
 				.optionIds(List.of(105L, 106L, 107L))
 				.build();
 
 			// when
-			final Long archivingId = estimationService.changeOptions(request);
+			final Long archivingId = estimationService.changeOptions(1L, request);
 
 			// then
 			softAssertions.assertThat(archivingId).as("Archiving ID의 반환값 확인").isEqualTo(1L);

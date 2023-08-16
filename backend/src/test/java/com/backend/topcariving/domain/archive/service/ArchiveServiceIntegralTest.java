@@ -11,20 +11,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.backend.topcariving.config.TestSupport;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveDetailResponseDTO;
-import com.backend.topcariving.domain.archive.dto.request.FeedCopyRequestDTO;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveFeedDTO;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveResponseDTO;
 import com.backend.topcariving.domain.archive.dto.response.SearchOptionDTO;
 import com.backend.topcariving.domain.archive.entity.MyCar;
 import com.backend.topcariving.domain.archive.repository.MyCarRepository;
-import com.backend.topcariving.domain.option.repository.CarOptionRepository;
 
 @SpringBootTest
 @Transactional
 class ArchiveServiceIntegralTest extends TestSupport {
-
-	@Autowired
-	private CarOptionRepository carOptionRepository;
 
 	@Autowired
 	private MyCarRepository myCarRepository;
@@ -119,14 +114,15 @@ class ArchiveServiceIntegralTest extends TestSupport {
 		@Test
 		void 제대로_같은_피드에_있는_선택_값과_같은_값이_복사되어야_한다() {
 			// given
-			FeedCopyRequestDTO feedCopyRequestDTO = new FeedCopyRequestDTO(3L, 1L);
+			Long userId = 3L;
+			Long archivingId = 1L;
 
 			// when
-			Long archivingId = archiveService.saveFeedToCreatedCar(feedCopyRequestDTO);
+			Long copyArchivingId = archiveService.saveFeedToCreatedCar(userId, archivingId);
 
 			// then
-			List<MyCar> copyMyCars = myCarRepository.findByArchivingId(archivingId);
-			List<MyCar> originMyCars = myCarRepository.findByArchivingId(archivingId);
+			List<MyCar> copyMyCars = myCarRepository.findByArchivingId(copyArchivingId);
+			List<MyCar> originMyCars = myCarRepository.findByArchivingId(copyArchivingId);
 
 			softAssertions.assertThat(copyMyCars.size()).as("원본과 크기가 같은지 확인").isEqualTo(originMyCars.size());
 			for (int i = 0; i < copyMyCars.size(); i++) {

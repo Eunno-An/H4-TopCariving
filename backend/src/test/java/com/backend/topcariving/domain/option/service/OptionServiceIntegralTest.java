@@ -90,7 +90,7 @@ public class OptionServiceIntegralTest extends TestSupport {
 			Long userId = 3L;
 			List<Long> carOptionIds = List.of(103L, 110L);
 			Long archivingId = 3L;
-			final SelectOptionsRequestDTO selectOptionsRequestDTO = new SelectOptionsRequestDTO(userId, carOptionIds,
+			final SelectOptionsRequestDTO selectOptionsRequestDTO = new SelectOptionsRequestDTO(carOptionIds,
 				archivingId);
 			MyCar myCar = MyCar.builder()
 				.archivingId(archivingId)
@@ -99,7 +99,7 @@ public class OptionServiceIntegralTest extends TestSupport {
 			myCarRepository.save(myCar);
 
 			// when
-			Long savedArchivingId = optionService.saveSelectionOptions(selectOptionsRequestDTO, SELECTED);
+			Long savedArchivingId = optionService.saveSelectionOptions(userId, selectOptionsRequestDTO, SELECTED);
 
 			// then
 			softAssertions.assertThat(savedArchivingId).as("3이 반환되어야 함").isEqualTo(archivingId);
@@ -117,16 +117,18 @@ public class OptionServiceIntegralTest extends TestSupport {
 			Long userId = 1L;
 			List<Long> ids = List.of(113L, 114L, 115L);
 			Long archivingId = 1L;
-			final SelectOptionsRequestDTO selectOptionsRequestDTO = new SelectOptionsRequestDTO(userId, ids,
+			final SelectOptionsRequestDTO selectOptionsRequestDTO = new SelectOptionsRequestDTO(ids,
 				archivingId);
 
 			// when
-			final Long returnedArchivingId = optionService.saveSelectionOptions(selectOptionsRequestDTO, SELECTED);
+			final Long returnedArchivingId = optionService.saveSelectionOptions(userId, selectOptionsRequestDTO,
+				SELECTED);
 
 			// then
 			final List<MyCar> myCars = myCarRepository.findByArchivingId(archivingId);
 			softAssertions.assertThat(myCars.stream()
-				.filter(myCar -> Objects.equals(myCar.getCarOptionId(), 103L) || Objects.equals(myCar.getCarOptionId(), 110L))
+				.filter(myCar -> Objects.equals(myCar.getCarOptionId(), 103L) || Objects.equals(myCar.getCarOptionId(),
+					110L))
 				.findFirst()).isEmpty();
 			softAssertions.assertThat(myCars.stream()
 				.filter(myCar -> Objects.equals(myCar.getCarOptionId(), 113L))
@@ -165,7 +167,7 @@ public class OptionServiceIntegralTest extends TestSupport {
 			Long userId = 3L;
 			List<Long> carOptionIds = List.of(121L, 122L, 123L, 124L, 125L);
 			Long archivingId = 3L;
-			final SelectOptionsRequestDTO selectOptionsRequestDTO = new SelectOptionsRequestDTO(userId, carOptionIds,
+			final SelectOptionsRequestDTO selectOptionsRequestDTO = new SelectOptionsRequestDTO(carOptionIds,
 				archivingId);
 			MyCar myCar = MyCar.builder()
 				.archivingId(archivingId)
@@ -174,7 +176,8 @@ public class OptionServiceIntegralTest extends TestSupport {
 			myCarRepository.save(myCar);
 
 			// when
-			Long savedArchivingId = optionService.saveSelectionOptions(selectOptionsRequestDTO, H_GENUINE_ACCESSORIES);
+			Long savedArchivingId = optionService.saveSelectionOptions(userId, selectOptionsRequestDTO,
+				H_GENUINE_ACCESSORIES);
 
 			// then
 			softAssertions.assertThat(savedArchivingId).isEqualTo(archivingId);
@@ -192,15 +195,15 @@ public class OptionServiceIntegralTest extends TestSupport {
 			Long userId = 1L;
 			List<Long> ids = List.of(123L, 125L);
 			Long archivingId = 1L;
-			final SelectOptionsRequestDTO selectOptionsRequestDTO = new SelectOptionsRequestDTO(userId, ids,
+			final SelectOptionsRequestDTO selectOptionsRequestDTO = new SelectOptionsRequestDTO(ids,
 				archivingId);
 
-			final SelectOptionsRequestDTO selectedSavedData = new SelectOptionsRequestDTO(userId, List.of(121L),
+			final SelectOptionsRequestDTO selectedSavedData = new SelectOptionsRequestDTO(List.of(121L),
 				archivingId);
-			optionService.saveSelectionOptions(selectedSavedData, H_GENUINE_ACCESSORIES);
+			optionService.saveSelectionOptions(userId, selectedSavedData, H_GENUINE_ACCESSORIES);
 
 			// when
-			final Long returnedArchivingId = optionService.saveSelectionOptions(selectOptionsRequestDTO,
+			final Long returnedArchivingId = optionService.saveSelectionOptions(userId, selectOptionsRequestDTO,
 				H_GENUINE_ACCESSORIES);
 
 			// then
@@ -238,7 +241,7 @@ public class OptionServiceIntegralTest extends TestSupport {
 			Long userId = 3L;
 			Long carOptionId = 130L;
 			Long archivingId = 3L;
-			final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(userId, carOptionId,
+			final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(carOptionId,
 				archivingId);
 			MyCar myCar = MyCar.builder()
 				.archivingId(archivingId)
@@ -247,7 +250,7 @@ public class OptionServiceIntegralTest extends TestSupport {
 			myCarRepository.save(myCar);
 
 			// when
-			Long savedArchivingId = optionService.saveSelectionOption(selectOptionRequestDTO, N_PERFORMANCE);
+			Long savedArchivingId = optionService.saveSelectionOption(userId, selectOptionRequestDTO, N_PERFORMANCE);
 
 			// then
 			softAssertions.assertThat(savedArchivingId).isEqualTo(archivingId);
@@ -261,14 +264,14 @@ public class OptionServiceIntegralTest extends TestSupport {
 			Long userId = 1L;
 			Long carOptionId = 128L;
 			Long archivingId = 1L;
-			final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(userId, carOptionId,
+			final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(carOptionId,
 				archivingId);
 
-			final SelectOptionRequestDTO selectedSavedData = new SelectOptionRequestDTO(userId, 130L, archivingId);
-			optionService.saveSelectionOption(selectedSavedData, N_PERFORMANCE);
+			final SelectOptionRequestDTO selectedSavedData = new SelectOptionRequestDTO(130L, archivingId);
+			optionService.saveSelectionOption(userId, selectedSavedData, N_PERFORMANCE);
 
 			// when
-			final Long returnedArchivingId = optionService.saveSelectionOption(selectOptionRequestDTO, N_PERFORMANCE);
+			final Long returnedArchivingId = optionService.saveSelectionOption(userId, selectOptionRequestDTO, N_PERFORMANCE);
 
 			// then
 			final List<MyCar> myCars = myCarRepository.findByArchivingId(archivingId);
@@ -288,10 +291,10 @@ public class OptionServiceIntegralTest extends TestSupport {
 		@Test
 		void N_Performance에서_아무것도_입력하지_않는다면_저장하지_않고_그대로_아카이빙_아이디를_반환한다() {
 			// given
-			SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(1L, null, 1L);
+			SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(null, 1L);
 
 			// when
-			Long archivingId = optionService.saveSelectionOption(selectOptionRequestDTO, N_PERFORMANCE);
+			Long archivingId = optionService.saveSelectionOption(1L, selectOptionRequestDTO, N_PERFORMANCE);
 
 			// then
 			List<MyCar> findCar = myCarRepository.findByCategoryDetailAndArchivingId(N_PERFORMANCE.getName(),
@@ -302,10 +305,10 @@ public class OptionServiceIntegralTest extends TestSupport {
 		@Test
 		void N_Performance_를_저장한_후에는_MY_CAR_에_car_option_id_가_null_인_레코드가_저장되어야_한다() {
 			// given
-			SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(1L, 128L, 11L);
+			SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(128L, 11L);
 
 			// when
-			Long archivingId = optionService.saveSelectionOption(selectOptionRequestDTO, N_PERFORMANCE);
+			Long archivingId = optionService.saveSelectionOption(1L, selectOptionRequestDTO, N_PERFORMANCE);
 
 			// then
 			List<MyCar> findCar = myCarRepository.findByArchivingId(archivingId);
@@ -337,7 +340,7 @@ public class OptionServiceIntegralTest extends TestSupport {
 	void 선택_옵션에서_아무것도_입력하지_않는다면_저장하지_않고_그대로_아카이빙_아이디를_반환한다(CategoryDetail categoryDetail,
 		SelectOptionsRequestDTO selectOptionsRequestDTO) {
 		//given, when
-		Long archivingId = optionService.saveSelectionOptions(selectOptionsRequestDTO, categoryDetail);
+		Long archivingId = optionService.saveSelectionOptions(1L, selectOptionsRequestDTO, categoryDetail);
 
 		// then
 		List<MyCar> findCar = myCarRepository.findByCategoryDetailAndArchivingId(categoryDetail.getName(),
@@ -347,8 +350,8 @@ public class OptionServiceIntegralTest extends TestSupport {
 
 	static Stream<Arguments> generateCategoryAndSelectOptions() {
 		return Stream.of(
-			Arguments.of(SELECTED, new SelectOptionsRequestDTO(1L, new ArrayList<>(), 1L)),
-			Arguments.of(H_GENUINE_ACCESSORIES, new SelectOptionsRequestDTO(1L, new ArrayList<>(), 1L))
+			Arguments.of(SELECTED, new SelectOptionsRequestDTO(new ArrayList<>(), 1L)),
+			Arguments.of(H_GENUINE_ACCESSORIES, new SelectOptionsRequestDTO(new ArrayList<>(), 1L))
 		);
 	}
 }

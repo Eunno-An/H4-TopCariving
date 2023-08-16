@@ -8,9 +8,6 @@ import lombok.Getter;
 @Schema(description = "선택한 옵션이 한 개인 경우 사용하는 Request DTO")
 public class SelectOptionRequestDTO {
 
-	@Schema(description = "사용자 ID", example = "1")
-	private Long userId;
-
 	@Schema(description = "차량 옵션 ID", example = "1")
 	private Long carOptionId;
 
@@ -18,8 +15,7 @@ public class SelectOptionRequestDTO {
 	private Long archivingId;
 
 	@Builder
-	public SelectOptionRequestDTO(Long userId, Long carOptionId, Long archivingId) {
-		this.userId = userId;
+	public SelectOptionRequestDTO(Long carOptionId, Long archivingId) {
 		this.carOptionId = carOptionId;
 		this.archivingId = archivingId;
 	}

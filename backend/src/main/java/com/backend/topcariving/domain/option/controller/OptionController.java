@@ -18,9 +18,12 @@ import com.backend.topcariving.domain.option.dto.response.trim.BasicOptionRespon
 import com.backend.topcariving.domain.option.dto.response.trim.OptionResponseDTO;
 import com.backend.topcariving.domain.option.entity.CategoryDetail;
 import com.backend.topcariving.domain.option.service.OptionService;
+
+import com.backend.topcariving.global.auth.annotation.Login;
 import com.backend.topcariving.global.response.SuccessResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
@@ -47,8 +50,8 @@ public class OptionController {
 	@PostMapping("/selections")
 	@Operation(summary = "상세 품목 저장", description = "내 차 만들기에서 선택한 상세 품목의 값을 저장하고, 차량 아카이브 PK 값을 반환함")
 	@ResponseStatus(HttpStatus.CREATED)
-	public SuccessResponse<Long> saveSelectionOptions(@RequestBody SelectOptionsRequestDTO selectOptionsRequestDTO) {
-		return new SuccessResponse<>(optionService.saveSelectionOptions(selectOptionsRequestDTO, CategoryDetail.SELECTED));
+	public SuccessResponse<Long> saveSelectionOptions(@Parameter(hidden = true) @Login Long userId, @RequestBody SelectOptionsRequestDTO selectOptionsRequestDTO) {
+		return new SuccessResponse<>(optionService.saveSelectionOptions(userId, selectOptionsRequestDTO, CategoryDetail.SELECTED));
 	}
 
 	@GetMapping("/accessories")
@@ -60,8 +63,8 @@ public class OptionController {
 	@PostMapping("/accessories")
 	@Operation(summary = "H Genuine Accessories 저장", description = "내 차 만들기에서 선택한 옵션들의 값을 저장하고, 차량 아카이브 PK 값을 반환함")
 	@ResponseStatus(HttpStatus.CREATED)
-	public SuccessResponse<Long> saveAccessories(@RequestBody SelectOptionsRequestDTO selectOptionsRequestDTO) {
-		return new SuccessResponse<>(optionService.saveSelectionOptions(selectOptionsRequestDTO, CategoryDetail.H_GENUINE_ACCESSORIES));
+	public SuccessResponse<Long> saveAccessories(@Parameter(hidden = true) @Login Long userId, @RequestBody SelectOptionsRequestDTO selectOptionsRequestDTO) {
+		return new SuccessResponse<>(optionService.saveSelectionOptions(userId,selectOptionsRequestDTO, CategoryDetail.H_GENUINE_ACCESSORIES));
 	}
 
 	@GetMapping("/performances")
@@ -73,8 +76,8 @@ public class OptionController {
 	@PostMapping("/performances")
 	@Operation(summary = "N Performance 저장", description = "내 차 만들기에서 선택한 옵션들의 값을 저장하고, 차량 아카이브 PK 값을 반환함")
 	@ResponseStatus(HttpStatus.CREATED)
-	public SuccessResponse<Long> savePerformances(@RequestBody SelectOptionRequestDTO selectOptionRequestDTO) {
-		return new SuccessResponse<>(optionService.saveSelectionOption(selectOptionRequestDTO, CategoryDetail.N_PERFORMANCE));
+	public SuccessResponse<Long> savePerformances(@Parameter(hidden = true) @Login Long userId, @RequestBody SelectOptionRequestDTO selectOptionRequestDTO) {
+		return new SuccessResponse<>(optionService.saveSelectionOption(userId, selectOptionRequestDTO, CategoryDetail.N_PERFORMANCE));
 	}
 
 	@GetMapping("/details/{carOptionId}")

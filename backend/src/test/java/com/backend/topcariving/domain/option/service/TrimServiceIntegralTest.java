@@ -56,10 +56,10 @@ public class TrimServiceIntegralTest extends TestSupport {
 			// given
 			Long userId = 1L;
 			Long carOptionId = 1L;
-			final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(userId, carOptionId, null);
+			final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(carOptionId, null);
 
 			// when
-			Long archivingId = trimService.saveModel(selectOptionRequestDTO);
+			Long archivingId = trimService.saveModel(userId, selectOptionRequestDTO);
 
 			// then
 			final boolean isExists = carArchivingRepository.existsByUserIdAndArchivingId(userId, archivingId);
@@ -72,11 +72,11 @@ public class TrimServiceIntegralTest extends TestSupport {
 			Long userId = 1L;
 			Long carOptionId = 2L;
 			Long archivingId = 1L;
-			final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(userId, carOptionId,
+			final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(carOptionId,
 				archivingId);
 
 			// when
-			final Long returnedArchivingId = trimService.saveModel(selectOptionRequestDTO);
+			final Long returnedArchivingId = trimService.saveModel(userId, selectOptionRequestDTO);
 
 			// then
 			final List<MyCar> myCars = myCarRepository.findByArchivingId(archivingId);
@@ -106,7 +106,7 @@ public class TrimServiceIntegralTest extends TestSupport {
 			Long userId = 3L;
 			Long carOptionId = 5L;
 			Long archivingId = 3L;
-			final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(userId, carOptionId,
+			final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(carOptionId,
 				archivingId);
 			MyCar myCar = MyCar.builder()
 				.archivingId(3L)
@@ -115,7 +115,7 @@ public class TrimServiceIntegralTest extends TestSupport {
 			myCarRepository.save(myCar);
 
 			// when
-			Long savedArchivingId = trimService.saveOption(selectOptionRequestDTO, CategoryDetail.ENGINE);
+			Long savedArchivingId = trimService.saveOption(userId, selectOptionRequestDTO, CategoryDetail.ENGINE);
 
 			// then
 			Assertions.assertThat(savedArchivingId).isEqualTo(archivingId);
@@ -129,11 +129,11 @@ public class TrimServiceIntegralTest extends TestSupport {
 			Long userId = 1L;
 			Long carOptionId = 6L;
 			Long archivingId = 1L;
-			final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(userId, carOptionId,
+			final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(carOptionId,
 				archivingId);
 
 			// when
-			final Long returnedArchivingId = trimService.saveOption(selectOptionRequestDTO, CategoryDetail.ENGINE);
+			final Long returnedArchivingId = trimService.saveOption(userId, selectOptionRequestDTO, CategoryDetail.ENGINE);
 
 			// then
 			final List<MyCar> myCars = myCarRepository.findByArchivingId(archivingId);
@@ -165,7 +165,7 @@ public class TrimServiceIntegralTest extends TestSupport {
 			Long userId = 3L;
 			Long carOptionId = 7L;
 			Long archivingId = 3L;
-			final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(userId, carOptionId,
+			final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(carOptionId,
 				archivingId);
 			MyCar myCar = MyCar.builder()
 				.archivingId(3L)
@@ -174,7 +174,7 @@ public class TrimServiceIntegralTest extends TestSupport {
 			myCarRepository.save(myCar);
 
 			// when
-			Long savedArchivingId = trimService.saveOption(selectOptionRequestDTO, CategoryDetail.BODY_TYPE);
+			Long savedArchivingId = trimService.saveOption(userId, selectOptionRequestDTO, CategoryDetail.BODY_TYPE);
 
 			// then
 			Assertions.assertThat(savedArchivingId).isEqualTo(archivingId);
@@ -188,11 +188,11 @@ public class TrimServiceIntegralTest extends TestSupport {
 			Long userId = 1L;
 			Long carOptionId = 8L;
 			Long archivingId = 1L;
-			final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(userId, carOptionId,
+			final SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(carOptionId,
 				archivingId);
 
 			// when
-			final Long returnedArchivingId = trimService.saveOption(selectOptionRequestDTO, CategoryDetail.BODY_TYPE);
+			final Long returnedArchivingId = trimService.saveOption(userId, selectOptionRequestDTO, CategoryDetail.BODY_TYPE);
 
 			// then
 			final List<MyCar> myCars = myCarRepository.findByArchivingId(archivingId);
