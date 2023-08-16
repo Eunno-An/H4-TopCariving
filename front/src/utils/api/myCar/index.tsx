@@ -23,3 +23,8 @@ export const OptionUrl = {
 export const Summary = {
   ESTIMATION: '/api/options/estimations/summary',
 };
+
+export const LoginUrl = {
+  LOGIN: '/login',
+  REISSUE: '/reissue',
+};
