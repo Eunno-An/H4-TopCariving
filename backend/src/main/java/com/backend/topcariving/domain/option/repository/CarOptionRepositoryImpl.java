@@ -40,6 +40,12 @@ public class CarOptionRepositoryImpl implements CarOptionRepository {
 	}
 
 	@Override
+	public List<CarOption> findByCategoryAndParentOptionIdIsNull(String category) {
+		String sql = "SELECT * FROM CAR_OPTION WHERE category = ? AND parent_option_id IS NULL ORDER BY car_option_id ASC;";
+		return jdbcTemplate.query(sql, carOptionRowMapper(), category);
+	}
+
+	@Override
 	public List<CarOption> findByCategoryDetail(String categoryDetail) {
 		String sql = "SELECT * FROM CAR_OPTION WHERE category_detail = ?;";
 		return jdbcTemplate.query(sql, carOptionRowMapper(), categoryDetail);
@@ -68,6 +74,13 @@ public class CarOptionRepositoryImpl implements CarOptionRepository {
 		paramMap.put("ids", ids);
 
 		return namedParameterJdbcTemplate.query(sql, paramMap,carOptionRowMapper());
+	}
+
+	@Override
+	public List<CarOption> findByArchivingId(Long archivingId) {
+		String sql = "SELECT * FROM CAR_OPTION "
+			+ "WHERE car_option_id IN (SELECT car_option_id FROM MY_CAR WHERE archiving_id = ?);";
+		return jdbcTemplate.query(sql, carOptionRowMapper(), archivingId);
 	}
 
 	private RowMapper<CarOption> carOptionRowMapper() {

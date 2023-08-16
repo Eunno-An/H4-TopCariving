@@ -7,7 +7,6 @@ export const ArchiveDetail = () => {
     <>
       <ArchiveReview />
       <ArchiveShortInfo />
-      <Flex height={18} backgroundColor="LightSand"></Flex>
       <ArchiveOptionDetails />
     </>
   );

@@ -23,7 +23,6 @@ export const OptionCard = ({
   dimData,
   changeUserOptionList,
 }: optionCardInterface) => {
-  const [isAddBtnClicked, setIsAddBtnClicked] = useState(isSelected);
   const [hover, setHover] = useState(false);
   return (
     <Card
@@ -79,7 +78,6 @@ export const OptionCard = ({
             <div
               onClick={() => {
                 changeUserOptionList(idx);
-                setIsAddBtnClicked(!isAddBtnClicked);
               }}
             >
               <Button
@@ -87,9 +85,9 @@ export const OptionCard = ({
                 heightType="small"
                 width={142}
                 border={4}
-                css={isAddBtnClicked ? selected : notSelected}
+                css={isSelected ? selected : notSelected}
               >
-                {isAddBtnClicked ? (
+                {isSelected ? (
                   <Flex gap={2}>
                     <Text typo="Body3_Medium">추가완료</Text>
                     <img src={check} alt="" />

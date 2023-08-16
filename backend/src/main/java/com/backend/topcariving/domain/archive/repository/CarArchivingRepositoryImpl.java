@@ -9,6 +9,7 @@ import java.util.Optional;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
@@ -67,6 +68,38 @@ public class CarArchivingRepositoryImpl implements CarArchivingRepository {
 		if (results.isEmpty())
 			return Optional.empty();
 		return Optional.ofNullable(results.get(0));
+	}
+
+	@Override
+	public List<CarArchiving> findByCarOptionIdsAndArchivingTypes(List<Long> carOptionIds, List<String> archivingTypes) {
+		String sql = "SELECT * FROM CAR_ARCHIVING "
+			+ "WHERE archiving_id IN "
+			+ "(SELECT archiving_id FROM MY_CAR "
+			+ "WHERE car_option_id IN (:carOptionIds) "
+			+ "GROUP BY archiving_id "
+			+ "HAVING COUNT(DISTINCT car_option_id) = (:carOptionsSize)) "
+			+ "AND archiving_type IN (:archivingTypes);";
+
+		NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
+
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("carOptionIds", carOptionIds);
+		paramMap.put("carOptionsSize", carOptionIds.size());
+		paramMap.put("archivingTypes", archivingTypes);
+
+		return namedParameterJdbcTemplate.query(sql, paramMap, carArchivingRowMapper());
+	}
+
+	@Override
+	public List<CarArchiving> findByArchivingTypes(List<String> archivingTypes) {
+		String sql = "SELECT * FROM CAR_ARCHIVING WHERE archiving_type IN (:archivingTypes);";
+
+		NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
+
+		Map<String, Object> paramMap = new HashMap<>();
+		paramMap.put("archivingTypes", archivingTypes);
+
+		return namedParameterJdbcTemplate.query(sql, paramMap, carArchivingRowMapper());
 	}
 
 	private RowMapper<CarArchiving> carArchivingRowMapper() {

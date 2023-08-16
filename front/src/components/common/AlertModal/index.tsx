@@ -69,6 +69,7 @@ export const backCss = () => css`
   bottom: 0;
   right: 0;
   background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2;
 `;
 
 const ModalContainer = styled.div`
@@ -87,4 +88,5 @@ const ModalContainer = styled.div`
 
   /* 팝업창그림자 */
   box-shadow: 0px 12px 20px 0px rgba(0, 0, 0, 0.1);
+  z-index: 3;
 `;

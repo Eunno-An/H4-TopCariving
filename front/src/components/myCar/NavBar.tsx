@@ -56,8 +56,8 @@ export const NavBar = ({ currentUrl }: navBarProps) => {
   return (
     <Flex backgroundColor="LightSand" height={60} justify="center">
       {step && (
-        <Flex width={1024}>
-          <Flex gap={12} justify="flex-start">
+        <Flex width={1024} justify="space-between">
+          <Flex width="auto" gap={12} justify="flex-start">
             <Flex gap={5} width="auto">
               <Flex
                 borderRadius="50%"
@@ -100,22 +100,21 @@ export const NavBar = ({ currentUrl }: navBarProps) => {
             </Flex>
           </Flex>
 
-          <Flex justify="flex-end">
+          <Flex width="auto" justify="flex-end">
             {[1, 2, 3].slice(stepIdx).map((num, idx) => (
-              <>
+              <Flex key={`stepCircle_${idx}`}>
                 <Flex
                   borderRadius="50%"
                   backgroundColor="LightGray"
                   width={20}
                   height={20}
-                  key={`stepCircle_${idx}`}
                 >
                   <Text palette="Neutral" typo="Body4_Medium">
                     {num}
                   </Text>
                 </Flex>
                 {num === 2 && <img src={vector455} alt="" />}
-              </>
+              </Flex>
             ))}
           </Flex>
         </Flex>

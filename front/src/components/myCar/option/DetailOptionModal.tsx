@@ -81,15 +81,32 @@ export const DetailOptionModal = ({
             )}원`}</div>
           </Content>
         </ContentWrapper>
-        <Title>{`선택 옵션 ${myCarInfo.selectedOption.length}`}</Title>
+        <Title>{`선택 옵션 \u00A0 ${myCarInfo.option.selected.length}`}</Title>
         <ContentWrapper>
-          {myCarInfo.selectedOption.map((item) => (
-            <Content>
+          {myCarInfo.option.selected.map((item, idx) => (
+            <Content key={`option_selected_${idx}`}>
               <p>{item.name}</p>
               <div>{`+${item.price.toLocaleString()}원`}</div>
             </Content>
           ))}
-          <Content></Content>
+        </ContentWrapper>
+        <Title>{`H Genuine Accessories \u00A0 ${myCarInfo.option.genuine.length}`}</Title>
+        <ContentWrapper>
+          {myCarInfo.option.genuine.map((item, idx) => (
+            <Content key={`option_genuine_${idx}`}>
+              <p>{item.name}</p>
+              <div>{`+${item.price.toLocaleString()}원`}</div>
+            </Content>
+          ))}
+        </ContentWrapper>
+        <Title>{`N Performance \u00A0 ${myCarInfo.option.performance.length}`}</Title>
+        <ContentWrapper>
+          {myCarInfo.option.performance.map((item, idx) => (
+            <Content key={`option_performance_${idx}`}>
+              <p>{item.name}</p>
+              <div>{`+${item.price.toLocaleString()}원`}</div>
+            </Content>
+          ))}
         </ContentWrapper>
       </ModalContainer>
     </Flex>

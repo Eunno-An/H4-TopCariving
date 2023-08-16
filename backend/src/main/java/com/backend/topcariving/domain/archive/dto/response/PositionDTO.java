@@ -1,5 +1,7 @@
 package com.backend.topcariving.domain.archive.dto.response;
 
+import com.backend.topcariving.domain.option.entity.Position;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -18,4 +20,12 @@ public class PositionDTO {
 
 	@Schema(description = "위쪽에서의 퍼센트값", example = "35%")
 	private String topPercent;
+
+	public static PositionDTO from(Position position) {
+		return PositionDTO.builder()
+			.positionId(position.getPositionId())
+			.leftPercent(position.getLeftPercent())
+			.topPercent(position.getTopPercent())
+			.build();
+	}
 }

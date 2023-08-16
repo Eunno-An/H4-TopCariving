@@ -183,7 +183,12 @@ const Color = () => {
           <Line />
           <GridContainer>
             {colorInfo.exteriorColorResponses.map((item, idx) => (
-              <Flex direction="column" justify="flex-start" gap={8}>
+              <Flex
+                direction="column"
+                justify="flex-start"
+                gap={8}
+                key={item.carOptionId}
+              >
                 <ColorWrapper
                   isSelected={
                     myCarInfo.color.exteriorColor?.id === item.carOptionId

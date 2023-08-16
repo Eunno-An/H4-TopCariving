@@ -120,3 +120,14 @@ CREATE TABLE IF NOT EXISTS BOOKMARK
     CONSTRAINT fk_bookmark_to_user_info FOREIGN KEY (user_id) REFERENCES USER_INFO (user_id),
     CONSTRAINT fk_bookmark_to_archiving FOREIGN KEY (archiving_id) REFERENCES CAR_ARCHIVING (archiving_id)
     );
+
+CREATE TABLE IF NOT EXISTS POSITION_INFO (
+    position_id bigint auto_increment,
+    left_pixel varchar(10),
+    top_pixel varchar(10),
+    left_percent varchar(10),
+    top_percent varchar(10),
+    car_option_id bigint,
+    CONSTRAINT pk_position PRIMARY KEY (position_id),
+    CONSTRAINT fk_position_to_caR_option FOREIGN KEY (car_option_id) REFERENCES CAR_OPTION (car_option_id)
+);

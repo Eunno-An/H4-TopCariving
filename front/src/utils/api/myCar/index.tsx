@@ -21,5 +21,5 @@ export const OptionUrl = {
 };
 
 export const Summary = {
-  ESTIMATION: '/api/options/estimations',
+  ESTIMATION: '/api/options/estimations/summary',
 };

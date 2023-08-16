@@ -2,9 +2,10 @@ package com.backend.topcariving.domain.archive.dto.response;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Map;
 
-import com.backend.topcariving.domain.option.dto.response.estimation.OptionSummaryDTO;
+import com.backend.topcariving.domain.archive.entity.CarArchiving;
+import com.backend.topcariving.domain.option.dto.response.tag.TagResponseDTO;
+import com.backend.topcariving.domain.review.entity.CarReview;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
@@ -25,9 +26,6 @@ public class ArchiveDetailResponseDTO {
 	@Schema(description = "차량 아카이빙 타입", example = "시승/구매/내 차 만들기")
 	private String archivingType;
 
-	@Schema(description = "차량 옵션들")
-	private Map<String, List<OptionSummaryDTO>> carArchiveResult;
-
 	@Schema(description = "총 가격")
 	private Integer totalPrice;
 
@@ -37,9 +35,27 @@ public class ArchiveDetailResponseDTO {
 	@Schema(description = "북마크 여부(true: 북마크함)", example = "true")
 	private Boolean isBookmarked;
 
-	@Schema(description = "선택 옵션 디테일")
+	@Schema(description = "차량 옵션 디테일")
 	private List<OptionDetailDTO> optionDetails;
 
-	@Schema(description = "차량 전체 리뷰", example = "너무 좋아요~~")
-	private String review;
+	@Schema(description = "차량 전체 텍스트 리뷰", example = "너무 좋아요~~")
+	private String carReview;
+
+	@Schema(description = "차량 전체 태그 리뷰")
+	private List<TagResponseDTO> tags;
+
+	public static ArchiveDetailResponseDTO of(CarArchiving carArchiving, int totalPrice, List<PositionDTO> positions,
+		boolean isBookmarked, List<OptionDetailDTO> optionDetails, CarReview carReview, List<TagResponseDTO> tags) {
+		return ArchiveDetailResponseDTO.builder()
+			.archivingId(carArchiving.getArchivingId())
+			.dayTime(carArchiving.getDayTime())
+			.archivingType(carArchiving.getArchivingType())
+			.totalPrice(totalPrice)
+			.positions(positions)
+			.isBookmarked(isBookmarked)
+			.optionDetails(optionDetails)
+			.carReview(carReview == null ? null : carReview.getReview())
+			.tags(tags)
+			.build();
+	}
 }

@@ -1,6 +1,7 @@
 package com.backend.topcariving.domain.option.service;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 import org.assertj.core.api.Assertions;
@@ -136,7 +137,8 @@ public class TrimServiceIntegralTest extends TestSupport {
 
 			// then
 			final List<MyCar> myCars = myCarRepository.findByArchivingId(archivingId);
-			MyCar myCar = myCars.stream().filter(findCar -> findCar.getCarOptionId().equals(carOptionId)).findFirst()
+			MyCar myCar = myCars.stream()
+				.filter(findCar -> Objects.equals(findCar.getCarOptionId(), carOptionId)).findFirst()
 				.orElse(null);
 			Assertions.assertThat(myCar.getCarOptionId()).isEqualTo(carOptionId);
 		}
@@ -194,7 +196,7 @@ public class TrimServiceIntegralTest extends TestSupport {
 
 			// then
 			final List<MyCar> myCars = myCarRepository.findByArchivingId(archivingId);
-			MyCar myCar = myCars.stream().filter(findCar -> findCar.getCarOptionId().equals(carOptionId)).findFirst()
+			MyCar myCar = myCars.stream().filter(findCar -> findCar.getCarOptionId() == carOptionId).findFirst()
 				.orElse(null);
 			Assertions.assertThat(myCar.getCarOptionId()).isEqualTo(carOptionId);
 		}

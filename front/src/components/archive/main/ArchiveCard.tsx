@@ -5,6 +5,7 @@ import { theme } from '@styles/theme';
 import { OptionChip } from '.';
 import { Dispatch, SetStateAction } from 'react';
 import { css } from '@emotion/react';
+import { useNavigate } from 'react-router-dom';
 
 interface ArchiveCardProps {
   selectedOption: {
@@ -35,8 +36,19 @@ export const ArchiveCard = ({
     setSelectedOption(newOptionList);
   };
 
+  const navigate = useNavigate();
+
+  const onMoveDetail = () => {
+    navigate('/archive/detail');
+  };
+
   return (
-    <Wrapper direction="column" justify="flex-start" align="flex-start">
+    <Wrapper
+      direction="column"
+      justify="flex-start"
+      align="flex-start"
+      onClick={onMoveDetail}
+    >
       <Flex height="auto" justify="space-between" margin="0 0 5px 0">
         <Text typo="Heading3_Bold">펠리세이드 Le Blanc</Text>
         <BrownTag>23년 7월 19일에 시승했어요</BrownTag>
@@ -114,6 +126,7 @@ const Wrapper = styled(Flex)`
   border: 3px solid ${theme.palette.Sand};
   border-radius: 8px;
   padding: 30px 20px;
+  cursor: pointer;
 `;
 
 const BrownTag = styled(Flex)`

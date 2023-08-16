@@ -68,7 +68,7 @@ class MyCarRepositoryTest extends TestSupport {
 		final List<MyCar> myCars = myCarRepository.findByArchivingId(archivingId);
 
 		// then
-		Assertions.assertThat(myCars).hasSize(8);
+		Assertions.assertThat(myCars).hasSize(9);
 	}
 
 	@Test
@@ -104,30 +104,6 @@ class MyCarRepositoryTest extends TestSupport {
 		final Optional<MyCar> findMyCar = myCarRepository.findById(1L);
 		Assertions.assertThat(findMyCar).isEmpty();
 	}
-
-	// @Test
-	// void saveMultipleData() {
-	// 	// given
-	// 	MyCar myCar1 = MyCar.builder()
-	// 		.archivingId(1L)
-	// 		.carOptionId(113L)
-	// 		.build();
-	// 	MyCar myCar2 = MyCar.builder()
-	// 		.archivingId(1L)
-	// 		.carOptionId(130L)
-	// 		.build();
-	//
-	// 	// when
-	// 	myCarRepository.saveMultipleData(List.of(myCar1, myCar2));
-	//
-	// 	// then
-	// 	final Optional<MyCar> findMyCar1 = myCarRepository.findByArchivingIdAndCarOptionId(1L, 113L);
-	// 	softAssertions.assertThat(findMyCar1).as("1번 저장 값이 유효한지").isPresent();
-	//
-	// 	final Optional<MyCar> findMyCar2 = myCarRepository.findByArchivingIdAndCarOptionId(1L, 130L);
-	// 	softAssertions.assertThat(findMyCar2).as("2번 저장 값이 유효한지").isPresent();
-	// }
-
 
 	@Test
 	void updateCarOptionIdByArchivingIdAndCategoryDetail() {

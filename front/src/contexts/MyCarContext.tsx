@@ -16,6 +16,7 @@ export type exteriorColorType =
   | '크리미 화이트 펄';
 
 export type trimKey = 'type' | 'engine' | 'bodyType' | 'traction';
+export type optionKey = 'selected' | 'genuine' | 'performance';
 
 export interface MyCarInfoInterface {
   trim: {
@@ -39,7 +40,7 @@ export interface MyCarInfoInterface {
       price: number;
     } | null;
   };
-  selectedOption: { id: number; name: string; price: number }[];
+  option: { [key in optionKey]: { id: number; name: string; price: number }[] };
   price: number;
 }
 
@@ -51,7 +52,7 @@ export interface MyCarContextType {
 export const initMyCarInfo = {
   trim: { type: null, engine: null, bodyType: null, traction: null },
   color: { exteriorColor: null, interiorColor: null },
-  selectedOption: [],
+  option: { selected: [], genuine: [], performance: [] },
   price: 0,
 };
 

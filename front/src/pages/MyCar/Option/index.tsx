@@ -4,7 +4,7 @@ import {
   OptionModal,
   alertContentInterface,
 } from '@components/myCar/option/OptionModal';
-import { useMyCar } from '@contexts/MyCarContext';
+import { optionKey, useMyCar } from '@contexts/MyCarContext';
 import { OptionCard, OptionInfoCard } from '@components/myCar/option';
 
 import React, { useEffect, useState } from 'react';
@@ -32,12 +32,33 @@ const cateName = {
   default: '기본 포함 품목',
 };
 
+const pageKey = {
+  '/my-car/option': 'selected',
+  '/my-car/option/genuine': 'genuine',
+  '/my-car/option/performance': 'performance',
+} as { [key in string]: optionKey };
+
 export const MyCarOptions = () => {
   const { selectOptionData, defaultOptionData } =
     useLoaderData() as optionDatasInterface;
 
+  const [optionKey, setOptionKey] = useState<optionKey>('selected');
+
+  useEffect(() => {
+    setOptionKey(pageKey[window.location.pathname]);
+    const handleLocationChange = () => {
+      setOptionKey(pageKey[window.location.pathname]);
+    };
+
+    window.addEventListener('popstate', handleLocationChange);
+
+    return () => {
+      window.removeEventListener('popstate', handleLocationChange);
+    };
+  }, []);
+
   const { myCarInfo, setMyCarInfo } = useMyCar();
-  const [dummyData, setDummyData] = useState(selectOptionData);
+  const [optionInfo, setOptionInfo] = useState(selectOptionData);
 
   const [selectedItem, setSelectedItem] = useState(0);
   const [selectedMenu, setSelectedMenu] = useState(cateName.select);
@@ -57,8 +78,8 @@ export const MyCarOptions = () => {
   });
 
   const getSelectedState = (optionIdx: number) => {
-    for (const selectedOption of myCarInfo.selectedOption) {
-      if (selectedOption.id === dummyData[optionIdx].carOptionId) {
+    for (const selectedOption of myCarInfo.option[optionKey]) {
+      if (selectedOption.id === optionInfo[optionIdx].carOptionId) {
         return true;
       }
     }
@@ -66,26 +87,69 @@ export const MyCarOptions = () => {
   };
 
   const changeUserOptionList = (optionIdx: number) => {
-    getSelectedState(optionIdx)
-      ? setMyCarInfo({
+    if (optionKey === 'performance') {
+      // 하나만 선택 가능
+      if (
+        optionInfo[optionIdx].carOptionId === myCarInfo.option[optionKey][0]?.id
+      ) {
+        // 삭제
+        setMyCarInfo({
           ...myCarInfo,
-          price: myCarInfo.price - dummyData[optionIdx].price,
-          selectedOption: myCarInfo.selectedOption.filter(
-            (item) => item.id !== dummyData[optionIdx].carOptionId,
-          ),
-        })
-      : setMyCarInfo({
-          ...myCarInfo,
-          price: myCarInfo.price + dummyData[optionIdx].price,
-          selectedOption: [
-            ...myCarInfo.selectedOption,
-            {
-              id: dummyData[optionIdx].carOptionId,
-              name: dummyData[optionIdx].optionName,
-              price: dummyData[optionIdx].price,
-            },
-          ],
+          price: myCarInfo.price - optionInfo[optionIdx].price,
+          option: {
+            ...myCarInfo.option,
+            [optionKey]: [],
+          },
         });
+      } else {
+        // 추가
+        const curPrice = myCarInfo.option[optionKey][0]
+          ? myCarInfo.option[optionKey][0].price
+          : 0;
+        setMyCarInfo({
+          ...myCarInfo,
+          price: myCarInfo.price - curPrice + optionInfo[optionIdx].price,
+          option: {
+            ...myCarInfo.option,
+            [optionKey]: [
+              {
+                id: optionInfo[optionIdx].carOptionId,
+                name: optionInfo[optionIdx].optionName,
+                price: optionInfo[optionIdx].price,
+              },
+            ],
+          },
+        });
+      }
+    } else {
+      // 여러 개 선택 가능
+      getSelectedState(optionIdx)
+        ? setMyCarInfo({
+            ...myCarInfo,
+            price: myCarInfo.price - optionInfo[optionIdx].price,
+            option: {
+              ...myCarInfo.option,
+              [optionKey]: myCarInfo.option[optionKey].filter(
+                (item) => item.id !== optionInfo[optionIdx].carOptionId,
+              ),
+            },
+          })
+        : setMyCarInfo({
+            ...myCarInfo,
+            price: myCarInfo.price + optionInfo[optionIdx].price,
+            option: {
+              ...myCarInfo.option,
+              [optionKey]: [
+                ...myCarInfo.option[optionKey],
+                {
+                  id: optionInfo[optionIdx].carOptionId,
+                  name: optionInfo[optionIdx].optionName,
+                  price: optionInfo[optionIdx].price,
+                },
+              ],
+            },
+          });
+    }
   };
 
   const onMovePage = ({ pageParam }: { pageParam: number }) => {
@@ -130,7 +194,7 @@ export const MyCarOptions = () => {
     setIsOpen(false);
   };
 
-  const fetchDetilsData = async (optionId: number) => {
+  const fetchDetailsData = async (optionId: number) => {
     const res = (await await apiInstance({
       url: `/api/options/details/${optionId}`,
       method: 'GET',
@@ -141,8 +205,8 @@ export const MyCarOptions = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const data = (await fetchDetilsData(
-        dummyData[selectedItem].carOptionId,
+      const data = (await fetchDetailsData(
+        optionInfo[selectedItem].carOptionId,
       )) as optionInfoInterface;
 
       setInfo(data);
@@ -151,39 +215,42 @@ export const MyCarOptions = () => {
   }, [selectedItem]);
 
   return (
-    <Flex direction="column" justify="flex-start" height={561} gap={15}>
+    <Flex direction="column" justify="flex-start" height="auto" gap={15}>
       {/* 옵션 상단 */}
-      <Flex gap={39}>
+      <Flex gap={39} height={320}>
         {/* 이미지 */}
-        <Flex width={479} height={304}>
-          <ImgContainer src={dummyData[selectedItem].photoUrl} alt="" />
+        <Flex width={479}>
+          <ImgContainer src={optionInfo[selectedItem].photoUrl} alt="" />
         </Flex>
         {/* 옵션 Info */}
-        <Flex direction="column">
+        <Flex direction="column" justify="flex-start">
           {/* 옵션 이름 / 가격 */}
           <OptionContainer>
             <Text typo="Heading1_Bold">
-              {dummyData[selectedItem].optionName}
+              {optionInfo[selectedItem].optionName}
             </Text>
             <Text typo="Heading2_Bold">
-              +{dummyData[selectedItem].price.toLocaleString()} 원
+              +{optionInfo[selectedItem].price.toLocaleString()} 원
             </Text>
           </OptionContainer>
           {/* 옵션에대한 태그칩 */}
           <Flex
             width={507}
-            height={108}
-            padding="10px 0 10px 0"
+            height="auto"
+            margin="12px 0 18px 0"
+            gap={12}
             direction="column"
-            align="flex-start"
+            justify="flex-start"
           >
-            <Text>
-              {dummyData[selectedItem].optionName}
+            <Flex justify="flex-start" gap={4} height="auto">
+              <Text typo="Heading3_Medium">
+                {optionInfo[selectedItem].optionName}
+              </Text>
               <Text typo="Body3_Regular">
                 에 대해 시승자들은 이런 후기를 남겼어요
               </Text>
-            </Text>
-            <Flex gap={4} height={70} justify="flex-start" css={TagWrap}>
+            </Flex>
+            <Flex gap={4} height="auto" justify="flex-start" css={TagWrap}>
               {info?.tags &&
                 info.tags.map((it, idx) => (
                   <Tag key={`tags_${idx}`} desc={it.tagContent} />
@@ -210,7 +277,7 @@ export const MyCarOptions = () => {
             onClick={() => {
               if (selectedMenu !== cateName.select) {
                 setCarPageIdx(0);
-                setDummyData(dummyData);
+                setOptionInfo(optionInfo);
                 setSelectedMenu(cateName.select);
               }
             }}
@@ -235,7 +302,7 @@ export const MyCarOptions = () => {
             {defaultCategoryList.map((it, idx) => (
               <React.Fragment key={`optionTag_${idx}`}>
                 <OptionTag
-                  typo="Body4_Medium"
+                  typo="Body3_Medium"
                   palette={defaultOption === idx ? 'Black' : 'MediumGray'}
                   onClick={() => {
                     setCurrentDefaultCategory(defaultCategoryList[idx]);
@@ -257,27 +324,33 @@ export const MyCarOptions = () => {
           height={300}
         >
           {(selectedMenu === cateName.select
-            ? dummyData
+            ? selectOptionData
             : defaultOptionData[currentDefaultCategory]
           ).map((item, idx) => (
             <div
               key={`optionCard_${item.carOptionId}`}
               onClick={() => onSelectedItemHandler(idx)}
             >
-              <OptionCard
-                idx={idx}
-                isSelected={myCarInfo.selectedOption.some(
-                  (item) => item.id === dummyData[idx].carOptionId,
-                )}
-                dimData={
-                  dummyData[idx]?.optionDetail
-                    ? dummyData[idx].optionDetail
-                    : '상세설명이 없습니다.'
-                }
-                optionItem={item}
-                selectedMenu={selectedMenu}
-                changeUserOptionList={changeUserOptionList}
-              />
+              {optionInfo[idx] && (
+                <OptionCard
+                  idx={idx}
+                  isSelected={
+                    myCarInfo.option[optionKey]
+                      ? myCarInfo.option[optionKey].some(
+                          (item) => item.id === optionInfo[idx].carOptionId,
+                        )
+                      : false
+                  }
+                  dimData={
+                    optionInfo[idx]?.optionDetail
+                      ? optionInfo[idx].optionDetail
+                      : '상세설명이 없습니다.'
+                  }
+                  optionItem={item}
+                  selectedMenu={selectedMenu}
+                  changeUserOptionList={changeUserOptionList}
+                />
+              )}
             </div>
           ))}
         </OptionListContainer>
@@ -314,7 +387,22 @@ const MenuName = styled(Text)<{ isSelected: boolean }>`
   ${({ isSelected }) =>
     isSelected ? theme.typo.Body1_Medium : theme.typo.Heading4_Bold};
   color: ${({ isSelected }) => !isSelected && theme.palette.LightGray};
+
   cursor: pointer;
+  position: relative; /* 부모 요소에 대해 상대 위치 설정 */
+  white-space: nowrap;
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    width: 100%;
+    height: 3px;
+    background-color: ${theme.palette.Black};
+    opacity: ${({ isSelected }) => (isSelected ? 1 : 0)};
+    transition: opacity 0.3s;
+  }
 `;
 
 const TagWrap = css`
@@ -322,13 +410,15 @@ const TagWrap = css`
 `;
 
 const OptionMenu = styled(Flex)`
-  border-bottom: 3px solid ${theme.palette.LightGray};
+  padding: 4px;
+  border-bottom: 2px solid ${theme.palette.LightGray};
 `;
 
 const OptionContainer = styled(Flex)`
   width: 507px;
   height: 44px;
   justify-content: space-between;
+  align-items: flex-start;
 
   border-bottom: 2px solid #545454;
 `;

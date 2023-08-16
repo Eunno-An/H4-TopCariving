@@ -23,4 +23,6 @@ public interface MyCarRepository {
 	void saveMultipleData(List<MyCar> myCars);
 
 	void updateCarOptionIdByArchivingIdAndCategoryDetail(Long archivingId, Long carOptionId, String categoryDetail);
+
+	List<MyCar> findByCategoryDetailAndArchivingId(String categoryDetail, Long archivingId);
 }

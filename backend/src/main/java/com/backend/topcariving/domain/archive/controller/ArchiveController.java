@@ -17,6 +17,8 @@ import com.backend.topcariving.domain.archive.dto.response.ArchiveDetailResponse
 import com.backend.topcariving.domain.archive.dto.response.ArchiveFeedDTO;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveResponseDTO;
 import com.backend.topcariving.domain.archive.dto.response.CreatedCarDTO;
+import com.backend.topcariving.domain.archive.service.ArchiveService;
+import com.backend.topcariving.domain.bookmark.service.BookmarkService;
 import com.backend.topcariving.global.response.SuccessResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -29,10 +31,13 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/api/archiving")
 public class ArchiveController {
 
-	@GetMapping("/")
+	private final ArchiveService archiveService;
+	private final BookmarkService bookmarkService;
+
+	@GetMapping("/result")
 	@Operation(summary = "아카이빙 메인 전체 결과 확인", description = "서비스 사용자들이 시승/구매한 차량 정보 조회")
 	public ArchiveResponseDTO archivingSearch(@RequestParam(required = false) List<Long> optionIds) {
-		return null;
+		return archiveService.archivingSearch(optionIds);
 	}
 
 	@GetMapping("/created-cars")
@@ -50,19 +55,21 @@ public class ArchiveController {
 	@PostMapping("/feeds")
 	@Operation(summary = "마이카이빙 피드에 있는 차량을 내가 만든 차량으로 복사", description = "마이카이빙 피드에서 '이 차량으로 내 차 만들기' 버튼을 누르면 실행되는 연산(반환 값은 새로 만들어진 아카이빙 ID입니다)")
 	public SuccessResponse<Long> saveFeedToCreatedCar(@RequestBody FeedCopyRequestDTO feedCopyRequestDTO) {
-		return null;
+		Long archivingId = archiveService.saveFeedToCreatedCar(feedCopyRequestDTO);
+		return new SuccessResponse<>(archivingId);
 	}
 
-	@GetMapping("/details/{archivingId}")
+	@GetMapping("/details/{userId}/{archivingId}")
 	@Operation(summary = "차량 세부 정보 조회", description = "아카이빙 및 마이아카이빙에서 선택한 차량의 세부 정보 조회")
-	public ArchiveDetailResponseDTO getDetailsCars(@PathVariable Long archivingId) {
-		return null;
+	public ArchiveDetailResponseDTO getDetailsCars(@PathVariable Long userId, @PathVariable Long archivingId) {
+		return archiveService.getDetailsCars(userId, archivingId);
 	}
 
 	@PostMapping("/feeds/bookmarks")
 	@Operation(summary = "차량 북마크 추가 및 삭제", description = "차량을 피드에서 저장한 차량 목록에 저장 및 삭제")
 	public SuccessResponse<Boolean> toggleBookmark(@RequestBody BookmarkRequestDTO bookmarkRequestDTO) {
-		return null;
+		Boolean isAlive = bookmarkService.toggleBookmark(bookmarkRequestDTO);
+		return new SuccessResponse<>(isAlive);
 	}
 
 	@DeleteMapping("/created-cars/{userId}/{archivingId}")

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import com.backend.topcariving.domain.archive.exception.InvalidAuthorityException;
+import com.backend.topcariving.domain.archive.exception.InvalidMyCarIdException;
 import com.backend.topcariving.domain.option.exception.InvalidArchivingIdException;
 import com.backend.topcariving.domain.option.exception.InvalidCarOptionIdException;
 import com.backend.topcariving.domain.option.exception.InvalidCategoryException;
@@ -30,6 +31,11 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(InvalidCategoryException.class)
 	public ResponseEntity<String> invalidCategory(Exception e) {
+		return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(InvalidMyCarIdException.class)
+	public ResponseEntity<String> invalidMyCarIdHandler(Exception e) {
 		return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
 	}
 }

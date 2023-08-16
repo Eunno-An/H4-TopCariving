@@ -1,5 +1,7 @@
 package com.backend.topcariving.domain.archive.dto.response;
 
+import com.backend.topcariving.domain.option.entity.CarOption;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -15,4 +17,11 @@ public class SearchOptionDTO {
 
 	@Schema(description = "차량 옵션 이름", example = "컴포트 II")
 	private String optionName;
+
+	public static SearchOptionDTO from(CarOption carOption) {
+		return SearchOptionDTO.builder()
+			.carOptionId(carOption.getCarOptionId())
+			.optionName(carOption.getOptionName())
+			.build();
+	}
 }

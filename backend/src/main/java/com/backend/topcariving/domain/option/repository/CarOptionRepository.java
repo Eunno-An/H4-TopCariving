@@ -13,6 +13,8 @@ public interface CarOptionRepository {
 
 	List<CarOption> findByCategory(String category);
 
+	List<CarOption> findByCategoryAndParentOptionIdIsNull(String category);
+
 	List<CarOption> findByCategoryDetail(String categoryDetail);
 
 	List<CarOption> findByCategoryDetailAndParentOptionIdIsNull(String categoryDetail);
@@ -20,4 +22,6 @@ public interface CarOptionRepository {
 	boolean existsByCarOptionIdAndCategoryDetail(Long carOptionId, String categoryDetail);
 
 	List<CarOption> findByIds(List<Long> ids);
+
+	List<CarOption> findByArchivingId(Long archivingId);
 }

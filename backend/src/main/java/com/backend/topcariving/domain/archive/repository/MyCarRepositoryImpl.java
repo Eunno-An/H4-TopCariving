@@ -2,6 +2,7 @@ package com.backend.topcariving.domain.archive.repository;
 
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Types;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -57,9 +58,8 @@ public class MyCarRepositoryImpl implements MyCarRepository {
 		String sql = "SELECT * FROM MY_CAR WHERE archiving_id = ? AND car_option_id = ?;";
 		List<MyCar> results = jdbcTemplate.query(sql, myCarRowMapper(), archivingId, carOptionId);
 
-		if (results.isEmpty()) {
+		if (results.isEmpty())
 			return Optional.empty();
-		}
 		return Optional.ofNullable(results.get(0));
 	}
 
@@ -108,7 +108,11 @@ public class MyCarRepositoryImpl implements MyCarRepository {
 			@Override
 			public void setValues(final PreparedStatement ps, final int i) throws SQLException {
 				final MyCar myCar = myCars.get(i);
-				ps.setLong(1, myCar.getCarOptionId());
+				if (myCar.getCarOptionId() == null) {
+					ps.setNull(1, Types.BIGINT);
+				} else {
+					ps.setLong(1, myCar.getCarOptionId());
+				}
 				ps.setLong(2, myCar.getArchivingId());
 			}
 
@@ -128,11 +132,19 @@ public class MyCarRepositoryImpl implements MyCarRepository {
 		jdbcTemplate.update(sql, carOptionId, archivingId, categoryDetail);
 	}
 
+	@Override
+	public List<MyCar> findByCategoryDetailAndArchivingId(String categoryDetail, Long archivingId) {
+		String sql = "SELECT * FROM MY_CAR MC INNER JOIN CAR_OPTION AS CO ON CO.car_option_id = MC.car_option_id"
+			+ " WHERE category_detail = ? AND archiving_id = ?";
+
+		return jdbcTemplate.query(sql, myCarRowMapper(), categoryDetail, archivingId);
+	}
+
 	private RowMapper<MyCar> myCarRowMapper() {
 		return (rs, rowNum) ->
 			MyCar.builder()
 				.myCarId(rs.getLong("my_car_id"))
-				.carOptionId(rs.getLong("car_option_id"))
+				.carOptionId(rs.getObject("car_option_id", Long.class))
 				.archivingId(rs.getLong("archiving_id"))
 				.build();
 	}
