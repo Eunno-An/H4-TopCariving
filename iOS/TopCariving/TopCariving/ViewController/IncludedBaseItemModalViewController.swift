@@ -218,6 +218,7 @@ extension IncludedBaseItemModalViewController: UITableViewDelegate {
         (hiddenSections.contains(section) ?
          sectionHeader.setArrowImage(to: "arrow_down") :
             sectionHeader.setArrowImage(to: "arrow_up"))
+        
         sectionHeader.tabPublisher.sink { [weak self] _ in
             self?.hideSection(sender: sectionHeader)
             guard let exist = (self?.hiddenSections.contains(section)) else {
@@ -226,7 +227,8 @@ extension IncludedBaseItemModalViewController: UITableViewDelegate {
             (exist ?
              sectionHeader.setArrowImage(to: "arrow_down") :
                 sectionHeader.setArrowImage(to: "arrow_up"))
-        }.store(in: &bag)
+        }.store(in: &sectionHeader.bag)
+        
         sectionHeader.arrow.touchUpPublisher.sink { [weak self] _ in
             self?.hideSection(sender: sectionHeader)
             guard let exist = (self?.hiddenSections.contains(section)) else {
