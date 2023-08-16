@@ -9,7 +9,7 @@ import Combine
 import UIKit
 
 extension UITapGestureRecognizer {
-    var tapPublisher: AnyPublisher<UITapGestureRecognizer, Never> {
+    var tabGesturePublisher: AnyPublisher<UITapGestureRecognizer, Never> {
         gesturePublisher(for: self)
     }
 }

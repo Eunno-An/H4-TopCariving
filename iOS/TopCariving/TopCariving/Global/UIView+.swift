@@ -10,6 +10,8 @@ import UIKit
 
 extension UIView {
     var tabPublisher: AnyPublisher<UITapGestureRecognizer, Never> {
-        UITapGestureRecognizer().tapPublisher
+        let recognizer = UITapGestureRecognizer()
+        addGestureRecognizer(recognizer)
+        return recognizer.tabGesturePublisher
     }
 }
