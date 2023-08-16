@@ -63,11 +63,12 @@ export default Login;
 const TextInput = styled.input`
   width: 100%;
   height: 50px;
-  ${theme.typo.Body2_Medium}
+  ${theme.typo.Body2_Regular}
 
   padding: 0 10px;
   box-sizing: border-box;
 
-  border: 1px solid ${theme.palette.Primary};
   border-radius: 8px;
+  border: none;
+  background: var(--1, #f4f6f9);
 `;
