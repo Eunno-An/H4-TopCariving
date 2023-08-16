@@ -49,6 +49,7 @@
 		D462E77E2A85CCA900C5A8EC /* CombineGestureEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E77D2A85CCA900C5A8EC /* CombineGestureEvent.swift */; };
 		D462E7802A85F3D900C5A8EC /* UIView+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E77F2A85F3D900C5A8EC /* UIView+.swift */; };
 		D462E8642A8C949100C5A8EC /* CreateMyCarCompletedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8632A8C949100C5A8EC /* CreateMyCarCompletedViewController.swift */; };
+		D462E8662A8C952200C5A8EC /* TicketBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8652A8C952200C5A8EC /* TicketBackgroundView.swift */; };
 		D462E7842A86918D00C5A8EC /* BaseOptionMainCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E7832A86918D00C5A8EC /* BaseOptionMainCategoryView.swift */; };
 		D462E8122A88A3D700C5A8EC /* SubCategoryModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8112A88A3D700C5A8EC /* SubCategoryModalViewController.swift */; };
 		D462E8162A88D6E600C5A8EC /* ModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8152A88D6E600C5A8EC /* ModalPresentationController.swift */; };
@@ -168,6 +169,7 @@
 		D462E77D2A85CCA900C5A8EC /* CombineGestureEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineGestureEvent.swift; sourceTree = "<group>"; };
 		D462E77F2A85F3D900C5A8EC /* UIView+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+.swift"; sourceTree = "<group>"; };
 		D462E8632A8C949100C5A8EC /* CreateMyCarCompletedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateMyCarCompletedViewController.swift; sourceTree = "<group>"; };
+		D462E8652A8C952200C5A8EC /* TicketBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBackgroundView.swift; sourceTree = "<group>"; };
 		D462E7832A86918D00C5A8EC /* BaseOptionMainCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseOptionMainCategoryView.swift; sourceTree = "<group>"; };
 		D462E8112A88A3D700C5A8EC /* SubCategoryModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCategoryModalViewController.swift; sourceTree = "<group>"; };
 		D462E8152A88D6E600C5A8EC /* ModalPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPresentationController.swift; sourceTree = "<group>"; };
@@ -471,6 +473,7 @@
 				7631E9422A81D3CF00015363 /* CTAButton.swift */,
 				D4A68D4B2A81D2C300E2C1FD /* RotatableOptionImageView.swift */,
 				D4A68D512A8384AC00E2C1FD /* DegreeView.swift */,
+				D462E8652A8C952200C5A8EC /* TicketBackgroundView.swift */,
 				D462E7832A86918D00C5A8EC /* BaseOptionMainCategoryView.swift */,
 				D462E8112A88A3D700C5A8EC /* SubCategoryModalViewController.swift */,
 				D462E8152A88D6E600C5A8EC /* ModalPresentationController.swift */,
@@ -762,6 +765,7 @@
 				D4ACBA822A78CE56002B6A5B /* DummyModel.swift in Sources */,
 				D462E85A2A8B79C300C5A8EC /* BaseOptonMainCategoryModel.swift in Sources */,
 				C313500C2A7E98DE00D5D401 /* FoldableView.swift in Sources */,
+				D462E8662A8C952200C5A8EC /* TicketBackgroundView.swift in Sources */,
 				763F60402A7B75D1000D11D9 /* CarSummaryContainer.swift in Sources */,
 				C3C96D472A8B9CD1002C09D2 /* SummaryViewController.swift in Sources */,
 				76CA13B22A8E0135006C3106 /* UIViewController+.swift in Sources */,
