@@ -53,6 +53,7 @@
 		D462E8682A8C957C00C5A8EC /* MyCarFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8672A8C957C00C5A8EC /* MyCarFeatureView.swift */; };
 		D462E86A2A8C95A900C5A8EC /* MyCarChoicedOptionCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8692A8C95A900C5A8EC /* MyCarChoicedOptionCollectionView.swift */; };
 		D462E86C2A8C95D500C5A8EC /* MyCarMoreInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E86B2A8C95D500C5A8EC /* MyCarMoreInformationView.swift */; };
+		D462E8712A8D15FE00C5A8EC /* MyCarCompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8702A8D15FE00C5A8EC /* MyCarCompletionViewController.swift */; };
 		D462E7842A86918D00C5A8EC /* BaseOptionMainCategoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E7832A86918D00C5A8EC /* BaseOptionMainCategoryView.swift */; };
 		D462E8122A88A3D700C5A8EC /* SubCategoryModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8112A88A3D700C5A8EC /* SubCategoryModalViewController.swift */; };
 		D462E8162A88D6E600C5A8EC /* ModalPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8152A88D6E600C5A8EC /* ModalPresentationController.swift */; };
@@ -176,6 +177,7 @@
 		D462E8672A8C957C00C5A8EC /* MyCarFeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCarFeatureView.swift; sourceTree = "<group>"; };
 		D462E8692A8C95A900C5A8EC /* MyCarChoicedOptionCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCarChoicedOptionCollectionView.swift; sourceTree = "<group>"; };
 		D462E86B2A8C95D500C5A8EC /* MyCarMoreInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCarMoreInformationView.swift; sourceTree = "<group>"; };
+		D462E8702A8D15FE00C5A8EC /* MyCarCompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCarCompletionViewController.swift; sourceTree = "<group>"; };
 		D462E7832A86918D00C5A8EC /* BaseOptionMainCategoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseOptionMainCategoryView.swift; sourceTree = "<group>"; };
 		D462E8112A88A3D700C5A8EC /* SubCategoryModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubCategoryModalViewController.swift; sourceTree = "<group>"; };
 		D462E8152A88D6E600C5A8EC /* ModalPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalPresentationController.swift; sourceTree = "<group>"; };
@@ -471,6 +473,7 @@
 				7631E94A2A8382E100015363 /* BaseMyCarViewController.swift */,
 				D4ACBA832A78CE62002B6A5B /* DummyViewController.swift */,
 				D462E8632A8C949100C5A8EC /* CreateMyCarCompletedViewController.swift */,
+				D462E8702A8D15FE00C5A8EC /* MyCarCompletionViewController.swift */,
 				D462E76B2A850D3F00C5A8EC /* IncludedBaseItemModalViewController.swift */,
 				76CA13AD2A8DE64E006C3106 /* TCAlertViewController.swift */,
 			);
@@ -710,6 +713,7 @@
 				D4A68D3A2A80F04100E2C1FD /* Selection.swift in Sources */,
 				C3C96D4B2A8BC110002C09D2 /* SummaryCell.swift in Sources */,
 				D4A68D062A8094EA00E2C1FD /* ModelPhotoResponseDTO.swift in Sources */,
+				D462E8712A8D15FE00C5A8EC /* MyCarCompletionViewController.swift in Sources */,
 				D44B45732A7B969200E8E207 /* RequestError.swift in Sources */,
 				D462E8122A88A3D700C5A8EC /* SubCategoryModalViewController.swift in Sources */,
 				D4A68D002A8093B200E2C1FD /* ModifyOptionResponseDTO+Mapping.swift in Sources */,
