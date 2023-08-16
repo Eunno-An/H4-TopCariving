@@ -9,7 +9,7 @@ import lombok.Getter;
 @Getter
 public class LoginRequestDTO {
 
-	@Schema(description = "사용자 이메일", example = "gildong@gmail.com")
+	@Schema(description = "사용자 이메일", example = "mg@gmail.com")
 	private String email;
 
 	@Schema(description = "사용자 비밀번호", example = "1234")
