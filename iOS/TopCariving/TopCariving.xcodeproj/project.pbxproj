@@ -368,6 +368,17 @@
 			path = Response;
 			sourceTree = "<group>";
 		};
+		D462E86D2A8C95FC00C5A8EC /* MyCarComplete */ = {
+			isa = PBXGroup;
+			children = (
+				D462E8652A8C952200C5A8EC /* TicketBackgroundView.swift */,
+				D462E8672A8C957C00C5A8EC /* MyCarFeatureView.swift */,
+				D462E8692A8C95A900C5A8EC /* MyCarChoicedOptionCollectionView.swift */,
+				D462E86B2A8C95D500C5A8EC /* MyCarMoreInformationView.swift */,
+			);
+			path = MyCarComplete;
+			sourceTree = "<group>";
+		};
 		D4ACBA372A78A3AD002B6A5B = {
 			isa = PBXGroup;
 			children = (
@@ -469,6 +480,7 @@
 		D4ACBA7C2A78CDEE002B6A5B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				D462E86D2A8C95FC00C5A8EC /* MyCarComplete */,
 				D4ACBA7D2A78CE35002B6A5B /* DummyView.swift */,
 				763F60472A7C7F35000D11D9 /* ToastView.swift */,
 				C313500D2A7FB82B00D5D401 /* TappableView.swift */,
