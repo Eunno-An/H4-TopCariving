@@ -93,7 +93,7 @@ class ToastView: UIView {
         path.fill()
     }
     
-    func setUI() {
+    private func setUI() {
         backgroundColor = .clear
         addSubview(contentView)
         [closeButton, messageLabel].forEach {
@@ -101,7 +101,7 @@ class ToastView: UIView {
         }
     }
     
-    func setLayout() {
+    private func setLayout() {
         closeButton.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             contentView.topAnchor.constraint(equalTo: topAnchor, constant: padding),
@@ -121,7 +121,7 @@ class ToastView: UIView {
         ])
     }
     
-    func setEvent() {
+    private func setEvent() {
         closeButton.addTarget(self, action: #selector(tapCloseButton(sender:)), for: .touchUpInside)
     }
     

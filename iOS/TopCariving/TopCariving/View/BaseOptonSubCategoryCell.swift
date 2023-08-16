@@ -51,12 +51,12 @@ class BaseOptionSubCategoryCell: UITableViewCell {
     }
     
     // MARK: - Helpers
-    func setUI() {
+    private func setUI() {
         contentView.addSubview(titleImage)
         contentView.addSubview(titleLabel)
         selectionStyle = .none
     }
-    func setLayout() {
+    private func setLayout() {
         NSLayoutConstraint.activate([
             titleImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             titleImage.heightAnchor.constraint(equalToConstant: 55),

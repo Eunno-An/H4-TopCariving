@@ -82,14 +82,14 @@ class IncludedBaseItemModalViewController: UIViewController {
     }
     
     // MARK: - Helpers
-    func setUI() {
+    private func setUI() {
         view.backgroundColor = .white
         setTableView()
         [modalTitle, separator, cancelButton, tableView].forEach {
             view.addSubview($0)
         }
     }
-    func setTableView() {
+    private func setTableView() {
         tableView.translatesAutoresizingMaskIntoConstraints = false
         tableView.separatorStyle = .none
         tableView.sectionHeaderTopPadding = 12
@@ -106,7 +106,7 @@ class IncludedBaseItemModalViewController: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
     }
-    func setLayout() {
+    private func setLayout() {
         NSLayoutConstraint.activate([
             modalTitle.topAnchor.constraint(equalTo: view.topAnchor, constant: 21),
             modalTitle.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.2346),
@@ -129,7 +129,7 @@ class IncludedBaseItemModalViewController: UIViewController {
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
-    func setCancelButtonAction() {
+    private func setCancelButtonAction() {
         cancelButton.touchUpPublisher.sink { [weak self] _ in
             self?.dismiss(animated: true)
         }.store(in: &bag)
@@ -146,7 +146,7 @@ class IncludedBaseItemModalViewController: UIViewController {
             present(modal, animated: true)
         }
     }
-    func hideSection(sender: UIView) {
+    private func hideSection(sender: UIView) {
         let section = sender.tag
         let isContainSection = hiddenSections.contains(section)
         switch isContainSection {
@@ -158,7 +158,7 @@ class IncludedBaseItemModalViewController: UIViewController {
             tableView.deleteRows(at: indexPathsForSection(with: section), with: .fade)
         }
     }
-    func indexPathsForSection(with tag: Int) -> [IndexPath] {
+    private func indexPathsForSection(with tag: Int) -> [IndexPath] {
         var indexPaths = [IndexPath]()
         for row in 0..<self.testTableViewData[tag].subCategories.count {
             indexPaths.append(IndexPath(row: row,

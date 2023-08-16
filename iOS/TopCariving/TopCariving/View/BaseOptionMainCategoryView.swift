@@ -19,7 +19,7 @@ class BaseOptionMainCategoryView: UITableViewHeaderFooterView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    var arrow: UIButton = {
+    private var arrow: UIButton = {
         let button: UIButton = UIButton()
         button.setImage(UIImage(named: "arrow_down"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
@@ -67,13 +67,13 @@ class BaseOptionMainCategoryView: UITableViewHeaderFooterView {
     }
     
     // MARK: - Helpers
-    func setUI() {
+    private func setUI() {
         layer.cornerRadius = 8
         [title, arrow].forEach {
             addSubview($0)
         }
     }
-    func setLayout() {
+    private func setLayout() {
         NSLayoutConstraint.activate([
             title.centerYAnchor.constraint(equalTo: centerYAnchor),
             title.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 12),

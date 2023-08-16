@@ -32,7 +32,7 @@ class FoldableStackView: UIStackView {
     }
     
     // MARK: - Helpers
-    func setUI() {
+    private func setUI() {
         axis = .vertical
         alignment = .fill
         distribution = .equalSpacing

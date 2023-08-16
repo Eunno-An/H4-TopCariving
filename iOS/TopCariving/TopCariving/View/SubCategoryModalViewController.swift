@@ -66,14 +66,14 @@ class SubCategoryModalViewController: UIViewController {
     }
     
     // MARK: - Helpers
-    func setUI() {
+    private func setUI() {
         view.backgroundColor = .white
         view.layer.cornerRadius = 8
         [titleLabel, titleImage, detail, cancelButton].forEach {
             view.addSubview($0)
         }
     }
-    func setLayout() {
+    private func setLayout() {
         NSLayoutConstraint.activate([
             titleLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 24),
             titleLabel.bottomAnchor.constraint(equalTo: titleImage.topAnchor, constant: -17),
