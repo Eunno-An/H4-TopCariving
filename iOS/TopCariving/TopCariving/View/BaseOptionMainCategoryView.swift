@@ -85,7 +85,9 @@ class BaseOptionMainCategoryView: UIView {
         arrowTouchUpPublilsher = arrow.touchUpPublisher
     }
     func toggleArrow() {
-        isClicked ? arrow.setImage(UIImage(named: "arrow_up"), for: .normal) : arrow.setImage(UIImage(named: "arrow_down"), for: .normal)
+        isClicked ?
+        arrow.setImage(UIImage(named: "arrow_up"), for: .normal):
+        arrow.setImage(UIImage(named: "arrow_down"), for: .normal)
         isClicked.toggle()
     }
 }

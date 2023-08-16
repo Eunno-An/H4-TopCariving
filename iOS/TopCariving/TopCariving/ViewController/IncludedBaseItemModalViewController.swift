@@ -131,7 +131,6 @@ class IncludedBaseItemModalViewController: UIViewController {
         }.store(in: &bag)
     }
     @objc private func presentSubCategoryModal(with indexPath: IndexPath) {
-        #warning("indexPath에 해당하는 데이터 testTableViewData에 맞는 데이터를 SubCategoryModalViewController로 보내게끔 수정하기")
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
             let modal = SubCategoryModalViewController(
@@ -188,7 +187,7 @@ extension IncludedBaseItemModalViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let sectionHeader = BaseOptionMainCategoryView(data: testTableViewData[section])
         sectionHeader.tag = section
-        (sectionHeader.tapPublisher()).sink { [weak self] in
+        sectionHeader.tapPublisher().sink { [weak self] in
             self?.hideSection(sender: sectionHeader)
             sectionHeader.toggleArrow()
         }.store(in: &bag)
