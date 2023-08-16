@@ -16,11 +16,7 @@ public interface MyCarRepository {
 
 	List<MyCar> findByArchivingId(Long archivingId);
 
-	Optional<MyCar> findByArchivingIdAndCarOptionIdIsNull(Long archivingId);
-
 	List<OptionSummaryDTO> findOptionSummaryByArchivingId(Long archivingId);
-
-	List<Long> findArchivingIdByCarOptionId(List<Long> carOptionIds);
 
 	void deleteByArchivingIdAndCategoryDetail(Long archivingId, String categoryDetail);
 

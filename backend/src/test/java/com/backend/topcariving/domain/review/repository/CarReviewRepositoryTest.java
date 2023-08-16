@@ -23,12 +23,12 @@ class CarReviewRepositoryTest {
 	}
 
 	@Test
-	void findByMyCarId() {
+	void findByArchivingId() {
 		// given
-		Long myCarId = 9L;
+		Long archivingId = 1L;
 
 		// when
-		CarReview carReview = carReviewRepository.findByMyCarId(myCarId).get();
+		CarReview carReview = carReviewRepository.findByArchivingId(archivingId).get();
 
 		// then
 		Assertions.assertThat(carReview.getReview()).isEqualTo("너무 좋아요");

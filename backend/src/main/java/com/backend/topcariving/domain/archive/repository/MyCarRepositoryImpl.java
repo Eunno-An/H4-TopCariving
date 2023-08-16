@@ -12,7 +12,6 @@ import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
-import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
@@ -71,16 +70,6 @@ public class MyCarRepositoryImpl implements MyCarRepository {
 	}
 
 	@Override
-	public Optional<MyCar> findByArchivingIdAndCarOptionIdIsNull(Long archivingId) {
-		String sql = "SELECT * FROM MY_CAR WHERE archiving_id = ? AND car_option_id IS NULL;";
-		List<MyCar> results = jdbcTemplate.query(sql, myCarRowMapper(), archivingId);
-
-		if (results.isEmpty())
-			return Optional.empty();
-		return Optional.ofNullable(results.get(0));
-	}
-
-	@Override
 	public List<OptionSummaryDTO> findOptionSummaryByArchivingId(final Long archivingId) {
 		String sql = "SELECT MC.car_option_id, option_name, category, category_detail, price, photo_url "
 			+ "FROM MY_CAR AS MC INNER JOIN CAR_OPTION AS CO ON MC.car_option_id = CO.car_option_id "
@@ -94,23 +83,6 @@ public class MyCarRepositoryImpl implements MyCarRepository {
 			rs.getInt("price"),
 			rs.getString("photo_url")
 		), archivingId);
-	}
-
-	@Override
-	public List<Long> findArchivingIdByCarOptionId(List<Long> carOptionIds) {
-		String sql = "SELECT archiving_id "
-			+ "FROM MY_CAR "
-			+ "WHERE car_option_id IN (:carOptionIds) "
-			+ "GROUP BY archiving_id "
-			+ "HAVING COUNT(DISTINCT car_option_id) = (:carOptionsSize) ";
-
-		NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
-
-		Map<String, Object> paramMap = new HashMap<>();
-		paramMap.put("carOptionIds", carOptionIds);
-		paramMap.put("carOptionsSize", carOptionIds.size());
-
-		return namedParameterJdbcTemplate.query(sql, paramMap, (rs, rowNum) -> rs.getLong("archiving_id"));
 	}
 
 	@Override

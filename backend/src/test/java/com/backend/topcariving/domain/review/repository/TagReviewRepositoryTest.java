@@ -40,16 +40,31 @@ class TagReviewRepositoryTest extends TestSupport {
 	}
 
 	@Test
-	void findTagResponseDTOByMyCarId() {
+	void findTagResponseDTOByArchivingId() {
 		// given
-		Long myCarId = 9L;
+		Long archivingId = 1L;
 
 		// when
-		List<TagResponseDTO> tagResponseDTOs = tagReviewRepository.findTagResponseDTOByMyCarId(myCarId);
+		List<TagResponseDTO> tagResponseDTOs = tagReviewRepository.findTagResponseDTOByArchivingId(archivingId);
 
 		// then
 		softAssertions.assertThat(tagResponseDTOs).hasSize(3);
 		TagResponseDTO tagResponseDTO = tagResponseDTOs.get(0);
 		softAssertions.assertThat(tagResponseDTO.getTagContent()).isEqualTo("역시 풀옵션 없는 게 없어요👍");
+	}
+
+	@Test
+	void findTagResponseDTOByArchivingIdAndCarOptionId() {
+		// given
+		Long archivingId = 2L;
+		Long carOptionId = 115L;
+
+		// when
+		List<TagResponseDTO> tagResponseDTOs = tagReviewRepository.findTagResponseDTOByArchivingIdAndCarOptionId(archivingId, carOptionId);
+
+		// then
+		softAssertions.assertThat(tagResponseDTOs).hasSize(3);
+		TagResponseDTO tagResponseDTO = tagResponseDTOs.get(0);
+		softAssertions.assertThat(tagResponseDTO.getTagContent()).isEqualTo("편리해요☺\uFE0F");
 	}
 }

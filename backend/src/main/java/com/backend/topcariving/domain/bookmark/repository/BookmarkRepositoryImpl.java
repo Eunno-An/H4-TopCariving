@@ -22,7 +22,7 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
 	private final JdbcTemplate jdbcTemplate;
 
 	@Override
-	public Optional<Bookmark> findIsAliveByUserIdAndArchivingId(final Long userId, final Long archivingId) {
+	public Optional<Bookmark> findByUserIdAndArchivingId(final Long userId, final Long archivingId) {
 		String sql = "SELECT * FROM BOOKMARK WHERE user_id = ? AND archiving_id = ?";
 
 		final List<Bookmark> result = jdbcTemplate.query(sql, bookmarkMapper(), userId, archivingId);

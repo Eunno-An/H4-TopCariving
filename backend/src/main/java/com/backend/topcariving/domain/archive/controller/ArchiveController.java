@@ -59,10 +59,10 @@ public class ArchiveController {
 		return new SuccessResponse<>(archivingId);
 	}
 
-	@GetMapping("/details/{archivingId}")
+	@GetMapping("/details/{userId}/{archivingId}")
 	@Operation(summary = "차량 세부 정보 조회", description = "아카이빙 및 마이아카이빙에서 선택한 차량의 세부 정보 조회")
-	public ArchiveDetailResponseDTO getDetailsCars(@PathVariable Long archivingId) {
-		return null;
+	public ArchiveDetailResponseDTO getDetailsCars(@PathVariable Long userId, @PathVariable Long archivingId) {
+		return archiveService.getDetailsCars(userId, archivingId);
 	}
 
 	@PostMapping("/feeds/bookmarks")

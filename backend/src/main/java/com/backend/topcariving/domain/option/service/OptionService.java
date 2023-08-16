@@ -105,8 +105,14 @@ public class OptionService {
 
 		validator.verifyCarArchiving(userId, archivingId);
 
+		MyCar completeCar = MyCar.builder()
+			.carOptionId(null)
+			.archivingId(archivingId)
+			.build();
+
 		if (carOptionId == null) {
 			myCarRepository.deleteByArchivingIdAndCategoryDetail(archivingId, categoryDetail.getName());
+			myCarRepository.save(completeCar);
 			return archivingId;
 		}
 		validator.verifyCarOptionId(categoryDetail, carOptionId);
@@ -123,6 +129,7 @@ public class OptionService {
 		}
 
 		myCarRepository.save(myCar);
+		myCarRepository.save(completeCar);
 		return archivingId;
 	}
 

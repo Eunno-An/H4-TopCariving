@@ -6,7 +6,7 @@ import com.backend.topcariving.domain.bookmark.entity.Bookmark;
 
 public interface BookmarkRepository {
 	
-   Optional<Bookmark> findIsAliveByUserIdAndArchivingId(Long userId, Long archivingId);
+   Optional<Bookmark> findByUserIdAndArchivingId(Long userId, Long archivingId);
 
    Bookmark save(Bookmark bookmark);
 

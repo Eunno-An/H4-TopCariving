@@ -1,7 +1,5 @@
 package com.backend.topcariving.domain.bookmark.repository;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import java.util.Optional;
 
 import org.assertj.core.api.Assertions;
@@ -38,7 +36,7 @@ class BookmarkRepositoryTest extends TestSupport {
 		bookmark = bookmarkRepository.save(bookmark);
 
 		// when
-		Optional<Bookmark> findBookmark = bookmarkRepository.findIsAliveByUserIdAndArchivingId(userId,
+		Optional<Bookmark> findBookmark = bookmarkRepository.findByUserIdAndArchivingId(userId,
 			archivingId);
 		softAssertions.assertThat(findBookmark).as("찾은 데이터가 존재하는지").isPresent();
 		softAssertions.assertThat(findBookmark.get()).as("저장한 데이터와 같은지").usingRecursiveComparison().isEqualTo(bookmark);

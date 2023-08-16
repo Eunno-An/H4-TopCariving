@@ -10,6 +10,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.backend.topcariving.config.TestSupport;
+import com.backend.topcariving.domain.archive.dto.response.ArchiveDetailResponseDTO;
 import com.backend.topcariving.domain.archive.dto.request.FeedCopyRequestDTO;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveFeedDTO;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveResponseDTO;
@@ -79,6 +80,36 @@ class ArchiveServiceIntegralTest extends TestSupport {
 			softAssertions.assertThat(archiveFeedDTOs.get(0).getArchivingId()).as("1이 반환되어야 함").isEqualTo(1L);
 			softAssertions.assertThat(archiveFeedDTOs.get(1).getArchivingId()).as("3이 반환되어야 함").isEqualTo(3L);
 		}
+	}
+
+	@Test
+	void 차량의_세부_정보를_반환해야한다() {
+		// given
+		Long userId = 3L;
+		Long archivingId = 1L;
+
+		// when
+		ArchiveDetailResponseDTO detailsCars = archiveService.getDetailsCars(userId, archivingId);
+
+		// then
+		softAssertions.assertThat(detailsCars.getArchivingId())
+			.as("차량 아카이빙 ID 검증").isEqualTo(1L);
+		softAssertions.assertThat(detailsCars.getDayTime())
+			.as("시승 및 구매 일시 검증").isEqualTo("2023-08-01T12:00:00");
+		softAssertions.assertThat(detailsCars.getArchivingType())
+			.as("차량 아카이빙 타입 검증").isEqualTo("시승");
+		softAssertions.assertThat(detailsCars.getTotalPrice())
+			.as("총 가격 검증").isEqualTo(43760000);
+		softAssertions.assertThat(detailsCars.getPositions())
+			.as("포지션 리스트 검증").hasSize(0);
+		softAssertions.assertThat(detailsCars.getIsBookmarked())
+			.as("북마크 여부 검증").isEqualTo(false);
+		softAssertions.assertThat(detailsCars.getOptionDetails())
+			.as("선택 옵션 디테일 검증").hasSize(8);
+		softAssertions.assertThat(detailsCars.getCarReview())
+			.as("차량 전체 텍스트 리뷰 검증").isEqualTo("너무 좋아요");
+		softAssertions.assertThat(detailsCars.getTags())
+			.as("차량 전체 태그 리뷰 검증").hasSize(3);
 	}
 
 	@Nested

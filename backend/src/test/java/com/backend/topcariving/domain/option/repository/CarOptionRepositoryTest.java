@@ -59,8 +59,19 @@ class CarOptionRepositoryTest {
 			categoryDetail);
 
 		// then
-		Assertions.assertThat(carOptions).as("반환값 갯수 확인").hasSize(3);
+		Assertions.assertThat(carOptions).as("반환값 개수 확인").hasSize(3);
 	}
 
+	@Test
+	void findByArchivingId() {
+		// given
+		Long archivingId = 1L;
+
+		// when
+		List<CarOption> carOptions = carOptionRepository.findByArchivingId(archivingId);
+
+		// then
+		Assertions.assertThat(carOptions).as("반환값 개수 확인").hasSize(8);
+	}
 
 }

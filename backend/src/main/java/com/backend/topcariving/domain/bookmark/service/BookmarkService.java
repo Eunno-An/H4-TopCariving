@@ -27,7 +27,7 @@ public class BookmarkService {
 		final Long userId = bookmarkRequestDTO.getUserId();
 		final Long archivingId = bookmarkRequestDTO.getArchivingId();
 
-		final Optional<Bookmark> findBookmark = bookmarkRepository.findIsAliveByUserIdAndArchivingId(
+		final Optional<Bookmark> findBookmark = bookmarkRepository.findByUserIdAndArchivingId(
 			userId,
 			archivingId);
 

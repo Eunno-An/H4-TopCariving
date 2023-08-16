@@ -76,6 +76,13 @@ public class CarOptionRepositoryImpl implements CarOptionRepository {
 		return namedParameterJdbcTemplate.query(sql, paramMap,carOptionRowMapper());
 	}
 
+	@Override
+	public List<CarOption> findByArchivingId(Long archivingId) {
+		String sql = "SELECT * FROM CAR_OPTION "
+			+ "WHERE car_option_id IN (SELECT car_option_id FROM MY_CAR WHERE archiving_id = ?);";
+		return jdbcTemplate.query(sql, carOptionRowMapper(), archivingId);
+	}
+
 	private RowMapper<CarOption> carOptionRowMapper() {
 		return (rs, rowNum) -> new CarOption(
 			rs.getLong("car_option_id"),

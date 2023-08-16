@@ -6,5 +6,5 @@ import com.backend.topcariving.domain.review.entity.CarReview;
 
 public interface CarReviewRepository {
 
-	Optional<CarReview> findByMyCarId(Long myCarId);
+	Optional<CarReview> findByArchivingId(Long archivingId);
 }

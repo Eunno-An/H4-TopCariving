@@ -8,5 +8,7 @@ public interface TagReviewRepository {
 
 	List<TagResponseDTO> findTagResponseDTOByCarOptionIdAndLimit(Long carOptionId, int limit);
 
-	List<TagResponseDTO> findTagResponseDTOByMyCarId(Long myCarId);
+	List<TagResponseDTO> findTagResponseDTOByArchivingId(Long archivingId);
+
+	List<TagResponseDTO> findTagResponseDTOByArchivingIdAndCarOptionId(Long archivingId, Long carOptionId);
 }

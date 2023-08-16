@@ -72,20 +72,6 @@ class MyCarRepositoryTest extends TestSupport {
 	}
 
 	@Test
-	void findByArchivingIdAndCarOptionIdIsNull() {
-		// given
-		Long archivingId = 1L;
-
-		// when
-		final MyCar myCar = myCarRepository.findByArchivingIdAndCarOptionIdIsNull(archivingId).get();
-
-		// then
-		softAssertions.assertThat(myCar.getMyCarId()).as("myCarId 검증").isEqualTo(9L);
-		softAssertions.assertThat(myCar.getCarOptionId()).as("carOptionId 검증").isEqualTo(null);
-		softAssertions.assertThat(myCar.getArchivingId()).as("archivingId 검증").isEqualTo(1L);
-	}
-
-	@Test
 	void findOptionSummaryByArchivingId() {
 		// given
 		Long archivingId = 1L;
@@ -103,19 +89,6 @@ class MyCarRepositoryTest extends TestSupport {
 		softAssertions.assertThat(optionSummary.getCategoryDetail()).as("카테고리 세부정보 테스트").isEqualTo("모델");
 		softAssertions.assertThat(optionSummary.getName()).as("이름 테스트").isEqualTo("Le Blanc");
 
-	}
-
-	@Test
-	void findArchivingIdByCarOptionId() {
-		// given
-		List<Long> carOptionIds = List.of(103L, 110L);
-
-		// when
-		List<Long> archivingIds = myCarRepository.findArchivingIdByCarOptionId(carOptionIds);
-
-		// then
-		softAssertions.assertThat(archivingIds.get(0)).isEqualTo(1L);
-		softAssertions.assertThat(archivingIds.get(1)).isEqualTo(3L);
 	}
 
 	@Test

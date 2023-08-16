@@ -33,13 +33,22 @@ public class TagReviewRepositoryImpl implements TagReviewRepository {
 	}
 
 	@Override
-	public List<TagResponseDTO> findTagResponseDTOByMyCarId(Long myCarId) {
+	public List<TagResponseDTO> findTagResponseDTOByArchivingId(Long archivingId) {
 		String sql = "SELECT TAG.tag_text AS TAG_CONTENT "
 			+ "FROM TAG_REVIEW TR "
 			+ "INNER JOIN TAG ON TAG.tag_id = TR.tag_id "
-			+ "WHERE my_car_id = ?;";
-		return jdbcTemplate.query(sql,
-			(rs, rowNum) -> new TagResponseDTO(rs.getString("tag_content")),
-			myCarId);
+			+ "WHERE my_car_id IN "
+			+ "(SELECT my_car_id FROM MY_CAR WHERE archiving_id = ? AND car_option_id IS NULL);";
+		return jdbcTemplate.query(sql, (rs, rowNum) -> new TagResponseDTO(rs.getString("tag_content")), archivingId);
+	}
+
+	@Override
+	public List<TagResponseDTO> findTagResponseDTOByArchivingIdAndCarOptionId(Long archivingId, Long carOptionId) {
+		String sql = "SELECT TAG.tag_text AS TAG_CONTENT "
+			+ "FROM TAG_REVIEW TR "
+			+ "INNER JOIN TAG ON TAG.tag_id = TR.tag_id "
+			+ "WHERE my_car_id IN "
+			+ "(SELECT my_car_id FROM MY_CAR WHERE archiving_id = ? AND car_option_id = ?);";
+		return jdbcTemplate.query(sql, (rs, rowNum) -> new TagResponseDTO(rs.getString("tag_content")), archivingId, carOptionId);
 	}
 }

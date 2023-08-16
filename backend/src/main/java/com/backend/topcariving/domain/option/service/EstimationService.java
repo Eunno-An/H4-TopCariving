@@ -38,11 +38,11 @@ public class EstimationService {
 	public SummaryResponseDTO summary(Long userId, Long archivingId) {
 		validator.verifyCarArchiving(userId, archivingId);
 
-		final List<OptionSummaryDTO> OptionSummaryDTOs = myCarRepository.findOptionSummaryByArchivingId(
+		final List<OptionSummaryDTO> optionSummaryDTOs = myCarRepository.findOptionSummaryByArchivingId(
 			archivingId);
 
 		Map<String, List<OptionSummaryDTO>> result = convertToOptionSummaryMap(
-			OptionSummaryDTOs);
+			optionSummaryDTOs);
 
 		return new SummaryResponseDTO(result);
 	}
@@ -72,10 +72,10 @@ public class EstimationService {
 	}
 
 	private Map<String, List<OptionSummaryDTO>> convertToOptionSummaryMap(
-		final List<OptionSummaryDTO> OptionSummaryDTOs) {
+		final List<OptionSummaryDTO> optionSummaryDTOs) {
 		Map<String, List<OptionSummaryDTO>> result = new HashMap<>();
 
-		for (OptionSummaryDTO optionSummaryDTO : OptionSummaryDTOs) {
+		for (OptionSummaryDTO optionSummaryDTO : optionSummaryDTOs) {
 			if (!result.containsKey(optionSummaryDTO.getCategory())) {
 				List<OptionSummaryDTO> values = new ArrayList<>();
 				result.put(optionSummaryDTO.getCategory(), values);

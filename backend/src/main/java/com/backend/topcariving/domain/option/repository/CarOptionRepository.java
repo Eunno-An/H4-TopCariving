@@ -22,4 +22,6 @@ public interface CarOptionRepository {
 	boolean existsByCarOptionIdAndCategoryDetail(Long carOptionId, String categoryDetail);
 
 	List<CarOption> findByIds(List<Long> ids);
+
+	List<CarOption> findByArchivingId(Long archivingId);
 }

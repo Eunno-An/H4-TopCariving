@@ -84,41 +84,17 @@ class CarArchivingRepositoryTest extends TestSupport {
 	}
 
 	@Test
-	void findByArchivingIdsAndArchivingTypes() {
-		// given
-		CarArchiving carArchiving0 = CarArchiving.builder()
-			.archivingType(BUY.getType())
-			.isComplete(true)
-			.userId(1L)
-			.isAlive(true)
-			.build();
-		CarArchiving carArchiving1 = CarArchiving.builder()
-			.archivingType(ArchivingType.DRIVE.getType())
-			.isComplete(true)
-			.userId(2L)
-			.isAlive(true)
-			.build();
-		CarArchiving carArchiving2 = CarArchiving.builder()
-			.archivingType(ArchivingType.MAKE.getType())
-			.isComplete(false)
-			.userId(3L)
-			.isAlive(true)
-			.build();
-		carArchiving0 = carArchivingRepository.save(carArchiving0);
-		carArchiving1 = carArchivingRepository.save(carArchiving1);
-		carArchiving2 = carArchivingRepository.save(carArchiving2);
-
-		// when
-		List<CarArchiving> carArchivings = carArchivingRepository.findByArchivingIdsAndArchivingTypes(
-			List.of(carArchiving0.getArchivingId(), carArchiving1.getArchivingId()),
-			List.of(DRIVE.getType(), BUY.getType())
+	void findByCarOptionIdsAndArchivingTypes() {
+		// given, when
+		List<CarArchiving> carArchivings = carArchivingRepository.findByCarOptionIdsAndArchivingTypes(
+			List.of(103L, 110L), List.of(DRIVE.getType(), BUY.getType())
 		);
 
 		// then
-		softAssertions.assertThat(carArchivings.get(0).getArchivingId()).as("첫 번째 아카이빙의 아카이빙 아이디 검증").isEqualTo(carArchiving0.getArchivingId());
-		softAssertions.assertThat(carArchivings.get(0).getArchivingType()).as("첫 번째 아카이빙의 아카이빙 타입 검증").isEqualTo(carArchiving0.getArchivingType());
-		softAssertions.assertThat(carArchivings.get(1).getArchivingId()).as("두 번째 아카이빙의 아카이빙 아이디 검증").isEqualTo(carArchiving1.getArchivingId());
-		softAssertions.assertThat(carArchivings.get(1).getArchivingType()).as("두 번째 아카이빙의 아카이빙 타입 검증").isEqualTo(carArchiving1.getArchivingType());
+		softAssertions.assertThat(carArchivings.get(0).getArchivingId()).as("첫 번째 아카이빙의 아카이빙 아이디 검증").isEqualTo(1L);
+		softAssertions.assertThat(carArchivings.get(0).getArchivingType()).as("첫 번째 아카이빙의 아카이빙 타입 검증").isEqualTo("시승");
+		softAssertions.assertThat(carArchivings.get(1).getArchivingId()).as("두 번째 아카이빙의 아카이빙 아이디 검증").isEqualTo(3L);
+		softAssertions.assertThat(carArchivings.get(1).getArchivingType()).as("두 번째 아카이빙의 아카이빙 타입 검증").isEqualTo("시승");
 	}
 
 	@Test

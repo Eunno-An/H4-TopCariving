@@ -28,12 +28,12 @@ class BookmarkServiceIntegralTest extends TestSupport {
 
 		// when, then
 		Boolean isAlive = bookmarkService.toggleBookmark(bookmarkRequestDTOHaveTrue);
-		Bookmark bookmark = bookmarkRepository.findIsAliveByUserIdAndArchivingId(2L, 1L).get();
+		Bookmark bookmark = bookmarkRepository.findByUserIdAndArchivingId(2L, 1L).get();
 		softAssertions.assertThat(isAlive).as("제대로 변경된 값을 반환하는지 테스트").isTrue();
 		softAssertions.assertThat(bookmark.getIsAlive()).as("실제로 저장된 값도 True인지 확인").isTrue();
 
 		isAlive = bookmarkService.toggleBookmark(bookmarkRequestDTOHaveFalse);
-		bookmark = bookmarkRepository.findIsAliveByUserIdAndArchivingId(2L, 1L).get();
+		bookmark = bookmarkRepository.findByUserIdAndArchivingId(2L, 1L).get();
 		softAssertions.assertThat(isAlive).as("제대로 변경된 값을 반환하는지 테스트").isFalse();
 		softAssertions.assertThat(bookmark.getIsAlive()).as("실제로 저장된 값도 False인지 확인").isFalse();
 	}

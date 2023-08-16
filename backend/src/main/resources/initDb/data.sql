@@ -625,3 +625,20 @@ INSERT INTO TAG_REVIEW (tag_id, my_car_id) VALUES(22, 19);
   CAR_REVIEW
  */
 INSERT INTO CAR_REVIEW (review, my_car_id) VALUES ('너무 좋아요', 9);
+
+/**
+  POSITION
+ */
+INSERT INTO POSITION_INFO (position_id, left_pixel, top_pixel, left_percent, top_percent) VALUES(1, '940px', '514px', '100%', '100%');
+INSERT INTO POSITION_INFO (position_id, car_option_id, left_pixel, top_pixel, left_percent, top_percent) VALUES(2, 113, '614px', '180px', '65%', '35%');
+INSERT INTO POSITION_INFO (position_id, car_option_id, left_pixel, top_pixel, left_percent, top_percent) VALUES(3, 114, '513px', '107px', '55%', '21%');
+INSERT INTO POSITION_INFO (position_id, car_option_id, left_pixel, top_pixel, left_percent, top_percent) VALUES(4, 115, '420px', '142px', '45%', '28%');
+INSERT INTO POSITION_INFO (position_id, car_option_id, left_pixel, top_pixel, left_percent, top_percent) VALUES(5, 120, '747px', '300px', '79%', '58%');
+INSERT INTO POSITION_INFO (position_id, car_option_id, left_pixel, top_pixel, left_percent, top_percent) VALUES(6, 121, '437px', '177px', '46%', '34%');
+INSERT INTO POSITION_INFO (position_id, car_option_id, left_pixel, top_pixel, left_percent, top_percent) VALUES(7, 122, '608px', '339px', '65%', '66%');
+INSERT INTO POSITION_INFO (position_id, car_option_id, left_pixel, top_pixel, left_percent, top_percent) VALUES(8, 123, '470px', '245px', '50%', '48%');
+INSERT INTO POSITION_INFO (position_id, car_option_id, left_pixel, top_pixel, left_percent, top_percent) VALUES(9, 124, '556px', '185px', '59%', '36%');
+INSERT INTO POSITION_INFO (position_id, car_option_id, left_pixel, top_pixel, left_percent, top_percent) VALUES(10, 128, '481px', '342px', '51%', '67%');
+INSERT INTO POSITION_INFO (position_id, car_option_id, left_pixel, top_pixel, left_percent, top_percent) VALUES(11, 129, '481px', '342px', '51%', '67%');
+INSERT INTO POSITION_INFO (position_id, car_option_id, left_pixel, top_pixel, left_percent, top_percent) VALUES(12, 130, '481px', '342px', '51%', '67%');
+
