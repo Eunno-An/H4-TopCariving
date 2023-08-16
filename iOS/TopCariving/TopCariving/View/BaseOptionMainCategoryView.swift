@@ -28,14 +28,20 @@ class BaseOptionMainCategoryView: UITableViewHeaderFooterView {
     
     // MARK: - Properties
     var bag = Set<AnyCancellable>()
-    var arrowTouchUpPublilsher: AnyPublisher<Void, Never>?
+    var arrowTouchUpPublilsher: AnyPublisher<Void, Never>!
     static let identifier = "BaseOptionMainCategoryView"
+    var isFolded: Bool = false {
+        willSet {
+            newValue ? setArrowImage(to: "arrow_down") : setArrowImage(to: "arrow_up")
+        }
+    }
     
     // MARK: - Lifecycles
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         setUI()
         setLayout()
+        setArrowButtonPublisher()
     }
     required init?(coder: NSCoder) {
         super.init(coder: coder)

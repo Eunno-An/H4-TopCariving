@@ -215,28 +215,20 @@ extension IncludedBaseItemModalViewController: UITableViewDelegate {
         headerView.layer.cornerRadius = 8
         
         sectionHeader.tag = section
-        (hiddenSections.contains(section) ?
-         sectionHeader.setArrowImage(to: "arrow_down") :
-            sectionHeader.setArrowImage(to: "arrow_up"))
+    
+        let mergedPublishers = Publishers.Merge(
+            sectionHeader.tabPublisher.map { _ in () },
+            sectionHeader.arrowTouchUpPublilsher
+        )
         
-        sectionHeader.tabPublisher.sink { [weak self] _ in
-            self?.hideSection(sender: sectionHeader)
-            guard let exist = (self?.hiddenSections.contains(section)) else {
+        mergedPublishers.sink { [weak self, weak sectionHeader] _ in
+            guard let self = self, let sectionHeader = sectionHeader else {
+                print("NONO")
                 return
             }
-            (exist ?
-             sectionHeader.setArrowImage(to: "arrow_down") :
-                sectionHeader.setArrowImage(to: "arrow_up"))
-        }.store(in: &sectionHeader.bag)
-        
-        sectionHeader.arrow.touchUpPublisher.sink { [weak self] _ in
-            self?.hideSection(sender: sectionHeader)
-            guard let exist = (self?.hiddenSections.contains(section)) else {
-                return
-            }
-            (exist ?
-             sectionHeader.setArrowImage(to: "arrow_down") :
-                sectionHeader.setArrowImage(to: "arrow_up"))
+            hideSection(sender: sectionHeader)
+            let exist = self.hiddenSections.contains(section)
+            sectionHeader.isFolded = exist
         }.store(in: &sectionHeader.bag)
         return sectionHeader
     }
