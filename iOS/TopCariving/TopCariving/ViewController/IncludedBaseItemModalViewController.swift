@@ -99,6 +99,10 @@ class IncludedBaseItemModalViewController: UIViewController {
         tableView.register(
             BaseOptionSubCategoryCell.self,
             forCellReuseIdentifier: BaseOptionSubCategoryCell.identifier)
+        tableView.register(
+            BaseOptionMainCategoryView.self,
+            forHeaderFooterViewReuseIdentifier: BaseOptionMainCategoryView.identifier
+        )
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -175,7 +179,13 @@ extension IncludedBaseItemModalViewController: UITableViewDataSource {
         return testTableViewData.count
     }
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = BaseOptionSubCategoryCell(data: testTableViewData[indexPath.section].subCategories[indexPath.row])
+        guard let cell = tableView.dequeueReusableCell(
+            withIdentifier: "BaseOptionSubCategoryCell",
+            for: indexPath
+        ) as? BaseOptionSubCategoryCell else {
+            return UITableViewCell()
+        }
+        cell.setData(to: testTableViewData[indexPath.section].subCategories[indexPath.row])
         return cell
     }
 }
@@ -184,10 +194,25 @@ extension IncludedBaseItemModalViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         presentSubCategoryModal(with: indexPath)
     }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 79
+    }
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let sectionHeader = BaseOptionMainCategoryView(data: testTableViewData[section])
+        guard let sectionHeader = tableView.dequeueReusableHeaderFooterView(
+            withIdentifier: "BaseOptionMainCategoryView"
+        ) as? BaseOptionMainCategoryView else {
+            return BaseOptionMainCategoryView(data: testTableViewData[section])
+        }
+        sectionHeader.setData(to: testTableViewData[section])
+        sectionHeader.backgroundView = UIView(frame: self.view.bounds)
+        guard let headerView = sectionHeader.backgroundView else {
+            return UIView()
+        }
+        headerView.backgroundColor = .hyundaiLightSand
+        headerView.layer.cornerRadius = 8
+        
         sectionHeader.tag = section
-        sectionHeader.tapPublisher().sink { [weak self] in
+        sectionHeader.tabPublisher.sink { [weak self] _ in
             self?.hideSection(sender: sectionHeader)
             sectionHeader.toggleArrow()
         }.store(in: &bag)

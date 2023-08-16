@@ -45,9 +45,9 @@ class BaseOptionSubCategoryCell: UITableViewCell {
     }
     override func layoutSubviews() {
         super.layoutSubviews()
-        contentView.backgroundColor = .hyundaiLightSand
+        contentView.backgroundColor = .hyundaiNeutral
         contentView.layer.cornerRadius = 8
-        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 8, left: 16, bottom: 8, right: 16))
+        contentView.frame = contentView.frame.inset(by: UIEdgeInsets(top: 4, left: 16, bottom: 4, right: 16))
     }
     
     // MARK: - Helpers
@@ -57,7 +57,6 @@ class BaseOptionSubCategoryCell: UITableViewCell {
         selectionStyle = .none
     }
     func setLayout() {
-        contentView.heightAnchor.constraint(equalToConstant: 87).isActive = true
         NSLayoutConstraint.activate([
             titleImage.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
             titleImage.heightAnchor.constraint(equalToConstant: 55),
@@ -69,5 +68,9 @@ class BaseOptionSubCategoryCell: UITableViewCell {
             titleLabel.heightAnchor.constraint(equalToConstant: 22),
             titleLabel.centerYAnchor.constraint(equalTo: contentView.centerYAnchor)
         ])
+    }
+    func setData(to data: BaseOptionSubCategoryModel) {
+        titleImage.image = UIImage(named: data.imageURL)
+        titleLabel.text = data.title
     }
 }

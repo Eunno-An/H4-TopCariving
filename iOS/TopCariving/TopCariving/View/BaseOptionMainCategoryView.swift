@@ -8,7 +8,7 @@
 import Combine
 import UIKit
 
-class BaseOptionMainCategoryView: UIView {
+class BaseOptionMainCategoryView: UITableViewHeaderFooterView {
     // MARK: - UI properties
     private var title: UILabel = {
         let label: UILabel = UILabel()
@@ -30,10 +30,11 @@ class BaseOptionMainCategoryView: UIView {
     private var bag = Set<AnyCancellable>()
     var arrowTouchUpPublilsher: AnyPublisher<Void, Never>?
     private var isClicked = false
+    static let identifier = "BaseOptionMainCategoryView"
     
     // MARK: - Lifecycles
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    override init(reuseIdentifier: String?) {
+        super.init(reuseIdentifier: reuseIdentifier)
         setUI()
         setLayout()
         setArrowButtonPublisher()
@@ -55,7 +56,6 @@ class BaseOptionMainCategoryView: UIView {
     
     // MARK: - Helpers
     func setUI() {
-        backgroundColor = .hyundaiLightSand
         layer.cornerRadius = 8
         [title, arrow].forEach {
             addSubview($0)
@@ -83,6 +83,9 @@ class BaseOptionMainCategoryView: UIView {
     }
     func setArrowButtonPublisher() {
         arrowTouchUpPublilsher = arrow.touchUpPublisher
+    }
+    func setData(to data: BaseOptionMainCategoryModel) {
+        setTitle(to: data.title)
     }
     func toggleArrow() {
         isClicked ?
