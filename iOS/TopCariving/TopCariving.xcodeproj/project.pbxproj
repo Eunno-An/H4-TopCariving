@@ -7,16 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7625A8012A8A26AA0060EEF5 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7625A8002A8A26AA0060EEF5 /* String+.swift */; };
 		7631E9412A81D21500015363 /* MyCarFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7631E9402A81D21500015363 /* MyCarFooterView.swift */; };
 		7631E9432A81D3CF00015363 /* CTAButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7631E9422A81D3CF00015363 /* CTAButton.swift */; };
 		7631E9472A82200C00015363 /* UILabel+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7631E9462A82200C00015363 /* UILabel+.swift */; };
 		7631E94B2A8382E100015363 /* BaseMyCarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7631E94A2A8382E100015363 /* BaseMyCarViewController.swift */; };
+		7631E9532A87720200015363 /* OptionCardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7631E9522A87720200015363 /* OptionCardCell.swift */; };
+		7631E9552A8777E900015363 /* OptionSelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7631E9542A8777E900015363 /* OptionSelectView.swift */; };
+		7631E9572A8780EB00015363 /* TagReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7631E9562A8780EB00015363 /* TagReviewView.swift */; };
+		7631E9592A87839D00015363 /* TagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7631E9582A87839D00015363 /* TagCell.swift */; };
+		7631E95B2A89181B00015363 /* OptionSnapCarouselView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7631E95A2A89181B00015363 /* OptionSnapCarouselView.swift */; };
+		7631E95D2A891A7B00015363 /* OptionDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7631E95C2A891A7B00015363 /* OptionDescriptionCell.swift */; };
+		7631E9612A89A0C400015363 /* OptionDescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7631E9602A89A0C400015363 /* OptionDescriptionView.swift */; };
 		763F60402A7B75D1000D11D9 /* CarSummaryContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763F603F2A7B75D1000D11D9 /* CarSummaryContainer.swift */; };
 		763F60422A7B9B08000D11D9 /* FoldableStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763F60412A7B9B08000D11D9 /* FoldableStackView.swift */; };
 		763F60482A7C7F35000D11D9 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763F60472A7C7F35000D11D9 /* ToastView.swift */; };
 		C313500A2A7E826C00D5D401 /* UIImage+.swift in Sources */ = {isa = PBXBuildFile; fileRef = C31350092A7E826C00D5D401 /* UIImage+.swift */; };
 		C313500C2A7E98DE00D5D401 /* FoldableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C313500B2A7E98DE00D5D401 /* FoldableView.swift */; };
 		C313500E2A7FB82B00D5D401 /* TappableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C313500D2A7FB82B00D5D401 /* TappableView.swift */; };
+		C31350102A8B4E4700D5D401 /* ColorSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C313500F2A8B4E4700D5D401 /* ColorSelectionView.swift */; };
+		C3C96D452A8B5529002C09D2 /* ColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3C96D442A8B5529002C09D2 /* ColorCell.swift */; };
 		D44B456B2A7B94D700E8E207 /* EndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44B456A2A7B94D700E8E207 /* EndPoint.swift */; };
 		D44B456F2A7B968200E8E207 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44B456E2A7B968200E8E207 /* HTTPClient.swift */; };
 		D44B45712A7B968A00E8E207 /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = D44B45702A7B968A00E8E207 /* HTTPMethod.swift */; };
@@ -107,16 +117,26 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7625A8002A8A26AA0060EEF5 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		7631E9402A81D21500015363 /* MyCarFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCarFooterView.swift; sourceTree = "<group>"; };
 		7631E9422A81D3CF00015363 /* CTAButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CTAButton.swift; sourceTree = "<group>"; };
 		7631E9462A82200C00015363 /* UILabel+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UILabel+.swift"; sourceTree = "<group>"; };
 		7631E94A2A8382E100015363 /* BaseMyCarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseMyCarViewController.swift; sourceTree = "<group>"; };
+		7631E9522A87720200015363 /* OptionCardCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionCardCell.swift; sourceTree = "<group>"; };
+		7631E9542A8777E900015363 /* OptionSelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionSelectView.swift; sourceTree = "<group>"; };
+		7631E9562A8780EB00015363 /* TagReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagReviewView.swift; sourceTree = "<group>"; };
+		7631E9582A87839D00015363 /* TagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagCell.swift; sourceTree = "<group>"; };
+		7631E95A2A89181B00015363 /* OptionSnapCarouselView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionSnapCarouselView.swift; sourceTree = "<group>"; };
+		7631E95C2A891A7B00015363 /* OptionDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionDescriptionCell.swift; sourceTree = "<group>"; };
+		7631E9602A89A0C400015363 /* OptionDescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionDescriptionView.swift; sourceTree = "<group>"; };
 		763F603F2A7B75D1000D11D9 /* CarSummaryContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarSummaryContainer.swift; sourceTree = "<group>"; };
 		763F60412A7B9B08000D11D9 /* FoldableStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldableStackView.swift; sourceTree = "<group>"; };
 		763F60472A7C7F35000D11D9 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
 		C31350092A7E826C00D5D401 /* UIImage+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+.swift"; sourceTree = "<group>"; };
 		C313500B2A7E98DE00D5D401 /* FoldableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldableView.swift; sourceTree = "<group>"; };
 		C313500D2A7FB82B00D5D401 /* TappableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TappableView.swift; sourceTree = "<group>"; };
+		C313500F2A8B4E4700D5D401 /* ColorSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSelectionView.swift; sourceTree = "<group>"; };
+		C3C96D442A8B5529002C09D2 /* ColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCell.swift; sourceTree = "<group>"; };
 		D44B456A2A7B94D700E8E207 /* EndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndPoint.swift; sourceTree = "<group>"; };
 		D44B456E2A7B968200E8E207 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		D44B45702A7B968A00E8E207 /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
@@ -434,6 +454,15 @@
 				D462E8112A88A3D700C5A8EC /* SubCategoryModalViewController.swift */,
 				D462E8152A88D6E600C5A8EC /* ModalPresentationController.swift */,
 				D462E81B2A8A700E00C5A8EC /* BaseOptonSubCategoryCell.swift */,
+				C3C96D442A8B5529002C09D2 /* ColorCell.swift */,
+				C313500F2A8B4E4700D5D401 /* ColorSelectionView.swift */,
+				7631E9522A87720200015363 /* OptionCardCell.swift */,
+				7631E9542A8777E900015363 /* OptionSelectView.swift */,
+				7631E9562A8780EB00015363 /* TagReviewView.swift */,
+				7631E9582A87839D00015363 /* TagCell.swift */,
+				7631E95A2A89181B00015363 /* OptionSnapCarouselView.swift */,
+				7631E95C2A891A7B00015363 /* OptionDescriptionCell.swift */,
+				7631E9602A89A0C400015363 /* OptionDescriptionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -453,6 +482,7 @@
 				D462E7672A84CAA100C5A8EC /* UIControl+.swift */,
 				D462E7772A852D3C00C5A8EC /* UIGestureRecognizer+.swift */,
 				D462E77F2A85F3D900C5A8EC /* UIView+.swift */,
+				7625A8002A8A26AA0060EEF5 /* String+.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -646,6 +676,7 @@
 				D4A68D362A80EFEE00E2C1FD /* Model.swift in Sources */,
 				D44B456B2A7B94D700E8E207 /* EndPoint.swift in Sources */,
 				D4ACBA442A78A3AD002B6A5B /* AppDelegate.swift in Sources */,
+				C31350102A8B4E4700D5D401 /* ColorSelectionView.swift in Sources */,
 				D4A68CF82A808D6300E2C1FD /* OptionRequestDTO.swift in Sources */,
 				D4A68D0C2A8095B100E2C1FD /* SelectionResponseDTO+Mapping.swift in Sources */,
 				D462E7662A84C9BF00C5A8EC /* UIButton+.swift in Sources */,
@@ -654,21 +685,26 @@
 				7631E9412A81D21500015363 /* MyCarFooterView.swift in Sources */,
 				D44B45752A7BC3DF00E8E207 /* DummyViewModel.swift in Sources */,
 				D462E77E2A85CCA900C5A8EC /* CombineGestureEvent.swift in Sources */,
+				7631E95D2A891A7B00015363 /* OptionDescriptionCell.swift in Sources */,
 				7631E94B2A8382E100015363 /* BaseMyCarViewController.swift in Sources */,
 				D44B45952A7CB9CA00E8E207 /* APIEndPoints.swift in Sources */,
 				D4A68D402A80F0EE00E2C1FD /* Color.swift in Sources */,
 				D462E7802A85F3D900C5A8EC /* UIView+.swift in Sources */,
 				D4CFBAAD2A7A25B100CCB27E /* HyundaiFont.swift in Sources */,
 				D4A68D442A80F13500E2C1FD /* BasicOption.swift in Sources */,
+				C3C96D452A8B5529002C09D2 /* ColorCell.swift in Sources */,
 				D4A68D022A8093F800E2C1FD /* EstimationChangeRequestDTO.swift in Sources */,
 				D4A68D302A80EF2A00E2C1FD /* Archiving.swift in Sources */,
+				7631E9572A8780EB00015363 /* TagReviewView.swift in Sources */,
 				D4A68D342A80EFC900E2C1FD /* Trim.swift in Sources */,
 				D4A68D4C2A81D2C300E2C1FD /* RotatableOptionImageView.swift in Sources */,
 				D462E8162A88D6E600C5A8EC /* ModalPresentationController.swift in Sources */,
 				D4A68D482A80F17C00E2C1FD /* EstimationChange.swift in Sources */,
 				7631E9472A82200C00015363 /* UILabel+.swift in Sources */,
 				D4A68D102A80968500E2C1FD /* ColorResponseDTO+Mapping.swift in Sources */,
+				7625A8012A8A26AA0060EEF5 /* String+.swift in Sources */,
 				D4A68D0A2A80957100E2C1FD /* SelectionDetailResponseDTO+Mapping.swift in Sources */,
+				7631E9592A87839D00015363 /* TagCell.swift in Sources */,
 				D4ACBA872A78CE8F002B6A5B /* UIColor+.swift in Sources */,
 				D4A68CFE2A80930800E2C1FD /* ArchivingResponseDTO+Mapping.swift in Sources */,
 				D4A68D462A80F15500E2C1FD /* ModelPhoto.swift in Sources */,
@@ -679,8 +715,10 @@
 				D4A68D2E2A80EF0C00E2C1FD /* ArchivingOption.swift in Sources */,
 				D4A68D4A2A80F1AA00E2C1FD /* Option.swift in Sources */,
 				D4A68D3C2A80F06E00E2C1FD /* Tag.swift in Sources */,
+				7631E9532A87720200015363 /* OptionCardCell.swift in Sources */,
 				D4A68D382A80F01400E2C1FD /* SelectionDetail.swift in Sources */,
 				D44B45712A7B968A00E8E207 /* HTTPMethod.swift in Sources */,
+				7631E9552A8777E900015363 /* OptionSelectView.swift in Sources */,
 				D4A68D422A80F10E00E2C1FD /* ColorBoth.swift in Sources */,
 				D4ACBA802A78CE4D002B6A5B /* ViewModelProtocol.swift in Sources */,
 				763F60482A7C7F35000D11D9 /* ToastView.swift in Sources */,
@@ -692,8 +730,10 @@
 				C313500C2A7E98DE00D5D401 /* FoldableView.swift in Sources */,
 				763F60402A7B75D1000D11D9 /* CarSummaryContainer.swift in Sources */,
 				D4ACBA802A78CE4D002B6A5B /* ViewModelProtocol.swift in Sources */,
+				7631E9612A89A0C400015363 /* OptionDescriptionView.swift in Sources */,
 				D4ACBA462A78A3AD002B6A5B /* SceneDelegate.swift in Sources */,
 				D4A68D082A80952700E2C1FD /* ModelResponseDTO+Mapping.swift in Sources */,
+				7631E95B2A89181B00015363 /* OptionSnapCarouselView.swift in Sources */,
 				D462E7682A84CAA100C5A8EC /* UIControl+.swift in Sources */,
 				D4A68D162A80973C00E2C1FD /* BasicOptionResponseDTO+Mapping.swift in Sources */,
 				D4A68CFC2A80925400E2C1FD /* ArchivingOptionResponseDTO+Mapping.swift in Sources */,
