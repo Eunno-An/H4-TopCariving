@@ -3,9 +3,11 @@ package com.backend.topcariving.domain.user.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Schema(description = "사용자의 이메일과 비밀번호를 가지는 Login Request DTO")
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 public class LoginRequestDTO {
 

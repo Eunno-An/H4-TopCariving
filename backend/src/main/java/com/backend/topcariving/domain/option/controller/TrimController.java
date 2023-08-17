@@ -22,12 +22,14 @@ import com.backend.topcariving.global.response.SuccessResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @Tag(name = "내 차 만들기 - 옵션")
 @RequestMapping("/api/options/trims")
 @RestController
+@SecurityRequirement(name = "Authorization")
 @RequiredArgsConstructor
 public class TrimController {
 

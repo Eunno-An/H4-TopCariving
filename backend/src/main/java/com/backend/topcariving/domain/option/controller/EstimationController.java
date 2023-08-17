@@ -15,12 +15,14 @@ import com.backend.topcariving.global.response.SuccessResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @Tag(name = "내 차 만들기 - 견적 요약보기")
 @RequiredArgsConstructor
 @RestController
+@SecurityRequirement(name = "Authorization")
 @RequestMapping("/api/options/estimations")
 public class EstimationController {
 

@@ -26,7 +26,7 @@ import io.swagger.v3.oas.models.servers.Server;
 public class SwaggerConfig {
 
 	private static final String DEV_URL = "https://dev.topcariving.com";
-	private static final String TEST_URL = "https://test.topcariving.com:8080";
+	private static final String TEST_URL = "http://test.topcariving.com:8080";
 	private static final String LOCAL_URL = "http://localhost:8080";
 
 	@Bean
