@@ -28,5 +28,5 @@ jobs:
         working-directory: ./backend
 
       - name: Test With Gradle
-        run: ./gradlew --info test
+        run: ./gradlew --info test -Pjasypt.password='${{ secrets.JASYPT_SECRET }}'
         working-directory: ./backend
