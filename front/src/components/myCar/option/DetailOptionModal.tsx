@@ -119,7 +119,7 @@ const ModalContainer = styled(Flex)`
 
   width: 476px;
   height: auto;
-  z-index: 20;
+  z-index: 11;
 
   border-radius: 20px;
   background: #fff;
@@ -132,7 +132,7 @@ export const CloseIcon = styled.img`
   position: absolute;
   top: 10px;
   right: 10px;
-  z-index: 25;
+  z-index: 12;
   cursor: pointer;
 `;
 

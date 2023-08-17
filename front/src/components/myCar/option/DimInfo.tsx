@@ -19,5 +19,5 @@ const DimInfo = styled(Flex)`
   color: ${theme.palette.White};
   ${theme.typo.Body4_Regular}
 
-  z-index: 100;
+  z-index: 10;
 `;
