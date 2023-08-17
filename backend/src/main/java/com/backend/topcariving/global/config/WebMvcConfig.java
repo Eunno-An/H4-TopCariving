@@ -22,9 +22,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	@Override
 	public void addCorsMappings(final CorsRegistry registry) {
 		registry.addMapping("/**")
-			.allowedOriginPatterns("*")
-			.allowedMethods("*")
-			.allowedHeaders("*")
+			.allowedOrigins("http://localhost:5173", "https://www.topcariving.com", "https://dev.topcariving.com", "https://test.topcariving.com", "http://localhost:8080")
+			.allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS")
+			.allowedHeaders("Authorization", "Content-type", "Location", "Accept", "Origin", "Host", "Referer", "Cache-Control", "Connection")
 			.allowCredentials(true)
 			.maxAge(MAX_AGE_SECS);
 	}
