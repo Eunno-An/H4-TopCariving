@@ -16,7 +16,7 @@ export const SelectOptionContainer = ({
             <Text typo="Heading1_Medium">선택 옵션</Text>
             <Flex width="auto">
               <Text typo="Heading2_Medium" palette="Gold">
-                {`${options.length + 1}`}
+                {`${options.length}`}
               </Text>
               <Text typo="Heading2_Medium">개</Text>
             </Flex>

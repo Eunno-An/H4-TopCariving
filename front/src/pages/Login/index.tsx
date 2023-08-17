@@ -3,23 +3,36 @@ import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { theme } from '@styles/theme';
 import hyundai from '@assets/images/hyundaiLogo.png';
-import { initMyCarInfo } from '@contexts/MyCarContext';
+import { initMyCarInfo, useMyCar } from '@contexts/MyCarContext';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const {
     register,
-    getValues,
     handleSubmit,
     formState: { errors },
   } = useForm({ defaultValues: { email: '', password: '' } });
+
+  const { setMyCarInfo } = useMyCar();
   useEffect(() => {
     localStorage.clear();
     localStorage.setItem('myCarInfo', JSON.stringify(initMyCarInfo));
     localStorage.setItem('archivingId', JSON.stringify(null));
+    setMyCarInfo(initMyCarInfo);
   }, []);
-  const onSubmit = async () => {};
+
+  const navigate = useNavigate();
+
+  const onSubmit = async () => {
+    navigate('/my-car/trim');
+  };
+
+  const onMoveHyundai = () => {
+    window.location.href =
+      'https://prd.kr-ccapi.hyundai.com/api/v1/user/oauth2/authorize?client_id=207147f6-05d9-4cda-a6cb-96fec38f1eae&redirect_uri=http://localhost:8080/oauth/authorize&response_type=code&state=a213bdsfe';
+  };
   return (
     <Flex direction="column" align="center" justify="center">
       <Flex direction="column" width="auto" height="auto">
@@ -60,23 +73,32 @@ const Login = () => {
                     required: '비밀번호를 입력해주세요',
                   })}
                 />
-                <Flex height={10} width="auto">
+                <Flex height={20} width="auto">
                   <Text typo="Body3_Regular" palette="Primary">
                     {errors?.password?.message?.toString()}
                   </Text>
                 </Flex>
+                <Flex justify="flex-end">
+                  <Text
+                    onClick={onMoveHyundai}
+                    css={css`
+                      cursor: pointer;
+                    `}
+                  >
+                    현대닷컴으로 로그인하기
+                  </Text>
+                </Flex>
               </Flex>
             </Flex>
-            <div onClick={onSubmit}>
-              <Button
-                width={600}
-                heightType="medium"
-                backgroundColor="Primary"
-                typo="Heading4_Bold"
-              >
-                로그인
-              </Button>
-            </div>
+            <Button
+              width={600}
+              heightType="medium"
+              backgroundColor="Primary"
+              typo="Heading4_Bold"
+              type="submit"
+            >
+              로그인
+            </Button>
           </Flex>
         </form>
       </Flex>
