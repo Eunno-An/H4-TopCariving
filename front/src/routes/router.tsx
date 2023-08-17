@@ -27,6 +27,7 @@ export const router = createBrowserRouter([
     path: '/my-car',
     element: <MyCar />,
     children: [
+      { path: '', element: <></> },
       {
         path: 'trim',
         element: <Trim />,
@@ -156,8 +157,7 @@ export const router = createBrowserRouter([
     element: <Complete />,
     loader: async () => {
       const { options } = await apiInstance({
-        // userId 후에 삭제 필요
-        url: `${Summary.ESTIMATION}/${1}/${getArchivingId()}`,
+        url: `${Summary.ESTIMATION}/${getArchivingId()}`,
         method: 'GET',
       });
       return options;

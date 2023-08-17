@@ -46,11 +46,13 @@ export const NavBar = ({ currentUrl }: navBarProps) => {
   const [stepIdx, setStepIdx] = useState(0);
 
   useEffect(() => {
-    const [step, detailStep] = currentUrl.split('/').slice(2);
+    if (currentUrl !== '/my-car/complete') {
+      const [step, detailStep] = currentUrl.split('/').slice(2);
 
-    setStep(step);
-    setDetailStep(detailStep ? detailStep : '');
-    setStepIdx(Object.keys(navBarText).indexOf(step) + 1);
+      setStep(step);
+      setDetailStep(detailStep ? detailStep : '');
+      setStepIdx(Object.keys(navBarText).indexOf(step) + 1);
+    }
   }, [currentUrl]);
 
   return (

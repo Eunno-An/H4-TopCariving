@@ -14,7 +14,6 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.backend.topcariving.domain.archive.dto.request.FeedCopyRequestDTO;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveDetailResponseDTO;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveFeedDTO;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveResponseDTO;
@@ -154,18 +153,18 @@ public class ArchiveService {
 	}
 
 	@Transactional
-	public Long saveFeedToCreatedCar(FeedCopyRequestDTO feedCopyRequestDTO) {
+	public Long saveFeedToCreatedCar(Long userId, Long archivingId) {
 
 		CarArchiving newCarArchiving = CarArchiving.builder()
 			.dayTime(LocalDateTime.now())
 			.isComplete(true)
 			.isAlive(true)
-			.userId(feedCopyRequestDTO.getUserId())
+			.userId(userId)
 			.build();
 
 		newCarArchiving = carArchivingRepository.save(newCarArchiving);
 
-		List<MyCar> myCars = myCarRepository.findByArchivingId(feedCopyRequestDTO.getArchivingId());
+		List<MyCar> myCars = myCarRepository.findByArchivingId(archivingId);
 		List<MyCar> newCars = myCars.stream()
 				.map(myCar -> new MyCar(null, myCar.getCarOptionId(), myCar.getArchivingId())).collect(Collectors.toList());
 

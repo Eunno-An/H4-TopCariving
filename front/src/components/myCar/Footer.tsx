@@ -42,10 +42,9 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
       case '/my-car/trim':
         try {
           const archivingId = await apiInstance({
-            url: `${TrimUrl.MODELS}?carOptionId=${myCarInfo.trim.type?.id}`,
+            url: `${TrimUrl.MODELS}`,
             method: 'POST',
             bodyData: JSON.stringify({
-              userId: 1,
               archivingId: null,
               carOptionId: myCarInfo.trim.type?.id,
             }),
@@ -62,7 +61,6 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
             url: `${TrimUrl.ENGINES}?carOptionId=${myCarInfo.trim.engine?.id}`,
             method: 'POST',
             bodyData: JSON.stringify({
-              userId: 1,
               archivingId: getArchivingId(),
               carOptionId: myCarInfo.trim.engine?.id,
             }),
@@ -79,7 +77,6 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
             url: `${TrimUrl.BODY_TYPE}?carOptionId=${myCarInfo.trim.bodyType?.id}`,
             method: 'POST',
             bodyData: JSON.stringify({
-              userId: 1,
               archivingId: getArchivingId(),
               carOptionId: myCarInfo.trim.bodyType?.id,
             }),
@@ -96,7 +93,6 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
             url: `${TrimUrl.TRACTION}?carOptionId=${myCarInfo.trim.traction?.id}`,
             method: 'POST',
             bodyData: JSON.stringify({
-              userId: 1,
               archivingId: getArchivingId(),
               carOptionId: myCarInfo.trim.traction?.id,
             }),
@@ -113,7 +109,6 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
             url: `${ColorUrl.BOTH}`,
             method: 'POST',
             bodyData: JSON.stringify({
-              userId: 1,
               archivingId: getArchivingId(),
               exteriorColorOptionId: myCarInfo.color.exteriorColor?.id,
               interiorColorOptionId: myCarInfo.color.interiorColor?.id,
@@ -131,7 +126,6 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
             url: `${OptionUrl.SELECTION}`,
             method: 'POST',
             bodyData: JSON.stringify({
-              userId: 1,
               archivingId: getArchivingId(),
               ids: myCarInfo.option.selected.map((item) => item.id),
             }),
@@ -148,7 +142,6 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
             url: `${OptionUrl.ACCESSORY}`,
             method: 'POST',
             bodyData: JSON.stringify({
-              userId: 1,
               archivingId: getArchivingId(),
               ids: myCarInfo.option.genuine.map((item) => item.id),
             }),
@@ -165,7 +158,6 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
             url: `${OptionUrl.PERFORMANCE}`,
             method: 'POST',
             bodyData: JSON.stringify({
-              userId: 1,
               archivingId: getArchivingId(),
               carOptionId: myCarInfo.option.performance.length
                 ? myCarInfo.option.performance[0].id

@@ -48,9 +48,8 @@ public class EstimationService {
 	}
 
 	@Transactional
-	public Long changeOptions(EstimationChangeRequestDTO estimationChangeRequestDTO) {
+	public Long changeOptions(Long userId, EstimationChangeRequestDTO estimationChangeRequestDTO) {
 		final Long archivingId = estimationChangeRequestDTO.getArchivingId();
-		final Long userId = estimationChangeRequestDTO.getUserId();
 		final List<Long> optionIds = estimationChangeRequestDTO.getOptionIds();
 
 		validator.verifyCarArchiving(userId, archivingId);

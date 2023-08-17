@@ -12,20 +12,23 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.topcariving.domain.archive.dto.request.BookmarkRequestDTO;
-import com.backend.topcariving.domain.archive.dto.request.FeedCopyRequestDTO;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveDetailResponseDTO;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveFeedDTO;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveResponseDTO;
 import com.backend.topcariving.domain.archive.dto.response.CreatedCarDTO;
 import com.backend.topcariving.domain.archive.service.ArchiveService;
 import com.backend.topcariving.domain.bookmark.service.BookmarkService;
+import com.backend.topcariving.global.auth.annotation.Login;
 import com.backend.topcariving.global.response.SuccessResponse;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 
 @Tag(name = "아카이빙")
+@SecurityRequirement(name = "Authorization")
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/api/archiving")
@@ -52,35 +55,35 @@ public class ArchiveController {
 		return null;
 	}
 
-	@PostMapping("/feeds")
+	@PostMapping("/feeds/{archivingId}")
 	@Operation(summary = "마이카이빙 피드에 있는 차량을 내가 만든 차량으로 복사", description = "마이카이빙 피드에서 '이 차량으로 내 차 만들기' 버튼을 누르면 실행되는 연산(반환 값은 새로 만들어진 아카이빙 ID입니다)")
-	public SuccessResponse<Long> saveFeedToCreatedCar(@RequestBody FeedCopyRequestDTO feedCopyRequestDTO) {
-		Long archivingId = archiveService.saveFeedToCreatedCar(feedCopyRequestDTO);
-		return new SuccessResponse<>(archivingId);
+	public SuccessResponse<Long> saveFeedToCreatedCar(@Parameter(hidden = true) @Login Long userId, @PathVariable Long archivingId) {
+		Long copyArchivingId = archiveService.saveFeedToCreatedCar(userId, archivingId);
+		return new SuccessResponse<>(copyArchivingId);
 	}
 
-	@GetMapping("/details/{userId}/{archivingId}")
+	@GetMapping("/details/{archivingId}")
 	@Operation(summary = "차량 세부 정보 조회", description = "아카이빙 및 마이아카이빙에서 선택한 차량의 세부 정보 조회")
-	public ArchiveDetailResponseDTO getDetailsCars(@PathVariable Long userId, @PathVariable Long archivingId) {
+	public ArchiveDetailResponseDTO getDetailsCars(@Parameter(hidden = true) @Login Long userId, @PathVariable Long archivingId) {
 		return archiveService.getDetailsCars(userId, archivingId);
 	}
 
 	@PostMapping("/feeds/bookmarks")
 	@Operation(summary = "차량 북마크 추가 및 삭제", description = "차량을 피드에서 저장한 차량 목록에 저장 및 삭제")
-	public SuccessResponse<Boolean> toggleBookmark(@RequestBody BookmarkRequestDTO bookmarkRequestDTO) {
-		Boolean isAlive = bookmarkService.toggleBookmark(bookmarkRequestDTO);
+	public SuccessResponse<Boolean> toggleBookmark(@Parameter(hidden = true) @Login Long userId, @RequestBody BookmarkRequestDTO bookmarkRequestDTO) {
+		Boolean isAlive = bookmarkService.toggleBookmark(userId, bookmarkRequestDTO);
 		return new SuccessResponse<>(isAlive);
 	}
 
-	@DeleteMapping("/created-cars/{userId}/{archivingId}")
+	@DeleteMapping("/created-cars/{archivingId}")
 	@Operation(summary = "마이카이빙에 있는 차량 삭제", description = "마이카이빙에 있는 차량 삭제하고 삭제한 차량의 아카이빙 아이디 반환")
-	public SuccessResponse<Long> deleteMyArchiving(@PathVariable Long userId, @PathVariable Long archivingId) {
+	public SuccessResponse<Long> deleteMyArchiving(@Parameter(hidden = true) @Login Long userId, @PathVariable Long archivingId) {
 		return null;
 	}
 
-	@PostMapping("/created-cars/{userId}/{archivingId}")
+	@PostMapping("/created-cars/{archivingId}")
 	@Operation(summary = "마이카이빙에 있는 차량 삭제 되돌리기", description = "마이카이빙에서 삭제한 차량을 되돌리고 아카이빙 아이디 반환")
-	public SuccessResponse<Long> restoreMyArchiving(@PathVariable Long userId, @PathVariable Long archivingId) {
+	public SuccessResponse<Long> restoreMyArchiving(@Parameter(hidden = true) @Login Long userId, @PathVariable Long archivingId) {
 		return null;
 	}
 }

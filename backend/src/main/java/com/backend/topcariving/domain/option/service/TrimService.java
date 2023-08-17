@@ -59,8 +59,7 @@ public class TrimService {
 	}
 
 	@Transactional
-	public Long saveModel(SelectOptionRequestDTO selectOptionRequestDTO) {
-		Long userId = selectOptionRequestDTO.getUserId();
+	public Long saveModel(Long userId, SelectOptionRequestDTO selectOptionRequestDTO) {
 		Long carOptionId = selectOptionRequestDTO.getCarOptionId();
 		Long archivingId = selectOptionRequestDTO.getArchivingId();
 
@@ -118,8 +117,7 @@ public class TrimService {
 	}
 
 	@Transactional
-	public Long saveOption(SelectOptionRequestDTO selectOptionRequestDTO, CategoryDetail categoryDetail) {
-		Long userId = selectOptionRequestDTO.getUserId();
+	public Long saveOption(Long userId, SelectOptionRequestDTO selectOptionRequestDTO, CategoryDetail categoryDetail) {
 		Long carOptionId = selectOptionRequestDTO.getCarOptionId();
 		Long archivingId = selectOptionRequestDTO.getArchivingId();
 

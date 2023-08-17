@@ -95,7 +95,7 @@ const Container = styled.div`
   border-radius: 20px;
   background: #fff;
 
-  z-index: 2;
+  z-index: 11;
 
   /* 팝업창그림자 */
   box-shadow: 0px 12px 20px 0px rgba(0, 0, 0, 0.1);

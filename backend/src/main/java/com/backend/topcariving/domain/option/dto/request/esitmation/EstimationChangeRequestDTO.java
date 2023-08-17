@@ -11,9 +11,6 @@ import lombok.Getter;
 @Schema(description = "견적 요약 보기로 들어와서 변경한 옵션들의 ID 값을 저장하는 DTO")
 public class EstimationChangeRequestDTO {
 
-	@Schema(description = "유저 아이디")
-	private Long userId;
-
 	@Schema(description = "변경을 하고 있는 차량 아카이빙 ID")
 	private Long archivingId;
 

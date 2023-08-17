@@ -68,8 +68,7 @@ public class OptionService {
 	}
 
 	@Transactional
-	public Long saveSelectionOptions(SelectOptionsRequestDTO selectOptionsRequestDTO, CategoryDetail categoryDetail) {
-		Long userId = selectOptionsRequestDTO.getUserId();
+	public Long saveSelectionOptions(Long userId, SelectOptionsRequestDTO selectOptionsRequestDTO, CategoryDetail categoryDetail) {
 		List<Long> selectedOptionIds = selectOptionsRequestDTO.getIds();
 		Long archivingId = selectOptionsRequestDTO.getArchivingId();
 
@@ -98,8 +97,7 @@ public class OptionService {
 	}
 
 	@Transactional
-	public Long saveSelectionOption(SelectOptionRequestDTO selectOptionRequestDTO, CategoryDetail categoryDetail) {
-		Long userId = selectOptionRequestDTO.getUserId();
+	public Long saveSelectionOption(Long userId, SelectOptionRequestDTO selectOptionRequestDTO, CategoryDetail categoryDetail) {
 		Long carOptionId = selectOptionRequestDTO.getCarOptionId();
 		Long archivingId = selectOptionRequestDTO.getArchivingId();
 
