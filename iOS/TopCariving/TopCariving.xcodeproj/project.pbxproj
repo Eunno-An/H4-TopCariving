@@ -390,8 +390,6 @@
 				D462E86B2A8C95D500C5A8EC /* MyCarMoreInformationView.swift */,
 				D462E8742A8DE56400C5A8EC /* FeatureSummaryContainerView.swift */,
 				D462E8762A8DEBC000C5A8EC /* ChangeOptionButtonView.swift */,
-				D462E8782A8E02E700C5A8EC /* OutColorDescriptionView.swift */,
-				D462E87A2A8E02F300C5A8EC /* InColorDescriptionView.swift */,
 				D462E87C2A8E044D00C5A8EC /* ColorDescriptionView.swift */,
 			);
 			path = MyCarComplete;
@@ -748,7 +746,6 @@
 				D4ACBA7E2A78CE35002B6A5B /* DummyView.swift in Sources */,
 				D4A68D362A80EFEE00E2C1FD /* Model.swift in Sources */,
 				D44B456B2A7B94D700E8E207 /* EndPoint.swift in Sources */,
-				D462E87B2A8E02F300C5A8EC /* InColorDescriptionView.swift in Sources */,
 				D462E8682A8C957C00C5A8EC /* MyCarFeatureView.swift in Sources */,
 				D4ACBA442A78A3AD002B6A5B /* AppDelegate.swift in Sources */,
 				C31350102A8B4E4700D5D401 /* ColorSelectionView.swift in Sources */,
@@ -759,7 +756,6 @@
 				D462E7782A852D3C00C5A8EC /* UIGestureRecognizer+.swift in Sources */,
 				D4A68D322A80EF8500E2C1FD /* ModifyOption.swift in Sources */,
 				D462E87D2A8E044D00C5A8EC /* ColorDescriptionView.swift in Sources */,
-				D462E8792A8E02E700C5A8EC /* OutColorDescriptionView.swift in Sources */,
 				D462E8752A8DE56400C5A8EC /* FeatureSummaryContainerView.swift in Sources */,
 				D462E86C2A8C95D500C5A8EC /* MyCarMoreInformationView.swift in Sources */,
 				7631E9412A81D21500015363 /* MyCarFooterView.swift in Sources */,

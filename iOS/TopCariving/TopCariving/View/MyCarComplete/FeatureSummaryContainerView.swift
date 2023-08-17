@@ -39,11 +39,24 @@ class FeatureSummaryContainerView: UIView {
         label.layer.borderColor = UIColor.hyundaiLightSand.cgColor
         return label
     }()
-    private var outColorDescriptionView = OutColorDescriptionView()
-    private var inColorDescriptionView = InColorDescriptionView()
+    private var outColorDescriptionView: ColorDescriptionView = ColorDescriptionView()
+    private var inColorDescriptionView: ColorDescriptionView = ColorDescriptionView()
+    
     // MARK: - Properties
     
     // MARK: - Lifecycles
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUI()
+        setLayout()
+        test_data()
+    }
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setUI()
+        setLayout()
+        test_data()
+    }
     
     // MARK: - Helpers
     private func setUI() {
@@ -90,5 +103,9 @@ class FeatureSummaryContainerView: UIView {
             inColorDescriptionView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 33),
             inColorDescriptionView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
+    }
+    private func test_data() {
+        outColorDescriptionView = ColorDescriptionView(data: ColorDescriptionModel(space: "외장", color: .hyundaiBlackGray, colorName: "문라이트 블루펄"))
+        inColorDescriptionView = ColorDescriptionView(data: ColorDescriptionModel(space: "내장", color: .hyundaiBlackGray, colorName: "퀄팅 천연(블랙)"))
     }
 }

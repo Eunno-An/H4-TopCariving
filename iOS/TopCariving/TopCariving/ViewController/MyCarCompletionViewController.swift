@@ -9,7 +9,7 @@ import UIKit
 
 class MyCarCompletionViewController: BaseMyCarViewController {
     // MARK: - UI properties
-    let ticketView = TicketBackgroundView()
+    private let ticketView = TicketBackgroundView()
     
     // MARK: - Properties
     

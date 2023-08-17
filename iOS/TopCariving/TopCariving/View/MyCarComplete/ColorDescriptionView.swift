@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct colorDescriptionModel {
+struct ColorDescriptionModel {
     var space: String
     var color: UIColor
     var colorName: String
@@ -50,7 +50,7 @@ class ColorDescriptionView: UIView {
         setUI()
         setLayout()
     }
-    init(data: colorDescriptionModel) {
+    init(data: ColorDescriptionModel) {
         super.init(frame: .zero)
         setUI()
         setLayout()
