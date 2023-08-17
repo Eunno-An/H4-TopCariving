@@ -57,10 +57,10 @@ class TicketBackgroundView: TicketView {
     }
     
     // MARK: - Helpers
-    private func setUI() {
+    func setUI() {
         [title, leftDiscription, rightArrow, rightDescription, carImage].forEach { addSubview($0) }
     }
-    private func setLayout() {
+    func setLayout() {
         NSLayoutConstraint.activate([
             title.topAnchor.constraint(equalTo: topAnchor, constant: 23),
             title.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -153),
@@ -80,10 +80,10 @@ class TicketBackgroundView: TicketView {
             rightDescription.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 4),
             rightDescription.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -129),
             rightDescription.leadingAnchor.constraint(equalTo: rightArrow.trailingAnchor),
-            rightDescription.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -47),
+            rightDescription.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -30),
             
             carImage.topAnchor.constraint(equalTo: leftDiscription.topAnchor),
-            carImage.bottomAnchor.constraint(equalTo: bottomAnchor),
+            carImage.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 80),
             carImage.leadingAnchor.constraint(equalTo: leadingAnchor),
             carImage.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])

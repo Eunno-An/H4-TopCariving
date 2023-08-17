@@ -13,18 +13,15 @@ class TicketView: UIView {
     // MARK: - Properties
     
     // MARK: - Lifecycles
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        drawTicket()
-    }
+    
     // MARK: - Helpers
-    private func drawTicket() {
+    func drawTicket(holeYPosition: CGFloat) {
         let ticketShapeLayer = CAShapeLayer()
         ticketShapeLayer.frame = self.bounds
-        ticketShapeLayer.fillColor = UIColor.hyundaiSand.cgColor
+        ticketShapeLayer.fillColor = UIColor.hyundaiLightSand.cgColor
         let ticketShapePath = UIBezierPath(roundedRect: ticketShapeLayer.bounds, cornerRadius: 8)
         let topLeftArcPath = UIBezierPath(
-            arcCenter: CGPoint(x: 0, y: 100),
+            arcCenter: CGPoint(x: 0, y: holeYPosition),
             radius: 30/2,
             startAngle: CGFloat(Double.pi / 2),
             endAngle: CGFloat(Double.pi + Double.pi / 2),
@@ -33,7 +30,7 @@ class TicketView: UIView {
         topLeftArcPath.close()
         
         let topRightArcPath = UIBezierPath(
-            arcCenter: CGPoint(x: ticketShapeLayer.frame.width, y: 100),
+            arcCenter: CGPoint(x: ticketShapeLayer.frame.width, y: holeYPosition),
             radius: 30/2,
             startAngle: CGFloat(Double.pi / 2),
             endAngle: CGFloat(Double.pi + Double.pi / 2),
@@ -45,7 +42,6 @@ class TicketView: UIView {
         ticketShapePath.append(topRightArcPath.reversing())
         
         ticketShapeLayer.path = ticketShapePath.cgPath
-        //ticketShapeLayer.borderWidth = 1
         layer.addSublayer(ticketShapeLayer)
     }
 }

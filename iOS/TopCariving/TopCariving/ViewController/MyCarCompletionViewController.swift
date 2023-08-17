@@ -10,6 +10,7 @@ import UIKit
 class MyCarCompletionViewController: BaseMyCarViewController {
     // MARK: - UI properties
     let ticketView = TicketBackgroundView()
+    
     // MARK: - Properties
     
     // MARK: - Lifecycles
@@ -17,6 +18,11 @@ class MyCarCompletionViewController: BaseMyCarViewController {
         super.viewDidLoad()
         setUI()
         setLayout()
+    }
+    override func viewDidLayoutSubviews() {
+        ticketView.drawTicket(holeYPosition: 70)
+        ticketView.setUI()
+        ticketView.setLayout()
     }
     
     // MARK: - Helpers
