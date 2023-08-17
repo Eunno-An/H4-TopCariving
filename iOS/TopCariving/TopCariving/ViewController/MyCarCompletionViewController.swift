@@ -9,7 +9,7 @@ import UIKit
 
 class MyCarCompletionViewController: BaseMyCarViewController {
     // MARK: - UI properties
-    let ticketView = TicketView()
+    let ticketView = TicketBackgroundView()
     // MARK: - Properties
     
     // MARK: - Lifecycles
@@ -34,4 +34,3 @@ class MyCarCompletionViewController: BaseMyCarViewController {
         ])
     }
 }
-
