@@ -28,12 +28,19 @@ spring:
       data-locations: classpath*:initDb/data.sql
 
 token:
-  access-token-expiration: 600000
-  secret-key: sE2SFJ4239fsDJ392dsfljk521LK426j2SKfisefjseLEesi
-  refresh-token-expiration: 180000
+  access-token-expiration: ENC(aN1VUL4PZI863pL49nxS0g==)
+  secret-key: ENC(9w2F54pDUxduEsjYPcFteYskKT9NelCfXUUf4KQReW7YjPUi2bq4pYDEn9gOSznpdjYrYr71ceATvazxeaNAGQ==)
+  refresh-token-expiration: ENC(mlFa5gn8QYv4oNg7SxvxiA==)
 
 logging:
   level:
     org:
       springframework:
         jdbc: DEBUG
+
+oauth:
+  hyundai:
+    state: ENC(97DU+WRuZSA0oGnT/N/UnlknLLxShtIM)
+    client-id: ENC(Keh7pUQRMKFJ8P4qOU6E7suTjkHP1yNnbVTBtmCAdTsJ1I8rtDYj4/BT91IaXMUB)
+    client-secret: ENC(LPEsledj2yz9tkLR4TBlO9pkv+WwylkcWgp2UQE/g65iQ4K8IBPXopfSrEJhlf2Lo73OoElMOmAHHwUUhg2sGQ==)
+    redirect-uri: https://www.topcariving.com/oauth-redirect

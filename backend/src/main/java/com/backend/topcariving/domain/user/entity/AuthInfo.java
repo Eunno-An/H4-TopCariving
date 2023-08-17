@@ -15,6 +15,8 @@ public class AuthInfo {
 
 	private LocalDateTime expiredTime;
 
+	private String loginType;
+
 	// FK
 	private Long userId;
 

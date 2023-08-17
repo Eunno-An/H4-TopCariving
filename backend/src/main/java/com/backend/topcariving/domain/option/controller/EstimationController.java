@@ -31,7 +31,6 @@ public class EstimationController {
 	@PostMapping("/")
 	@Operation(summary = "견적 요약보기에서 변경사항 저장", description = "견적 요약 보기")
 	public SuccessResponse<Long> estimationChange(@Parameter(hidden = true) @Login Long userId, @RequestBody EstimationChangeRequestDTO request) {
-
 		final Long archivingId = estimationService.changeOptions(userId, request);
 		return new SuccessResponse<>(archivingId);
 	}

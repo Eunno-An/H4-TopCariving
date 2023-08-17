@@ -107,7 +107,7 @@ CREATE TABLE IF NOT EXISTS AUTH_INFO
     expired_time  datetime,
     user_id       bigint,
     CONSTRAINT pk_auth_info PRIMARY KEY (auth_info_id),
-    CONSTRAINT fk_auth_info_to_user_id FOREIGN KEY (user_id) REFERENCES USER_INFO (user_id)
+    CONSTRAINT fk_auth_info_to_user FOREIGN KEY (user_id) REFERENCES USER_INFO (user_id)
     );
 
 CREATE TABLE IF NOT EXISTS BOOKMARK
@@ -129,5 +129,15 @@ CREATE TABLE IF NOT EXISTS POSITION_INFO (
     top_percent varchar(10),
     car_option_id bigint,
     CONSTRAINT pk_position PRIMARY KEY (position_id),
-    CONSTRAINT fk_position_to_caR_option FOREIGN KEY (car_option_id) REFERENCES CAR_OPTION (car_option_id)
+    CONSTRAINT fk_position_to_car_option FOREIGN KEY (car_option_id) REFERENCES CAR_OPTION (car_option_id)
+);
+
+CREATE TABLE IF NOT EXISTS OAUTH (
+    oauth_id bigint auto_increment,
+    access_token TEXT,
+    refresh_token varchar(255),
+    expires_in bigint,
+    user_id bigint,
+    CONSTRAINT pk_oauth PRIMARY KEY (oauth_id),
+    CONSTRAINT fk_oauth_to_user FOREIGN KEY (user_id) REFERENCES USER_INFO (user_id)
 );

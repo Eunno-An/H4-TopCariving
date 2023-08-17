@@ -8,12 +8,12 @@ import org.springframework.stereotype.Service;
 import com.backend.topcariving.domain.user.dto.LoginRequestDTO;
 import com.backend.topcariving.domain.user.entity.AuthInfo;
 import com.backend.topcariving.domain.user.entity.User;
-import com.backend.topcariving.domain.user.exception.UserNotFoundException;
-import com.backend.topcariving.global.exception.InvalidTokenException;
+import com.backend.topcariving.domain.user.exception.UserException;
 import com.backend.topcariving.domain.user.repository.AuthInfoRepository;
 import com.backend.topcariving.domain.user.repository.UserRepository;
 import com.backend.topcariving.global.auth.dto.TokenDTO;
 import com.backend.topcariving.global.auth.service.TokenProvider;
+import com.backend.topcariving.global.exception.InvalidTokenException;
 
 import lombok.RequiredArgsConstructor;
 
@@ -30,7 +30,7 @@ public class UserService {
 
 	public TokenDTO login(LoginRequestDTO loginRequestDTO) {
 		final User user = userRepository.findByEmailAndPassword(loginRequestDTO.getEmail(), loginRequestDTO.getPassword())
-			.orElseThrow(UserNotFoundException::new);
+			.orElseThrow(() -> new UserException(UserException.USER_NOT_FOUND));
 
 		final String accessToken = tokenProvider.createAccessToken(user.getUserId());
 		final String refreshToken = createRefreshToken(user.getUserId());
