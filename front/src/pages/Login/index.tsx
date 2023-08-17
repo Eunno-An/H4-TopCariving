@@ -7,11 +7,13 @@ import { initMyCarInfo, useMyCar } from '@contexts/MyCarContext';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
+import { LoginUrl, apiInstance, token } from '@utils/api';
 
 const Login = () => {
   const {
     register,
     handleSubmit,
+    getValues,
     formState: { errors },
   } = useForm({ defaultValues: { email: '', password: '' } });
 
@@ -26,12 +28,24 @@ const Login = () => {
   const navigate = useNavigate();
 
   const onSubmit = async () => {
+    const res = await apiInstance({
+      url: LoginUrl.LOGIN,
+      method: 'POST',
+      bodyData: JSON.stringify({
+        email: getValues().email,
+        password: getValues().password,
+      }),
+    });
+
+    token.accessToken = res.accessToken;
+    token.refreshToken = res.refreshToken;
+
     navigate('/my-car/trim');
   };
 
   const onMoveHyundai = () => {
     window.location.href =
-      'https://prd.kr-ccapi.hyundai.com/api/v1/user/oauth2/authorize?client_id=207147f6-05d9-4cda-a6cb-96fec38f1eae&redirect_uri=http://localhost:8080/oauth/authorize&response_type=code&state=a213bdsfe';
+      'https://prd.kr-ccapi.hyundai.com/api/v1/user/oauth2/authorize?client_id=207147f6-05d9-4cda-a6cb-96fec38f1eae&redirect_uri=https://dev.topcariving.com/oauth/authorize&response_type=code&state=a213bdsfe';
   };
   return (
     <Flex direction="column" align="center" justify="center">
