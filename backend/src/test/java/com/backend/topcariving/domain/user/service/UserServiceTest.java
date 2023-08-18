@@ -13,7 +13,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.backend.topcariving.domain.user.dto.LoginRequestDTO;
 import com.backend.topcariving.domain.user.entity.User;
-import com.backend.topcariving.domain.user.exception.UserNotFoundException;
+import com.backend.topcariving.domain.user.exception.UserException;
 import com.backend.topcariving.domain.user.repository.AuthInfoRepository;
 import com.backend.topcariving.domain.user.repository.UserRepository;
 import com.backend.topcariving.global.auth.dto.TokenDTO;
@@ -73,7 +73,7 @@ class UserServiceTest {
 		// when then
 		Assertions.assertThatThrownBy(() -> {
 			userService.login(loginRequestDTO);
-		}).isInstanceOf(UserNotFoundException.class);
+		}).isInstanceOf(UserException.class);
 	}
 
 }

@@ -10,6 +10,7 @@ import com.backend.topcariving.domain.archive.exception.InvalidMyCarIdException;
 import com.backend.topcariving.domain.option.exception.InvalidArchivingIdException;
 import com.backend.topcariving.domain.option.exception.InvalidCarOptionIdException;
 import com.backend.topcariving.domain.option.exception.InvalidCategoryException;
+import com.backend.topcariving.domain.user.exception.UserException;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
@@ -21,6 +22,16 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(InvalidAuthorityException.class)
 	public ResponseEntity<String> invalidAuthorityHandler(Exception e) {
+		return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
+	}
+
+	@ExceptionHandler(UserException.class)
+	public ResponseEntity<String> invalidUserNotFoundHandler(Exception e) {
+		return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+	}
+
+	@ExceptionHandler(InvalidOauthException.class)
+	public ResponseEntity<String> invalidOauthHandler(Exception e) {
 		return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
 	}
 

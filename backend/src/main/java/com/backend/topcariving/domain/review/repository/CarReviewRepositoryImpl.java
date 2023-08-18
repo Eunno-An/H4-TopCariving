@@ -19,9 +19,10 @@ public class CarReviewRepositoryImpl implements CarReviewRepository {
 
 	@Override
 	public Optional<CarReview> findByArchivingId(Long archivingId) {
-		String sql = "SELECT * FROM CAR_REVIEW "
-			+ "WHERE my_car_id IN "
-			+ "(SELECT my_car_id FROM MY_CAR WHERE archiving_id = ? AND car_option_id IS NULL);";
+		String sql = "SELECT CR.* "
+			+ "FROM CAR_REVIEW CR "
+			+ "JOIN MY_CAR MC ON CR.my_car_id = MC.my_car_id "
+			+ "WHERE MC.archiving_id = ? AND MC.car_option_id IS NULL;";
 		List<CarReview> results = jdbcTemplate.query(sql, carReviewRowMapper(), archivingId);
 		if (results.isEmpty())
 			return Optional.empty();

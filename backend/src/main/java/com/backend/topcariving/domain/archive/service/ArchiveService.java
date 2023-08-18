@@ -126,11 +126,7 @@ public class ArchiveService {
 			.map(CarOption::getCarOptionId)
 			.collect(Collectors.toList());
 
-		List<Position> positions = positionRepository.findByCarOptionIds(selectedOptionIds);
-
-		return positions.stream()
-			.map(PositionDTO::from)
-			.collect(Collectors.toList());
+		return positionRepository.findPositionDTOByCarOptionIds(selectedOptionIds);
 	}
 
 	private List<OptionDetailDTO> createOptionDetailDTOs(List<CarOption> carOptions, Long archivingId) {

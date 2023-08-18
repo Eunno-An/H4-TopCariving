@@ -19,10 +19,12 @@ import { ArchiveMain } from '@pages/Archive/main';
 import { colorInfoInterface } from '@pages/MyCar/Color/interface';
 import { MyCariving } from '@pages/Archive/mycariving';
 import { getArchivingId } from '@components/myCar';
+import { OauthRedirect } from '@pages/Login/oauthRedirect';
 
 export const router = createBrowserRouter([
   { path: '/', element: <Login /> },
   { path: '/*', element: <Error /> },
+  { path: '/oauth-redirect', element: <OauthRedirect /> },
   {
     path: '/my-car',
     element: <MyCar />,

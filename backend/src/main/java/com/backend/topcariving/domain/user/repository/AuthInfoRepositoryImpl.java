@@ -1,5 +1,7 @@
 package com.backend.topcariving.domain.user.repository;
 
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +23,6 @@ public class AuthInfoRepositoryImpl implements AuthInfoRepository {
 
 	private final JdbcTemplate jdbcTemplate;
 
-	// TODO: Update하는거랑 구별해서 꼭 쓰기
 	@Override
 	public AuthInfo save(AuthInfo authInfo) {
 		SimpleJdbcInsert jdbcInsert = new SimpleJdbcInsert(jdbcTemplate);
@@ -42,12 +43,31 @@ public class AuthInfoRepositoryImpl implements AuthInfoRepository {
 	}
 
 	@Override
+	public void update(String refreshToken, LocalDateTime expiredTime, Long userId) {
+		String sql = "UPDATE AUTH_INFO SET refresh_token = ?, expired_time = ? WHERE user_id = ?;";
+
+		jdbcTemplate.update(sql, refreshToken, Timestamp.valueOf(expiredTime), userId);
+	}
+
+	@Override
 	public Optional<AuthInfo> findByUserId(Long userId) {
 		String sql = "SELECT * FROM AUTH_INFO WHERE user_id = ?";
 
 		List<AuthInfo> result = jdbcTemplate.query(sql, authInfoRowMapper(), userId);
 
 		if (result.isEmpty())
+			return Optional.empty();
+		return Optional.ofNullable(result.get(0));
+	}
+
+	@Override
+	public Optional<AuthInfo> findByEmail(String email) {
+		String sql = "SELECT * FROM AUTH_INFO AI, USER_INFO UI "
+			+ "WHERE AI.user_id = UI.user_id "
+			+ "AND UI.email = ?;";
+
+		List<AuthInfo> result = jdbcTemplate.query(sql, authInfoRowMapper(), email);
+		if(result.isEmpty())
 			return Optional.empty();
 		return Optional.ofNullable(result.get(0));
 	}
