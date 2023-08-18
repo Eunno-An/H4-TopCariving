@@ -13,6 +13,7 @@ import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.backend.topcariving.config.TestSupport;
+import com.backend.topcariving.domain.archive.dto.response.PositionDTO;
 import com.backend.topcariving.domain.option.entity.Position;
 
 @JdbcTest
@@ -58,20 +59,20 @@ class PositionRepositoryTest extends TestSupport {
 	}
 
 	@Test
-	void findByCarOptionIds() {
+	void findPositionDTOByCarOptionIds() {
 		// given
 		List<Long> carOptionIds = List.of(120L, 122L);
 
 		// when
-		List<Position> positions = positionRepository.findByCarOptionIds(carOptionIds);
+		List<PositionDTO> positions = positionRepository.findPositionDTOByCarOptionIds(carOptionIds);
 
 		// then
-		Position position0 = positions.get(0);
+		PositionDTO position0 = positions.get(0);
 		softAssertions.assertThat(position0.getPositionId()).isEqualTo(5L);
-		softAssertions.assertThat(position0.getCarOptionId()).isEqualTo(120L);
-		Position position1 = positions.get(1);
+		softAssertions.assertThat(position0.getOptionName()).isEqualTo("듀얼 머플러 패키지");
+		PositionDTO position1 = positions.get(1);
 		softAssertions.assertThat(position1.getPositionId()).isEqualTo(7L);
-		softAssertions.assertThat(position1.getCarOptionId()).isEqualTo(122L);
+		softAssertions.assertThat(position1.getOptionName()).isEqualTo("사이드스텝");
 	}
 
 }

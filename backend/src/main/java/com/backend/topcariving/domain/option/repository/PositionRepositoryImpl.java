@@ -10,6 +10,7 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.backend.topcariving.domain.archive.dto.response.PositionDTO;
 import com.backend.topcariving.domain.option.entity.Position;
 
 import lombok.RequiredArgsConstructor;
@@ -30,15 +31,18 @@ public class PositionRepositoryImpl implements PositionRepository {
 	}
 
 	@Override
-	public List<Position> findByCarOptionIds(List<Long> carOptionIds) {
-		String sql = "SELECT * FROM POSITION_INFO WHERE car_option_id IN (:carOptionIds)";
+	public List<PositionDTO> findPositionDTOByCarOptionIds(List<Long> carOptionIds) {
+		String sql = "SELECT PI.position_id, CO.option_name, PI.left_percent, PI.top_percent "
+			+ "FROM POSITION_INFO PI "
+			+ "INNER JOIN CAR_OPTION CO ON CO.car_option_id = PI.car_option_id "
+			+ "WHERE CO.car_option_id IN (:carOptionIds)";
 
 		NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
 
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("carOptionIds", carOptionIds);
 
-		return namedParameterJdbcTemplate.query(sql, paramMap, positionRowMapper());
+		return namedParameterJdbcTemplate.query(sql, paramMap, positionDTORowMapper());
 	}
 
 	private RowMapper<Position> positionRowMapper() {
@@ -50,5 +54,14 @@ public class PositionRepositoryImpl implements PositionRepository {
 			rs.getString("top_percent"),
 			rs.getLong("car_option_id")
 		);
+	}
+
+	private RowMapper<PositionDTO> positionDTORowMapper() {
+		return (rs, rowNum) -> PositionDTO.builder()
+			.positionId(rs.getLong("position_id"))
+			.optionName(rs.getString("option_name"))
+			.leftPercent(rs.getString("left_percent"))
+			.topPercent(rs.getString("top_percent"))
+			.build();
 	}
 }

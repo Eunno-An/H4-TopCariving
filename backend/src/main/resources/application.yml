@@ -28,7 +28,7 @@ spring:
       data-locations: classpath*:initDb/data.sql
 
 token:
-  access-token-expiration: ENC(aN1VUL4PZI863pL49nxS0g==)
+  access-token-expiration: ENC(wPeBVsCNvfRyE/b0nLCOoQ==)
   secret-key: ENC(9w2F54pDUxduEsjYPcFteYskKT9NelCfXUUf4KQReW7YjPUi2bq4pYDEn9gOSznpdjYrYr71ceATvazxeaNAGQ==)
   refresh-token-expiration: ENC(mlFa5gn8QYv4oNg7SxvxiA==)
 
