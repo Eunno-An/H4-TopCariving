@@ -37,8 +37,8 @@ const Login = () => {
       }),
     });
 
-    token.accessToken = res.accessToken;
-    token.refreshToken = res.refreshToken;
+    sessionStorage.setItem('accessToken', res.accessToken);
+    sessionStorage.setItem('refreshToken', res.refreshToken);
 
     navigate('/my-car/trim');
   };

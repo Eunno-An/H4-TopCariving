@@ -2,23 +2,21 @@ import { LoginUrl } from '.';
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
-export const token = {
-  accessToken: '',
-  refreshToken: '',
-};
-
 interface apiInstanceInterface {
   url: string;
   method: 'GET' | 'POST' | 'DELETE';
   bodyData?: string;
 }
 
-const getAccessToken = async ({ url, method }: apiInstanceInterface) => {
+const getAccessToken = () => sessionStorage.getItem('accessToken');
+const getRefreshToken = () => sessionStorage.getItem('refreshToken');
+
+const tokenApiInstance = async ({ url, method }: apiInstanceInterface) => {
   const tokenData = await fetch(`${SERVER_URL}${url}`, {
     method: method,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token.refreshToken}`,
+      Authorization: `Bearer ${getRefreshToken()}`,
     },
     credentials: 'include',
   })
@@ -38,20 +36,19 @@ export const apiInstance = async ({
     method: method,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${token.accessToken}`,
+      Authorization: `Bearer ${getAccessToken()}`,
     },
     credentials: 'include',
     body: bodyData,
   })
     .then(async (res) => {
-      // 현재 500인데 401도 수정해야함. 왜냐하면 이것은 어세스 토큰이 만료됬을때 리프레시 토큰을 사용해 다시 어세스 토큰을 받아오는 과정이기 때문.
       if (res.status === 401) {
-        const { accessToken } = await getAccessToken({
+        const { accessToken } = await tokenApiInstance({
           url: LoginUrl.REISSUE,
           method: 'GET',
           bodyData: bodyData,
         });
-        token.accessToken = accessToken;
+        sessionStorage.setItem('accessToken', accessToken);
 
         const newRes = (await apiInstance({
           url: url,
