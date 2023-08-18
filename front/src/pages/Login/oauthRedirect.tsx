@@ -13,10 +13,10 @@ export const OauthRedirect = () => {
     const refreshT = searchParams.get('refreshToken') || '';
 
     sessionStorage.setItem('accessToken', accessT);
-    sessionStorage.setItem('accessToken', refreshT);
+    sessionStorage.setItem('refreshToken', refreshT);
 
     navigate('/my-car/trim');
   }, []);
 
-  return <div>오어스 리다이렉트</div>;
+  return <div>...</div>;
 };
