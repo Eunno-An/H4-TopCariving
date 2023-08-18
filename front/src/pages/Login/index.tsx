@@ -7,7 +7,7 @@ import { initMyCarInfo, useMyCar } from '@contexts/MyCarContext';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { LoginUrl, apiInstance, token } from '@utils/api';
+import { LoginUrl, apiInstance } from '@utils/api';
 
 const Login = () => {
   const {
