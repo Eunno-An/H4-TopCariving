@@ -45,8 +45,7 @@ public class OauthRepositoryImpl implements OauthRepository {
 
 	@Override
 	public void update(Long userId, OauthLoginDTO oauthLoginDTO) {
-		String sql = "UPDATE OAUTH SET access_token = ? AND refresh_token = ? "
-			+ "AND expires_in = ? WHERE user_id = ?;";
+		String sql = "UPDATE OAUTH SET access_token = ?, refresh_token = ?, expires_in = ? WHERE user_id = ?;";
 
 		jdbcTemplate.update(sql, oauthLoginDTO.getAccessToken(), oauthLoginDTO.getRefreshToken(),
 			oauthLoginDTO.getExpiresIn(), userId);
@@ -55,8 +54,7 @@ public class OauthRepositoryImpl implements OauthRepository {
 	@Override
 	public Optional<Oauth> findByEmail(String email) {
 		String sql = "SELECT * FROM OAUTH OA, USER_INFO UI "
-			+ "WHERE OA.user_id = UI.user_id "
-			+ "AND UI.email = ?;";
+			+ "WHERE OA.user_id = UI.user_id AND UI.email = ?;";
 
 		List<Oauth> results = jdbcTemplate.query(sql, oauthRowMapper(), email);
 		if (results.isEmpty())

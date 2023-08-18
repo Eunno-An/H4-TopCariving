@@ -78,8 +78,10 @@ public class CarOptionRepositoryImpl implements CarOptionRepository {
 
 	@Override
 	public List<CarOption> findByArchivingId(Long archivingId) {
-		String sql = "SELECT * FROM CAR_OPTION "
-			+ "WHERE car_option_id IN (SELECT car_option_id FROM MY_CAR WHERE archiving_id = ?);";
+		String sql = "SELECT C.* "
+			+ "FROM CAR_OPTION C "
+			+ "JOIN MY_CAR M ON C.car_option_id = M.car_option_id "
+			+ "WHERE M.archiving_id = ?;";
 		return jdbcTemplate.query(sql, carOptionRowMapper(), archivingId);
 	}
 
