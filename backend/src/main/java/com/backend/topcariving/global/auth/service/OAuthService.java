@@ -97,7 +97,7 @@ public class OAuthService {
 			.fromUriString(TOKEN_URL)
 			.queryParam("grant_type", "authorization_code")
 			.queryParam("code", code)
-			.queryParam("redirect_uri", "http://localhost:8080/oauth/authorize")
+			.queryParam("redirect_uri", "https://dev.topcariving.com/oauth/authorize")
 			.encode()
 			.build()
 			.toUri();
