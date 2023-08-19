@@ -9,12 +9,12 @@ import UIKit
 
 class ChangeOptionButtonView: UIView {
     // MARK: - UI properties
-    private let image: UIImageView = {
-        let image = UIImageView(image: UIImage(named: "edit"))
+    private var imageView: UIImageView = {
+        let image = UIImageView(image: UIImage(named: "edit_gray"))
         image.translatesAutoresizingMaskIntoConstraints = false
         return image
     }()
-    private let label: UILabel = {
+    private var label: UILabel = {
         let label = UILabel()
         label.text = "변경"
         label.font = .designSystem(.init(name: .regular, size: ._10))
@@ -41,21 +41,27 @@ class ChangeOptionButtonView: UIView {
     func setUI() {
         backgroundColor = .hyundaiSand
         layer.cornerRadius = 11
-        [label, image].forEach {
+        [label, imageView].forEach {
             addSubview($0)
         }
     }
     func setLayout() {
         NSLayoutConstraint.activate([
-            image.centerYAnchor.constraint(equalTo: centerYAnchor),
-            image.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
-            image.heightAnchor.constraint(equalToConstant: 12),
-            image.widthAnchor.constraint(equalToConstant: 12),
+            imageView.centerYAnchor.constraint(equalTo: centerYAnchor),
+            imageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            imageView.heightAnchor.constraint(equalToConstant: 12),
+            imageView.widthAnchor.constraint(equalToConstant: 12),
             
             label.topAnchor.constraint(equalTo: topAnchor),
             label.bottomAnchor.constraint(equalTo: bottomAnchor),
-            label.leadingAnchor.constraint(equalTo: image.trailingAnchor),
+            label.leadingAnchor.constraint(equalTo: imageView.trailingAnchor),
             label.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
+    }
+    func setButtonImage(to image: UIImage) {
+        imageView.image = image
+    }
+    func setButtonLabelColor(to color: UIColor) {
+        self.label.textColor = color
     }
 }

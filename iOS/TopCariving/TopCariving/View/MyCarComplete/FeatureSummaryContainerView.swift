@@ -28,6 +28,8 @@ class FeatureSummaryContainerView: UIView {
     private var button: UIButton = {
         let button = UIButton()
         let buttonView = ChangeOptionButtonView()
+        buttonView.setButtonImage(to: UIImage(named: "edit_brown") ?? UIImage())
+        buttonView.setButtonLabelColor(to: .hyundaiGold)
         buttonView.translatesAutoresizingMaskIntoConstraints = false
         button.addSubview(buttonView)
         NSLayoutConstraint.activate([
