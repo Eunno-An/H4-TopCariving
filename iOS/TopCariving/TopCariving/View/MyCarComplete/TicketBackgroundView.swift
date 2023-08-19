@@ -45,13 +45,8 @@ class TicketBackgroundView: TicketView {
     // MARK: - Properties
     
     // MARK: - Lifecycles
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        setUI()
-        setLayout()
-    }
-    required init?(coder: NSCoder) {
-        super.init(coder: coder)
+    override func layoutSubviews() {
+        drawTicket(holeYPosition: 70)
         setUI()
         setLayout()
     }

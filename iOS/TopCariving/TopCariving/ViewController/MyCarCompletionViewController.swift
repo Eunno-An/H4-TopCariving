@@ -27,11 +27,6 @@ class MyCarCompletionViewController: BaseMyCarViewController {
         setUI()
         setLayout()
     }
-    override func viewDidLayoutSubviews() {
-        ticketView.drawTicket(holeYPosition: 70)
-        ticketView.setUI()
-        ticketView.setLayout()
-    }
     
     // MARK: - Helpers
     private func setUI() {
