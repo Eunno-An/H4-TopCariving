@@ -7,6 +7,7 @@ import lombok.Getter;
 
 @Getter
 public enum CategoryDetail {
+	TRIM("트림"),
 	MODEL("모델"),
 	ENGINE("엔진"),
 	BODY_TYPE("바디타입"),

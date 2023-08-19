@@ -13,6 +13,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
+import com.backend.topcariving.domain.archive.dto.CarDTO;
 import com.backend.topcariving.domain.archive.entity.CarArchiving;
 
 import lombok.RequiredArgsConstructor;
@@ -116,18 +117,29 @@ public class CarArchivingRepositoryImpl implements CarArchivingRepository {
 		return namedParameterJdbcTemplate.query(sql, paramMap, carArchivingRowMapper());
 	}
 
-	private RowMapper<CarArchiving> carArchivingRowMapper() {
-		return (rs, rowNum) -> {
-			CarArchiving carArchiving = CarArchiving.builder()
-				.archivingId(rs.getLong("archiving_id"))
-				.dayTime(rs.getTimestamp("day_time").toLocalDateTime())
-				.isComplete(rs.getBoolean("is_complete"))
-				.isAlive(rs.getBoolean("is_alive"))
-				.archivingType(rs.getString("archiving_type"))
-				.userId(rs.getLong("user_id"))
-				.build();
+	@Override
+	public List<CarDTO> findCarDTOByUserIdAndOffsetAndPageSize(Long userId, Integer offset, Integer pageSize) {
 
-			return carArchiving;
-		};
+		String sql = "SELECT * FROM CAR_ARCHIVING AS CA "
+			+ "INNER JOIN MY_CAR AS MC ON CA.archiving_id = MC.archiving_id "
+			+ "INNER JOIN CAR_OPTION AS CO ON MC.car_option_id = CO.car_option_id "
+			+ "WHERE CA.archiving_id IN "
+			+ "(SELECT archiving_id FROM CAR_ARCHIVING WHERE user_id = ? AND is_alive = true "
+			+ "ORDER BY day_time DESC "
+			+ "LIMIT ? "
+			+ "OFFSET ?)";
+
+		return jdbcTemplate.queryForObject(sql, new CarDTORowMapper(), userId, offset, pageSize);
+	}
+
+	private RowMapper<CarArchiving> carArchivingRowMapper() {
+		return (rs, rowNum) -> CarArchiving.builder()
+			.archivingId(rs.getLong("archiving_id"))
+			.dayTime(rs.getTimestamp("day_time").toLocalDateTime())
+			.isComplete(rs.getBoolean("is_complete"))
+			.isAlive(rs.getBoolean("is_alive"))
+			.archivingType(rs.getString("archiving_type"))
+			.userId(rs.getLong("user_id"))
+			.build();
 	}
 }

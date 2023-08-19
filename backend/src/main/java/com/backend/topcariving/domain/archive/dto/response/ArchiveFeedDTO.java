@@ -9,12 +9,11 @@ import com.backend.topcariving.domain.option.dto.response.tag.TagResponseDTO;
 import com.backend.topcariving.domain.review.entity.CarReview;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@Builder(access = AccessLevel.PRIVATE)
+@Builder
 @Schema(description = "아카이빙 - 피드에 출력되는 DTO")
 public class ArchiveFeedDTO {
 

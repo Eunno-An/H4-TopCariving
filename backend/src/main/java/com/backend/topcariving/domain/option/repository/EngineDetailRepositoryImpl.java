@@ -26,15 +26,12 @@ public class EngineDetailRepositoryImpl implements EngineDetailRepository {
 	}
 	
 	private RowMapper<EngineDetail> engineDetailRowMapper() {
-		return (rs, rowNum) -> {
-			EngineDetail engineDetail = new EngineDetail(
-				rs.getLong("engine_detail_id"),
-				rs.getString("max_output"),
-				rs.getString("max_torque"),
-				rs.getLong("car_option_id")
-			);
-			return engineDetail;
-		};
+		return (rs, rowNum) -> new EngineDetail(
+			rs.getLong("engine_detail_id"),
+			rs.getString("max_output"),
+			rs.getString("max_torque"),
+			rs.getLong("car_option_id")
+		);
 	}
 
 }

@@ -3,6 +3,7 @@ package com.backend.topcariving.domain.archive.repository;
 import java.util.List;
 import java.util.Optional;
 
+import com.backend.topcariving.domain.archive.dto.CarDTO;
 import com.backend.topcariving.domain.archive.entity.CarArchiving;
 
 public interface CarArchivingRepository {
@@ -22,4 +23,5 @@ public interface CarArchivingRepository {
 	List<CarArchiving> findByCarOptionIdsAndArchivingTypes(List<Long> archivingIds, List<String> archivingTypes);
 
 	List<CarArchiving> findByArchivingTypes(List<String> archivingTypes);
+	List<CarDTO> findCarDTOByUserIdAndOffsetAndPageSize(Long userId, Integer offset, Integer pageSize);
 }

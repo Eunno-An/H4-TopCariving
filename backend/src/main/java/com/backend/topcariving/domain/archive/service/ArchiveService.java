@@ -8,16 +8,21 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.backend.topcariving.domain.archive.dto.CarDTO;
+import com.backend.topcariving.domain.archive.dto.TotalReviewDTO;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveDetailResponseDTO;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveFeedDTO;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveResponseDTO;
+import com.backend.topcariving.domain.archive.dto.response.CreatedCarDTO;
 import com.backend.topcariving.domain.archive.dto.response.OptionDetailDTO;
+import com.backend.topcariving.domain.archive.dto.response.PictureSelectedOptionDTO;
 import com.backend.topcariving.domain.archive.dto.response.PositionDTO;
 import com.backend.topcariving.domain.archive.dto.response.SearchOptionDTO;
 import com.backend.topcariving.domain.archive.entity.CarArchiving;
@@ -170,6 +175,116 @@ public class ArchiveService {
 		myCarRepository.saveMultipleData(newCars);
 
 		return newCarArchiving.getArchivingId();
+	}
+
+	public List<CreatedCarDTO> getCreatedCars(Long userId, Integer offset, Integer pageSize) {
+
+		List<CarDTO> cars = carArchivingRepository.findCarDTOByUserIdAndOffsetAndPageSize(
+			userId, offset, pageSize);
+
+		List<CreatedCarDTO> result = new ArrayList<>();
+		for (CarDTO car : cars) {
+			CreatedCarDTO createdCar = CreatedCarDTO.builder()
+				.archivingId(car.getArchivingId())
+				.trims(getTrims(car.getCarOptions()))
+				.selectedOptions(getPictures(car.getCarOptions()))
+				.dayTime(car.getDayTime())
+				.isComplete(car.getIsComplete())
+				.build();
+			result.add(createdCar);
+		}
+
+		return result;
+	}
+
+	private List<PictureSelectedOptionDTO> getPictures(List<CarOption> carOptions) {
+		return carOptions.stream()
+			.filter(carOption -> isSelectedOptions(carOption.getCategoryDetail()))
+			.map(carOption -> new PictureSelectedOptionDTO(carOption.getOptionName(), carOption.getPhotoUrl()))
+			.collect(Collectors.toList());
+	}
+
+	private Map<String, String> getTrims(List<CarOption> carOptions) {
+
+		Map<String, String> result = new HashMap<>();
+
+		for (CarOption carOption : carOptions) {
+			if (Objects.equals(carOption.getCategory(), TRIM.getName()))
+				result.put(carOption.getCategoryDetail(), carOption.getOptionName());
+		}
+
+		return result;
+	}
+
+	private List<Long> getArchivingIds(List<CarArchiving> carArchivings) {
+		return carArchivings.stream()
+			.map(CarArchiving::getArchivingId)
+			.collect(Collectors.toList());
+	}
+
+	private boolean isSelectedOptions(String categoryDetail) {
+		return Objects.equals(categoryDetail, SELECTED.getName()) || Objects.equals(categoryDetail, H_GENUINE_ACCESSORIES.getName())
+			|| Objects.equals(categoryDetail, N_PERFORMANCE.getName());
+	}
+
+	public List<ArchiveFeedDTO> getFeedCars(Long userId, Integer offset, Integer pageSize) {
+
+		List<CarDTO> cars = carArchivingRepository.findCarDTOByUserIdAndOffsetAndPageSize(
+			userId, offset, pageSize);
+
+		List<Long> archivingIds = cars.stream()
+			.map(CarDTO::getArchivingId)
+			.collect(Collectors.toList());
+		Map<Long, TotalReviewDTO> totalReviews = carReviewRepository.findTotalReviewDTOsByArchivingIds(
+			archivingIds);
+
+		List<ArchiveFeedDTO> result = new ArrayList<>();
+		for (CarDTO car : cars) {
+			TotalReviewDTO totalReviewDTO = totalReviews.get(car.getArchivingId());
+			ArchiveFeedDTO feedDTO = ArchiveFeedDTO.builder()
+				.archivingId(car.getArchivingId())
+				.carArchiveResult(getCarArchiveResult(car.getCarOptions()))
+				.dayTime(car.getDayTime())
+				.carReview(totalReviewDTO.getReview())
+				.tags(totalReviewDTO.getTags())
+				.type(car.getArchivingType())
+				.build();
+			result.add(feedDTO);
+		}
+
+		return result;
+	}
+
+	private Map<String, List<String>> getCarArchiveResult(List<CarOption> carOptions) {
+		Map<String, List<String>> result = new HashMap<>();
+
+		for (CarOption carOption : carOptions) {
+			String key = findCarOptionResultKey(carOption);
+			if (!result.containsKey(key)) {
+				result.put(key, new ArrayList<>());
+			}
+
+			List<String> options = result.get(key);
+			options.add(carOption.getOptionName());
+		}
+
+		return result;
+	}
+
+	private String findCarOptionResultKey(CarOption carOption) {
+		String category = carOption.getCategory();
+		String categoryDetail = carOption.getCategoryDetail();
+
+		if (Objects.equals(categoryDetail, MODEL.getName()))
+			return MODEL.getName();
+		else if (Objects.equals(categoryDetail, INTERIOR_COLOR.getName()))
+			return INTERIOR_COLOR.getName();
+		else if (Objects.equals(categoryDetail, EXTERIOR_COLOR.getName()))
+			return EXTERIOR_COLOR.getName();
+		else if (Objects.equals(category, CHOICE.getName())) {
+			return CHOICE.getName();
+		}
+		return TRIM.getName();
 	}
 
 	public Long deleteMyArchiving(Long userId, Long archivingId) {

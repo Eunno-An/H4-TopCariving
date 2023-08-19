@@ -45,14 +45,14 @@ public class ArchiveController {
 
 	@GetMapping("/created-cars")
 	@Operation(summary = "마이카이빙 내가 만든 차량 목록 조회", description = "서비스 사용자들이 만든 차량 정보 조회")
-	public List<CreatedCarDTO> getCreatedCars(@RequestParam Integer offset, @RequestParam Integer pageSize) {
-		return null;
+	public List<CreatedCarDTO> getCreatedCars(@Login Long userId, @RequestParam Integer offset, @RequestParam Integer pageSize) {
+		return archiveService.getCreatedCars(userId, offset, pageSize);
 	}
 
 	@GetMapping("/feeds")
 	@Operation(summary = "마이카이빙 피드에서 저장한 차량 목록 조회", description = "서비스 사용자들이 피드에서 저장한 차량 정보 조회")
-	public List<ArchiveFeedDTO> getFeedCars(@RequestParam Integer offset, @RequestParam Integer pageSize) {
-		return null;
+	public List<ArchiveFeedDTO> getFeedCars(@Login Long userId, @RequestParam Integer offset, @RequestParam Integer pageSize) {
+		return archiveService.getFeedCars(userId, offset, pageSize);
 	}
 
 	@PostMapping("/feeds/{archivingId}")

@@ -14,7 +14,9 @@ import com.backend.topcariving.config.TestSupport;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveDetailResponseDTO;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveFeedDTO;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveResponseDTO;
+import com.backend.topcariving.domain.archive.dto.response.CreatedCarDTO;
 import com.backend.topcariving.domain.archive.dto.response.SearchOptionDTO;
+import com.backend.topcariving.domain.archive.entity.ArchivingType;
 import com.backend.topcariving.domain.archive.entity.CarArchiving;
 import com.backend.topcariving.domain.archive.entity.MyCar;
 import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
@@ -100,7 +102,7 @@ class ArchiveServiceIntegralTest extends TestSupport {
 		softAssertions.assertThat(detailsCars.getArchivingType())
 			.as("차량 아카이빙 타입 검증").isEqualTo("시승");
 		softAssertions.assertThat(detailsCars.getTotalPrice())
-			.as("총 가격 검증").isEqualTo(43760000);
+			.as("총 가격 검증").isEqualTo(45240000);
 		softAssertions.assertThat(detailsCars.getPositions())
 			.as("포지션 리스트 검증").hasSize(0);
 		softAssertions.assertThat(detailsCars.getIsBookmarked())
@@ -137,35 +139,78 @@ class ArchiveServiceIntegralTest extends TestSupport {
 				softAssertions.assertThat(originMyCar.getCarOptionId()).as("선택한 옵션이 같은지 확인").isEqualTo(copyMyCar.getCarOptionId());
 			}
 		}
+
+		@Test
+		void 제대로_피드의_값을_가져오는지_확인() {
+			Long userId = 1L;
+			Integer offset = 1;
+			Integer limit = 1;
+
+			// when
+			List<ArchiveFeedDTO> feedCars = archiveService.getFeedCars(userId, offset, limit);
+
+			// then
+			softAssertions.assertThat(feedCars).as("피드의 결과는 1건이다").hasSize(1);
+			ArchiveFeedDTO archiveFeedDTO = feedCars.get(0);
+			softAssertions.assertThat(archiveFeedDTO.getCarReview()).as("자동차 리뷰 테스트").isEqualTo("너무 좋아요");
+			softAssertions.assertThat(archiveFeedDTO.getType()).as("자동차 타입").isEqualTo(ArchivingType.DRIVE.getType());
+			softAssertions.assertThat(archiveFeedDTO.getCarArchiveResult().get("트림")).as("트림의 개수").hasSize(3);
+			softAssertions.assertThat(archiveFeedDTO.getCarArchiveResult().get("선택품목")).as("선택품목의 갯수").hasSize(2);
+		}
 	}
 
-	@Test
-	void 마이카이빙의_내가_만든_차량_하나를_삭제할_수_있어야_한다() {
-		// given
-		Long userId = 1L;
-		Long archivingId = 1L;
+	@Nested
+	@DisplayName("마이카이빙 테스트")
+	class MyCariving {
+		@Test
+		void 내가_만든_차량_조회가_제대로_동작_하는지_테스트() {
+			// given
+			Long userId = 1L;
+			Integer offset = 1;
+			Integer limit = 1;
 
-		// when
-		Long deletedArchivingId = archiveService.deleteMyArchiving(userId, archivingId);
+			// when
+			List<CreatedCarDTO> createdCars = archiveService.getCreatedCars(userId, offset, limit);
 
-		// then
-		CarArchiving carArchiving = carArchivingRepository.findById(deletedArchivingId).get();
-		Assertions.assertThat(carArchiving.getIsAlive()).isFalse();
+			// then
+			softAssertions.assertThat(createdCars).as("가져온 값의 크기 테스트").hasSize(1);
+			CreatedCarDTO createdCarDTO = createdCars.get(0);
+			softAssertions.assertThat(createdCarDTO.getTrims()).as("생성한 차량의 트림의 갯수").hasSize(4);
+			softAssertions.assertThat(createdCarDTO.getSelectedOptions()).as("옵션의 크기").hasSize(2);
+		}
 	}
 
-	@Test
-	void 마이카이빙의_내가_만든_차량_중_삭제한_차량을_되돌릴_수_있어야_한다() {
-		// given
-		Long userId = 1L;
-		Long archivingId = 1L;
-		Long deletedArchivingId = archiveService.deleteMyArchiving(userId, archivingId);
+	@Nested
+	@DisplayName("삭제 테스트")
+	class delete {
+		@Test
+		void 마이카이빙의_내가_만든_차량_하나를_삭제할_수_있어야_한다() {
+			// given
+			Long userId = 1L;
+			Long archivingId = 1L;
 
-		// when
-		Long restoredArchivingId = archiveService.restoreMyArchiving(userId, deletedArchivingId);
+			// when
+			Long deletedArchivingId = archiveService.deleteMyArchiving(userId, archivingId);
 
-		// then
-		CarArchiving carArchiving = carArchivingRepository.findById(restoredArchivingId).get();
-		Assertions.assertThat(carArchiving.getIsAlive()).isTrue();
+			// then
+			CarArchiving carArchiving = carArchivingRepository.findById(deletedArchivingId).get();
+			Assertions.assertThat(carArchiving.getIsAlive()).isFalse();
+		}
+
+		@Test
+		void 마이카이빙의_내가_만든_차량_중_삭제한_차량을_되돌릴_수_있어야_한다() {
+			// given
+			Long userId = 1L;
+			Long archivingId = 1L;
+			Long deletedArchivingId = archiveService.deleteMyArchiving(userId, archivingId);
+
+			// when
+			Long restoredArchivingId = archiveService.restoreMyArchiving(userId, deletedArchivingId);
+
+			// then
+			CarArchiving carArchiving = carArchivingRepository.findById(restoredArchivingId).get();
+			Assertions.assertThat(carArchiving.getIsAlive()).isTrue();
+		}
+
 	}
-
 }

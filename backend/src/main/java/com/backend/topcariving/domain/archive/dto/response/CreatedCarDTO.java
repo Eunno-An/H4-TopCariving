@@ -5,12 +5,11 @@ import java.util.List;
 import java.util.Map;
 
 import io.swagger.v3.oas.annotations.media.Schema;
-import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@Builder(access = AccessLevel.PRIVATE)
+@Builder
 @Schema(description = "마이카이빙 화면에서 내가 만든 차량 대한 DTO")
 public class CreatedCarDTO {
 

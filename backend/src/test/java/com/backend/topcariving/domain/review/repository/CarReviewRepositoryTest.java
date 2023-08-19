@@ -1,5 +1,8 @@
 package com.backend.topcariving.domain.review.repository;
 
+import java.util.List;
+import java.util.Map;
+
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -7,10 +10,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import com.backend.topcariving.config.TestSupport;
+import com.backend.topcariving.domain.archive.dto.TotalReviewDTO;
 import com.backend.topcariving.domain.review.entity.CarReview;
 
 @JdbcTest
-class CarReviewRepositoryTest {
+class CarReviewRepositoryTest extends TestSupport {
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
@@ -32,6 +37,22 @@ class CarReviewRepositoryTest {
 
 		// then
 		Assertions.assertThat(carReview.getReview()).isEqualTo("너무 좋아요");
+	}
+
+	@Test
+	void findTotalReviewDTOsByArchivingIds() {
+		// given
+		List<Long> archivingIds = List.of(1L, 2L);
+
+		// when
+		Map<Long, TotalReviewDTO> result = carReviewRepository.findTotalReviewDTOsByArchivingIds(
+			archivingIds);
+
+		// then
+		softAssertions.assertThat(result).as("가져온 데이터의 크기").hasSize(1);
+		TotalReviewDTO totalReviewDTO = result.get(1L);
+		softAssertions.assertThat(totalReviewDTO.getTags()).as("선택한 태그들의 크기는 3이다").hasSize(3);
+		softAssertions.assertThat(totalReviewDTO.getReview()).as("전체 리뷰").isEqualTo("너무 좋아요");
 	}
 
 }
