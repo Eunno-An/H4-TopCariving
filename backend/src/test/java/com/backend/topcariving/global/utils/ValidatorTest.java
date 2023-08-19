@@ -21,6 +21,7 @@ import com.backend.topcariving.domain.archive.exception.InvalidAuthorityExceptio
 import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
 import com.backend.topcariving.domain.option.entity.CarOption;
 import com.backend.topcariving.domain.option.entity.CategoryDetail;
+import com.backend.topcariving.domain.option.exception.InvalidArchivingIdException;
 import com.backend.topcariving.domain.option.exception.InvalidCarOptionIdException;
 import com.backend.topcariving.domain.option.exception.InvalidCategoryException;
 import com.backend.topcariving.domain.option.repository.CarOptionRepository;
@@ -71,6 +72,16 @@ class ValidatorTest {
 		// when, then
 		assertThatThrownBy(() -> validator.verifySameCategory(List.of(carOption1, carOption2), CategoryDetail.SELECTED))
 			.isInstanceOf(InvalidCategoryException.class);
+	}
+
+	@Test
+	void 아카이빙_아이디가_존재하지_않으면_오류가_발생한다() {
+		// given
+		given(carArchivingRepository.existsByArchivingId(21L)).willReturn(false);
+
+		// when, then
+		Assertions.assertThatThrownBy(() -> validator.verifyArchivingId(21L))
+			.isInstanceOf(InvalidArchivingIdException.class);
 	}
 
 	static Stream<Arguments> generateCarOptionIdToSelectedData() {

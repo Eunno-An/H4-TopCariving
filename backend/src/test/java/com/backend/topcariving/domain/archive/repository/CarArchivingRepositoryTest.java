@@ -65,6 +65,21 @@ class CarArchivingRepositoryTest extends TestSupport {
 	}
 
 	@Test
+	void existsByArchivingId() {
+		// given
+		Long archivingIdTrue = 1L;
+		Long archivingIdFalse = 21L;
+
+		// when
+		boolean isExistsTrue = carArchivingRepository.existsByArchivingId(archivingIdTrue);
+		boolean isExistsFalse = carArchivingRepository.existsByArchivingId(archivingIdFalse);
+
+		// then
+		softAssertions.assertThat(isExistsTrue).as("1번 차량이 존재해야 함").isTrue();
+		softAssertions.assertThat(isExistsFalse).as("21번 차량이 존재하지 않아야 함").isFalse();
+	}
+
+	@Test
 	void updateIsCompleteByArchivingId() {
 		// given
 		CarArchiving carArchiving = CarArchiving.builder()
@@ -81,6 +96,25 @@ class CarArchivingRepositoryTest extends TestSupport {
 		// then
 		final CarArchiving findCarArchiving = carArchivingRepository.findById(carArchiving.getArchivingId()).get();
 		Assertions.assertThat(findCarArchiving.getIsComplete()).isTrue();
+	}
+
+	@Test
+	void updateIsAliveByArchivingId() {
+		// given
+		CarArchiving carArchiving = CarArchiving.builder()
+			.archivingType(ArchivingType.MAKE.getType())
+			.isComplete(true)
+			.userId(1L)
+			.isAlive(true)
+			.build();
+		carArchiving = carArchivingRepository.save(carArchiving);
+
+		// when
+		carArchivingRepository.updateIsAliveByArchivingId(false, carArchiving.getArchivingId());
+
+		// then
+		CarArchiving findCarArchiving = carArchivingRepository.findById(carArchiving.getArchivingId()).get();
+		Assertions.assertThat(findCarArchiving.getIsAlive()).isFalse();
 	}
 
 	@Test

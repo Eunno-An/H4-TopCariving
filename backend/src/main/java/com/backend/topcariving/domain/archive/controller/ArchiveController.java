@@ -76,14 +76,30 @@ public class ArchiveController {
 	}
 
 	@DeleteMapping("/created-cars/{archivingId}")
-	@Operation(summary = "마이카이빙에 있는 차량 삭제", description = "마이카이빙에 있는 차량 삭제하고 삭제한 차량의 아카이빙 아이디 반환")
-	public SuccessResponse<Long> deleteMyArchiving(@Parameter(hidden = true) @Login Long userId, @PathVariable Long archivingId) {
-		return null;
+	@Operation(summary = "마이카이빙에 있는 내가 만든 차량 삭제", description = "마이카이빙에 있는 내가 만든 차량 삭제하고 삭제한 차량의 아카이빙 아이디 반환")
+	public SuccessResponse<Long> deleteMyArchivingCreatedCar(@Parameter(hidden = true) @Login Long userId, @PathVariable Long archivingId) {
+		Long deletedArchivingId = archiveService.deleteMyArchiving(userId, archivingId);
+		return new SuccessResponse<>(deletedArchivingId);
 	}
 
 	@PostMapping("/created-cars/{archivingId}")
-	@Operation(summary = "마이카이빙에 있는 차량 삭제 되돌리기", description = "마이카이빙에서 삭제한 차량을 되돌리고 아카이빙 아이디 반환")
-	public SuccessResponse<Long> restoreMyArchiving(@Parameter(hidden = true) @Login Long userId, @PathVariable Long archivingId) {
-		return null;
+	@Operation(summary = "마이카이빙에 있는 내가 만든 차량 삭제 되돌리기", description = "마이카이빙에서 삭제한 내가 만든 차량을 되돌리고 아카이빙 아이디 반환")
+	public SuccessResponse<Long> restoreMyArchivingCreatedCar(@Parameter(hidden = true) @Login Long userId, @PathVariable Long archivingId) {
+		Long restoredArchivingId = archiveService.restoreMyArchiving(userId, archivingId);
+		return new SuccessResponse<>(restoredArchivingId);
+	}
+
+	@DeleteMapping("/feed-cars/{archivingId}")
+	@Operation(summary = "마이카이빙에 있는 피드에서 저장한 차량 삭제", description = "마이카이빙에 있는 피드에서 저장한 차량 삭제하고 삭제한 차량의 아카이빙 아이디 반환")
+	public SuccessResponse<Long> deleteMyArchivingFeed(@Parameter(hidden = true) @Login Long userId, @PathVariable Long archivingId) {
+		Long deletedArchivingId = bookmarkService.deleteMyArchiving(userId, archivingId);
+		return new SuccessResponse<>(deletedArchivingId);
+	}
+
+	@PostMapping("/feed-cars/{archivingId}")
+	@Operation(summary = "마이카이빙에 있는 피드에서 저장한 차량 삭제 되돌리기", description = "마이카이빙에서 삭제한 피드에서 저장한차량을 되돌리고 아카이빙 아이디 반환")
+	public SuccessResponse<Long> restoreMyArchivingFeed(@Parameter(hidden = true) @Login Long userId, @PathVariable Long archivingId) {
+		Long restoredArchivingId = bookmarkService.restoreMyArchiving(userId, archivingId);
+		return new SuccessResponse<>(restoredArchivingId);
 	}
 }

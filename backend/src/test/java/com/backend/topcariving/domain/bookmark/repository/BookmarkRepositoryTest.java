@@ -76,4 +76,18 @@ class BookmarkRepositoryTest extends TestSupport {
 
 		Assertions.assertThat(findBookmark.get().getIsAlive()).isTrue();
 	}
+
+	@Test
+	void updateIsAliveByUserIdAndArchivingId() {
+		// given
+		Long userId = 1L;
+		Long archivingId = 2L;
+
+		// when
+		bookmarkRepository.updateIsAliveByUserIdAndArchivingId(false, userId, archivingId);
+
+		// then
+		Bookmark findBookmark = bookmarkRepository.findByUserIdAndArchivingId(userId, archivingId).get();
+		Assertions.assertThat(findBookmark.getIsAlive()).isFalse();
+	}
 }

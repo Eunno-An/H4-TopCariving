@@ -53,10 +53,24 @@ public class CarArchivingRepositoryImpl implements CarArchivingRepository {
 	}
 
 	@Override
+	public boolean existsByArchivingId(Long archivingId) {
+		String sql = "SELECT * FROM CAR_ARCHIVING WHERE archiving_id = ?;";
+		List<CarArchiving> results = jdbcTemplate.query(sql, carArchivingRowMapper(), archivingId);
+		return !results.isEmpty();
+	}
+
+	@Override
 	public void updateIsCompleteByArchivingId(final Long archivingId, final Boolean isComplete) {
 		String sql = "UPDATE CAR_ARCHIVING SET is_complete = ? WHERE archiving_id = ?";
 
 		jdbcTemplate.update(sql, isComplete, archivingId);
+	}
+
+	@Override
+	public void updateIsAliveByArchivingId(Boolean isAlive, Long archivingId) {
+		String sql = "UPDATE CAR_ARCHIVING SET is_alive = ? WHERE archiving_id = ?;";
+
+		jdbcTemplate.update(sql, isAlive, archivingId);
 	}
 
 	@Override

@@ -11,7 +11,11 @@ public interface CarArchivingRepository {
 
 	boolean existsByUserIdAndArchivingId(Long userId, Long archivingId);
 
+	boolean existsByArchivingId(Long archivingId);
+
 	void updateIsCompleteByArchivingId(Long archivingId, Boolean isComplete);
+
+	void updateIsAliveByArchivingId(Boolean isAlive, Long archivingId);
 
 	Optional<CarArchiving> findById(Long archivingId);
 

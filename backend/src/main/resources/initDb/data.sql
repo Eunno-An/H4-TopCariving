@@ -647,3 +647,7 @@ INSERT INTO POSITION_INFO (position_id, car_option_id, left_pixel, top_pixel, le
 INSERT INTO POSITION_INFO (position_id, car_option_id, left_pixel, top_pixel, left_percent, top_percent) VALUES(11, 129, '481px', '342px', '51%', '67%');
 INSERT INTO POSITION_INFO (position_id, car_option_id, left_pixel, top_pixel, left_percent, top_percent) VALUES(12, 130, '481px', '342px', '51%', '67%');
 
+/**
+  BOOKMARK
+ */
+INSERT INTO BOOKMARK (user_id, archiving_id, is_alive) VALUES (1, 2, 'true');

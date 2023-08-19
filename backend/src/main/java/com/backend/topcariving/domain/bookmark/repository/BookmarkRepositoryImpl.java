@@ -55,6 +55,13 @@ public class BookmarkRepositoryImpl implements BookmarkRepository {
 	}
 
 	@Override
+	public void updateIsAliveByUserIdAndArchivingId(Boolean isAlive, Long userId, Long archivingId) {
+		String sql = "UPDATE BOOKMARK SET is_alive = ? WHERE user_id = ? AND archiving_id = ?;";
+
+		jdbcTemplate.update(sql, isAlive, userId, archivingId);
+	}
+
+	@Override
 	public Optional<Bookmark> findById(Long bookmarkId) {
 		String sql = "SELECT * FROM BOOKMARK WHERE bookmark_id = ?";
 

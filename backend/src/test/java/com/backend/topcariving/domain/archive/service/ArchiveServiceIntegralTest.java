@@ -2,6 +2,7 @@ package com.backend.topcariving.domain.archive.service;
 
 import java.util.List;
 
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -14,7 +15,9 @@ import com.backend.topcariving.domain.archive.dto.response.ArchiveDetailResponse
 import com.backend.topcariving.domain.archive.dto.response.ArchiveFeedDTO;
 import com.backend.topcariving.domain.archive.dto.response.ArchiveResponseDTO;
 import com.backend.topcariving.domain.archive.dto.response.SearchOptionDTO;
+import com.backend.topcariving.domain.archive.entity.CarArchiving;
 import com.backend.topcariving.domain.archive.entity.MyCar;
+import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
 import com.backend.topcariving.domain.archive.repository.MyCarRepository;
 
 @SpringBootTest
@@ -23,6 +26,9 @@ class ArchiveServiceIntegralTest extends TestSupport {
 
 	@Autowired
 	private MyCarRepository myCarRepository;
+
+	@Autowired
+	private CarArchivingRepository carArchivingRepository;
 
 	@Autowired
 	private ArchiveService archiveService;
@@ -131,6 +137,35 @@ class ArchiveServiceIntegralTest extends TestSupport {
 				softAssertions.assertThat(originMyCar.getCarOptionId()).as("선택한 옵션이 같은지 확인").isEqualTo(copyMyCar.getCarOptionId());
 			}
 		}
+	}
+
+	@Test
+	void 마이카이빙의_내가_만든_차량_하나를_삭제할_수_있어야_한다() {
+		// given
+		Long userId = 1L;
+		Long archivingId = 1L;
+
+		// when
+		Long deletedArchivingId = archiveService.deleteMyArchiving(userId, archivingId);
+
+		// then
+		CarArchiving carArchiving = carArchivingRepository.findById(deletedArchivingId).get();
+		Assertions.assertThat(carArchiving.getIsAlive()).isFalse();
+	}
+
+	@Test
+	void 마이카이빙의_내가_만든_차량_중_삭제한_차량을_되돌릴_수_있어야_한다() {
+		// given
+		Long userId = 1L;
+		Long archivingId = 1L;
+		Long deletedArchivingId = archiveService.deleteMyArchiving(userId, archivingId);
+
+		// when
+		Long restoredArchivingId = archiveService.restoreMyArchiving(userId, deletedArchivingId);
+
+		// then
+		CarArchiving carArchiving = carArchivingRepository.findById(restoredArchivingId).get();
+		Assertions.assertThat(carArchiving.getIsAlive()).isTrue();
 	}
 
 }

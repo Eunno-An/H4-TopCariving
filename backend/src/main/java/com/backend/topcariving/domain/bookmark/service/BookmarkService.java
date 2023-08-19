@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.backend.topcariving.domain.archive.dto.request.BookmarkRequestDTO;
+import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
 import com.backend.topcariving.domain.bookmark.entity.Bookmark;
 import com.backend.topcariving.domain.bookmark.repository.BookmarkRepository;
 import com.backend.topcariving.global.utils.Validator;
@@ -18,6 +19,7 @@ import lombok.RequiredArgsConstructor;
 public class BookmarkService {
 
 	private final BookmarkRepository bookmarkRepository;
+	private final CarArchivingRepository carArchivingRepository;
 
 	private final Validator validator;
 
@@ -44,6 +46,21 @@ public class BookmarkService {
 		final Long bookmarkId = findBookmark.get().getBookmarkId();
 		bookmarkRepository.updateIsAliveByBookmarkId(isBookmarked, bookmarkId);
 		return isBookmarked;
+	}
+
+	public Long deleteMyArchiving(Long userId, Long archivingId) {
+		return toggleMyArchiving(false, userId, archivingId);
+	}
+
+	public Long restoreMyArchiving(Long userId, Long archivingId) {
+		return toggleMyArchiving(true, userId, archivingId);
+	}
+
+	private Long toggleMyArchiving(Boolean isAlive, Long userId, Long archivingId) {
+		validator.verifyArchivingId(archivingId);
+
+		bookmarkRepository.updateIsAliveByUserIdAndArchivingId(isAlive, userId, archivingId);
+		return archivingId;
 	}
 
 }

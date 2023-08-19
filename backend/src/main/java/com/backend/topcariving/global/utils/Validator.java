@@ -8,6 +8,7 @@ import com.backend.topcariving.domain.archive.exception.InvalidAuthorityExceptio
 import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
 import com.backend.topcariving.domain.option.entity.CarOption;
 import com.backend.topcariving.domain.option.entity.CategoryDetail;
+ import com.backend.topcariving.domain.option.exception.InvalidArchivingIdException;
 import com.backend.topcariving.domain.option.exception.InvalidCarOptionIdException;
 import com.backend.topcariving.domain.option.exception.InvalidCategoryException;
 import com.backend.topcariving.domain.option.repository.CarOptionRepository;
@@ -37,6 +38,12 @@ public class Validator {
 		for (CarOption option : carOptions) {
 			if (!option.getCategoryDetail().equals(categoryDetail.getName()))
 				throw new InvalidCategoryException();
+		}
+	}
+
+	public void verifyArchivingId(Long archivingId) {
+		if (!carArchivingRepository.existsByArchivingId(archivingId)) {
+			throw new InvalidArchivingIdException();
 		}
 	}
 }

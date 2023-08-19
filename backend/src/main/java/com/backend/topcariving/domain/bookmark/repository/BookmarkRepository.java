@@ -12,5 +12,7 @@ public interface BookmarkRepository {
 
    void updateIsAliveByBookmarkId(Boolean isAlive, Long bookmarkId);
 
+   void updateIsAliveByUserIdAndArchivingId(Boolean isAlive, Long userId, Long archivingId);
+
    Optional<Bookmark> findById(Long bookmarkId);
 }

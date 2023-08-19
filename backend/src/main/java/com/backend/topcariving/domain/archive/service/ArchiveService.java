@@ -36,6 +36,7 @@ import com.backend.topcariving.domain.option.repository.PositionRepository;
 import com.backend.topcariving.domain.review.entity.CarReview;
 import com.backend.topcariving.domain.review.repository.CarReviewRepository;
 import com.backend.topcariving.domain.review.repository.TagReviewRepository;
+import com.backend.topcariving.global.utils.Validator;
 
 import lombok.RequiredArgsConstructor;
 
@@ -51,6 +52,8 @@ public class ArchiveService {
 	private final TagReviewRepository tagReviewRepository;
 	private final PositionRepository positionRepository;
 	private final BookmarkRepository bookmarkRepository;
+
+	private final Validator validator;
 
 	public ArchiveResponseDTO archivingSearch(List<Long> optionIds) {
 		List<SearchOptionDTO> searchOptions = getSearchOptions();
@@ -167,5 +170,20 @@ public class ArchiveService {
 		myCarRepository.saveMultipleData(newCars);
 
 		return newCarArchiving.getArchivingId();
+	}
+
+	public Long deleteMyArchiving(Long userId, Long archivingId) {
+		return toggleMyArchiving(false, userId, archivingId);
+	}
+
+	public Long restoreMyArchiving(Long userId, Long archivingId) {
+		return toggleMyArchiving(true, userId, archivingId);
+	}
+
+	private Long toggleMyArchiving(Boolean isAlive, Long userId, Long archivingId) {
+		validator.verifyCarArchiving(userId, archivingId);
+
+		carArchivingRepository.updateIsAliveByArchivingId(isAlive, archivingId);
+		return archivingId;
 	}
 }
