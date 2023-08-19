@@ -11,5 +11,9 @@ public interface OauthRepository {
 
 	void update(Long userId, OauthLoginDTO oauthLoginDTO);
 
+	Optional<Oauth> findByUserId(Long userId);
+
 	Optional<Oauth> findByEmail(String email);
+
+	void deleteByUserId(Long userId);
 }

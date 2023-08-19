@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,10 +33,12 @@ import com.backend.topcariving.global.auth.dto.TokenDTO;
 import com.backend.topcariving.global.exception.InvalidOauthException;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RequiredArgsConstructor
 @Transactional
 @Service
+@Slf4j
 public class OAuthService {
 
 	private static final String TOKEN_URL = "https://prd.kr-ccapi.hyundai.com/api/v1/user/oauth2/token";
@@ -154,5 +157,64 @@ public class OAuthService {
 		result.updateToken(refreshToken, expiredTime);
 		return result;
 	}
+	public void logout(Long userId) {
+		AuthInfo authInfo = authInfoRepository.findByUserId(userId).orElseThrow(() -> new UserException(USER_NOT_FOUND));
+		if (HYUNDAI.getType().equals(authInfo.getLoginType())) {
+			authLogout(userId);
+		}
 
+		authInfoRepository.update(null, LocalDateTime.now(), userId);
+	}
+
+	private void authLogout(Long userId) {
+		Optional<Oauth> findOauth = oauthRepository.findByUserId(userId);
+		if (findOauth.isEmpty()) {
+			log.info("Oauth에 대한 유저의 정보가 없습니다 DB를 확인해주세요");
+			return;
+		}
+		Oauth oauth = findOauth.get();
+		URI uri = UriComponentsBuilder
+			.fromUriString(TOKEN_URL)
+			.queryParam("grant_type", "delete")
+			.queryParam("access_token", oauth.getAccessToken())
+			.queryParam("redirect_uri", "https://dev.topcariving.com/oauth/authorize")
+			.encode()
+			.build()
+			.toUri();
+
+		String authorizedValue = clientId + ":" + clientSecret;
+		authorizedValue = Base64.getEncoder().encodeToString(authorizedValue.getBytes());
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set(HttpHeaders.AUTHORIZATION, "Basic " + authorizedValue);
+		headers.set(HttpHeaders.CONTENT_TYPE, "application/x-www-form-urlencoded");
+
+		RestTemplate restTemplate = new RestTemplate();
+		ResponseEntity<String> exchange = restTemplate.exchange(uri, HttpMethod.POST, new HttpEntity(headers),
+			String.class);
+		HttpStatus code = exchange.getStatusCode();
+		if (code.is4xxClientError()) {
+			URI refreshUri = UriComponentsBuilder
+				.fromUriString(TOKEN_URL)
+				.queryParam("grant_type", "refresh_token")
+				.queryParam("refresh_token", oauth.getRefreshToken())
+				.queryParam("redirect_uri", "https://dev.topcariving.com/oauth/authorize")
+				.encode()
+				.build()
+				.toUri();
+			ResponseEntity<OauthLoginDTO> exchangeOauth = restTemplate.exchange(refreshUri, HttpMethod.POST, new HttpEntity(headers),
+				OauthLoginDTO.class);
+			uri = UriComponentsBuilder
+				.fromUriString(TOKEN_URL)
+				.queryParam("grant_type", "delete")
+				.queryParam("access_token", exchangeOauth.getBody().getAccessToken())
+				.queryParam("redirect_uri", "https://dev.topcariving.com/oauth/authorize")
+				.encode()
+				.build()
+				.toUri();
+			exchange = restTemplate.exchange(uri, HttpMethod.POST, new HttpEntity(headers), String.class);
+		}
+
+		oauthRepository.deleteByUserId(userId);
+	}
 }

@@ -52,6 +52,16 @@ public class OauthRepositoryImpl implements OauthRepository {
 	}
 
 	@Override
+	public Optional<Oauth> findByUserId(Long userId) {
+		String sql = "SELECT * FROM OAUTH WHERE user_id = ?;";
+
+		List<Oauth> results = jdbcTemplate.query(sql, oauthRowMapper(), userId);
+		if (results.isEmpty())
+			return Optional.empty();
+		return Optional.ofNullable(results.get(0));
+	}
+
+	@Override
 	public Optional<Oauth> findByEmail(String email) {
 		String sql = "SELECT * FROM OAUTH OA, USER_INFO UI "
 			+ "WHERE OA.user_id = UI.user_id AND UI.email = ?;";
@@ -60,6 +70,13 @@ public class OauthRepositoryImpl implements OauthRepository {
 		if (results.isEmpty())
 			return Optional.empty();
 		return Optional.ofNullable(results.get(0));
+	}
+
+	@Override
+	public void deleteByUserId(Long userId) {
+		String sql = "DELETE FROM OAUTH WHERE user_id = ?;";
+
+		jdbcTemplate.update(sql, userId);
 	}
 
 	private RowMapper<Oauth> oauthRowMapper() {

@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.backend.topcariving.domain.user.dto.LoginRequestDTO;
 import com.backend.topcariving.domain.user.service.UserService;
+import com.backend.topcariving.global.auth.annotation.Login;
 import com.backend.topcariving.global.auth.dto.TokenDTO;
 import com.backend.topcariving.global.auth.service.OAuthService;
 
@@ -33,6 +34,8 @@ public class UserController {
 
 	@Value("${oauth.hyundai.redirect-uri}")
 	private String REDIRECT_URI;
+
+	private static final String MAIN_URI = "https://www.topcariving.com";
 
 	@PostMapping("/login")
 	@ApiResponse(responseCode = "200", description = "성공하면, Authorization 헤더에 access-token 값 반환")
@@ -57,5 +60,17 @@ public class UserController {
 		headers.set("Location", REDIRECT_URI + "?accessToken=" + tokenDTO.getAccessToken() + "&refreshToken=" + tokenDTO.getRefreshToken());
 
 		return new ResponseEntity<>(tokenDTO, headers, HttpStatus.FOUND);
+	}
+
+	@GetMapping("/logout")
+	@Operation(summary = "로그아웃", description = "로그아웃을 수행하고, ")
+	@SecurityRequirement(name = "Authorization")
+	public ResponseEntity<Void> logout(@Parameter(hidden = true) @Login Long userId) {
+		oAuthService.logout(userId);
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.set("Location", MAIN_URI);
+
+		return new ResponseEntity<>(headers, HttpStatus.FOUND);
 	}
 }
