@@ -19,6 +19,7 @@ class ChangeOptionButtonView: UIView {
         label.text = "변경"
         label.font = .designSystem(.init(name: .regular, size: ._10))
         label.textColor = .hyundaiGold
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -38,16 +39,18 @@ class ChangeOptionButtonView: UIView {
     
     // MARK: - Helpers
     func setUI() {
+        backgroundColor = .hyundaiSand
+        layer.cornerRadius = 11
         [label, image].forEach {
             addSubview($0)
         }
     }
     func setLayout() {
         NSLayoutConstraint.activate([
-            image.topAnchor.constraint(equalTo: topAnchor),
-            image.bottomAnchor.constraint(equalTo: bottomAnchor),
-            image.leadingAnchor.constraint(equalTo: leadingAnchor),
-            image.trailingAnchor.constraint(equalTo: label.leadingAnchor),
+            image.centerYAnchor.constraint(equalTo: centerYAnchor),
+            image.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 5),
+            image.heightAnchor.constraint(equalToConstant: 12),
+            image.widthAnchor.constraint(equalToConstant: 12),
             
             label.topAnchor.constraint(equalTo: topAnchor),
             label.bottomAnchor.constraint(equalTo: bottomAnchor),

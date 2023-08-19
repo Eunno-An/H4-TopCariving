@@ -25,8 +25,9 @@ class ColorDescriptionView: UIView {
     private var spaceColor: UILabel = {
         let label = UILabel()
         label.backgroundColor = .hyundaiBlackGray
-        label.layer.cornerRadius = label.frame.width / 2
         label.translatesAutoresizingMaskIntoConstraints = false
+        label.layer.cornerRadius = 8
+        label.clipsToBounds = true
         return label
     }()
     private var colorName: UILabel = {
@@ -70,12 +71,12 @@ class ColorDescriptionView: UIView {
             space.topAnchor.constraint(equalTo: topAnchor),
             space.bottomAnchor.constraint(equalTo: bottomAnchor),
             space.leadingAnchor.constraint(equalTo: leadingAnchor),
-            space.trailingAnchor.constraint(equalTo: spaceColor.leadingAnchor, constant: 12),
+            space.widthAnchor.constraint(equalToConstant: 25),
             
-            spaceColor.topAnchor.constraint(equalTo: topAnchor),
-            spaceColor.bottomAnchor.constraint(equalTo: bottomAnchor),
             spaceColor.leadingAnchor.constraint(equalTo: space.trailingAnchor, constant: 12),
-            spaceColor.trailingAnchor.constraint(equalTo: colorName.leadingAnchor, constant: 8),
+            spaceColor.widthAnchor.constraint(equalToConstant: 16),
+            spaceColor.heightAnchor.constraint(equalToConstant: 16),
+            spaceColor.centerYAnchor.constraint(equalTo: centerYAnchor),
             
             colorName.topAnchor.constraint(equalTo: topAnchor),
             colorName.bottomAnchor.constraint(equalTo: bottomAnchor),

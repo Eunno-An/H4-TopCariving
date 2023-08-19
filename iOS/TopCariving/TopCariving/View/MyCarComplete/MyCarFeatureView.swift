@@ -21,6 +21,16 @@ class MyCarFeatureView: UIView {
     // MARK: - Properties
     
     // MARK: - Lifecycles
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUI()
+        setLayout()
+    }
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setUI()
+        setLayout()
+    }
     
     // MARK: - Helpers
     func setUI() {
@@ -32,14 +42,14 @@ class MyCarFeatureView: UIView {
     func setLayout() {
         NSLayoutConstraint.activate([
             title.topAnchor.constraint(equalTo: topAnchor),
-            title.bottomAnchor.constraint(equalTo: summaryContainerView.topAnchor),
+            title.heightAnchor.constraint(equalToConstant: 24),
             title.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            title.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 16),
+            title.trailingAnchor.constraint(equalTo: trailingAnchor),
             
-            summaryContainerView.topAnchor.constraint(equalTo: topAnchor, constant: 10),
+            summaryContainerView.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 10),
             summaryContainerView.bottomAnchor.constraint(equalTo: bottomAnchor),
             summaryContainerView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 15),
-            summaryContainerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 15),
+            summaryContainerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15)
         ])
     }
 }
