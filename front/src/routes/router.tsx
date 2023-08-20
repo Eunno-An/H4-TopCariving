@@ -10,12 +10,19 @@ import Error from '@pages/Error';
 import Color from '@pages/MyCar/Color';
 import Complete from '@pages/MyCar/Complete';
 
-import { OptionUrl, ColorUrl, TrimUrl, apiInstance, Summary } from '@utils/api';
+import {
+  OptionUrl,
+  ColorUrl,
+  TrimUrl,
+  apiInstance,
+  Summary,
+  ArchiveUrl,
+} from '@utils/api';
 import { TrimCardInterface } from '@components/myCar/trim';
 import { myCarOptionInterface } from '@interface/index';
 import { ArchiveDetail } from '@pages/Archive/detail';
 import { Archive } from '@pages/Archive';
-import { ArchiveMain } from '@pages/Archive/main';
+import { ArchiveMain, archiveMainInterface } from '@pages/Archive/main';
 import { colorInfoInterface } from '@pages/MyCar/Color/interface';
 import { MyCariving } from '@pages/Archive/mycariving';
 import { getArchivingId } from '@components/myCar';
@@ -176,6 +183,14 @@ export const router = createBrowserRouter([
       {
         path: '',
         element: <ArchiveMain />,
+        loader: async () => {
+          const { archiveSearchResponses, options } = (await apiInstance({
+            url: ArchiveUrl.MAIN_RESULT,
+            method: 'GET',
+          })) as archiveMainInterface;
+
+          return { archiveSearchResponses, options };
+        },
       },
       {
         path: 'detail',

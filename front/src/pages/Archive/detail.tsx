@@ -1,13 +1,88 @@
 import { ArchiveReview, ArchiveShortInfo } from '@components/archive/detail';
 import { ArchiveOptionDetails } from '@components/archive/detail/ArchiveOptionDetails';
-import { Flex } from '@components/common';
+import { ArchiveUrl, apiInstance } from '@utils/api';
+import { useEffect, useState } from 'react';
 
 export const ArchiveDetail = () => {
+  const [detailInfo, setDetailInfo] = useState<archiveDetailInterface>();
+  const [optionDetail, setOptionDetail] = useState<{
+    [key in string]: archiveOptionDetailInterface[];
+  }>();
+
+  useEffect(() => {
+    const getData = async () => {
+      const urlSearchParams = new URL(location.href).searchParams;
+      const archivingId = urlSearchParams.get('id');
+
+      const data = (await apiInstance({
+        url: `${ArchiveUrl.DETAIL}/${archivingId}`,
+        method: 'GET',
+      })) as archiveDetailInterface;
+
+      let newOptionDetail = {} as {
+        [key in string]: archiveOptionDetailInterface[];
+      };
+
+      data.optionDetails.forEach((option) => {
+        if (newOptionDetail[option.categoryDetail]) {
+          newOptionDetail = {
+            ...newOptionDetail,
+            [option.categoryDetail]: [
+              ...newOptionDetail[option.categoryDetail],
+              option,
+            ],
+          };
+        } else
+          newOptionDetail = {
+            ...newOptionDetail,
+            [option.categoryDetail]: [option],
+          };
+      });
+
+      setDetailInfo(data);
+      setOptionDetail(newOptionDetail);
+    };
+
+    getData();
+  }, []);
+
   return (
     <>
-      <ArchiveReview />
-      <ArchiveShortInfo />
-      <ArchiveOptionDetails />
+      <ArchiveReview detailInfo={detailInfo} optionDetail={optionDetail} />
+      <ArchiveShortInfo detailInfo={detailInfo} optionDetail={optionDetail} />
+      <ArchiveOptionDetails
+        detailInfo={detailInfo}
+        optionDetail={optionDetail}
+      />
     </>
   );
 };
+
+export interface ArchiveDetailPageProps {
+  detailInfo?: archiveDetailInterface;
+  optionDetail?: {
+    [key in string]: archiveOptionDetailInterface[];
+  };
+}
+
+export interface archiveOptionDetailInterface {
+  carOptionId: number;
+  optionName: string;
+  categoryDetail: string;
+  photoUrl: string;
+  childOptionNames: string[];
+  positionId: null;
+  tags: { tagContent: string }[];
+}
+
+export interface archiveDetailInterface {
+  archivingId: number;
+  dayTime: string;
+  archivingType: string;
+  totalPrice: number;
+  positions: number[][];
+  isBookmarked: boolean;
+  optionDetails: archiveOptionDetailInterface[];
+  carReview: '너무 좋아요';
+  tags: { tagContent: string }[];
+}

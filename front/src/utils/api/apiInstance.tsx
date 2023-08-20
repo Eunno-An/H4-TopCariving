@@ -58,7 +58,7 @@ export const apiInstance = async ({
 
         return newRes;
       } else if (res.status === 400) {
-        alert('400 ERROR');
+        alert('이메일/비밀번호를 다시 확인해주세요!!');
       } else {
         return res.json();
       }

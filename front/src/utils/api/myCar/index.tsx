@@ -1,3 +1,8 @@
+export const LoginUrl = {
+  LOGIN: '/login',
+  REISSUE: '/reissue',
+};
+
 export const TrimUrl = {
   BODY_TYPE: '/api/options/trims/body-types',
   DRIVING_METHOD: '/api/options/trims/driving-methods',
@@ -24,7 +29,7 @@ export const Summary = {
   ESTIMATION: '/api/options/estimations/summary',
 };
 
-export const LoginUrl = {
-  LOGIN: '/login',
-  REISSUE: '/reissue',
+export const ArchiveUrl = {
+  MAIN_RESULT: '/api/archiving/result',
+  DETAIL: '/api/archiving/details',
 };

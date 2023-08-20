@@ -4,6 +4,7 @@ import deleteIcon from '@assets/images/deleteIcon.svg';
 import { theme } from '@styles/theme';
 import { css } from '@emotion/react';
 import { useAlert } from '@contexts/AlertContext';
+import { getDate } from '@utils/getDate';
 
 interface CreatedCarTrimInterface {
   additionalProp1: string;
@@ -25,11 +26,6 @@ interface CreatedCarInterface {
 }
 
 export const MyCarCard = ({ info }: { info: CreatedCarInterface }) => {
-  const date = new Date(`${info.dayTime}`);
-  const year = date.getFullYear();
-  const month = date.getMonth();
-  const day = date.getDay();
-
   const { openAlert, closeAlert } = useAlert();
 
   const closeModal = () => {
@@ -75,11 +71,11 @@ export const MyCarCard = ({ info }: { info: CreatedCarInterface }) => {
         <Flex gap={10} justify="flex-end">
           {info.complete ? (
             <SaveStatusBox typo="Body4_Medium" isComplete={info.complete}>
-              {year}년 {month}월 {day}일에 만들었어요
+              {`${getDate(new Date(info.dayTime))}에 만들었어요`}
             </SaveStatusBox>
           ) : (
             <SaveStatusBox typo="Body4_Medium" isComplete={info.complete}>
-              {year}년 {month}월 {day}일 임시저장
+              {`${getDate(new Date(info.dayTime))} 임시저장`}
             </SaveStatusBox>
           )}
           <div onClick={onDeleteHandler}>

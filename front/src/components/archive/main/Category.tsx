@@ -23,6 +23,7 @@ export const Category = ({
     >
       {cateName.map((cate, idx) => (
         <Text
+          key={`cateName_${idx}`}
           typo="Heading3_Bold"
           palette={selectedMenu === idx ? 'Black' : 'LightGray'}
           onClick={() => setSelectedMenu(idx)}
