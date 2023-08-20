@@ -169,10 +169,10 @@ public class ArchiveService {
 		newCarArchiving = carArchivingRepository.save(newCarArchiving);
 
 		List<MyCar> myCars = myCarRepository.findByArchivingId(archivingId);
-		List<MyCar> newCars = myCars.stream()
-				.map(myCar -> new MyCar(null, myCar.getCarOptionId(), myCar.getArchivingId())).collect(Collectors.toList());
-
-		myCarRepository.saveMultipleData(newCars);
+		List<MyCar> newCars = new ArrayList<>();
+		for (MyCar myCar : myCars) {
+			newCars.add(new MyCar(null, myCar.getCarOptionId(), newCarArchiving.getArchivingId()));
+		}		myCarRepository.saveMultipleData(newCars);
 
 		return newCarArchiving.getArchivingId();
 	}
