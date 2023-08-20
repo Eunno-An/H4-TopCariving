@@ -14,6 +14,7 @@ import {
   interiorColorResponseInterface,
 } from './interface';
 import { useLoaderData } from 'react-router-dom';
+import { ArchivePopup } from '@components/common/ArchivePopup';
 
 export const colorPath = {
   어비스블랙펄: 'black',
@@ -121,147 +122,141 @@ const Color = () => {
   };
 
   return (
-    <Flex gap={28} padding="28px 0 0 0" align="flex-start">
-      <Flex direction="column" gap={23} height="auto">
-        <Flex width={620} height={397} align="center">
-          {isLastClick.key === 'exteriorColorResponses' ? (
-            <CarModel
-              exteriorColor={
-                myCarInfo.color.exteriorColor
-                  ? colorPath[myCarInfo.color.exteriorColor?.name]
-                  : 'black'
-              }
-            />
-          ) : (
-            <ImgTag
-              src={colorInfo[isLastClick.key][isLastClick.idx].photoUrl}
-              alt=""
-            />
-          )}
-        </Flex>
-        <Flex width={620} direction="column" justify="space-between">
-          <InfoBox justify="space-between" align="flex-start" height={48}>
-            <Text typo="Heading1_Bold">
-              {colorInfo[isLastClick.key][isLastClick.idx].optionName}
-            </Text>
-            <Text typo="Heading2_Bold">
-              {`+${colorInfo[isLastClick.key][
-                isLastClick.idx
-              ].price.toLocaleString()}원`}
-            </Text>
-          </InfoBox>
-        </Flex>
-        <Flex
-          justify="flex-start"
-          css={css`
-            flex-wrap: wrap;
-            gap: 4px;
-          `}
-        >
-          {colorInfo[isLastClick.key][isLastClick.idx].tagResponses.map(
-            (tag, idx) => (
-              <Tag desc={tag.tagContent} key={`tag_${idx}`} />
-            ),
-          )}
-        </Flex>
-      </Flex>
-
-      <Flex direction="column" justify="flex-start">
-        <Flex
-          direction="column"
-          justify="flex-start"
-          gap={12}
-          width={331}
-          height="auto"
-        >
-          <Flex justify="space-between">
-            <Text typo="Heading4_Medium">외장 색상</Text>
-            <Text typo="Body4_Regular">
-              {myCarInfo.color.exteriorColor?.name}
-            </Text>
+    <>
+      <Flex gap={28} padding="28px 0 0 0" align="flex-start">
+        <Flex direction="column" gap={23} height="auto">
+          <Flex width={620} height={397} align="center">
+            {isLastClick.key === 'exteriorColorResponses' ? (
+              <CarModel
+                exteriorColor={
+                  myCarInfo.color.exteriorColor
+                    ? colorPath[myCarInfo.color.exteriorColor?.name]
+                    : 'black'
+                }
+              />
+            ) : (
+              <ImgTag
+                src={colorInfo[isLastClick.key][isLastClick.idx].photoUrl}
+                alt=""
+              />
+            )}
           </Flex>
+          <Flex width={620} direction="column" justify="space-between">
+            <InfoBox justify="space-between" align="flex-start" height={48}>
+              <Text typo="Heading1_Bold">
+                {colorInfo[isLastClick.key][isLastClick.idx].optionName}
+              </Text>
+              <Text typo="Heading2_Bold">
+                {`+${colorInfo[isLastClick.key][
+                  isLastClick.idx
+                ].price.toLocaleString()}원`}
+              </Text>
+            </InfoBox>
+          </Flex>
+          <Flex
+            justify="flex-start"
+            css={css`
+              flex-wrap: wrap;
+              gap: 4px;
+            `}
+          >
+            {colorInfo[isLastClick.key][isLastClick.idx].tagResponses.map(
+              (tag, idx) => (
+                <Tag desc={tag.tagContent} key={`tag_${idx}`} />
+              ),
+            )}
+          </Flex>
+        </Flex>
+        <Flex direction="column" justify="flex-start">
+          <Flex
+            direction="column"
+            justify="flex-start"
+            gap={12}
+            width={331}
+            height="auto"
+          >
+            <Flex justify="space-between">
+              <Text typo="Heading4_Medium">외장 색상</Text>
+              <Text typo="Body4_Regular">
+                {myCarInfo.color.exteriorColor?.name}
+              </Text>
+            </Flex>
 
-          <GridContainer>
-            {colorInfo.exteriorColorResponses.map((item, idx) => (
-              <Flex
-                direction="column"
-                justify="flex-start"
-                gap={2}
-                key={item.carOptionId}
-              >
+            <GridContainer>
+              {colorInfo.exteriorColorResponses.map((item, idx) => (
+                <Flex
+                  direction="column"
+                  justify="flex-start"
+                  gap={8}
+                  key={item.carOptionId}
+                >
+                  <ColorWrapper
+                    isSelected={
+                      myCarInfo.color.exteriorColor?.id === item.carOptionId
+                    }
+                  >
+                    <ExteriorColor
+                      src={item.colorUrl}
+                      onClick={() => {
+                        onClickColorBox('exteriorColorResponses', idx);
+                      }}
+                    />
+                    <BlueCheck
+                      src={check}
+                      type={'exteriorColorResponses'}
+                      isSelected={
+                        myCarInfo.color.exteriorColor?.id === item.carOptionId
+                      }
+                    />
+                  </ColorWrapper>
+                  <Text typo="Body4_Regular">{item.optionName}</Text>
+                </Flex>
+              ))}
+            </GridContainer>
+          </Flex>
+          <Flex
+            direction="column"
+            justify="flex-start"
+            gap={12}
+            width={331}
+            height="auto"
+          >
+            <Flex justify="space-between">
+              <Text typo="Heading4_Medium">내장 색상</Text>
+              <Text typo="Body4_Regular">
+                {myCarInfo.color.interiorColor?.name}
+              </Text>
+            </Flex>
+
+            <Flex direction="column" gap={16}>
+              {colorInfo.interiorColorResponses.map((item, idx) => (
                 <ColorWrapper
+                  key={`interiorCard_${idx}`}
                   isSelected={
-                    myCarInfo.color.exteriorColor?.id === item.carOptionId
+                    myCarInfo.color.interiorColor?.id === item.carOptionId
                   }
                 >
-                  <ExteriorColor
+                  <InteriorColor
                     src={item.colorUrl}
                     onClick={() => {
-                      onClickColorBox('exteriorColorResponses', idx);
+                      onClickColorBox('interiorColorResponses', idx);
                     }}
                   />
                   <BlueCheck
                     src={check}
-                    type={'exteriorColorResponses'}
+                    type={'interiorColorResponses'}
                     isSelected={
-                      myCarInfo.color.exteriorColor?.id === item.carOptionId
+                      myCarInfo.color.interiorColor?.id === item.carOptionId
                     }
                   />
                 </ColorWrapper>
-                <Text
-                  typo="Body4_Regular"
-                  css={css`
-                    white-space: nowrap;
-                  `}
-                >
-                  {item.optionName}
-                </Text>
-              </Flex>
-            ))}
-          </GridContainer>
-        </Flex>
-        <Flex
-          direction="column"
-          justify="flex-start"
-          gap={12}
-          width={331}
-          height="auto"
-          margin="12px 0 0 0"
-        >
-          <Flex justify="space-between">
-            <Text typo="Heading4_Medium">내장 색상</Text>
-            <Text typo="Body4_Regular">
-              {myCarInfo.color.interiorColor?.name}
-            </Text>
-          </Flex>
-
-          <Flex direction="column" gap={16}>
-            {colorInfo.interiorColorResponses.map((item, idx) => (
-              <ColorWrapper
-                key={`interiorCard_${idx}`}
-                isSelected={
-                  myCarInfo.color.interiorColor?.id === item.carOptionId
-                }
-              >
-                <InteriorColor
-                  src={item.colorUrl}
-                  onClick={() => {
-                    onClickColorBox('interiorColorResponses', idx);
-                  }}
-                />
-                <BlueCheck
-                  src={check}
-                  type={'interiorColorResponses'}
-                  isSelected={
-                    myCarInfo.color.interiorColor?.id === item.carOptionId
-                  }
-                />
-              </ColorWrapper>
-            ))}
+              ))}
+            </Flex>
           </Flex>
         </Flex>
       </Flex>
-    </Flex>
+      <ArchivePopup desc={`다른 사람이 선택한 색상후기가 궁금하다면?`} />
+    </>
   );
 };
 

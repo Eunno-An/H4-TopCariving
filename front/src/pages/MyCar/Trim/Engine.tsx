@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { EngineCard } from '@components/myCar/trim';
 import { MyCarContextType, useMyCar } from '@contexts/MyCarContext';
 import { useLoaderData } from 'react-router-dom';
+import { ArchivePopup } from '@components/common/ArchivePopup';
 
 export interface engineInfoInterface {
   carOptionId: number;
@@ -103,6 +104,9 @@ const Engine = () => {
           </Flex>
         </Flex>
       )}
+      <ArchivePopup
+        desc={`${engineInfo[isSelected].optionName}의 리얼한 후기가 궁금하다면?`}
+      />
     </>
   );
 };
