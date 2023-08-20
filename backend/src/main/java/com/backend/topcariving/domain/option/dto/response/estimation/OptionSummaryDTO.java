@@ -1,5 +1,7 @@
 package com.backend.topcariving.domain.option.dto.response.estimation;
 
+import java.util.List;
+
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -26,4 +28,11 @@ public class OptionSummaryDTO {
 
 	@Schema(description = "옵션의 사진 / 색상만 해당 내용이 들어감")
 	private String photoUrl;
+
+	@Schema(description = "하위 항목의 이름들")
+	private List<String> childOptions;
+
+	public void setChildOptions(List<String> childOptions) {
+		this.childOptions = childOptions;
+	}
 }

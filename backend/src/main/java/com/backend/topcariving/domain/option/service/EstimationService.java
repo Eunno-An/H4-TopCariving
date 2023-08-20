@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
@@ -75,26 +76,35 @@ public class EstimationService {
 		Map<String, List<OptionSummaryDTO>> result = new HashMap<>();
 
 		for (OptionSummaryDTO optionSummaryDTO : optionSummaryDTOs) {
-			if (!result.containsKey(optionSummaryDTO.getCategory())) {
-				List<OptionSummaryDTO> values = new ArrayList<>();
-				result.put(optionSummaryDTO.getCategory(), values);
+			String key = findCarOptionResultKey(optionSummaryDTO);
+			if (!result.containsKey(key)) {
+				result.put(key, new ArrayList<>());
 			}
-			putValueInOptionSummary(result, optionSummaryDTO);
+
+			if (Objects.equals(key, CHOICE.getName())) {
+				List<String> childOptions = carOptionRepository.findStringByParentOptionId(
+					optionSummaryDTO.getCarOptionId());
+				optionSummaryDTO.setChildOptions(childOptions);
+			}
+			List<OptionSummaryDTO> values = result.get(key);
+			values.add(optionSummaryDTO);
 		}
 		return result;
 	}
 
-	private void putValueInOptionSummary(final Map<String, List<OptionSummaryDTO>> result,
-		final OptionSummaryDTO optionSummaryDTO) {
-		if (optionSummaryDTO.getCategoryDetail().equals(MODEL.getName())) {
-			List<OptionSummaryDTO> values = new ArrayList<>();
-			values.add(optionSummaryDTO);
-			result.put(MODEL.getName(), values);
-			return;
-		}
+	private String findCarOptionResultKey(OptionSummaryDTO optionSummaryDTO) {
+		String category = optionSummaryDTO.getCategory();
+		String categoryDetail = optionSummaryDTO.getCategoryDetail();
 
-		final List<OptionSummaryDTO> values = result.get(optionSummaryDTO.getCategory());
-		values.add(optionSummaryDTO);
-		result.put(optionSummaryDTO.getCategory(), values);
+		if (Objects.equals(categoryDetail, MODEL.getName()))
+			return MODEL.getName();
+		else if (Objects.equals(categoryDetail, INTERIOR_COLOR.getName()))
+			return INTERIOR_COLOR.getName();
+		else if (Objects.equals(categoryDetail, EXTERIOR_COLOR.getName()))
+			return EXTERIOR_COLOR.getName();
+		else if (Objects.equals(category, CHOICE.getName())) {
+			return CHOICE.getName();
+		}
+		return TRIM.getName();
 	}
 }

@@ -81,7 +81,8 @@ public class MyCarRepositoryImpl implements MyCarRepository {
 			rs.getString("category"),
 			rs.getString("category_detail"),
 			rs.getInt("price"),
-			rs.getString("photo_url")
+			rs.getString("photo_url"),
+			null
 		), archivingId);
 	}
 

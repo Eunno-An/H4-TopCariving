@@ -24,4 +24,6 @@ public interface CarOptionRepository {
 	List<CarOption> findByIds(List<Long> ids);
 
 	List<CarOption> findByArchivingId(Long archivingId);
+
+	List<String> findStringByParentOptionId(Long carOptionId);
 }
