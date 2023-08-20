@@ -30,6 +30,7 @@ class MyCarChoicedOptionView: UIView {
         return stackView
     }()
     // MARK: - Properties
+    private let itemWidth = UIScreen.main.bounds.width - 16*2
     
     // MARK: - Lifecycles
     override init(frame: CGRect) {
@@ -61,7 +62,7 @@ class MyCarChoicedOptionView: UIView {
             title.leadingAnchor.constraint(equalTo: leadingAnchor),
             
             separator.heightAnchor.constraint(equalToConstant: 1),
-            separator.widthAnchor.constraint(equalToConstant: 342),
+            separator.widthAnchor.constraint(equalToConstant: itemWidth),
             separator.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 16),
             separator.leadingAnchor.constraint(equalTo: leadingAnchor),
             
@@ -71,7 +72,9 @@ class MyCarChoicedOptionView: UIView {
     }
     private func test_injectMock() {
         for _ in 0..<5 {
-            stackView.addArrangedSubview(MyCarChoicedOptionItemView(intrinsicSize: .init(width: 342, height: 103)))
+            stackView.addArrangedSubview(
+                MyCarChoicedOptionItemView(intrinsicSize: .init(width: itemWidth, height: 103))
+            )
             stackView.addArrangedSubview(separator)
         }
     }
