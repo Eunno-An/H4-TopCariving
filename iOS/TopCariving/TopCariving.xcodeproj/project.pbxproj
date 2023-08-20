@@ -51,7 +51,6 @@
 		D462E8662A8C952200C5A8EC /* TicketBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8652A8C952200C5A8EC /* TicketBackgroundView.swift */; };
 		D462E8682A8C957C00C5A8EC /* MyCarFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8672A8C957C00C5A8EC /* MyCarFeatureView.swift */; };
 		D462E86A2A8C95A900C5A8EC /* MyCarChoicedOptionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8692A8C95A900C5A8EC /* MyCarChoicedOptionItemView.swift */; };
-		D462E86C2A8C95D500C5A8EC /* MyCarMoreInformationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E86B2A8C95D500C5A8EC /* MyCarMoreInformationView.swift */; };
 		D462E8712A8D15FE00C5A8EC /* MyCarCompletionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8702A8D15FE00C5A8EC /* MyCarCompletionViewController.swift */; };
 		D462E8732A8D7F1400C5A8EC /* TicketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8722A8D7F1400C5A8EC /* TicketView.swift */; };
 		D462E8752A8DE56400C5A8EC /* FeatureSummaryContainerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8742A8DE56400C5A8EC /* FeatureSummaryContainerView.swift */; };
@@ -183,7 +182,6 @@
 		D462E8652A8C952200C5A8EC /* TicketBackgroundView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketBackgroundView.swift; sourceTree = "<group>"; };
 		D462E8672A8C957C00C5A8EC /* MyCarFeatureView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCarFeatureView.swift; sourceTree = "<group>"; };
 		D462E8692A8C95A900C5A8EC /* MyCarChoicedOptionItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCarChoicedOptionItemView.swift; sourceTree = "<group>"; };
-		D462E86B2A8C95D500C5A8EC /* MyCarMoreInformationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCarMoreInformationView.swift; sourceTree = "<group>"; };
 		D462E8702A8D15FE00C5A8EC /* MyCarCompletionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCarCompletionViewController.swift; sourceTree = "<group>"; };
 		D462E8722A8D7F1400C5A8EC /* TicketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TicketView.swift; sourceTree = "<group>"; };
 		D462E8742A8DE56400C5A8EC /* FeatureSummaryContainerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeatureSummaryContainerView.swift; sourceTree = "<group>"; };
@@ -393,7 +391,6 @@
 				D462E8652A8C952200C5A8EC /* TicketBackgroundView.swift */,
 				D462E8672A8C957C00C5A8EC /* MyCarFeatureView.swift */,
 				D462E8692A8C95A900C5A8EC /* MyCarChoicedOptionItemView.swift */,
-				D462E86B2A8C95D500C5A8EC /* MyCarMoreInformationView.swift */,
 				D462E8742A8DE56400C5A8EC /* FeatureSummaryContainerView.swift */,
 				D462E8762A8DEBC000C5A8EC /* ChangeOptionButtonView.swift */,
 				D462E87C2A8E044D00C5A8EC /* ColorDescriptionView.swift */,
@@ -768,7 +765,6 @@
 				D4A68D322A80EF8500E2C1FD /* ModifyOption.swift in Sources */,
 				D462E87D2A8E044D00C5A8EC /* ColorDescriptionView.swift in Sources */,
 				D462E8752A8DE56400C5A8EC /* FeatureSummaryContainerView.swift in Sources */,
-				D462E86C2A8C95D500C5A8EC /* MyCarMoreInformationView.swift in Sources */,
 				7631E9412A81D21500015363 /* MyCarFooterView.swift in Sources */,
 				D44B45752A7BC3DF00E8E207 /* DummyViewModel.swift in Sources */,
 				D462E77E2A85CCA900C5A8EC /* CombineGestureEvent.swift in Sources */,
