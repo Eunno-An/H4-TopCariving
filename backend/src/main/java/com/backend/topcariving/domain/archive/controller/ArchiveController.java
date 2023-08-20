@@ -39,20 +39,20 @@ public class ArchiveController {
 
 	@GetMapping("/result")
 	@Operation(summary = "아카이빙 메인 전체 결과 확인", description = "서비스 사용자들이 시승/구매한 차량 정보 조회")
-	public ArchiveResponseDTO archivingSearch(@RequestParam(required = false) List<Long> optionIds) {
-		return archiveService.archivingSearch(optionIds);
+	public ArchiveResponseDTO archivingSearch(@RequestParam(required = false) List<Long> optionIds, @RequestParam Integer pageNumber, @RequestParam Integer pageSize) {
+		return archiveService.archivingSearch(optionIds, pageNumber, pageSize);
 	}
 
 	@GetMapping("/created-cars")
 	@Operation(summary = "마이카이빙 내가 만든 차량 목록 조회", description = "서비스 사용자들이 만든 차량 정보 조회")
-	public List<CreatedCarDTO> getCreatedCars(@Login Long userId, @RequestParam Integer offset, @RequestParam Integer pageSize) {
-		return archiveService.getCreatedCars(userId, offset, pageSize);
+	public List<CreatedCarDTO> getCreatedCars(@Parameter(hidden = true) @Login Long userId, @RequestParam Integer pageNumber, @RequestParam Integer pageSize) {
+		return archiveService.getCreatedCars(userId, pageNumber, pageSize);
 	}
 
 	@GetMapping("/feeds")
 	@Operation(summary = "마이카이빙 피드에서 저장한 차량 목록 조회", description = "서비스 사용자들이 피드에서 저장한 차량 정보 조회")
-	public List<ArchiveFeedDTO> getFeedCars(@Login Long userId, @RequestParam Integer offset, @RequestParam Integer pageSize) {
-		return archiveService.getFeedCars(userId, offset, pageSize);
+	public List<ArchiveFeedDTO> getFeedCars(@Parameter(hidden = true) @Login Long userId, @RequestParam Integer pageNumber, @RequestParam Integer pageSize) {
+		return archiveService.getFeedCars(userId, pageNumber, pageSize);
 	}
 
 	@PostMapping("/feeds/{archivingId}")

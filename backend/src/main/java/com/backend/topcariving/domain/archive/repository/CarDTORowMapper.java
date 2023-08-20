@@ -17,7 +17,6 @@ public class CarDTORowMapper implements RowMapper<List<CarDTO>> {
 	@Override
 	public List<CarDTO> mapRow(ResultSet rs, int rowNum) throws SQLException {
 		Map<Long, CarDTO> result = new HashMap<>();
-
 		do {
 			long archivingId = rs.getLong("archiving_id");
 
@@ -46,7 +45,7 @@ public class CarDTORowMapper implements RowMapper<List<CarDTO>> {
 				rs.getLong("parent_option_id")
 			);
 			carOptions.add(newCarOptions);
-		} while (rs.next());
+		} while	(rs.next());
 
 		return new ArrayList<>(result.values());
 	}

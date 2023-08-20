@@ -267,7 +267,7 @@ INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_t
 INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (8, '2023-08-04 07:00:00', 'false', 'true', '내 차 만들기');
 INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (9, '2023-08-04 12:00:00', 'false', 'true', '내 차 만들기');
 INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (10, '2023-08-04 14:00:00', 'false', 'true', '내 차 만들기');
-INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (1, '2023-08-04 18:00:00', 'false', 'true', '내 차 만들기');
+-- INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (1, '2023-08-04 18:00:00', 'false', 'true', '내 차 만들기');
 INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (2, '2023-08-04 20:00:00', 'false', 'true', '내 차 만들기');
 INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (3, '2023-08-05 05:00:00', 'false', 'true', '내 차 만들기');
 INSERT INTO CAR_ARCHIVING (user_id, day_time, is_complete, is_alive, archiving_type) VALUES (4, '2023-08-05 11:00:00', 'false', 'true', '내 차 만들기');
@@ -651,3 +651,4 @@ INSERT INTO POSITION_INFO (position_id, car_option_id, left_pixel, top_pixel, le
   BOOKMARK
  */
 INSERT INTO BOOKMARK (user_id, archiving_id, is_alive) VALUES (1, 2, 'true');
+INSERT INTO BOOKMARK (user_id, archiving_id, is_alive) VALUES (1, 1, 'true');

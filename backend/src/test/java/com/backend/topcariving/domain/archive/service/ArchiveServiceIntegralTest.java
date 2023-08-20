@@ -42,9 +42,11 @@ class ArchiveServiceIntegralTest extends TestSupport {
 		void 필터링을_위해_필요한_선택_품목을_반환해야한다() {
 			// given
 			List<Long> optionIds = List.of(103L, 110L);
+			Integer pageNumber = 1;
+			Integer pageSize = 3;
 
 			// when
-			ArchiveResponseDTO archiveResponseDTO = archiveService.archivingSearch(optionIds);
+			ArchiveResponseDTO archiveResponseDTO = archiveService.archivingSearch(optionIds, pageNumber, pageSize);
 
 			// then
 			List<SearchOptionDTO> searchOptionDTOs = archiveResponseDTO.getOptions();
@@ -57,31 +59,35 @@ class ArchiveServiceIntegralTest extends TestSupport {
 		void optionIds_null_일_때_모든_결과를_반환해야한다() {
 			// given
 			List<Long> optionIds = null;
+			Integer pageNumber = 1;
+			Integer pageSize = 3;
 
 			// when
-			ArchiveResponseDTO archiveResponseDTO = archiveService.archivingSearch(optionIds);
+			ArchiveResponseDTO archiveResponseDTO = archiveService.archivingSearch(optionIds, pageNumber, pageSize);
 
 			// then
 			List<ArchiveFeedDTO> archiveFeedDTOs = archiveResponseDTO.getArchiveSearchResponses();
 			softAssertions.assertThat(archiveFeedDTOs).hasSize(3);
-			softAssertions.assertThat(archiveFeedDTOs.get(0).getArchivingId()).as("1이 반환되어야 함").isEqualTo(1L);
+			softAssertions.assertThat(archiveFeedDTOs.get(0).getArchivingId()).as("3이 반환되어야 함").isEqualTo(3L);
 			softAssertions.assertThat(archiveFeedDTOs.get(1).getArchivingId()).as("2가 반환되어야 함").isEqualTo(2L);
-			softAssertions.assertThat(archiveFeedDTOs.get(2).getArchivingId()).as("3이 반환되어야 함").isEqualTo(3L);
+			softAssertions.assertThat(archiveFeedDTOs.get(2).getArchivingId()).as("1이 반환되어야 함").isEqualTo(1L);
 		}
 
 		@Test
 		void optionIds_값이_있을_때_필터링된_결과를_반환해야한다() {
 			// given
 			List<Long> optionIds = List.of(103L, 110L);
+			Integer pageNumber = 1;
+			Integer pageSize = 3;
 
 			// when
-			ArchiveResponseDTO archiveResponseDTO = archiveService.archivingSearch(optionIds);
+			ArchiveResponseDTO archiveResponseDTO = archiveService.archivingSearch(optionIds, pageNumber, pageSize);
 
 			// then
 			List<ArchiveFeedDTO> archiveFeedDTOs = archiveResponseDTO.getArchiveSearchResponses();
 			softAssertions.assertThat(archiveFeedDTOs).hasSize(2);
-			softAssertions.assertThat(archiveFeedDTOs.get(0).getArchivingId()).as("1이 반환되어야 함").isEqualTo(1L);
-			softAssertions.assertThat(archiveFeedDTOs.get(1).getArchivingId()).as("3이 반환되어야 함").isEqualTo(3L);
+			softAssertions.assertThat(archiveFeedDTOs.get(0).getArchivingId()).as("3이 반환되어야 함").isEqualTo(3L);
+			softAssertions.assertThat(archiveFeedDTOs.get(1).getArchivingId()).as("1이 반환되어야 함").isEqualTo(1L);
 		}
 	}
 
@@ -143,11 +149,11 @@ class ArchiveServiceIntegralTest extends TestSupport {
 		@Test
 		void 제대로_피드의_값을_가져오는지_확인() {
 			Long userId = 1L;
-			Integer offset = 1;
-			Integer limit = 1;
+			Integer pageNumber = 2;
+			Integer pageSize = 1;
 
 			// when
-			List<ArchiveFeedDTO> feedCars = archiveService.getFeedCars(userId, offset, limit);
+			List<ArchiveFeedDTO> feedCars = archiveService.getFeedCars(userId, pageNumber, pageSize);
 
 			// then
 			softAssertions.assertThat(feedCars).as("피드의 결과는 1건이다").hasSize(1);
@@ -166,11 +172,11 @@ class ArchiveServiceIntegralTest extends TestSupport {
 		void 내가_만든_차량_조회가_제대로_동작_하는지_테스트() {
 			// given
 			Long userId = 1L;
-			Integer offset = 1;
-			Integer limit = 1;
+			Integer pageNumber = 1;
+			Integer pageSize = 1;
 
 			// when
-			List<CreatedCarDTO> createdCars = archiveService.getCreatedCars(userId, offset, limit);
+			List<CreatedCarDTO> createdCars = archiveService.getCreatedCars(userId, pageNumber, pageSize);
 
 			// then
 			softAssertions.assertThat(createdCars).as("가져온 값의 크기 테스트").hasSize(1);

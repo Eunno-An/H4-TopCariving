@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -47,7 +48,11 @@ public class CarReviewRepositoryImpl implements CarReviewRepository {
 		Map<String, Object> params = new HashMap<>();
 		params.put("ids", archivingIds);
 
-		return namedParameterJdbcTemplate.queryForObject(sql, params, new TotalReviewRowMapper());
+		try {
+			return namedParameterJdbcTemplate.queryForObject(sql, params, new TotalReviewRowMapper());
+		} catch (EmptyResultDataAccessException e) {
+			return new HashMap<>();
+		}
 	}
 
 	private RowMapper<CarReview> carReviewRowMapper() {

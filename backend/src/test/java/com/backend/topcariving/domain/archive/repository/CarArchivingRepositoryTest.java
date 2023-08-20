@@ -123,13 +123,13 @@ class CarArchivingRepositoryTest extends TestSupport {
 	void findByCarOptionIdsAndArchivingTypes() {
 		// given, when
 		List<CarArchiving> carArchivings = carArchivingRepository.findByCarOptionIdsAndArchivingTypes(
-			List.of(103L, 110L), List.of(DRIVE.getType(), BUY.getType())
+			List.of(103L, 110L), List.of(DRIVE.getType(), BUY.getType()), 1, 3
 		);
 
 		// then
-		softAssertions.assertThat(carArchivings.get(0).getArchivingId()).as("첫 번째 아카이빙의 아카이빙 아이디 검증").isEqualTo(1L);
+		softAssertions.assertThat(carArchivings.get(0).getArchivingId()).as("첫 번째 아카이빙의 아카이빙 아이디 검증").isEqualTo(3L);
 		softAssertions.assertThat(carArchivings.get(0).getArchivingType()).as("첫 번째 아카이빙의 아카이빙 타입 검증").isEqualTo("시승");
-		softAssertions.assertThat(carArchivings.get(1).getArchivingId()).as("두 번째 아카이빙의 아카이빙 아이디 검증").isEqualTo(3L);
+		softAssertions.assertThat(carArchivings.get(1).getArchivingId()).as("두 번째 아카이빙의 아카이빙 아이디 검증").isEqualTo(1L);
 		softAssertions.assertThat(carArchivings.get(1).getArchivingType()).as("두 번째 아카이빙의 아카이빙 타입 검증").isEqualTo("시승");
 	}
 
@@ -137,14 +137,14 @@ class CarArchivingRepositoryTest extends TestSupport {
 	void findByArchivingTypes() {
 		// given, when
 		List<String> types = List.of(ArchivingType.DRIVE.getType(), BUY.getType());
-		List<CarArchiving> carArchivings = carArchivingRepository.findByArchivingTypes(types);
+		List<CarArchiving> carArchivings = carArchivingRepository.findByArchivingTypes(types, 1, 3);
 
 		// then
-		softAssertions.assertThat(carArchivings.get(0).getArchivingId()).as("1이 반환되어야 함").isEqualTo(1L);
+		softAssertions.assertThat(carArchivings.get(0).getArchivingId()).as("3이 반환되어야 함").isEqualTo(3L);
 		softAssertions.assertThat(carArchivings.get(0).getArchivingType()).as("'시승'이 반환되어야 함'").isEqualTo("시승");
 		softAssertions.assertThat(carArchivings.get(1).getArchivingId()).as("2가 반환되어야 함").isEqualTo(2L);
 		softAssertions.assertThat(carArchivings.get(1).getArchivingType()).as("'구매'가 반환되어야 함'").isEqualTo("구매");
-		softAssertions.assertThat(carArchivings.get(2).getArchivingId()).as("3이 반환되어야 함").isEqualTo(3L);
+		softAssertions.assertThat(carArchivings.get(2).getArchivingId()).as("1이 반환되어야 함").isEqualTo(1L);
 		softAssertions.assertThat(carArchivings.get(2).getArchivingType()).as("'시승'이 반환되어야 함'").isEqualTo("시승");
 	}
 
@@ -152,12 +152,12 @@ class CarArchivingRepositoryTest extends TestSupport {
 	void findCarDTOByUserIdAndOffsetAndPageSize() {
 		// given
 		Long userId = 1L;
-		Integer offset = 1;
+		Integer pageNumber = 1;
 		Integer pageSize = 1;
 
 		// when
 		List<CarDTO> cars = carArchivingRepository.findCarDTOByUserIdAndOffsetAndPageSize(
-			1L, 1, 1);
+			userId, pageNumber, pageSize);
 
 		// then
 		softAssertions.assertThat(cars).as("pageSize가 1이므로 한개가 나와야한다").hasSize(1);

@@ -1,11 +1,13 @@
 package com.backend.topcariving.domain.archive.repository;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -86,14 +88,18 @@ public class CarArchivingRepositoryImpl implements CarArchivingRepository {
 	}
 
 	@Override
-	public List<CarArchiving> findByCarOptionIdsAndArchivingTypes(List<Long> carOptionIds, List<String> archivingTypes) {
+	public List<CarArchiving> findByCarOptionIdsAndArchivingTypes(List<Long> carOptionIds, List<String> archivingTypes, Integer pageNumber, Integer pageSize) {
 		String sql = "SELECT * FROM CAR_ARCHIVING "
 			+ "WHERE archiving_id IN "
 			+ "(SELECT archiving_id FROM MY_CAR "
 			+ "WHERE car_option_id IN (:carOptionIds) "
 			+ "GROUP BY archiving_id "
 			+ "HAVING COUNT(DISTINCT car_option_id) = (:carOptionsSize)) "
-			+ "AND archiving_type IN (:archivingTypes);";
+			+ "AND archiving_type IN (:archivingTypes) "
+			+ "AND is_alive = true "
+			+ "ORDER BY day_time DESC "
+			+ "LIMIT :pageSize "
+			+ "OFFSET :offset;";
 
 		NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
 
@@ -101,35 +107,65 @@ public class CarArchivingRepositoryImpl implements CarArchivingRepository {
 		paramMap.put("carOptionIds", carOptionIds);
 		paramMap.put("carOptionsSize", carOptionIds.size());
 		paramMap.put("archivingTypes", archivingTypes);
+		paramMap.put("pageSize", pageSize);
+		paramMap.put("offset", (pageNumber - 1) * pageSize);
 
 		return namedParameterJdbcTemplate.query(sql, paramMap, carArchivingRowMapper());
 	}
 
 	@Override
-	public List<CarArchiving> findByArchivingTypes(List<String> archivingTypes) {
-		String sql = "SELECT * FROM CAR_ARCHIVING WHERE archiving_type IN (:archivingTypes);";
+	public List<CarArchiving> findByArchivingTypes(List<String> archivingTypes, Integer pageNumber, Integer pageSize) {
+		String sql = "SELECT * FROM CAR_ARCHIVING WHERE archiving_type IN (:archivingTypes) "
+			+ "AND is_alive = true "
+			+ "ORDER BY day_time DESC "
+			+ "LIMIT :pageSize OFFSET :offset;";
 
 		NamedParameterJdbcTemplate namedParameterJdbcTemplate = new NamedParameterJdbcTemplate(jdbcTemplate);
 
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("archivingTypes", archivingTypes);
+		paramMap.put("pageSize", pageSize);
+		paramMap.put("offset", (pageNumber - 1) * pageSize);
 
 		return namedParameterJdbcTemplate.query(sql, paramMap, carArchivingRowMapper());
 	}
 
 	@Override
-	public List<CarDTO> findCarDTOByUserIdAndOffsetAndPageSize(Long userId, Integer offset, Integer pageSize) {
+	public List<CarDTO> findCarDTOByUserIdAndOffsetAndPageSize(Long userId, Integer pageNumber, Integer pageSize) {
 
 		String sql = "SELECT * FROM CAR_ARCHIVING AS CA "
 			+ "INNER JOIN MY_CAR AS MC ON CA.archiving_id = MC.archiving_id "
 			+ "INNER JOIN CAR_OPTION AS CO ON MC.car_option_id = CO.car_option_id "
 			+ "WHERE CA.archiving_id IN "
-			+ "(SELECT archiving_id FROM CAR_ARCHIVING WHERE user_id = ? AND is_alive = true "
+			+ "(SELECT archiving_id FROM CAR_ARCHIVING WHERE user_id = ? AND is_alive = true  "
 			+ "ORDER BY day_time DESC "
 			+ "LIMIT ? "
 			+ "OFFSET ?)";
+		try {
+			return jdbcTemplate.queryForObject(sql, new CarDTORowMapper(), userId, pageSize, (pageNumber - 1) * pageSize);
+		} catch (EmptyResultDataAccessException e) {
+			return new ArrayList<>();
+		}
+	}
 
-		return jdbcTemplate.queryForObject(sql, new CarDTORowMapper(), userId, offset, pageSize);
+	@Override
+	public List<CarDTO> findCarDTOByUserIdAndOffsetAndPageSizeAndAliveTrue(Long userId, Integer pageNumber,
+		Integer pageSize) {
+		String sql = "SELECT * FROM CAR_ARCHIVING AS CA "
+			+ "INNER JOIN MY_CAR AS MC ON CA.archiving_id = MC.archiving_id "
+			+ "INNER JOIN CAR_OPTION AS CO ON MC.car_option_id = CO.car_option_id "
+			+ "WHERE CA.archiving_id IN "
+			+ "(SELECT ARC.archiving_id FROM CAR_ARCHIVING ARC "
+			+ "JOIN BOOKMARK BM ON ARC.archiving_id = BM.archiving_id "
+			+ "WHERE BM.user_id = ? AND ARC.is_alive = true AND BM.is_alive = true "
+			+ "ORDER BY ARC.day_time DESC "
+			+ "LIMIT ? "
+			+ "OFFSET ?)";
+		try {
+			return jdbcTemplate.queryForObject(sql, new CarDTORowMapper(), userId, pageSize, (pageNumber - 1) * pageSize);
+		} catch (EmptyResultDataAccessException e) {
+			return new ArrayList<>();
+		}
 	}
 
 	private RowMapper<CarArchiving> carArchivingRowMapper() {

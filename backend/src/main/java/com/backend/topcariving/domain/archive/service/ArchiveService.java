@@ -60,10 +60,10 @@ public class ArchiveService {
 
 	private final Validator validator;
 
-	public ArchiveResponseDTO archivingSearch(List<Long> optionIds) {
+	public ArchiveResponseDTO archivingSearch(List<Long> optionIds, Integer pageNumber, Integer pageSize) {
 		List<SearchOptionDTO> searchOptions = getSearchOptions();
 		List<String> archivingTypes = List.of(DRIVE.getType(), BUY.getType());
-		List<CarArchiving> carArchivings = optionIds == null ? getAllCarArchiving(archivingTypes) : getFilterCarArchiving(optionIds, archivingTypes);
+		List<CarArchiving> carArchivings = optionIds == null ? getAllCarArchiving(archivingTypes, pageNumber, pageSize) : getFilterCarArchiving(optionIds, archivingTypes, pageNumber, pageSize);
 		List<ArchiveFeedDTO> archiveSearchResponses = getArchiveSearchResponses(carArchivings);
 		return ArchiveResponseDTO.of(searchOptions, archiveSearchResponses);
 	}
@@ -75,12 +75,12 @@ public class ArchiveService {
 			.collect(Collectors.toList());
 	}
 
-	private List<CarArchiving> getAllCarArchiving(List<String> archivingTypes) {
-		return carArchivingRepository.findByArchivingTypes(archivingTypes);
+	private List<CarArchiving> getAllCarArchiving(List<String> archivingTypes, Integer pageNumber, Integer pageSize) {
+		return carArchivingRepository.findByArchivingTypes(archivingTypes, pageNumber, pageSize);
 	}
 
-	private List<CarArchiving> getFilterCarArchiving(List<Long> carOptionIds, List<String> archivingTypes) {
-		return carArchivingRepository.findByCarOptionIdsAndArchivingTypes(carOptionIds, archivingTypes);
+	private List<CarArchiving> getFilterCarArchiving(List<Long> carOptionIds, List<String> archivingTypes, Integer pageNumber, Integer pageSize) {
+		return carArchivingRepository.findByCarOptionIdsAndArchivingTypes(carOptionIds, archivingTypes, pageNumber, pageSize);
 	}
 
 	private List<ArchiveFeedDTO> getArchiveSearchResponses(List<CarArchiving> carArchivings) {
@@ -177,10 +177,13 @@ public class ArchiveService {
 		return newCarArchiving.getArchivingId();
 	}
 
-	public List<CreatedCarDTO> getCreatedCars(Long userId, Integer offset, Integer pageSize) {
+	public List<CreatedCarDTO> getCreatedCars(Long userId, Integer pageNumber, Integer pageSize) {
 
 		List<CarDTO> cars = carArchivingRepository.findCarDTOByUserIdAndOffsetAndPageSize(
-			userId, offset, pageSize);
+			userId, pageNumber, pageSize);
+
+		if (cars.isEmpty())
+			return new ArrayList<>();
 
 		List<CreatedCarDTO> result = new ArrayList<>();
 		for (CarDTO car : cars) {
@@ -227,10 +230,12 @@ public class ArchiveService {
 			|| Objects.equals(categoryDetail, N_PERFORMANCE.getName());
 	}
 
-	public List<ArchiveFeedDTO> getFeedCars(Long userId, Integer offset, Integer pageSize) {
+	public List<ArchiveFeedDTO> getFeedCars(Long userId, Integer pageNumber, Integer pageSize) {
 
-		List<CarDTO> cars = carArchivingRepository.findCarDTOByUserIdAndOffsetAndPageSize(
-			userId, offset, pageSize);
+		List<CarDTO> cars = carArchivingRepository.findCarDTOByUserIdAndOffsetAndPageSizeAndAliveTrue(
+			userId, pageNumber, pageSize);
+		if (cars.isEmpty())
+			return new ArrayList<>();
 
 		List<Long> archivingIds = cars.stream()
 			.map(CarDTO::getArchivingId)
@@ -245,8 +250,8 @@ public class ArchiveService {
 				.archivingId(car.getArchivingId())
 				.carArchiveResult(getCarArchiveResult(car.getCarOptions()))
 				.dayTime(car.getDayTime())
-				.carReview(totalReviewDTO.getReview())
-				.tags(totalReviewDTO.getTags())
+				.carReview(totalReviewDTO == null ? null : totalReviewDTO.getReview())
+				.tags(totalReviewDTO == null ? null : totalReviewDTO.getTags())
 				.type(car.getArchivingType())
 				.build();
 			result.add(feedDTO);

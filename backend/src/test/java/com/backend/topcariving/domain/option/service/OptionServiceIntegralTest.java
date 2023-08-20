@@ -305,10 +305,10 @@ public class OptionServiceIntegralTest extends TestSupport {
 		@Test
 		void N_Performance_를_저장한_후에는_MY_CAR_에_car_option_id_가_null_인_레코드가_저장되어야_한다() {
 			// given
-			SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(128L, 11L);
+			SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(128L, 8L);
 
 			// when
-			Long archivingId = optionService.saveSelectionOption(1L, selectOptionRequestDTO, N_PERFORMANCE);
+			Long archivingId = optionService.saveSelectionOption(8L, selectOptionRequestDTO, N_PERFORMANCE);
 
 			// then
 			List<MyCar> findCar = myCarRepository.findByArchivingId(archivingId);

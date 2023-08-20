@@ -20,8 +20,11 @@ public interface CarArchivingRepository {
 
 	Optional<CarArchiving> findById(Long archivingId);
 
-	List<CarArchiving> findByCarOptionIdsAndArchivingTypes(List<Long> archivingIds, List<String> archivingTypes);
+	List<CarArchiving> findByCarOptionIdsAndArchivingTypes(List<Long> archivingIds, List<String> archivingTypes, Integer pageNumber, Integer pageSize);
 
-	List<CarArchiving> findByArchivingTypes(List<String> archivingTypes);
+	List<CarArchiving> findByArchivingTypes(List<String> archivingTypes, Integer pageNumber, Integer pageSize);
+
 	List<CarDTO> findCarDTOByUserIdAndOffsetAndPageSize(Long userId, Integer offset, Integer pageSize);
+
+	List<CarDTO> findCarDTOByUserIdAndOffsetAndPageSizeAndAliveTrue(Long userId, Integer pageNumber, Integer pageSize);
 }
