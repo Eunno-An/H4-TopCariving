@@ -32,7 +32,7 @@ class FeatureSummaryContainerView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    private var button: UIButton = {
+    private var editButton: UIButton = {
         let button = UIButton()
         let buttonView = ChangeOptionButtonView()
         buttonView.setButtonImage(to: UIImage(named: "edit_brown") ?? UIImage())
@@ -93,7 +93,7 @@ class FeatureSummaryContainerView: UIView {
         inColorDescriptionView.translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .hyundaiLightSand
         layer.cornerRadius = 8
-        [trim, option, button, price, separator, outColorDescriptionView, inColorDescriptionView].forEach {
+        [trim, option, editButton, price, separator, outColorDescriptionView, inColorDescriptionView].forEach {
             addSubview($0)
         }
     }
@@ -107,14 +107,14 @@ class FeatureSummaryContainerView: UIView {
             option.topAnchor.constraint(equalTo: trim.bottomAnchor),
             option.heightAnchor.constraint(equalToConstant: 22),
             option.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 33),
-            option.trailingAnchor.constraint(equalTo: button.leadingAnchor, constant: -7),
+            option.trailingAnchor.constraint(equalTo: editButton.leadingAnchor, constant: -7),
             
-            button.bottomAnchor.constraint(equalTo: option.bottomAnchor),
-            button.leadingAnchor.constraint(equalTo: option.trailingAnchor, constant: 7),
-            button.heightAnchor.constraint(equalToConstant: 15),
-            button.widthAnchor.constraint(equalToConstant: 42),
+            editButton.bottomAnchor.constraint(equalTo: option.bottomAnchor),
+            editButton.leadingAnchor.constraint(equalTo: option.trailingAnchor, constant: 7),
+            editButton.heightAnchor.constraint(equalToConstant: 15),
+            editButton.widthAnchor.constraint(equalToConstant: 42),
             
-            price.topAnchor.constraint(equalTo: button.bottomAnchor, constant: 1),
+            price.topAnchor.constraint(equalTo: editButton.bottomAnchor, constant: 1),
             price.heightAnchor.constraint(equalToConstant: 22),
             price.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 219),
             price.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -33),

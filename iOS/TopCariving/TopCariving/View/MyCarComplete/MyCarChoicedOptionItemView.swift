@@ -35,7 +35,7 @@ class MyCarChoicedOptionItemView: UIView {
         label.font = .designSystem(.init(name: .medium, size: ._16))
         return label
     }()
-    private var button: UIButton = {
+    private var editButton: UIButton = {
         let button = UIButton()
         let buttonView = ChangeOptionButtonView()
         buttonView.setButtonImage(to: UIImage(named: "edit_gray") ?? UIImage())
@@ -87,7 +87,7 @@ class MyCarChoicedOptionItemView: UIView {
     
     // MARK: - Helpers
     private func setUI() {
-        [imageView, optionName, optionSeparator, optionPrice, button, optionDetail].forEach {
+        [imageView, optionName, optionSeparator, optionPrice, editButton, optionDetail].forEach {
             addSubview($0)
         }
     }
@@ -113,10 +113,10 @@ class MyCarChoicedOptionItemView: UIView {
             optionPrice.topAnchor.constraint(equalTo: topAnchor, constant: 13),
             optionPrice.leadingAnchor.constraint(equalTo: optionSeparator.trailingAnchor, constant: 5),
             
-            button.heightAnchor.constraint(equalToConstant: 19),
-            button.widthAnchor.constraint(equalToConstant: 46),
-            button.topAnchor.constraint(equalTo: optionPrice.topAnchor),
-            button.trailingAnchor.constraint(equalTo: trailingAnchor),
+            editButton.heightAnchor.constraint(equalToConstant: 19),
+            editButton.widthAnchor.constraint(equalToConstant: 46),
+            editButton.topAnchor.constraint(equalTo: optionPrice.topAnchor),
+            editButton.trailingAnchor.constraint(equalTo: trailingAnchor),
             
             optionDetail.heightAnchor.constraint(equalToConstant: 40),
             optionDetail.widthAnchor.constraint(equalToConstant: 260),
