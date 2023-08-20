@@ -50,7 +50,14 @@ class MyCarCompletionViewController: BaseMyCarViewController {
             view.addSubview($0)
         }
         scrollView.addSubview(containerView)
-        [ticketView, separator, myCarFeatureView, myCarChoicedOptionView, anotherProcedureView, consultingView].forEach {
+        [
+            ticketView,
+            separator,
+            myCarFeatureView,
+            myCarChoicedOptionView,
+            anotherProcedureView,
+            consultingView
+        ].forEach {
             containerView.addSubview($0)
         }
     }

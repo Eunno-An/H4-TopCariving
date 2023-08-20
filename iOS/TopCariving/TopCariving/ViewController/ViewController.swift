@@ -9,25 +9,34 @@ import Combine
 import UIKit
 
 class ViewController: BaseMyCarViewController {
+    // MARK: - UI properties
+    private let scrollView: UIScrollView = UIScrollView()
+    private let progressView = UIImageView(image: UIImage(named: "ProgressEngine"))
+    private let rotatableView: RotatableOptionImageView = RotatableOptionImageView(frame: .zero)
+    private let containerStackView = FoldableStackView()
+    private let footerView = MyCarFooterView()
+    
     // MARK: - Properties
     var bag = Set<AnyCancellable>()
-    var myView: UIView = {
-        var view: UIView = UIView(frame: .init(x: 100, y: 150, width: 200, height: 200))
-        view.backgroundColor = .red
-        return view
-    }()
     
     // MARK: - Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.addSubview(myView)
-
+        setUI()
+        setLayout()
+        injectMock()
+    }
+    
+    // MARK: - Helpers
+    private func setUI() {
+        setTitle(to: "펠리세이드")
         view.backgroundColor = .white
-        myView.tapPublisher().sink { _ in
-            let summary = SummaryViewController()
-            summary.modalPresentationStyle = .pageSheet
-            self.present(summary, animated: true)
-        }.store(in: &bag)
+        [scrollView, progressView, rotatableView, footerView].forEach {
+            view.addSubview($0)
+        }
+        [rotatableView, containerStackView].forEach {
+            scrollView.addSubview($0)
+        }
     }
     
     private func setLayout() {

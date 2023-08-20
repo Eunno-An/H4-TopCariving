@@ -23,7 +23,7 @@ class MyCarChoicedOptionView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    private let stackView: UIStackView = {
+    let stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false
@@ -34,15 +34,17 @@ class MyCarChoicedOptionView: UIView {
     // MARK: - Lifecycles
     override init(frame: CGRect) {
         super.init(frame: frame)
+        test_injectMock()
         setUI()
         setLayout()
-        test_injectMock()
+        setTitle(to: stackView.arrangedSubviews.count)
     }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        test_injectMock()
         setUI()
         setLayout()
-        test_injectMock()
+        setTitle(to: stackView.arrangedSubviews.count)
     }
     
     // MARK: - Helpers
@@ -60,7 +62,7 @@ class MyCarChoicedOptionView: UIView {
             
             separator.heightAnchor.constraint(equalToConstant: 1),
             separator.widthAnchor.constraint(equalToConstant: 342),
-            separator.topAnchor.constraint(equalTo: topAnchor),
+            separator.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 16),
             separator.leadingAnchor.constraint(equalTo: leadingAnchor),
             
             stackView.topAnchor.constraint(equalTo: separator.bottomAnchor),
@@ -69,7 +71,7 @@ class MyCarChoicedOptionView: UIView {
     }
     private func test_injectMock() {
         for _ in 0..<5 {
-            stackView.addArrangedSubview(MyCarChoicedOptionView())
+            stackView.addArrangedSubview(MyCarChoicedOptionItemView(intrinsicSize: .init(width: 342, height: 103)))
             stackView.addArrangedSubview(separator)
         }
     }

@@ -101,7 +101,7 @@ class MyCarChoicedOptionItemView: UIView {
             optionName.heightAnchor.constraint(equalToConstant: 28),
             optionName.widthAnchor.constraint(equalToConstant: 65),
             optionName.topAnchor.constraint(equalTo: topAnchor, constant: 13),
-            optionName.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 11.26),
+            optionName.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 11.26),
             
             optionSeparator.heightAnchor.constraint(equalToConstant: 13),
             optionSeparator.widthAnchor.constraint(equalToConstant: 1),
@@ -115,8 +115,8 @@ class MyCarChoicedOptionItemView: UIView {
             
             button.heightAnchor.constraint(equalToConstant: 19),
             button.widthAnchor.constraint(equalToConstant: 46),
-            button.topAnchor.constraint(equalTo: bottomAnchor, constant: 13),
-            button.leadingAnchor.constraint(equalTo: optionPrice.trailingAnchor, constant: 62),
+            button.topAnchor.constraint(equalTo: optionPrice.topAnchor),
+            button.trailingAnchor.constraint(equalTo: trailingAnchor),
             
             optionDetail.heightAnchor.constraint(equalToConstant: 40),
             optionDetail.widthAnchor.constraint(equalToConstant: 260),
