@@ -56,13 +56,8 @@ class MyCarChoicedOptionItemView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.numberOfLines = 0
         label.lineBreakMode = .byWordWrapping
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .center
-        paragraphStyle.lineHeightMultiple = 1.48
-        label.attributedText = NSMutableAttributedString(
-            string: "후석 승객 알림 / 메탈 리어범퍼스텝 / 메탈 도어스커프 / 3열 파워폴딩시트 / 3열 열선시트 / 헤드업 디스틀레이",
-            attributes: [NSAttributedString.Key.kern: -0.28, NSAttributedString.Key.paragraphStyle: paragraphStyle]
-        )
+        label.font = .designSystem(.init(name: .regular, size: ._12))
+        label.text = "후석 승객 알림 / 메탈 리어범퍼스텝 / 메탈 도어스커프 / 3열 파워폴딩시트 / 3열 열선시트 / 헤드업 디스틀레이"
         return label
     }()
     
@@ -114,7 +109,7 @@ class MyCarChoicedOptionItemView: UIView {
             optionSeparator.leadingAnchor.constraint(equalTo: optionName.leadingAnchor, constant: 62),
             
             optionPrice.heightAnchor.constraint(equalToConstant: 28),
-            optionPrice.widthAnchor.constraint(equalToConstant: 88),
+            optionPrice.widthAnchor.constraint(equalToConstant: 100),
             optionPrice.topAnchor.constraint(equalTo: topAnchor, constant: 13),
             optionPrice.leadingAnchor.constraint(equalTo: optionSeparator.trailingAnchor, constant: 5),
             
@@ -124,7 +119,7 @@ class MyCarChoicedOptionItemView: UIView {
             button.leadingAnchor.constraint(equalTo: optionPrice.trailingAnchor, constant: 62),
             
             optionDetail.heightAnchor.constraint(equalToConstant: 40),
-            optionDetail.widthAnchor.constraint(equalToConstant: 255),
+            optionDetail.widthAnchor.constraint(equalToConstant: 260),
             optionDetail.topAnchor.constraint(equalTo: optionPrice.bottomAnchor, constant: 10),
             optionDetail.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 12.26)
         ])

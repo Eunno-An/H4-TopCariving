@@ -19,6 +19,10 @@ class MyCarCompletionViewController: BaseMyCarViewController {
         return label
     }()
     private let myCarFeatureView = MyCarFeatureView()
+    private let myCarChoicedOptionView = MyCarChoicedOptionView()
+    private let anotherProcedureView = AnotherProcedureView()
+    private let consultingView = ConsultingView()
+    private let footerView = MyCarFooterView()
     // MARK: - Properties
     
     // MARK: - Lifecycles
@@ -37,10 +41,16 @@ class MyCarCompletionViewController: BaseMyCarViewController {
         ticketView.translatesAutoresizingMaskIntoConstraints = false
         myCarFeatureView.translatesAutoresizingMaskIntoConstraints = false
         
-        view.addSubview(scrollView)
-        scrollView.addSubview(containerView)
+        myCarChoicedOptionView.translatesAutoresizingMaskIntoConstraints = false
+        anotherProcedureView.translatesAutoresizingMaskIntoConstraints = false
+        consultingView.translatesAutoresizingMaskIntoConstraints = false
+        footerView.translatesAutoresizingMaskIntoConstraints = false
         
-        [ticketView, separator, myCarFeatureView].forEach {
+        [scrollView, footerView].forEach {
+            view.addSubview($0)
+        }
+        scrollView.addSubview(containerView)
+        [ticketView, separator, myCarFeatureView, myCarChoicedOptionView, anotherProcedureView, consultingView].forEach {
             containerView.addSubview($0)
         }
     }
@@ -58,8 +68,8 @@ class MyCarCompletionViewController: BaseMyCarViewController {
             
             containerView.topAnchor.constraint(equalTo: scrollView.contentLayoutGuide.topAnchor),
             containerView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor),
-            containerView.leadingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.leadingAnchor),
-            containerView.trailingAnchor.constraint(equalTo: scrollView.contentLayoutGuide.trailingAnchor),
+            containerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            containerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
             ticketView.heightAnchor.constraint(equalToConstant: 204),
             ticketView.widthAnchor.constraint(equalToConstant: 343),
@@ -74,7 +84,27 @@ class MyCarCompletionViewController: BaseMyCarViewController {
             myCarFeatureView.topAnchor.constraint(equalTo: separator.bottomAnchor, constant: 20),
             myCarFeatureView.heightAnchor.constraint(equalToConstant: 258),
             myCarFeatureView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-            myCarFeatureView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor)
+            myCarFeatureView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            
+            myCarChoicedOptionView.topAnchor.constraint(equalTo: myCarFeatureView.bottomAnchor, constant: 28),
+            myCarChoicedOptionView.stackView.bottomAnchor.constraint(equalTo: consultingView.topAnchor),
+            myCarChoicedOptionView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 18),
+            myCarChoicedOptionView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -15),
+           
+            consultingView.topAnchor.constraint(equalTo: myCarChoicedOptionView.bottomAnchor, constant: 20),
+            consultingView.heightAnchor.constraint(equalToConstant: 86),
+            consultingView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
+            consultingView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+            
+            anotherProcedureView.topAnchor.constraint(equalTo: consultingView.bottomAnchor, constant: 36),
+            anotherProcedureView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -300),
+            anotherProcedureView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
+            anotherProcedureView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+
+            footerView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            footerView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            footerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            footerView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.365)
         ])
     }
 }
