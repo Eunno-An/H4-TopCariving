@@ -33,3 +33,8 @@ export const ArchiveUrl = {
   MAIN_RESULT: '/api/archiving/result',
   DETAIL: '/api/archiving/details',
 };
+
+export const MyArchiveUrl = {
+  CREATED_CARS: '/api/archiving/created-cars?pageNumber=1&pageSize=4',
+  DELETE_CARS: '/api/archiving/created-cars',
+};

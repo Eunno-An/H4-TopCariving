@@ -5,11 +5,13 @@ import { theme } from '@styles/theme';
 import { css } from '@emotion/react';
 import { useAlert } from '@contexts/AlertContext';
 import { getDate } from '@utils/getDate';
+import { MyArchiveUrl, apiInstance } from '@utils/api';
 
 interface CreatedCarTrimInterface {
-  additionalProp1: string;
-  additionalProp2: string;
-  additionalProp3: string;
+  바디타입: string;
+  모델: string;
+  엔진: string;
+  구동방식: string;
 }
 
 interface CreatedCarSelectedInterface {
@@ -20,7 +22,7 @@ interface CreatedCarSelectedInterface {
 interface CreatedCarInterface {
   archivingId: number;
   trims: CreatedCarTrimInterface;
-  dayTime: string;
+  dayTime: Date;
   selectedOptions: CreatedCarSelectedInterface[];
   complete: boolean;
 }
@@ -28,11 +30,18 @@ interface CreatedCarInterface {
 export const MyCarCard = ({ info }: { info: CreatedCarInterface }) => {
   const { openAlert, closeAlert } = useAlert();
 
-  const closeModal = () => {
+  const closeModal = async (archivingId: number) => {
+    console.log(archivingId);
+    await apiInstance({
+      url: `${MyArchiveUrl.DELETE_CARS}/${archivingId}`,
+      method: 'DELETE',
+    });
+
     closeAlert();
+    location.reload();
   };
 
-  const onDeleteHandler = () => {
+  const onDeleteHandler = (archivingId: number) => {
     openAlert({
       newContent: [
         '펠리세이드 Le Blacn을',
@@ -40,7 +49,11 @@ export const MyCarCard = ({ info }: { info: CreatedCarInterface }) => {
       ],
       newButtonInfo: [
         { text: '취소', color: 'LightGray', onClick: closeAlert },
-        { text: '확인', color: 'Primary', onClick: closeModal },
+        {
+          text: '확인',
+          color: 'Primary',
+          onClick: () => closeModal(archivingId),
+        },
       ],
     });
   };
@@ -78,15 +91,15 @@ export const MyCarCard = ({ info }: { info: CreatedCarInterface }) => {
               {`${getDate(new Date(info.dayTime))} 임시저장`}
             </SaveStatusBox>
           )}
-          <div onClick={onDeleteHandler}>
+          <div onClick={() => onDeleteHandler(info.archivingId)}>
             <DeleteIcon src={deleteIcon} alt="" />
           </div>
         </Flex>
       </Flex>
       <Flex justify="flex-start">
         <Text typo="Body3_Regular">
-          {info.trims.additionalProp1} / {info.trims.additionalProp2} /{' '}
-          {info.trims.additionalProp3}
+          {info.trims.바디타입} / {info.trims.모델} / {info.trims.엔진} /{' '}
+          {info.trims.구동방식}
         </Text>
       </Flex>
       <Flex>
@@ -99,6 +112,9 @@ export const MyCarCard = ({ info }: { info: CreatedCarInterface }) => {
               <ImgBox src={it.photoUrl} alt="" />
             </ImgContain>
           ))}
+          {!info.selectedOptions.length && (
+            <Text alertPalette="Primary">선택한 옵션이 없습니다</Text>
+          )}
         </CarOptionImgBox>
       </Flex>
     </CarCard>
@@ -144,6 +160,8 @@ const CarOptionImgBox = styled(Flex)`
   overflow: scroll;
 
   gap: 4px;
+
+  height: 140px;
 
   padding-top: 20px;
 

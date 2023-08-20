@@ -3,104 +3,32 @@ import styled from '@emotion/styled';
 import { theme } from '@styles/theme';
 import { MyCarCard } from './MyCarCard';
 import { FeedSaveCard } from '.';
+import { useEffect } from 'react';
 
-const createdCars = [
-  {
-    archivingId: 1,
-    trims: {
-      additionalProp1: '디젤2.2',
-      additionalProp2: '4WD',
-      additionalProp3: '7인승',
-    },
-    dayTime: '2023-08-15T06:28:10.376Z',
-    selectedOptions: [
-      {
-        name: '후방 주차 충돌방지 보조',
-        photoUrl:
-          'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/pca.jpeg',
-      },
-      {
-        name: '후방 주차 충돌방지 보조',
-        photoUrl:
-          'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/pca.jpeg',
-      },
-      {
-        name: '후방 주차 충돌방지 보조',
-        photoUrl:
-          'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/pca.jpeg',
-      },
-    ],
-    complete: false,
-  },
-  {
-    archivingId: 2,
-    trims: {
-      additionalProp1: '디젤4.3',
-      additionalProp2: '2WD',
-      additionalProp3: '8인승',
-    },
-    dayTime: '2023-08-10T06:28:10.376Z',
-    selectedOptions: [
-      {
-        name: '3열 열선시트',
-        photoUrl:
-          'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/3_heated.jpeg',
-      },
-      {
-        name: '메탈 도어스커프',
-        photoUrl:
-          'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/metaldoorscuff.jpeg',
-      },
-    ],
-    complete: false,
-  },
-  {
-    archivingId: 3,
-    trims: {
-      additionalProp1: '디젤2.2',
-      additionalProp2: '4WD',
-      additionalProp3: '7인승',
-    },
-    dayTime: '2023-08-15T06:28:10.376Z',
-    selectedOptions: [
-      {
-        name: '메탈 도어스커프',
-        photoUrl:
-          'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/metaldoorscuff.jpeg',
-      },
-      {
-        name: '3열 열선시트',
-        photoUrl:
-          'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/3_heated.jpeg',
-      },
-      {
-        name: '후석 승객 알림',
-        photoUrl:
-          'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/roa.jpeg',
-      },
-    ],
-    complete: true,
-  },
-  {
-    archivingId: 4,
-    trims: {
-      additionalProp1: '디젤2.2',
-      additionalProp2: '4WD',
-      additionalProp3: '7인승',
-    },
-    dayTime: '2023-08-15T06:28:10.376Z',
-    selectedOptions: [
-      {
-        name: '후석 승객 알림',
-        photoUrl:
-          'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/roa.jpeg',
-      },
-    ],
-    complete: false,
-  },
-];
+export interface createdMyCarInterface {
+  archivingId: number;
+  trims: {
+    바디타입: string;
+    모델: string;
+    엔진: string;
+    구동방식: string;
+  };
+  dayTime: Date;
+  selectedOptions: {
+    name: string;
+    photoUrl: string;
+  }[];
+  complete: boolean;
+}
 
-export const MyCarList = () => {
+export const MyCarList = ({
+  createdMyCar,
+}: {
+  createdMyCar: createdMyCarInterface[];
+}) => {
+  useEffect(() => {
+    createdMyCar.map((it) => console.log(it));
+  }, []);
   return (
     <Flex direction="column" justify="flex-start" gap={30}>
       <Flex
@@ -114,7 +42,7 @@ export const MyCarList = () => {
           <Text typo="Heading3_Medium">내가 만든 차량 목록</Text>
         </TitleContainer>
         <CarCardContainer>
-          {createdCars.map((it) => (
+          {createdMyCar.map((it) => (
             <MyCarCard key={`mycarcard_${it.archivingId}`} info={it} />
           ))}
         </CarCardContainer>

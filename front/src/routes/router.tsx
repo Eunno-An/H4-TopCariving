@@ -17,6 +17,7 @@ import {
   apiInstance,
   Summary,
   ArchiveUrl,
+  MyArchiveUrl,
 } from '@utils/api';
 import { TrimCardInterface } from '@components/myCar/trim';
 import { myCarOptionInterface } from '@interface/index';
@@ -175,6 +176,12 @@ export const router = createBrowserRouter([
   {
     path: '/my-archive',
     element: <MyCariving />,
+    loader: async () => {
+      return await apiInstance({
+        url: MyArchiveUrl.CREATED_CARS,
+        method: 'GET',
+      });
+    },
   },
   {
     path: '/archive',
