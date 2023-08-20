@@ -47,7 +47,7 @@ export const ArchiveReview = ({
             </Text>
           </Flex>
         </Flex>
-        <CarContinaer
+        <CarContainer
           src={`/image/exterior/${
             optionDetail?.외장색상[0]?.optionName
               ? colorPath[optionDetail?.외장색상[0]?.optionName]
@@ -76,7 +76,7 @@ const InfoTag = styled(Flex)`
   white-space: nowrap;
 `;
 
-const CarContinaer = styled.img`
+const CarContainer = styled.img`
   position: absolute;
   right: -200px;
   top: -80px;
@@ -89,4 +89,5 @@ const CarContinaer = styled.img`
       opacity: 1;
     }
   }
+  object-fit: cover;
 `;

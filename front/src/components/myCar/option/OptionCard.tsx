@@ -178,6 +178,11 @@ const Card = styled(Flex)<{ isSelected: boolean; selectedMenu: string }>`
 
   box-sizing: border-box;
 
+  &:hover {
+    border: 2px solid ${theme.palette.Primary};
+  }
+  transition: ease 0.3s;
+
   cursor: pointer;
 `;
 
@@ -188,6 +193,8 @@ const ImgContainer = styled.img<{ selectedMenu: string }>`
 
   border-top-left-radius: 8px;
   border-top-right-radius: 8px;
+
+  object-fit: cover;
 `;
 
 interface optionCardInterface {

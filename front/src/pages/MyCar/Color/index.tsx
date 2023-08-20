@@ -180,13 +180,13 @@ const Color = () => {
               {myCarInfo.color.exteriorColor?.name}
             </Text>
           </Flex>
-          <Line />
+
           <GridContainer>
             {colorInfo.exteriorColorResponses.map((item, idx) => (
               <Flex
                 direction="column"
                 justify="flex-start"
-                gap={8}
+                gap={2}
                 key={item.carOptionId}
               >
                 <ColorWrapper
@@ -208,8 +208,14 @@ const Color = () => {
                     }
                   />
                 </ColorWrapper>
-
-                <Text typo="Body4_Regular">{item.optionName}</Text>
+                <Text
+                  typo="Body4_Regular"
+                  css={css`
+                    white-space: nowrap;
+                  `}
+                >
+                  {item.optionName}
+                </Text>
               </Flex>
             ))}
           </GridContainer>
@@ -220,6 +226,7 @@ const Color = () => {
           gap={12}
           width={331}
           height="auto"
+          margin="12px 0 0 0"
         >
           <Flex justify="space-between">
             <Text typo="Heading4_Medium">내장 색상</Text>
@@ -227,7 +234,7 @@ const Color = () => {
               {myCarInfo.color.interiorColor?.name}
             </Text>
           </Flex>
-          <Line />
+
           <Flex direction="column" gap={16}>
             {colorInfo.interiorColorResponses.map((item, idx) => (
               <ColorWrapper
@@ -277,6 +284,11 @@ const ColorWrapper = styled.div<{ isSelected: boolean }>`
 
   border-radius: 8px;
   box-sizing: border-box;
+
+  &:hover {
+    border: 3px solid ${theme.palette.ActiveBlue};
+  }
+  transition: ease 0.3s;
 `;
 
 const ExteriorColor = styled.img`
@@ -303,12 +315,6 @@ const BlueCheck = styled.img<{ type: colorKey; isSelected: boolean }>`
   height: 22px;
 
   display: ${(props) => (props.isSelected ? 'block' : 'none')};
-`;
-
-const Line = styled.div`
-  height: 2px;
-  width: 100%;
-  background-color: ${theme.palette.LightSand};
 `;
 
 export default Color;

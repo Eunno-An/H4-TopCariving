@@ -77,6 +77,7 @@ const ImgContainer = styled.img`
   height: 357px;
 
   border-radius: 8px;
+  object-fit: cover;
 `;
 
 const Container = styled.div`

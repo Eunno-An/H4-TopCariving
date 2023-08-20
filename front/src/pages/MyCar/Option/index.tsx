@@ -269,7 +269,7 @@ export const MyCarOptions = () => {
       </Flex>
 
       {/* 옵션 하단 */}
-      <Flex direction="column" height={245} gap={20}>
+      <Flex direction="column" height={245} gap={10}>
         {/* 선택 항목 / 기본 포함 항목 */}
         <OptionMenu justify="flex-start" height={40} gap={23}>
           <MenuName
@@ -300,7 +300,12 @@ export const MyCarOptions = () => {
         {selectedMenu !== cateName.select && (
           <Flex justify="flex-start" gap={10} height={10}>
             {defaultCategoryList.map((it, idx) => (
-              <React.Fragment key={`optionTag_${idx}`}>
+              <Flex
+                height="auto"
+                width="auto"
+                gap={10}
+                key={`optionTag_${idx}`}
+              >
                 <OptionTag
                   typo="Body3_Medium"
                   palette={defaultOption === idx ? 'Black' : 'MediumGray'}
@@ -308,11 +313,17 @@ export const MyCarOptions = () => {
                     setCurrentDefaultCategory(defaultCategoryList[idx]);
                     setDefaultOption(idx);
                   }}
+                  css={css`
+                    &:hover {
+                      color: ${theme.palette.DarkGray};
+                    }
+                    transition: ease 0.3s;
+                  `}
                 >
                   {it}
                 </OptionTag>
                 {idx !== 7 && <img src={vector478} alt="" />}
-              </React.Fragment>
+              </Flex>
             ))}
           </Flex>
         )}
@@ -403,6 +414,11 @@ const MenuName = styled(Text)<{ isSelected: boolean }>`
     opacity: ${({ isSelected }) => (isSelected ? 1 : 0)};
     transition: opacity 0.3s;
   }
+
+  &:hover {
+    color: ${theme.palette.DarkGray};
+  }
+  transition: ease 0.3s;
 `;
 
 const TagWrap = css`
@@ -427,6 +443,7 @@ const ImgContainer = styled.img`
   width: 479px;
   height: 304px;
   border-radius: 4px;
+  object-fit: cover;
 `;
 
 interface optionDatasInterface {

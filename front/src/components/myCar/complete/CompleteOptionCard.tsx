@@ -41,9 +41,10 @@ const CompleteFlex = styled(Flex)`
 const ImgContainer = styled.img`
   width: 69px;
   height: 69px;
+
   border-radius: 8px;
-
   border: 1px solid ${theme.palette.DarkGray};
-
   box-shadow: 3px 3px 5px ${theme.palette.DarkGray};
+
+  object-fit: cover;
 `;

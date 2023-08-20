@@ -85,4 +85,9 @@ const CustomFlex = styled(Flex)<{ isSelected: boolean }>`
       : `2px solid ${theme.palette.White}`};
   box-sizing: border-box;
   cursor: pointer;
+
+  &:hover {
+    border: 2px solid ${theme.palette.Primary};
+  }
+  transition: ease 0.3s;
 `;

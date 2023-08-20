@@ -39,4 +39,6 @@ export const Button = styled.button<{
 
   ${({ typo }) => (typo ? theme.typo[typo] : '')};
   cursor: pointer;
+
+  transition: ease 0.3s;
 `;

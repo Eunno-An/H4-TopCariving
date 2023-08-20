@@ -64,6 +64,7 @@ const CarImg = styled.img`
       opacity: 1;
     }
   }
+  object-fit: cover;
 `;
 
 const SandImg = styled.img`
@@ -85,6 +86,7 @@ const SandImg = styled.img`
       opacity: 1;
     }
   }
+  object-fit: cover;
 `;
 
 const PalmTreeImg = styled.img`
@@ -106,4 +108,5 @@ const PalmTreeImg = styled.img`
       opacity: 1;
     }
   }
+  object-fit: cover;
 `;

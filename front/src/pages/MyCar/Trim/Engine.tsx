@@ -115,6 +115,7 @@ export const ImgTag = styled.img`
   width: 620px;
   height: 397px;
   border-radius: 8px;
+  object-fit: cover;
 `;
 
 export default Engine;

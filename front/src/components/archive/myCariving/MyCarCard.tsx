@@ -179,5 +179,7 @@ const ImgBox = styled.img`
   width: 122px;
   height: 121px;
 
+  object-fit: cover;
+
   border-radius: 8px;
 `;

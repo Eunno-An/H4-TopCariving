@@ -66,4 +66,5 @@ const OptionImg = styled.img`
   width: 314px;
   height: 130px;
   border-radius: 8px;
+  object-fit: cover;
 `;
