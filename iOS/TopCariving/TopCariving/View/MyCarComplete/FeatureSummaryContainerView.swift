@@ -7,6 +7,13 @@
 
 import UIKit
 
+struct FeatureSummary {
+    var trim: String
+    var option: String
+    var price: String
+    var colors: [(UIColor, String)]
+}
+
 class FeatureSummaryContainerView: UIView {
     // MARK: - UI properties
     private var trim: UILabel = {
@@ -73,7 +80,7 @@ class FeatureSummaryContainerView: UIView {
         setLayout()
         test_data()
     }
-    init() {
+    init(data: FeatureSummary) {
         super.init(frame: .zero)
         setUI()
         setLayout()
@@ -134,6 +141,37 @@ class FeatureSummaryContainerView: UIView {
         )
         inColorDescriptionView = ColorDescriptionView(
             data: ColorDescriptionModel(space: "내장", color: .hyundaiBlackGray, colorName: "퀄팅 천연(블랙)")
+        )
+    }
+    func setTrim(to trim: String) {
+        self.trim.text = trim
+    }
+    func setOption(to option: String) {
+        self.option.text = option
+    }
+    func setPrice(to price: String) {
+        self.price.text = price
+    }
+    func setFeatureSummaryView(to data: FeatureSummary) {
+        setTrim(to: data.trim)
+        setOption(to: data.option)
+        setPrice(to: data.price)
+        guard data.colors.count == 2 else {
+            return
+        }
+        inColorDescriptionView = ColorDescriptionView(
+            data: ColorDescriptionModel(
+                space: "내장",
+                color: data.colors[0].0,
+                colorName: data.colors[0].1
+            )
+        )
+        outColorDescriptionView = ColorDescriptionView(
+            data: ColorDescriptionModel(
+                space: "외장",
+                color: data.colors[1].0,
+                colorName: data.colors[1].1
+            )
         )
     }
 }
