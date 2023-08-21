@@ -13,8 +13,9 @@ import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.backend.topcariving.config.TestSupport;
-import com.backend.topcariving.domain.archive.dto.response.PositionDTO;
-import com.backend.topcariving.domain.option.entity.Position;
+import com.backend.topcariving.domain.dto.archive.response.PositionDTO;
+import com.backend.topcariving.domain.entity.option.Position;
+import com.backend.topcariving.domain.repository.option.implement.PositionRepositoryImpl;
 
 @JdbcTest
 class PositionRepositoryTest extends TestSupport {

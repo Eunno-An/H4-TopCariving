@@ -10,10 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.backend.topcariving.domain.option.dto.response.color.BothColorResponseDTO;
-import com.backend.topcariving.domain.option.dto.response.color.ExteriorColorResponseDTO;
-import com.backend.topcariving.domain.option.dto.response.color.InteriorColorResponseDTO;
-import com.backend.topcariving.domain.option.dto.response.tag.TagResponseDTO;
+import com.backend.topcariving.domain.dto.option.response.color.BothColorResponseDTO;
+import com.backend.topcariving.domain.dto.option.response.color.ExteriorColorResponseDTO;
+import com.backend.topcariving.domain.dto.option.response.color.InteriorColorResponseDTO;
+import com.backend.topcariving.domain.dto.option.response.tag.TagResponseDTO;
+import com.backend.topcariving.domain.service.option.ColorService;
 
 @SpringBootTest
 @Transactional

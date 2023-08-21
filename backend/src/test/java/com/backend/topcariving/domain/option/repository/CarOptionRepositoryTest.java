@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.backend.topcariving.domain.option.entity.CarOption;
-import com.backend.topcariving.domain.option.entity.CategoryDetail;
+import com.backend.topcariving.domain.entity.option.CarOption;
+import com.backend.topcariving.domain.entity.option.enums.Category;
+import com.backend.topcariving.domain.entity.option.enums.CategoryDetail;
+import com.backend.topcariving.domain.repository.option.implement.CarOptionRepositoryImpl;
 
 @JdbcTest
 class CarOptionRepositoryTest {
@@ -40,7 +42,7 @@ class CarOptionRepositoryTest {
 	@Test
 	void findByCategoryAndParentOptionIdIsNull() {
 		// given
-		String category = CategoryDetail.CHOICE.getName();
+		Category category = Category.CHOICE;
 
 		// when
 		List<CarOption> carOptions = carOptionRepository.findByCategoryAndParentOptionIdIsNull(category);
@@ -52,7 +54,7 @@ class CarOptionRepositoryTest {
 	@Test
 	void findByCategoryDetailAndParentOptionIdIsNull() {
 		// given
-		String categoryDetail = CategoryDetail.N_PERFORMANCE.getName();
+		CategoryDetail categoryDetail = CategoryDetail.N_PERFORMANCE;
 
 		// when
 		final List<CarOption> carOptions = carOptionRepository.findByCategoryDetailAndParentOptionIdIsNull(

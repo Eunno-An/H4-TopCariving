@@ -11,8 +11,10 @@ import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.backend.topcariving.config.TestSupport;
-import com.backend.topcariving.domain.archive.dto.TotalReviewDTO;
-import com.backend.topcariving.domain.review.entity.CarReview;
+import com.backend.topcariving.domain.dto.archive.response.TotalReviewDTO;
+import com.backend.topcariving.domain.entity.review.CarReview;
+import com.backend.topcariving.domain.repository.review.CarReviewRepository;
+import com.backend.topcariving.domain.repository.review.implement.CarReviewRepositoryImpl;
 
 @JdbcTest
 class CarReviewRepositoryTest extends TestSupport {

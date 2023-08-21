@@ -1,6 +1,6 @@
 package com.backend.topcariving.domain.archive.repository;
 
-import static com.backend.topcariving.domain.archive.entity.ArchivingType.*;
+import static com.backend.topcariving.domain.entity.archive.enums.ArchivingType.*;
 
 import java.util.List;
 
@@ -12,10 +12,11 @@ import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.backend.topcariving.config.TestSupport;
-import com.backend.topcariving.domain.archive.dto.CarDTO;
-import com.backend.topcariving.domain.archive.entity.ArchivingType;
-import com.backend.topcariving.domain.archive.entity.CarArchiving;
-import com.backend.topcariving.domain.option.entity.CarOption;
+import com.backend.topcariving.domain.dto.projection.CarDTO;
+import com.backend.topcariving.domain.entity.archive.enums.ArchivingType;
+import com.backend.topcariving.domain.entity.archive.CarArchiving;
+import com.backend.topcariving.domain.entity.option.CarOption;
+import com.backend.topcariving.domain.repository.archive.implement.CarArchivingRepositoryImpl;
 
 @JdbcTest
 class CarArchivingRepositoryTest extends TestSupport {
@@ -34,7 +35,7 @@ class CarArchivingRepositoryTest extends TestSupport {
 	void save() {
 		// given
 		CarArchiving carArchiving = CarArchiving.builder()
-			.archivingType(ArchivingType.MAKE.getType())
+			.archivingType(ArchivingType.MAKE)
 			.isComplete(false)
 			.userId(1L)
 			.isAlive(false)
@@ -85,7 +86,7 @@ class CarArchivingRepositoryTest extends TestSupport {
 	void updateIsCompleteByArchivingId() {
 		// given
 		CarArchiving carArchiving = CarArchiving.builder()
-			.archivingType(ArchivingType.MAKE.getType())
+			.archivingType(ArchivingType.MAKE)
 			.isComplete(false)
 			.userId(1L)
 			.isAlive(false)
@@ -104,7 +105,7 @@ class CarArchivingRepositoryTest extends TestSupport {
 	void updateIsAliveByArchivingId() {
 		// given
 		CarArchiving carArchiving = CarArchiving.builder()
-			.archivingType(ArchivingType.MAKE.getType())
+			.archivingType(ArchivingType.MAKE)
 			.isComplete(true)
 			.userId(1L)
 			.isAlive(true)
@@ -123,29 +124,29 @@ class CarArchivingRepositoryTest extends TestSupport {
 	void findByCarOptionIdsAndArchivingTypes() {
 		// given, when
 		List<CarArchiving> carArchivings = carArchivingRepository.findByCarOptionIdsAndArchivingTypes(
-			List.of(103L, 110L), List.of(DRIVE.getType(), BUY.getType()), 1, 3
+			List.of(103L, 110L), List.of(DRIVE, BUY), 1, 3
 		);
 
 		// then
 		softAssertions.assertThat(carArchivings.get(0).getArchivingId()).as("첫 번째 아카이빙의 아카이빙 아이디 검증").isEqualTo(3L);
-		softAssertions.assertThat(carArchivings.get(0).getArchivingType()).as("첫 번째 아카이빙의 아카이빙 타입 검증").isEqualTo("시승");
+		softAssertions.assertThat(carArchivings.get(0).getArchivingType()).as("첫 번째 아카이빙의 아카이빙 타입 검증").isEqualTo(DRIVE);
 		softAssertions.assertThat(carArchivings.get(1).getArchivingId()).as("두 번째 아카이빙의 아카이빙 아이디 검증").isEqualTo(1L);
-		softAssertions.assertThat(carArchivings.get(1).getArchivingType()).as("두 번째 아카이빙의 아카이빙 타입 검증").isEqualTo("시승");
+		softAssertions.assertThat(carArchivings.get(1).getArchivingType()).as("두 번째 아카이빙의 아카이빙 타입 검증").isEqualTo(DRIVE);
 	}
 
 	@Test
 	void findByArchivingTypes() {
 		// given, when
-		List<String> types = List.of(ArchivingType.DRIVE.getType(), BUY.getType());
+		List<ArchivingType> types = List.of(DRIVE, BUY);
 		List<CarArchiving> carArchivings = carArchivingRepository.findByArchivingTypes(types, 1, 3);
 
 		// then
 		softAssertions.assertThat(carArchivings.get(0).getArchivingId()).as("3이 반환되어야 함").isEqualTo(3L);
-		softAssertions.assertThat(carArchivings.get(0).getArchivingType()).as("'시승'이 반환되어야 함'").isEqualTo("시승");
+		softAssertions.assertThat(carArchivings.get(0).getArchivingType()).as("'시승'이 반환되어야 함'").isEqualTo(DRIVE);
 		softAssertions.assertThat(carArchivings.get(1).getArchivingId()).as("2가 반환되어야 함").isEqualTo(2L);
-		softAssertions.assertThat(carArchivings.get(1).getArchivingType()).as("'구매'가 반환되어야 함'").isEqualTo("구매");
+		softAssertions.assertThat(carArchivings.get(1).getArchivingType()).as("'구매'가 반환되어야 함'").isEqualTo(BUY);
 		softAssertions.assertThat(carArchivings.get(2).getArchivingId()).as("1이 반환되어야 함").isEqualTo(1L);
-		softAssertions.assertThat(carArchivings.get(2).getArchivingType()).as("'시승'이 반환되어야 함'").isEqualTo("시승");
+		softAssertions.assertThat(carArchivings.get(2).getArchivingType()).as("'시승'이 반환되어야 함'").isEqualTo(DRIVE);
 	}
 
 	@Test
@@ -163,7 +164,7 @@ class CarArchivingRepositoryTest extends TestSupport {
 		softAssertions.assertThat(cars).as("pageSize가 1이므로 한개가 나와야한다").hasSize(1);
 
 		CarDTO car = cars.get(0);
-		softAssertions.assertThat(car.getArchivingType()).as("아카이빙 타입 테스트").isEqualTo(DRIVE.getType());
+		softAssertions.assertThat(car.getArchivingType()).as("아카이빙 타입 테스트").isEqualTo(DRIVE);
 		softAssertions.assertThat(car.getArchivingId()).as("아카이빙 아이디 테스트").isEqualTo(1L);
 		softAssertions.assertThat(car.getCarOptions()).as("옵션을 몇개 가지고 있는지 테스트").hasSize(8);
 		List<CarOption> carOptions = car.getCarOptions();

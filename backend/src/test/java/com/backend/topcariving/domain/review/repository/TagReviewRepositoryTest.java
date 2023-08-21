@@ -9,7 +9,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.backend.topcariving.config.TestSupport;
-import com.backend.topcariving.domain.option.dto.response.tag.TagResponseDTO;
+import com.backend.topcariving.domain.dto.option.response.tag.TagResponseDTO;
+import com.backend.topcariving.domain.repository.review.implement.TagReviewRepositoryImpl;
 
 @JdbcTest
 class TagReviewRepositoryTest extends TestSupport {

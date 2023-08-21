@@ -5,48 +5,64 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.backend.topcariving.domain.archive.exception.InvalidAuthorityException;
-import com.backend.topcariving.domain.archive.exception.InvalidMyCarIdException;
-import com.backend.topcariving.domain.option.exception.InvalidArchivingIdException;
-import com.backend.topcariving.domain.option.exception.InvalidCarOptionIdException;
-import com.backend.topcariving.domain.option.exception.InvalidCategoryException;
-import com.backend.topcariving.domain.user.exception.UserException;
+import com.backend.topcariving.domain.exception.AlreadyExistUserException;
+import com.backend.topcariving.domain.exception.InvalidAuthorityException;
+import com.backend.topcariving.domain.exception.InvalidMyCarIdException;
+import com.backend.topcariving.domain.exception.InvalidArchivingIdException;
+import com.backend.topcariving.domain.exception.InvalidCarOptionIdException;
+import com.backend.topcariving.domain.exception.InvalidCategoryException;
+import com.backend.topcariving.domain.exception.UserNotFoundException;
+import com.backend.topcariving.global.auth.exception.InvalidOauthException;
+import com.backend.topcariving.global.dto.FailureResponse;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
 	@ExceptionHandler(InvalidCarOptionIdException.class)
-	public ResponseEntity<String> invalidCarOptionIdHandler(Exception e) {
-		return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+	public ResponseEntity<FailureResponse> invalidCarOptionIdHandler(Exception e) {
+		FailureResponse response = new FailureResponse(ExceptionStatus.INVALID_CAR_OPTION_ID);
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 	}
 
 	@ExceptionHandler(InvalidAuthorityException.class)
-	public ResponseEntity<String> invalidAuthorityHandler(Exception e) {
-		return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
+	public ResponseEntity<FailureResponse> invalidAuthorityHandler(Exception e) {
+		FailureResponse response = new FailureResponse(ExceptionStatus.INVALID_AUTHORITY);
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
 	}
 
-	@ExceptionHandler(UserException.class)
-	public ResponseEntity<String> invalidUserNotFoundHandler(Exception e) {
-		return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+	@ExceptionHandler(AlreadyExistUserException.class)
+	public ResponseEntity<FailureResponse> invalidAlreadyExistUserHandler(Exception e) {
+		FailureResponse response = new FailureResponse(ExceptionStatus.ALREADY_EXIST_USER);
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+	}
+
+	@ExceptionHandler(UserNotFoundException.class)
+	public ResponseEntity<FailureResponse> userNotFoundHandler(Exception e) {
+		FailureResponse response = new FailureResponse(ExceptionStatus.USER_NOT_FOUND);
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
 	}
 
 	@ExceptionHandler(InvalidOauthException.class)
-	public ResponseEntity<String> invalidOauthHandler(Exception e) {
-		return new ResponseEntity<>(e.getMessage(), HttpStatus.UNAUTHORIZED);
+	public ResponseEntity<FailureResponse> invalidOauthHandler(Exception e) {
+		FailureResponse response = new FailureResponse(ExceptionStatus.INVALID_OAUTH);
+		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
 	}
 
 	@ExceptionHandler(InvalidArchivingIdException.class)
-	public ResponseEntity<String> invalidArchivingIdHandler(Exception e) {
-		return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+	public ResponseEntity<FailureResponse> invalidArchivingIdHandler(Exception e) {
+		FailureResponse response = new FailureResponse(ExceptionStatus.INVALID_ARCHIVING_ID);
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 	}
 
 	@ExceptionHandler(InvalidCategoryException.class)
-	public ResponseEntity<String> invalidCategory(Exception e) {
-		return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+	public ResponseEntity<FailureResponse> invalidCategory(Exception e) {
+		FailureResponse response = new FailureResponse(ExceptionStatus.INVALID_CATEGORY);
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 	}
 
 	@ExceptionHandler(InvalidMyCarIdException.class)
-	public ResponseEntity<String> invalidMyCarIdHandler(Exception e) {
-		return new ResponseEntity<>(e.getMessage(), HttpStatus.BAD_REQUEST);
+	public ResponseEntity<FailureResponse> invalidMyCarIdHandler(Exception e) {
+		FailureResponse response = new FailureResponse(ExceptionStatus.INVALID_MY_CAR_ID);
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
 	}
 }

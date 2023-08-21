@@ -12,11 +12,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.backend.topcariving.config.TestSupport;
-import com.backend.topcariving.domain.archive.entity.MyCar;
-import com.backend.topcariving.domain.archive.repository.MyCarRepository;
-import com.backend.topcariving.domain.option.dto.request.esitmation.EstimationChangeRequestDTO;
-import com.backend.topcariving.domain.option.dto.response.estimation.OptionSummaryDTO;
-import com.backend.topcariving.domain.option.dto.response.estimation.SummaryResponseDTO;
+import com.backend.topcariving.domain.entity.archive.MyCar;
+import com.backend.topcariving.domain.repository.archive.MyCarRepository;
+import com.backend.topcariving.domain.dto.option.request.esitmation.EstimationChangeRequestDTO;
+import com.backend.topcariving.domain.dto.option.response.estimation.OptionSummaryDTO;
+import com.backend.topcariving.domain.dto.option.response.estimation.SummaryResponseDTO;
+import com.backend.topcariving.domain.service.option.EstimationService;
 
 @SpringBootTest
 @Transactional

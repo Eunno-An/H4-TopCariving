@@ -11,16 +11,17 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.backend.topcariving.config.TestSupport;
-import com.backend.topcariving.domain.archive.dto.response.ArchiveDetailResponseDTO;
-import com.backend.topcariving.domain.archive.dto.response.ArchiveFeedDTO;
-import com.backend.topcariving.domain.archive.dto.response.ArchiveResponseDTO;
-import com.backend.topcariving.domain.archive.dto.response.CreatedCarDTO;
-import com.backend.topcariving.domain.archive.dto.response.SearchOptionDTO;
-import com.backend.topcariving.domain.archive.entity.ArchivingType;
-import com.backend.topcariving.domain.archive.entity.CarArchiving;
-import com.backend.topcariving.domain.archive.entity.MyCar;
-import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
-import com.backend.topcariving.domain.archive.repository.MyCarRepository;
+import com.backend.topcariving.domain.dto.archive.response.ArchiveDetailResponseDTO;
+import com.backend.topcariving.domain.dto.archive.response.ArchiveFeedDTO;
+import com.backend.topcariving.domain.dto.archive.response.ArchiveResponseDTO;
+import com.backend.topcariving.domain.dto.archive.response.CreatedCarDTO;
+import com.backend.topcariving.domain.dto.archive.response.SearchOptionDTO;
+import com.backend.topcariving.domain.entity.archive.CarArchiving;
+import com.backend.topcariving.domain.entity.archive.MyCar;
+import com.backend.topcariving.domain.entity.archive.enums.ArchivingType;
+import com.backend.topcariving.domain.repository.archive.CarArchivingRepository;
+import com.backend.topcariving.domain.repository.archive.MyCarRepository;
+import com.backend.topcariving.domain.service.archive.ArchiveService;
 
 @SpringBootTest
 @Transactional
@@ -106,7 +107,7 @@ class ArchiveServiceIntegralTest extends TestSupport {
 		softAssertions.assertThat(detailsCars.getDayTime())
 			.as("시승 및 구매 일시 검증").isEqualTo("2023-08-01T12:00:00");
 		softAssertions.assertThat(detailsCars.getArchivingType())
-			.as("차량 아카이빙 타입 검증").isEqualTo("시승");
+			.as("차량 아카이빙 타입 검증").isEqualTo(ArchivingType.DRIVE);
 		softAssertions.assertThat(detailsCars.getTotalPrice())
 			.as("총 가격 검증").isEqualTo(45240000);
 		softAssertions.assertThat(detailsCars.getPositions())
@@ -159,7 +160,7 @@ class ArchiveServiceIntegralTest extends TestSupport {
 			softAssertions.assertThat(feedCars).as("피드의 결과는 1건이다").hasSize(1);
 			ArchiveFeedDTO archiveFeedDTO = feedCars.get(0);
 			softAssertions.assertThat(archiveFeedDTO.getCarReview()).as("자동차 리뷰 테스트").isEqualTo("너무 좋아요");
-			softAssertions.assertThat(archiveFeedDTO.getType()).as("자동차 타입").isEqualTo(ArchivingType.DRIVE.getType());
+			softAssertions.assertThat(archiveFeedDTO.getType()).as("자동차 타입").isEqualTo(ArchivingType.DRIVE);
 			softAssertions.assertThat(archiveFeedDTO.getCarArchiveResult().get("트림")).as("트림의 개수").hasSize(3);
 			softAssertions.assertThat(archiveFeedDTO.getCarArchiveResult().get("선택품목")).as("선택품목의 갯수").hasSize(2);
 		}

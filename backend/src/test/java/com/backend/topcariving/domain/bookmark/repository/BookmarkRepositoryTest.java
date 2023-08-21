@@ -10,7 +10,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.backend.topcariving.config.TestSupport;
-import com.backend.topcariving.domain.bookmark.entity.Bookmark;
+import com.backend.topcariving.domain.entity.archive.Bookmark;
+import com.backend.topcariving.domain.repository.archive.implement.BookmarkRepositoryImpl;
 
 @JdbcTest
 class BookmarkRepositoryTest extends TestSupport {

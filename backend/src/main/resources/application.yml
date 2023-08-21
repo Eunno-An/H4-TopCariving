@@ -7,25 +7,11 @@ springdoc:
     operations-sorter: alpha
 
 spring:
-  jdbc:
-    template:
-      extracting-null-and-default: false
   datasource:
-    driver-class-name: org.h2.Driver
-    url: jdbc:h2:mem:testdb
-    username: sa
-    password:
-
-  h2:
-    console:
-      enabled: true
-    path: /h2-console
-
-  sql:
-    init:
-      mode: always
-      schema-locations: classpath*:initDb/schema.sql
-      data-locations: classpath*:initDb/data.sql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: ENC(0SUyw7B+cKv9VCZDbAiYmzMZNVTVmQeh4NQqck4CdcYZBiYd14BQplaUFm+xRZfRYzSKGtsaJfGQjFKPYsCswXb8/K+pwJYz+bLkmWEi410Qs+SxBmqetg==)
+    username: ENC(MJX+k+uCnubICpKQeYdgRg==)
+    password: ENC(JpGdXlntVs1tD+mf8k3K7PkhQE66QHQe)
 
 token:
   access-token-expiration: ENC(wPeBVsCNvfRyE/b0nLCOoQ==)

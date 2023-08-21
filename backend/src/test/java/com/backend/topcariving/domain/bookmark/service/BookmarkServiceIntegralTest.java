@@ -7,10 +7,11 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.backend.topcariving.config.TestSupport;
-import com.backend.topcariving.domain.archive.dto.request.BookmarkRequestDTO;
-import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
-import com.backend.topcariving.domain.bookmark.entity.Bookmark;
-import com.backend.topcariving.domain.bookmark.repository.BookmarkRepository;
+import com.backend.topcariving.domain.dto.bookmark.request.BookmarkRequestDTO;
+import com.backend.topcariving.domain.repository.archive.CarArchivingRepository;
+import com.backend.topcariving.domain.entity.archive.Bookmark;
+import com.backend.topcariving.domain.repository.archive.BookmarkRepository;
+import com.backend.topcariving.domain.service.archive.BookmarkService;
 
 @SpringBootTest
 @Transactional

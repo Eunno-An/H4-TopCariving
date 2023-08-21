@@ -11,11 +11,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.backend.topcariving.domain.user.dto.LoginRequestDTO;
-import com.backend.topcariving.domain.user.entity.User;
-import com.backend.topcariving.domain.user.exception.UserException;
-import com.backend.topcariving.domain.user.repository.AuthInfoRepository;
-import com.backend.topcariving.domain.user.repository.UserRepository;
+import com.backend.topcariving.domain.exception.UserNotFoundException;
+import com.backend.topcariving.domain.service.user.UserService;
+import com.backend.topcariving.global.auth.dto.LoginRequestDTO;
+import com.backend.topcariving.domain.entity.user.User;
+import com.backend.topcariving.global.auth.repository.AuthInfoRepository;
+import com.backend.topcariving.domain.repository.user.UserRepository;
 import com.backend.topcariving.global.auth.dto.TokenDTO;
 import com.backend.topcariving.global.auth.service.TokenProvider;
 
@@ -73,7 +74,7 @@ class UserServiceTest {
 		// when then
 		Assertions.assertThatThrownBy(() -> {
 			userService.login(loginRequestDTO);
-		}).isInstanceOf(UserException.class);
+		}).isInstanceOf(UserNotFoundException.class);
 	}
 
 }
