@@ -69,26 +69,23 @@ class MyCarChoicedOptionItemView: UIView {
     }()
     
     // MARK: - Properties
-    private var intrinsicSize: CGSize = .zero
+    private var intrinsicSize: CGSize = CGSize(width: CGRect.screenBounds.width - 16 * 2, height: 108)
     
     // MARK: - Lifecycles
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUI()
         setLayout()
-        setIntrinsicSize()
     }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUI()
         setLayout()
-        setIntrinsicSize()
     }
     init(data: MyCarChoicedOptionItemModel) {
         super.init(frame: .zero)
         setUI()
         setLayout()
-        setIntrinsicSize()
         setData(to: data)
     }
     override var intrinsicContentSize: CGSize {
@@ -145,9 +142,6 @@ class MyCarChoicedOptionItemView: UIView {
     }
     func setOptionDetail(to detail: String) {
         optionDetail.text = detail
-    }
-    private func setIntrinsicSize() {
-        intrinsicSize = CGSize(width: CGRect.screenBounds.width - 16 * 2, height: 108)
     }
     func setData(to data: MyCarChoicedOptionItemModel) {
         setImage(to: data.imageName)
