@@ -121,9 +121,9 @@ class MyCarCompletionViewController: BaseMyCarViewController {
             myCarChoicedOptionView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -15),
            
             consultingView.topAnchor.constraint(equalTo: myCarChoicedOptionView.bottomAnchor, constant: 20),
-            consultingView.heightAnchor.constraint(equalToConstant: 86),
             consultingView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: 16),
-            consultingView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor, constant: -16),
+            consultingView.heightAnchor.constraint(equalToConstant: 86),
+            consultingView.widthAnchor.constraint(equalToConstant: CGRect.screenBounds.width - 16*2),
             
             anotherProcedureView.topAnchor.constraint(equalTo: consultingView.bottomAnchor, constant: 36),
             anotherProcedureView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -300),

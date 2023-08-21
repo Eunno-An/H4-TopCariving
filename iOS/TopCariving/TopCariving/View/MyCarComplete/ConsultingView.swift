@@ -63,10 +63,10 @@ class ConsultingView: UIView {
             title.topAnchor.constraint(equalTo: topAnchor),
             title.leadingAnchor.constraint(equalTo: leadingAnchor),
             
-            consulting.heightAnchor.constraint(equalToConstant: 52),
-            consulting.widthAnchor.constraint(equalToConstant: 343),
             consulting.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 12),
             consulting.leadingAnchor.constraint(equalTo: leadingAnchor),
+            consulting.trailingAnchor.constraint(equalTo: trailingAnchor),
+            consulting.heightAnchor.constraint(equalToConstant: 52),
             
             arrow.heightAnchor.constraint(equalToConstant: 12),
             arrow.widthAnchor.constraint(equalToConstant: 10),
