@@ -13,6 +13,7 @@ import styled from '@emotion/styled';
 import { theme } from '@styles/theme';
 import { css } from '@emotion/react';
 import { useLoaderData } from 'react-router-dom';
+import { ErrorBoundary } from '@components/ErrorBoundary';
 
 const Complete = () => {
   const { myCarInfo } = useMyCar();
@@ -22,31 +23,33 @@ const Complete = () => {
     <Flex direction="column">
       <Header />
 
-      <Flex direction="column" justify="flex-start" gap={40}>
-        <Flex
-          height={50}
-          css={css`
-            flex-shrink: 0;
-          `}
-        />
-        <CompletedMessage
-          carColor={
-            myCarInfo.color.exteriorColor
-              ? colorPath[myCarInfo.color.exteriorColor.name]
-              : 'black'
-          }
-        />
-        <Information />
-        <SelectOptionContainer options={options.선택품목} />
-        <RowLine />
-        <CompleteButton />
-        <Flex
-          height={98}
-          css={css`
-            flex-shrink: 0;
-          `}
-        />
-      </Flex>
+      <ErrorBoundary>
+        <Flex direction="column" justify="flex-start" gap={40}>
+          <Flex
+            height={50}
+            css={css`
+              flex-shrink: 0;
+            `}
+          />
+          <CompletedMessage
+            carColor={
+              myCarInfo.color.exteriorColor
+                ? colorPath[myCarInfo.color.exteriorColor.name]
+                : 'black'
+            }
+          />
+          <Information />
+          <SelectOptionContainer options={options.선택품목} />
+          <RowLine />
+          <CompleteButton />
+          <Flex
+            height={98}
+            css={css`
+              flex-shrink: 0;
+            `}
+          />
+        </Flex>
+      </ErrorBoundary>
 
       <Footer />
     </Flex>

@@ -7,6 +7,7 @@ import vector850 from '@assets/images/vector850.svg';
 import { css } from '@emotion/react';
 import { useAlert } from '@contexts/AlertContext';
 import { useNavigate } from 'react-router-dom';
+import { LogoutButton } from '@components/common/LogoutButton';
 
 export const Header = () => {
   const { openAlert, closeAlert } = useAlert();
@@ -74,6 +75,7 @@ export const Header = () => {
                 아카이빙
               </Text>
             </Flex>
+            <LogoutButton />
           </Flex>
         </Flex>
       </Flex>

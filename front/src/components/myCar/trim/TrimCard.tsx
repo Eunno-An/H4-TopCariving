@@ -52,7 +52,7 @@ export const TrimCard = ({
               }}
             />
             <Flex direction="column">
-              {item.content.split('\\n').map((name: string, key: number) => (
+              {item.content.split('\n').map((name: string, key: number) => (
                 <Text
                   typo="Caption_Medium"
                   palette={isSelected ? 'Primary' : 'DarkGray'}

@@ -1,3 +1,4 @@
+import { ErrorBoundary } from '@components/ErrorBoundary';
 import { ArchiveHeader } from '@components/archive/ArchiveHeader';
 import { ArchiveNavbar } from '@components/archive/ArchiveNavbar';
 import { Flex } from '@components/common';
@@ -8,7 +9,9 @@ export const Archive = () => {
     <Flex direction="column" justify="flex-start">
       <ArchiveHeader />
       <ArchiveNavbar />
-      <Outlet />
+      <ErrorBoundary>
+        <Outlet />
+      </ErrorBoundary>
     </Flex>
   );
 };

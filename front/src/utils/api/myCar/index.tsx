@@ -1,6 +1,7 @@
 export const LoginUrl = {
   LOGIN: '/login',
   REISSUE: '/reissue',
+  LOGOUT: '/logout',
 };
 
 export const TrimUrl = {
