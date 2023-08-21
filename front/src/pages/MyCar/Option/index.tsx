@@ -7,7 +7,7 @@ import {
 import { optionKey, useMyCar } from '@contexts/MyCarContext';
 import { OptionCard, OptionInfoCard } from '@components/myCar/option';
 
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { theme } from '@styles/theme';
 import { css } from '@emotion/react';

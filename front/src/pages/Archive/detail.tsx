@@ -1,6 +1,7 @@
 import { ArchiveReview, ArchiveShortInfo } from '@components/archive/detail';
 import { ArchiveOptionDetails } from '@components/archive/detail/ArchiveOptionDetails';
 import { ArchiveUrl, apiInstance } from '@utils/api';
+import { getOptionKeyInfo } from '@utils/getCarInfo';
 import { useEffect, useState } from 'react';
 
 export const ArchiveDetail = () => {
@@ -9,47 +10,31 @@ export const ArchiveDetail = () => {
     [key in string]: archiveOptionDetailInterface[];
   }>();
 
+  const getData = async () => {
+    const urlSearchParams = new URL(location.href).searchParams;
+    const archivingId = urlSearchParams.get('id');
+
+    const data = (await apiInstance({
+      url: `${ArchiveUrl.DETAIL}/${archivingId}`,
+      method: 'GET',
+    })) as archiveDetailInterface;
+
+    setDetailInfo(data);
+    setOptionDetail(getOptionKeyInfo(data.optionDetails));
+  };
+
   useEffect(() => {
-    const getData = async () => {
-      const urlSearchParams = new URL(location.href).searchParams;
-      const archivingId = urlSearchParams.get('id');
-
-      const data = (await apiInstance({
-        url: `${ArchiveUrl.DETAIL}/${archivingId}`,
-        method: 'GET',
-      })) as archiveDetailInterface;
-
-      let newOptionDetail = {} as {
-        [key in string]: archiveOptionDetailInterface[];
-      };
-
-      data.optionDetails.forEach((option) => {
-        if (newOptionDetail[option.categoryDetail]) {
-          newOptionDetail = {
-            ...newOptionDetail,
-            [option.categoryDetail]: [
-              ...newOptionDetail[option.categoryDetail],
-              option,
-            ],
-          };
-        } else
-          newOptionDetail = {
-            ...newOptionDetail,
-            [option.categoryDetail]: [option],
-          };
-      });
-
-      setDetailInfo(data);
-      setOptionDetail(newOptionDetail);
-    };
-
     getData();
   }, []);
 
   return (
     <>
       <ArchiveReview detailInfo={detailInfo} optionDetail={optionDetail} />
-      <ArchiveShortInfo detailInfo={detailInfo} optionDetail={optionDetail} />
+      <ArchiveShortInfo
+        detailInfo={detailInfo}
+        optionDetail={optionDetail}
+        getData={getData}
+      />
       <ArchiveOptionDetails
         detailInfo={detailInfo}
         optionDetail={optionDetail}

@@ -15,10 +15,12 @@ export const ArchiveOptionDetails = ({
       backgroundColor="White"
     >
       {[0, 1, 2].map((number, idx) => (
-        <CardContainer key={idx}>
+        <CardContainer key={`CardContainer_${idx}`}>
           {optionDetail?.['상세 품목'].map(
             (optionInfo, idx) =>
-              idx % 3 == number && <OptionCard info={optionInfo} />,
+              idx % 3 == number && (
+                <OptionCard info={optionInfo} key={`optionDetail_${idx}`} />
+              ),
           )}
         </CardContainer>
       ))}

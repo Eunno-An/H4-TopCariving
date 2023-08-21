@@ -191,12 +191,16 @@ export const router = createBrowserRouter([
         path: '',
         element: <ArchiveMain />,
         loader: async () => {
+          const [pageNumber, pageSize] = [1, 8];
           const { archiveSearchResponses, options } = (await apiInstance({
-            url: ArchiveUrl.MAIN_RESULT,
+            url: `${ArchiveUrl.MAIN_RESULT}?pageNumber=${pageNumber}&pageSize=${pageSize}`,
             method: 'GET',
           })) as archiveMainInterface;
 
-          return { archiveSearchResponses, options };
+          return {
+            initArchiveSearchResponses: archiveSearchResponses,
+            initOptions: options,
+          };
         },
       },
       {

@@ -46,8 +46,8 @@ export const FeedSaveCard = () => {
           `}
         >
           {optionName.slice(0, 4).map((item) => (
-            <OptionChips key={item.id}>
-              <Text typo="Body3_Regular">{item.name}</Text>
+            <OptionChips key={item.carOptionId}>
+              <Text typo="Body3_Regular">{item.optionName}</Text>
             </OptionChips>
           ))}
         </Flex>

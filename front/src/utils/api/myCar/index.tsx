@@ -32,6 +32,8 @@ export const Summary = {
 export const ArchiveUrl = {
   MAIN_RESULT: '/api/archiving/result',
   DETAIL: '/api/archiving/details',
+  BOOKMARK: '/api/archiving/feeds/bookmarks',
+  FEED: '/api/archiving/feeds',
 };
 
 export const MyArchiveUrl = {

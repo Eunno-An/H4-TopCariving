@@ -16,7 +16,7 @@ const tokenApiInstance = async ({ url, method }: apiInstanceInterface) => {
     method: method,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${getRefreshToken()}`,
+      Authorization: `Bearer refresh_token`,
     },
     credentials: 'include',
   })

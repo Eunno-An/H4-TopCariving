@@ -34,10 +34,11 @@ export const Trim = () => {
           setMyCarInfo(newMyCarInfo);
         } else {
           modelInfo.forEach((model, selectIdx) => {
-            if (model.carOptionId === myCarInfo.trim.type?.id) {
+            if (model.carOptionId === localMyCar.trim.type?.id) {
               setIsSelected(selectIdx);
             }
           });
+          setMyCarInfo(localMyCar);
         }
       }
     };
