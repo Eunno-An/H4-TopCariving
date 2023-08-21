@@ -23,9 +23,11 @@ export const OptionCard = ({
           {info.optionName}
         </Text>
       </OptionTop>
-      <Text typo="Body2_Medium" palette="Primary" margin="0 0 10px 0">
-        {info.childOptionNames.join(' | ')}
-      </Text>
+      <Flex justify="flex-start" height="auto">
+        <Text typo="Body2_Medium" palette="Primary" margin="0 0 10px 0">
+          {info.childOptionNames.join(' | ')}
+        </Text>
+      </Flex>
 
       <Flex
         gap={8}
@@ -34,8 +36,8 @@ export const OptionCard = ({
           flex-wrap: wrap;
         `}
       >
-        {info.tags.map((it) => (
-          <Tag desc={it.tagContent} />
+        {info.tags.map((it, idx) => (
+          <Tag key={`infoTage_${idx}`} desc={it.tagContent} />
         ))}
       </Flex>
     </OptionDetailCard>

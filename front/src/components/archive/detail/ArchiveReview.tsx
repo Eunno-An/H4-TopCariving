@@ -4,11 +4,15 @@ import styled from '@emotion/styled';
 import { theme } from '@styles/theme';
 import { ArchiveDetailPageProps } from '@pages/Archive/detail';
 import { getDate } from '@utils/getDate';
+import { CarOptionPosition } from '@components/common/CarOptionPosition';
 import { colorPath } from '@pages/MyCar/Color';
 export const ArchiveReview = ({
   detailInfo,
   optionDetail,
 }: ArchiveDetailPageProps) => {
+  console.log(detailInfo);
+  console.log(optionDetail);
+
   return (
     <Flex direction="column" height={200} backgroundColor="LightSand">
       <CarInfo
@@ -47,14 +51,12 @@ export const ArchiveReview = ({
             </Text>
           </Flex>
         </Flex>
-        <CarContainer
-          src={`/image/exterior/${
-            optionDetail?.외장색상[0]?.optionName
-              ? colorPath[optionDetail?.외장색상[0]?.optionName]
-              : 'black'
-          }/image_001.png`}
-        />
-        xwx
+        <CarContainer>
+          <CarOptionPosition
+            position={detailInfo?.positions}
+            color={colorPath[optionDetail?.외장색상[0].optionName]}
+          />
+        </CarContainer>
       </CarInfo>
     </Flex>
   );
@@ -76,7 +78,8 @@ const InfoTag = styled(Flex)`
   white-space: nowrap;
 `;
 
-const CarContainer = styled.img`
+const CarContainer = styled.div`
+  z-index: 2;
   position: absolute;
   right: -200px;
   top: -80px;

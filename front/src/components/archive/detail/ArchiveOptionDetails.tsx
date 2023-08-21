@@ -1,4 +1,3 @@
-import { Flex } from '@components/common';
 import styled from '@emotion/styled';
 import { OptionCard } from '@components/archive/detail/archiveOptionCard/OptionCard';
 import { ArchiveDetailPageProps } from '@pages/Archive/detail';
@@ -6,31 +5,29 @@ import { ArchiveDetailPageProps } from '@pages/Archive/detail';
 export const ArchiveOptionDetails = ({
   optionDetail,
 }: ArchiveDetailPageProps) => {
+  const optionArr = optionDetail && [
+    ...(optionDetail['상세 품목'] || []),
+    ...(optionDetail['N performance'] || []),
+    ...(optionDetail['H Genuine Accessories'] || []),
+  ];
+
   return (
-    <Flex
-      width={1044}
-      justify="space-between"
-      padding="40px 0 0 0"
-      gap={24}
-      backgroundColor="White"
-    >
-      {[0, 1, 2].map((number, idx) => (
-        <CardContainer key={`CardContainer_${idx}`}>
-          {optionDetail?.['상세 품목'].map(
-            (optionInfo, idx) =>
-              idx % 3 == number && (
-                <OptionCard info={optionInfo} key={`optionDetail_${idx}`} />
-              ),
-          )}
-        </CardContainer>
-      ))}
-    </Flex>
+    <CardContainer>
+      {optionArr &&
+        optionArr.map((optionInfo, idx) => (
+          <OptionCard info={optionInfo} key={`optionDetail_${idx}`} />
+        ))}
+    </CardContainer>
   );
 };
 
-const CardContainer = styled(Flex)`
-  flex-direction: column;
-  width: 331px;
-  gap: 24px;
-  justify-content: flex-start;
+const CardContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* grid-auto-rows: 10px; */
+  width: 1040px;
+  height: 100vh;
+  gap: 10px;
+
+  padding: 30px 0 60px 0;
 `;

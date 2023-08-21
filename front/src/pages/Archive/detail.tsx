@@ -1,5 +1,6 @@
 import { ArchiveReview, ArchiveShortInfo } from '@components/archive/detail';
 import { ArchiveOptionDetails } from '@components/archive/detail/ArchiveOptionDetails';
+import { positionInterface } from '@components/common/CarOptionPosition';
 import { ArchiveUrl, apiInstance } from '@utils/api';
 import { getOptionKeyInfo } from '@utils/getCarInfo';
 import { useEffect, useState } from 'react';
@@ -65,7 +66,7 @@ export interface archiveDetailInterface {
   dayTime: string;
   archivingType: string;
   totalPrice: number;
-  positions: number[][];
+  positions: positionInterface[];
   isBookmarked: boolean;
   optionDetails: archiveOptionDetailInterface[];
   carReview: '너무 좋아요';
