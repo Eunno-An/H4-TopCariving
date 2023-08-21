@@ -5,10 +5,10 @@ import static com.backend.topcariving.domain.entity.option.enums.CategoryDetail.
 import java.util.Arrays;
 import java.util.Objects;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-@Getter
+import lombok.AllArgsConstructor;
+
 @AllArgsConstructor
 public enum Category {
 	TRIM("트림"),
@@ -35,5 +35,10 @@ public enum Category {
 		else if (category == CHOICE)
 			return CHOICE.getName();
 		return TRIM.getName();
+	}
+
+	@JsonValue
+	public String getName() {
+		return name;
 	}
 }

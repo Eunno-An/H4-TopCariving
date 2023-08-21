@@ -33,6 +33,7 @@ public class AuthInfoRepositoryImpl implements AuthInfoRepository {
 		parameters.put("refresh_token", authInfo.getRefreshToken());
 		parameters.put("expired_time", authInfo.getExpiredTime());
 		parameters.put("user_id", authInfo.getUserId());
+		parameters.put("login_type", authInfo.getLoginType().getName());
 
 		Number key = jdbcInsert.executeAndReturnKey(new MapSqlParameterSource(parameters));
 		return AuthInfo.builder()
@@ -40,6 +41,7 @@ public class AuthInfoRepositoryImpl implements AuthInfoRepository {
 			.refreshToken(authInfo.getRefreshToken())
 			.expiredTime(authInfo.getExpiredTime())
 			.userId(authInfo.getUserId())
+			.loginType(authInfo.getLoginType())
 			.build();
 	}
 

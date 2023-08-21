@@ -150,10 +150,10 @@ public class CarArchivingRepositoryImpl implements CarArchivingRepository {
 			+ "INNER JOIN MY_CAR AS MC ON CA.archiving_id = MC.archiving_id "
 			+ "INNER JOIN CAR_OPTION AS CO ON MC.car_option_id = CO.car_option_id "
 			+ "WHERE CA.archiving_id IN "
-			+ "(SELECT archiving_id FROM CAR_ARCHIVING WHERE user_id = ? AND is_alive = true  "
-			+ "ORDER BY day_time DESC "
-			+ "LIMIT ? "
-			+ "OFFSET ?)";
+			+ "(SELECT archiving_id FROM "
+			+ "(SELECT CAR.archiving_id FROM CAR_ARCHIVING AS CAR "
+			+ "WHERE CAR.user_id = ? AND CAR.is_alive = true "
+			+ "ORDER BY day_time DESC LIMIT ? OFFSET ?) as temp);";
 		try {
 			return jdbcTemplate.queryForObject(sql, new CarDTORowMapper(), userId, pageSize, (pageNumber - 1) * pageSize);
 		} catch (EmptyResultDataAccessException e) {
@@ -168,12 +168,11 @@ public class CarArchivingRepositoryImpl implements CarArchivingRepository {
 			+ "INNER JOIN MY_CAR AS MC ON CA.archiving_id = MC.archiving_id "
 			+ "INNER JOIN CAR_OPTION AS CO ON MC.car_option_id = CO.car_option_id "
 			+ "WHERE CA.archiving_id IN "
-			+ "(SELECT ARC.archiving_id FROM CAR_ARCHIVING ARC "
-			+ "JOIN BOOKMARK BM ON ARC.archiving_id = BM.archiving_id "
-			+ "WHERE BM.user_id = ? AND ARC.is_alive = true AND BM.is_alive = true "
-			+ "ORDER BY ARC.day_time DESC "
-			+ "LIMIT ? "
-			+ "OFFSET ?)";
+			+ "(SELECT archiving_id FROM "
+			+ "(SELECT CAR.archiving_id FROM CAR_ARCHIVING AS CAR "
+			+ "JOIN BOOKMARK AS BM ON CAR.archiving_id = BM.archiving_id "
+			+ "WHERE BM.user_id = ? AND CAR.is_alive = true AND BM.is_alive = true "
+			+ "ORDER BY CAR.day_time DESC LIMIT ? OFFSET ?) as temp)";
 		try {
 			return jdbcTemplate.queryForObject(sql, new CarDTORowMapper(), userId, pageSize, (pageNumber - 1) * pageSize);
 		} catch (EmptyResultDataAccessException e) {

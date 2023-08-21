@@ -3,9 +3,8 @@ package com.backend.topcariving.global.auth.entity.enums;
 import java.util.Arrays;
 import java.util.Objects;
 
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-@Getter
 public enum LoginType {
 
 	LOCAL("local"),
@@ -22,5 +21,10 @@ public enum LoginType {
 			.filter(loginType -> Objects.equals(name, loginType.getName()))
 			.findFirst()
 			.orElse(LOCAL);
+	}
+
+	@JsonValue
+	public String getName() {
+		return name;
 	}
 }

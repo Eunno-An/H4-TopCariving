@@ -3,9 +3,8 @@ package com.backend.topcariving.domain.entity.option.enums;
 import java.util.Arrays;
 import java.util.Objects;
 
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-@Getter
 public enum CategoryDetail {
 
 	MODEL("모델"),
@@ -43,5 +42,10 @@ public enum CategoryDetail {
 			.filter(categoryDetail -> Objects.equals(name, categoryDetail.getName()))
 			.findFirst()
 			.orElse(EMPTY);
+	}
+
+	@JsonValue
+	public String getName() {
+		return name;
 	}
 }

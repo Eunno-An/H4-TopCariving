@@ -24,8 +24,8 @@ public class TagReviewRepositoryImpl implements TagReviewRepository {
 			+ "INNER JOIN CAR_OPTION AS CO ON MC.car_option_id = CO.car_option_id "
 			+ "INNER JOIN TAG ON TAG.tag_id = TR.tag_id "
 			+ "WHERE CO.car_option_id = ? "
-			+ "GROUP BY (TAG_TEXT, OPTION_NAME) "
-			+ "ORDER BY (COUNT(*), TAG_TEXT) DESC "
+			+ "GROUP BY TAG_TEXT, OPTION_NAME "
+			+ "ORDER BY COUNT(*) DESC, TAG_TEXT "
 			+ "LIMIT ?;";
 		return jdbcTemplate.query(sql,
 			(rs, rowNum) -> {

@@ -3,9 +3,8 @@ package com.backend.topcariving.domain.entity.archive.enums;
 import java.util.Arrays;
 import java.util.Objects;
 
-import lombok.Getter;
+import com.fasterxml.jackson.annotation.JsonValue;
 
-@Getter
 public enum ArchivingType {
 	MAKE("내 차 만들기"),
 	BUY("구매"),
@@ -25,4 +24,8 @@ public enum ArchivingType {
 			.orElse(EMPTY);
 	}
 
+	@JsonValue
+	public String getName() {
+		return name;
+	}
 }

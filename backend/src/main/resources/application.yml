@@ -6,23 +6,12 @@ springdoc:
     display-request-duration: true
     operations-sorter: alpha
 
-spring:
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ENC(0SUyw7B+cKv9VCZDbAiYmzMZNVTVmQeh4NQqck4CdcYZBiYd14BQplaUFm+xRZfRYzSKGtsaJfGQjFKPYsCswXb8/K+pwJYz+bLkmWEi410Qs+SxBmqetg==)
-    username: ENC(MJX+k+uCnubICpKQeYdgRg==)
-    password: ENC(JpGdXlntVs1tD+mf8k3K7PkhQE66QHQe)
 
 token:
   access-token-expiration: ENC(wPeBVsCNvfRyE/b0nLCOoQ==)
   secret-key: ENC(9w2F54pDUxduEsjYPcFteYskKT9NelCfXUUf4KQReW7YjPUi2bq4pYDEn9gOSznpdjYrYr71ceATvazxeaNAGQ==)
   refresh-token-expiration: ENC(mlFa5gn8QYv4oNg7SxvxiA==)
 
-logging:
-  level:
-    org:
-      springframework:
-        jdbc: DEBUG
 
 oauth:
   hyundai:
