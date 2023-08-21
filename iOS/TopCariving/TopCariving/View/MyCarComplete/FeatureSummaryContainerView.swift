@@ -176,5 +176,7 @@ class FeatureSummaryContainerView: UIView {
             )
         )
     }
-    
+    func hideEditButton() {
+        editButton.isHidden = true
+    }
 }
