@@ -25,6 +25,9 @@ public class OptionDetailDTO {
 	@Schema(description = "카테고리 세부내역 ex) 모델, 엔진 등등")
 	private CategoryDetail categoryDetail;
 
+	@Schema(description = "옵션 가격", example = "1480000")
+	private int price;
+
 	@Schema(description = "옵션의 사진 / 색상만 해당 내용이 들어감")
 	private String photoUrl;
 
@@ -42,6 +45,7 @@ public class OptionDetailDTO {
 			.carOptionId(carOption.getCarOptionId())
 			.optionName(carOption.getOptionName())
 			.categoryDetail(carOption.getCategoryDetail())
+			.price(carOption.getPrice())
 			.photoUrl(carOption.getPhotoUrl())
 			.childOptionNames(childOptionNames)
 			.positionId(positionId)
