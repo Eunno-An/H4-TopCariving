@@ -92,4 +92,8 @@ class MyCarivingCarSummaryView: UIView {
             featureContainerView.leadingAnchor.constraint(equalTo: leadingAnchor)
         ])
     }
+    func setFeatureContainerView(to data: FeatureSummaryModel) {
+        featureContainerView.setFeatureSummaryView(to: data)
+    }
+    func setCarImagePointViews()
 }
