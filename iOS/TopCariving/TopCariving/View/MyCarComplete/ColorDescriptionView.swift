@@ -9,7 +9,7 @@ import UIKit
 
 struct ColorDescriptionModel {
     var space: String
-    var color: UIColor
+    var colorImage: String
     var colorName: String
 }
 
@@ -22,13 +22,14 @@ class ColorDescriptionView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    private var spaceColor: UILabel = {
-        let label = UILabel()
-        label.backgroundColor = .hyundaiBlackGray
-        label.translatesAutoresizingMaskIntoConstraints = false
-        label.layer.cornerRadius = 8
-        label.clipsToBounds = true
-        return label
+    private var spaceColor: UIImageView = {
+        let imageView = UIImageView()
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.layer.cornerRadius = 8
+        imageView.layer.borderColor = UIColor.hyundaiActiveBlue.cgColor
+        imageView.layer.masksToBounds = true
+        imageView.backgroundColor = .red
+        return imageView
     }()
     private var colorName: UILabel = {
         let label = UILabel()
@@ -55,9 +56,7 @@ class ColorDescriptionView: UIView {
         super.init(frame: .zero)
         setUI()
         setLayout()
-        setSpace(to: data.space)
-        setColor(to: data.color)
-        setColorName(to: data.colorName)
+        setData(to: data)
     }
     
     // MARK: - Helpers
@@ -87,10 +86,16 @@ class ColorDescriptionView: UIView {
     func setSpace(to text: String) {
         space.text = text
     }
-    func setColor(to color: UIColor) {
-        spaceColor.backgroundColor = color
+    func setColor(to colorImage: String) {
+        spaceColor.backgroundColor = .red
+        // 이미지 서비스로 변경
     }
     func setColorName(to name: String) {
         colorName.text = name
+    }
+    func setData(to data: ColorDescriptionModel) {
+        setSpace(to: data.space)
+        setColor(to: data.colorImage)
+        setColorName(to: data.colorName)
     }
 }

@@ -18,9 +18,9 @@ class MyCarCompletionViewController: BaseMyCarViewController {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    private let myCarFeatureView = MyCarFeatureView()
-    private let myCarChoicedOptionView = MyCarChoicedOptionView()
-    private let anotherProcedureView = AnotherProcedureView()
+    private var myCarFeatureView = MyCarFeatureView()
+    private var myCarChoicedOptionView = MyCarChoicedOptionView()
+    private var anotherProcedureView = AnotherProcedureView()
     private let consultingView = ConsultingView()
     private let footerView = MyCarFooterView()
     // MARK: - Properties
@@ -113,5 +113,8 @@ class MyCarCompletionViewController: BaseMyCarViewController {
             footerView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
             footerView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.365)
         ])
+    }
+    func setMyCarFeatureView(to data: FeatureSummary) {
+        myCarFeatureView = MyCarFeatureView(data: data)
     }
 }

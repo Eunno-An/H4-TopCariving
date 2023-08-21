@@ -11,7 +11,7 @@ struct FeatureSummary {
     var trim: String
     var option: String
     var price: String
-    var colors: [(UIColor, String)]
+    var colors: [(String, String)]
 }
 
 class FeatureSummaryContainerView: UIView {
@@ -84,7 +84,7 @@ class FeatureSummaryContainerView: UIView {
         super.init(frame: .zero)
         setUI()
         setLayout()
-        test_data()
+        setFeatureSummaryView(to: data)
     }
     
     // MARK: - Helpers
@@ -137,10 +137,10 @@ class FeatureSummaryContainerView: UIView {
     }
     private func test_data() {
         outColorDescriptionView = ColorDescriptionView(
-            data: ColorDescriptionModel(space: "외장", color: .hyundaiBlackGray, colorName: "문라이트 블루펄")
+            data: ColorDescriptionModel(space: "외장", colorImage: "", colorName: "문라이트 블루펄")
         )
         inColorDescriptionView = ColorDescriptionView(
-            data: ColorDescriptionModel(space: "내장", color: .hyundaiBlackGray, colorName: "퀄팅 천연(블랙)")
+            data: ColorDescriptionModel(space: "내장", colorImage: "", colorName: "퀄팅 천연(블랙)")
         )
     }
     func setTrim(to trim: String) {
@@ -162,14 +162,14 @@ class FeatureSummaryContainerView: UIView {
         inColorDescriptionView = ColorDescriptionView(
             data: ColorDescriptionModel(
                 space: "내장",
-                color: data.colors[0].0,
+                colorImage: data.colors[0].0,
                 colorName: data.colors[0].1
             )
         )
         outColorDescriptionView = ColorDescriptionView(
             data: ColorDescriptionModel(
                 space: "외장",
-                color: data.colors[1].0,
+                colorImage: data.colors[1].0,
                 colorName: data.colors[1].1
             )
         )
