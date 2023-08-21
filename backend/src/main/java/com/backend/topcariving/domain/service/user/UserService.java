@@ -5,15 +5,15 @@ import java.time.LocalDateTime;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import com.backend.topcariving.domain.exception.UserNotFoundException;
-import com.backend.topcariving.global.auth.dto.LoginRequestDTO;
-import com.backend.topcariving.global.auth.entity.AuthInfo;
 import com.backend.topcariving.domain.entity.user.User;
-import com.backend.topcariving.global.auth.repository.AuthInfoRepository;
+import com.backend.topcariving.domain.exception.UserNotFoundException;
 import com.backend.topcariving.domain.repository.user.UserRepository;
+import com.backend.topcariving.global.auth.dto.LoginRequestDTO;
 import com.backend.topcariving.global.auth.dto.TokenDTO;
-import com.backend.topcariving.global.auth.service.TokenProvider;
+import com.backend.topcariving.global.auth.entity.AuthInfo;
 import com.backend.topcariving.global.auth.exception.InvalidTokenException;
+import com.backend.topcariving.global.auth.repository.AuthInfoRepository;
+import com.backend.topcariving.global.auth.service.TokenProvider;
 
 import lombok.RequiredArgsConstructor;
 
@@ -49,9 +49,17 @@ public class UserService {
 		final LocalDateTime expiredTime = LocalDateTime.now().plusSeconds(refreshTokenExpiredTime / 1_000);
 		authInfo.updateToken(refreshToken, expiredTime);
 
-		authInfoRepository.save(authInfo);
+		updateRefreshToken(userId, authInfo, refreshToken, expiredTime);
 
 		return refreshToken;
+	}
+
+	private void updateRefreshToken(Long userId, AuthInfo authInfo, String refreshToken, LocalDateTime expiredTime) {
+		if (authInfo.getAuthInfoId() == null || authInfo.getAuthInfoId() == 0) {
+			authInfoRepository.save(authInfo);
+			return;
+		}
+		authInfoRepository.update(refreshToken, expiredTime, userId);
 	}
 
 	public TokenDTO reissueTokens(final String bearerToken) {

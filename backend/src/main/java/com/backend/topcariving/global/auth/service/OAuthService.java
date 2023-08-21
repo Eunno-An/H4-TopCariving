@@ -91,6 +91,7 @@ public class OAuthService {
 			.accessToken(token.getAccessToken())
 			.refreshToken(token.getRefreshToken())
 			.expiresIn(token.getExpiresIn())
+			.userId(authInfo.getUserId())
 			.build();
 
 		oauthRepository.save(newOauth);
