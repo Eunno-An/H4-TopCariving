@@ -7,6 +7,14 @@
 
 import UIKit
 
+struct MyCarChoicedOptionItemModel {
+    var imageName: String
+    var intrinsicSize: CGSize
+    var optionName: String
+    var optionPrice: String
+    var optionDetail: String
+}
+
 class MyCarChoicedOptionItemView: UIView {
     // MARK: - UI properties
     private var imageView: UIImageView = {
@@ -75,11 +83,11 @@ class MyCarChoicedOptionItemView: UIView {
         setUI()
         setLayout()
     }
-    init(intrinsicSize: CGSize) {
-        self.intrinsicSize = intrinsicSize
+    init(data: MyCarChoicedOptionItemModel) {
         super.init(frame: .zero)
         setUI()
         setLayout()
+        setData(to: data)
     }
     override var intrinsicContentSize: CGSize {
         intrinsicSize
@@ -123,5 +131,27 @@ class MyCarChoicedOptionItemView: UIView {
             optionDetail.topAnchor.constraint(equalTo: optionPrice.bottomAnchor, constant: 10),
             optionDetail.leadingAnchor.constraint(equalTo: imageView.trailingAnchor, constant: 12.26)
         ])
+    }
+    func setImage(to name: String) {
+        imageView.image = UIImage(named: name)
+    }
+    func setOptionName(to name: String) {
+        optionName.text = name
+    }
+    func setOptionPrice(to price: String) {
+        optionPrice.text = price
+    }
+    func setOptionDetail(to detail: String) {
+        optionDetail.text = detail
+    }
+    func setIntrinsicSize(to size: CGSize) {
+        intrinsicSize = size
+    }
+    func setData(to data: MyCarChoicedOptionItemModel) {
+        setImage(to: data.imageName)
+        setOptionName(to: data.optionName)
+        setOptionPrice(to: data.optionPrice)
+        setOptionDetail(to: data.optionDetail)
+        setIntrinsicSize(to: data.intrinsicSize)
     }
 }
