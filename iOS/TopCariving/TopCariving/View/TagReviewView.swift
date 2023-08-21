@@ -30,7 +30,7 @@ class TagReviewView: UIView {
         label.text = "에 대해 시승자들은 이런 후기를 남겼어요"
         return label
     }()
-    private lazy var collectionView: UICollectionView = {
+    lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: self.collectionViewLayout )
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.isScrollEnabled = false

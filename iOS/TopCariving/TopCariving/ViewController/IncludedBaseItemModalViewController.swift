@@ -31,33 +31,40 @@ class IncludedBaseItemModalViewController: UIViewController {
     }()
     private let testTableViewData = [
         BaseOptionMainCategoryModel(
-            title: "a",
+            title: "파워트레인/성능",
             subCategories: [
-                BaseOptionSubCategoryModel(title: "subOption1"),
-                BaseOptionSubCategoryModel(title: "subOption2"),
-                BaseOptionSubCategoryModel(title: "subOption3")
+                BaseOptionSubCategoryModel(
+                    imageURL: "https://topcariving.s3.ap-northeast-2.amazonaws.com/power/transmission.jpg",
+                    title: "8단 자동변속기"
+                ),
+                BaseOptionSubCategoryModel(
+                    imageURL: "https://topcariving.s3.ap-northeast-2.amazonaws.com/power/ISG.jpg",
+                    title: "ISG 시스템"
+                ),
+                BaseOptionSubCategoryModel(
+                    imageURL: "https://topcariving.s3.ap-northeast-2.amazonaws.com/power/driving_mode.jpg",
+                    title: "통합주행모드"
+                ),
+                BaseOptionSubCategoryModel(
+                    imageURL: "https://topcariving.s3.ap-northeast-2.amazonaws.com/power/power_steering.jpg",
+                    title: "랙구동형 전동식 파워스티어링(R-MDPS)"),
+                BaseOptionSubCategoryModel(
+                    imageURL: "https://topcariving.s3.ap-northeast-2.amazonaws.com/power/shift_button.jpg",
+                    title: "전자식 변속버튼"),
             ]
         ),
         BaseOptionMainCategoryModel(
-            title: "b",
+            title: "지능형 안전기술",
             subCategories: [
-                BaseOptionSubCategoryModel(title: "subOption1"),
-                BaseOptionSubCategoryModel(title: "subOption2")
-            ]
-        ),
-        BaseOptionMainCategoryModel(
-            title: "c",
-            subCategories: [
-                BaseOptionSubCategoryModel(title: "subOption1"),
-                BaseOptionSubCategoryModel(title: "subOption2"),
-                BaseOptionSubCategoryModel(title: "subOption3"),
-                BaseOptionSubCategoryModel(title: "subOption4")
-            ]
-        ),
-        BaseOptionMainCategoryModel(
-            title: "d",
-            subCategories: [
-                BaseOptionSubCategoryModel(title: "subOption1")
+                BaseOptionSubCategoryModel(
+                    imageURL: "https://topcariving.s3.ap-northeast-2.amazonaws.com/ai/hba.jpeg",
+                    title: "하이빔 보조"),
+                BaseOptionSubCategoryModel(
+                    imageURL: "https://topcariving.s3.ap-northeast-2.amazonaws.com/ai/vibsteeringwheel.jpeg",
+                    title: "진동 경고 스티어링 휠"),
+                BaseOptionSubCategoryModel(
+                    imageURL: "https://topcariving.s3.ap-northeast-2.amazonaws.com/ai/scc.jpeg",
+                    title: "스마트 크루즈 컨트롤(스탑앤고 기능 포함)")
             ]
         )
     ]

@@ -104,6 +104,9 @@ class ColorSelectionView: UIView {
         snapShot.appendSections([Section.color])
         snapShot.appendItems(images)
         dataSource.apply(snapShot)
+        collectionView.selectItem(at: IndexPath(item: 0, section: 0),
+                                  animated: false,
+                                  scrollPosition: .left)
     }
     func setCategoryName(to text: String) {
         categoryLabel.text = text + " 색상"

@@ -100,9 +100,7 @@ class SubCategoryModalViewController: UIViewController {
         titleLabel.text = text
     }
     func setImage(to url: String) {
-        #warning("url로 변경 필요")
-        let image = UIImage(named: url)
-        titleImage.image = image
+        titleImage.setAsyncImage(url: url)
     }
     func setDescription(to text: String) {
         detail.text = text

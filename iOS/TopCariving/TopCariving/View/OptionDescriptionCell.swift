@@ -53,6 +53,7 @@ class OptionDescriptionCell: UICollectionViewCell {
         textView.layer.cornerRadius = 13
         textView.textContainerInset = .zero
         textView.backgroundColor = .clear
+        textView.isSelectable = false
         return textView
     }()
     
@@ -109,7 +110,7 @@ class OptionDescriptionCell: UICollectionViewCell {
             descriptionTextView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
         ])
     }
-    func setUp(with model: OptionDescriptionViewModel) {
+    func setUp(with model: OptionDescriptionModel) {
         indexLabel.text = String(format: "%02d", model.index+1)
         titleLabel.text = model.title
         progressIndexLabel.text = "\(model.index+1)/\(model.maxIndex)"

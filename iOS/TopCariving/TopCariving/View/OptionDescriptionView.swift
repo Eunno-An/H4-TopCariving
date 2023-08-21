@@ -82,7 +82,7 @@ class OptionDescriptionView: UIView, Foldable {
             descriptionTextView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10)
         ])
     }
-    func setUp(with model: OptionDescriptionViewModel) {
+    func setUp(with model: OptionDescriptionModel) {
         titleLabel.text = model.title
         descriptionTextView.text = model.optionDescription
         (model.optionDescription == "-" ? fold() : unfold())

@@ -72,14 +72,6 @@ class ColorImageLabel: UIView {
         detailLabel.text = detail
         colorImage.image = UIImage(named: "gray.png")
         nameLabel.text = name
-        
-        #warning("이미지 서비스로 변경")
-        DispatchQueue.global().async { [weak self] in
-            guard let url = URL(string: "https://topcariving.s3.ap-northeast-2.amazonaws.com/external_color/gray.png"),
-                  let data = try? Data(contentsOf: url) else { return }
-            DispatchQueue.main.async { [weak self] in
-                self?.colorImage.image = UIImage(data: data)?.resized(to: .init(width: 16, height: 16))
-            }
-        }
+        colorImage.setAsyncImage(url: "https://topcariving.s3.ap-northeast-2.amazonaws.com/external_color/gray.png", size: .init(width: 16, height: 16))
     }
 }

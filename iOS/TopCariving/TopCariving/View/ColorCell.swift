@@ -18,8 +18,7 @@ class ColorCell: UICollectionViewCell {
         return imageView
     }()
     private let checkImageView = {
-        let image = UIImage(systemName: "checkmark.circle.fill")?
-            .applyingSymbolConfiguration(.init(paletteColors: [UIColor.white, UIColor.hyundaiActiveBlue]))
+        let image = UIImage(named: "CheckFill")
         let imageView = UIImageView(image: image)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.layer.masksToBounds = true
@@ -79,7 +78,6 @@ class ColorCell: UICollectionViewCell {
         checkImageView.isHidden = true
     }
     func setup(with image: String) {
-        colorImageView.backgroundColor = .red
-        // 이미지 서비스로 변경
+        colorImageView.setAsyncImage(url: image)
     }
 }

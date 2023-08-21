@@ -10,11 +10,12 @@ import UIKit
 
 class MyCarFooterView: UIView {
     // MARK: - UI properties
-    private let summaryButton: UILabel = {
+    let summaryLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.setFont(to: .init(name: .medium, size: ._12))
         label.text = "견적요약보기"
+        label.isUserInteractionEnabled = true
         return label
     }()
     
@@ -78,21 +79,21 @@ class MyCarFooterView: UIView {
         backgroundColor = .hyundaiSand
         translatesAutoresizingMaskIntoConstraints = false
         
-        [summaryButton, summaryBottomLine, priceLabel, wonLabel, nextButton].forEach {
+        [summaryLabel, summaryBottomLine, priceLabel, wonLabel, nextButton].forEach {
             addSubview($0)
         }
     }
     
     func setLayout() {
         NSLayoutConstraint.activate([
-            summaryButton.topAnchor.constraint(equalTo: topAnchor, constant: 14),
-            summaryButton.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            summaryButton.widthAnchor.constraint(equalToConstant: 65),
-            summaryButton.heightAnchor.constraint(equalToConstant: 20),
+            summaryLabel.topAnchor.constraint(equalTo: topAnchor, constant: 14),
+            summaryLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            summaryLabel.widthAnchor.constraint(equalToConstant: 65),
+            summaryLabel.heightAnchor.constraint(equalToConstant: 20),
             
-            summaryBottomLine.topAnchor.constraint(equalTo: summaryButton.bottomAnchor),
-            summaryBottomLine.widthAnchor.constraint(equalTo: summaryButton.widthAnchor),
-            summaryBottomLine.centerXAnchor.constraint(equalTo: summaryButton.centerXAnchor),
+            summaryBottomLine.topAnchor.constraint(equalTo: summaryLabel.bottomAnchor),
+            summaryBottomLine.widthAnchor.constraint(equalTo: summaryLabel.widthAnchor),
+            summaryBottomLine.centerXAnchor.constraint(equalTo: summaryLabel.centerXAnchor),
             summaryBottomLine.heightAnchor.constraint(equalToConstant: 1.5),
             
             priceLabel.topAnchor.constraint(equalTo: topAnchor, constant: 12),
@@ -110,8 +111,8 @@ class MyCarFooterView: UIView {
         ])
     }
     func setEvent() {
-        summaryButton.tapPublisher()
-            .sink(receiveValue: { [weak self] in
+        summaryLabel.tabPublisher
+            .sink(receiveValue: { [weak self] _ in
                 guard let self else { return }
                 self.tapSummaryButton.send(())
             })

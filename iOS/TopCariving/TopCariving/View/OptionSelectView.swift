@@ -10,7 +10,7 @@ import UIKit
 
 protocol OptionSelectViewDataSource: NSObject {
     func numberOfOption(_ optionSelectView: OptionSelectView) -> Int
-    func optionSelectViewModel(_ optionSelectView: OptionSelectView, at indexPath: IndexPath) -> OptionCardViewModel
+    func optionSelectModel(_ optionSelectView: OptionSelectView, at indexPath: IndexPath) -> OptionCardModel
 }
 
 class OptionSelectView: UIView {
@@ -51,20 +51,24 @@ class OptionSelectView: UIView {
     }()
     
     // MARK: - Properties
+    var bag = Set<AnyCancellable>()
     weak var datasource: OptionSelectViewDataSource?
     var tapAddButtonSubject = PassthroughSubject<IndexPath, Never>()
     var tapCellSubject = PassthroughSubject<IndexPath, Never>()
+    var tapIncludedSubject = PassthroughSubject<Void, Never>()
     
     // MARK: - Lifecycles
     override init(frame: CGRect) {
         super.init(frame: frame)
         setUI()
         setLayout()
+        setEvent()
     }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUI()
         setLayout()
+        setEvent()
     }
     
     // MARK: - Helpers
@@ -95,6 +99,12 @@ class OptionSelectView: UIView {
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
+    private func setEvent() {
+        includedOptionButton.touchUpPublisher.sink(receiveValue: { [weak self] in
+            self?.tapIncludedSubject.send(())
+        })
+        .store(in: &bag)
+    }
     func refresh() {
         collectionView.reloadData()
         optionCountLabel.text = "선택옵션 \(datasource?.numberOfOption(self) ?? 0)개"
@@ -124,7 +134,7 @@ extension OptionSelectView: UICollectionViewDataSource {
         ) as? OptionCardCell,
               let datasource = datasource else { return UICollectionViewCell() }
         
-        cell.setUp(with: datasource.optionSelectViewModel(self, at: indexPath))
+        cell.setUp(with: datasource.optionSelectModel(self, at: indexPath))
         cell.tapAddButtonPublisher
             .sink(receiveValue: { [weak self] in
                 guard let self else { return }

@@ -70,7 +70,7 @@ class BaseOptionSubCategoryCell: UITableViewCell {
         ])
     }
     func setData(to data: BaseOptionSubCategoryModel) {
-        titleImage.image = UIImage(named: data.imageURL)
+        titleImage.setAsyncImage(url: data.imageURL)
         titleLabel.text = data.title
     }
 }

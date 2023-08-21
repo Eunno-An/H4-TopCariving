@@ -18,7 +18,11 @@ class RotatableOptionImageView: UIView {
     var previousImageNumber = 1
     var currentRotationAngle: CGFloat = 0
     var previousRotationAngle: CGFloat = 0
-    
+    var prefix = "" {
+        willSet {
+            imageView.image = UIImage(named: newValue + "image_" + "001")
+        }
+    }
     // MARK: - Lifecycles
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -100,7 +104,7 @@ class RotatableOptionImageView: UIView {
             let imageNumStr = converter()
             
             imageView.image = nil
-            imageView.image = UIImage(named: "image_" + imageNumStr)
+            imageView.image = UIImage(named: prefix + "image_" + imageNumStr)
         case .ended:
             currentRotationAngle = 0
         default:
