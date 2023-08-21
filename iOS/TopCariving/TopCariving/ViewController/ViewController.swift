@@ -98,7 +98,7 @@ class ViewController: BaseMyCarViewController {
     func test_makeChoicedOptionItemsData(with number: Int) -> [MyCarChoicedOptionItemModel] {
         var ret: [MyCarChoicedOptionItemModel] = []
         for _ in 0..<number {
-            ret.append(MyCarChoicedOptionItemModel(imageName: "ChoicedOptionItem", intrinsicSize: .init(width: CGRect.screenBounds.width - 16*2, height: 103), optionName: "컴포트 ||", optionPrice: "1,090,000원", optionDetail: "후석 승객 알림 / 메탈 리어범퍼스텝 / 메탈 도어스커프 / 3열 파워폴딩시트 / 3열 열선시트 / 헤드업 디스틀레이"))
+            ret.append(MyCarChoicedOptionItemModel(imageName: "ChoicedOptionItem",  optionName: "컴포트 ||", optionPrice: "1,090,000원", optionDetail: "후석 승객 알림 / 메탈 리어범퍼스텝 / 메탈 도어스커프 / 3열 파워폴딩시트 / 3열 열선시트 / 헤드업 디스틀레이"))
         }
         return ret
     }

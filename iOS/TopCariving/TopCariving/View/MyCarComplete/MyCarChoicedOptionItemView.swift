@@ -9,7 +9,6 @@ import UIKit
 
 struct MyCarChoicedOptionItemModel {
     var imageName: String
-    var intrinsicSize: CGSize
     var optionName: String
     var optionPrice: String
     var optionDetail: String
@@ -77,16 +76,19 @@ class MyCarChoicedOptionItemView: UIView {
         super.init(frame: frame)
         setUI()
         setLayout()
+        setIntrinsicSize()
     }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUI()
         setLayout()
+        setIntrinsicSize()
     }
     init(data: MyCarChoicedOptionItemModel) {
         super.init(frame: .zero)
         setUI()
         setLayout()
+        setIntrinsicSize()
         setData(to: data)
     }
     override var intrinsicContentSize: CGSize {
@@ -144,14 +146,13 @@ class MyCarChoicedOptionItemView: UIView {
     func setOptionDetail(to detail: String) {
         optionDetail.text = detail
     }
-    func setIntrinsicSize(to size: CGSize) {
-        intrinsicSize = size
+    private func setIntrinsicSize() {
+        intrinsicSize = CGSize(width: CGRect.screenBounds.width - 16 * 2, height: 108)
     }
     func setData(to data: MyCarChoicedOptionItemModel) {
         setImage(to: data.imageName)
         setOptionName(to: data.optionName)
         setOptionPrice(to: data.optionPrice)
         setOptionDetail(to: data.optionDetail)
-        setIntrinsicSize(to: data.intrinsicSize)
     }
 }
