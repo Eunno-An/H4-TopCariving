@@ -277,10 +277,12 @@ public class ArchiveService {
 		return result;
 	}
 
+	@Transactional
 	public Long deleteMyArchiving(Long userId, Long archivingId) {
 		return toggleMyArchiving(false, userId, archivingId);
 	}
 
+	@Transactional
 	public Long restoreMyArchiving(Long userId, Long archivingId) {
 		return toggleMyArchiving(true, userId, archivingId);
 	}
