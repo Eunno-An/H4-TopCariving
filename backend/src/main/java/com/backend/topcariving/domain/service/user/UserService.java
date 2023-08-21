@@ -11,6 +11,7 @@ import com.backend.topcariving.domain.repository.user.UserRepository;
 import com.backend.topcariving.global.auth.dto.LoginRequestDTO;
 import com.backend.topcariving.global.auth.dto.TokenDTO;
 import com.backend.topcariving.global.auth.entity.AuthInfo;
+import com.backend.topcariving.global.auth.entity.enums.LoginType;
 import com.backend.topcariving.global.auth.exception.InvalidTokenException;
 import com.backend.topcariving.global.auth.repository.AuthInfoRepository;
 import com.backend.topcariving.global.auth.service.TokenProvider;
@@ -42,6 +43,7 @@ public class UserService {
 		final AuthInfo authInfo = authInfoRepository.findByUserId(userId)
 			.orElseGet(() -> AuthInfo.builder()
 				.userId(userId)
+				.loginType(LoginType.LOCAL)
 				.build()
 			);
 

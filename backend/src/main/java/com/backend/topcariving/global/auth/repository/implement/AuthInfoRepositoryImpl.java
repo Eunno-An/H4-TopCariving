@@ -14,6 +14,7 @@ import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 
 import com.backend.topcariving.global.auth.entity.AuthInfo;
+import com.backend.topcariving.global.auth.entity.enums.LoginType;
 import com.backend.topcariving.global.auth.repository.AuthInfoRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -95,6 +96,7 @@ public class AuthInfoRepositoryImpl implements AuthInfoRepository {
 			.authInfoId(rs.getLong("auth_info_id"))
 			.refreshToken(rs.getString("refresh_token"))
 			.expiredTime(rs.getTimestamp("expired_time").toLocalDateTime())
+			.loginType(LoginType.valueOfName(rs.getString("login_type")))
 			.userId(rs.getLong("user_id"))
 			.build();
 	}
