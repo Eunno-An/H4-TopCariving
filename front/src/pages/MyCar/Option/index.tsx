@@ -7,7 +7,7 @@ import {
 import { optionKey, useMyCar } from '@contexts/MyCarContext';
 import { OptionCard, OptionInfoCard } from '@components/myCar/option';
 
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { theme } from '@styles/theme';
 import { css } from '@emotion/react';
@@ -387,7 +387,7 @@ const OptionTag = styled(Text)`
   cursor: pointer;
 `;
 
-const MenuName = styled(Text)<{ isSelected: boolean }>`
+export const MenuName = styled(Text)<{ isSelected: boolean }>`
   ${({ isSelected }) =>
     isSelected ? theme.typo.Body1_Medium : theme.typo.Heading4_Bold};
   color: ${({ isSelected }) => !isSelected && theme.palette.LightGray};
@@ -418,7 +418,7 @@ const TagWrap = css`
   flex-wrap: wrap;
 `;
 
-const OptionMenu = styled(Flex)`
+export const OptionMenu = styled(Flex)`
   padding: 4px;
   border-bottom: 2px solid ${theme.palette.LightGray};
 `;

@@ -7,7 +7,6 @@ import { archiveSearchResponsesInterface } from '@pages/Archive/main';
 import { getDate } from '@utils/getDate';
 
 interface ArchiveCardProps {
-  options: { carOptionId: number; optionName: string }[];
   archiveInfo: archiveSearchResponsesInterface;
   selectedOption: {
     carOptionId: number;
@@ -16,7 +15,6 @@ interface ArchiveCardProps {
 }
 
 export const ArchiveCard = ({
-  options,
   archiveInfo,
   selectedOption,
 }: ArchiveCardProps) => {
@@ -42,7 +40,14 @@ export const ArchiveCard = ({
         </Text>
       </Flex>
       <Flex height="auto" gap={7} justify="flex-start" align="flex-start">
-        <Text typo="Body3_Medium">선택옵션</Text>
+        <Text
+          typo="Body3_Medium"
+          css={css`
+            white-space: nowrap;
+          `}
+        >
+          선택옵션
+        </Text>
         <Flex
           height="auto"
           justify="flex-start"

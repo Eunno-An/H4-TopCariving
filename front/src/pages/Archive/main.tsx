@@ -1,9 +1,9 @@
 import { Category, OptionWrapper } from '@components/archive/main';
 import { ArchiveCard } from '@components/archive/main/ArchiveCard';
-import { Flex } from '@components/common';
+import { Flex, masonryLayout } from '@components/common';
 import styled from '@emotion/styled';
 import { ArchiveUrl, apiInstance } from '@utils/api';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
 
 export const ArchiveMain = () => {
@@ -52,6 +52,11 @@ export const ArchiveMain = () => {
     getData();
   }, [selectedOption]);
 
+  const masonryRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    masonryLayout({ element: masonryRef });
+  }, [options]);
+
   return (
     <Flex direction="column" justify="flex-start">
       <Category selectedMenu={selectedMenu} setSelectedMenu={setSelectedMenu} />
@@ -60,7 +65,7 @@ export const ArchiveMain = () => {
         selectedOption={selectedOption}
         setSelectedOption={setSelectedOption}
       />
-      <Grid>
+      <Container ref={masonryRef}>
         {selectedMenu === 1 ? (
           archiveSearchResponses.length !== 0 ? (
             archiveSearchResponses.map((archiveInfo, idx) => (
@@ -69,7 +74,6 @@ export const ArchiveMain = () => {
                 onClick={() => onMoveDetail(archiveInfo.archivingId)}
               >
                 <ArchiveCard
-                  options={options}
                   archiveInfo={archiveInfo}
                   selectedOption={selectedOption}
                 />
@@ -81,24 +85,19 @@ export const ArchiveMain = () => {
         ) : (
           <Flex>검색 결과가 없습니다.</Flex>
         )}
-      </Grid>
+      </Container>
     </Flex>
   );
 };
 
-const Grid = styled.div`
+export const Container = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  grid-auto-rows: 10px;
 
-  overflow: auto;
-  white-space: nowrap;
-
-  padding: 24px 0;
-  gap: 30px;
-
-  ::-webkit-scrollbar {
-    display: none;
-  }
+  width: 1048px;
+  gap: 25px;
+  padding: 30px 0 60px 0;
 `;
 
 export type archiveType =

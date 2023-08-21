@@ -38,7 +38,9 @@ export const ArchiveHeader = ({
       justify="center"
       padding="0 100px 0 100px"
       css={css`
+        position: fixed;
         flex-shrink: 0;
+        z-index: 1;
       `}
     >
       <Flex width={1040}>
