@@ -25,17 +25,20 @@ class MyCarFeatureView: UIView {
         super.init(frame: frame)
         setUI()
         setLayout()
+        summaryContainerView.setBackgroundColor(to: .hyundaiLightSand)
     }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUI()
         setLayout()
+        summaryContainerView.setBackgroundColor(to: .hyundaiLightSand)
     }
     init(data: FeatureSummaryModel) {
         super.init(frame: .zero)
         setUI()
         setLayout()
         setSummaryContainerView(to: data)
+        summaryContainerView.setBackgroundColor(to: .hyundaiLightSand)
     }
     
     // MARK: - Helpers
@@ -59,6 +62,7 @@ class MyCarFeatureView: UIView {
         ])
     }
     func setSummaryContainerView(to data: FeatureSummaryModel) {
-        summaryContainerView = FeatureSummaryContainerView(data: data)
+        summaryContainerView.setFeatureSummaryView(to: data)
+        summaryContainerView.setBackgroundColor(to: .hyundaiLightSand)
     }
 }
