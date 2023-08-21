@@ -23,18 +23,19 @@ class MyCarChoicedOptionView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
-    let stackView: UIStackView = {
+    var stackView: UIStackView = {
         let stackView = UIStackView()
         stackView.axis = .vertical
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     // MARK: - Properties
-    private let itemWidth = UIScreen.main.bounds.width - 16*2
+    private var itemWidth: CGFloat = .zero
     
     // MARK: - Lifecycles
     override init(frame: CGRect) {
         super.init(frame: frame)
+        setItemWidth()
         test_injectMock()
         setUI()
         setLayout()
@@ -42,6 +43,7 @@ class MyCarChoicedOptionView: UIView {
     }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
+        setItemWidth()
         test_injectMock()
         setUI()
         setLayout()
@@ -49,6 +51,9 @@ class MyCarChoicedOptionView: UIView {
     }
     
     // MARK: - Helpers
+    private func setItemWidth() {
+        itemWidth = (window?.windowScene?.screen.bounds.width ?? 352) - 16*2
+    }
     private func setUI() {
         addSubview(title)
         addSubview(separator)
@@ -73,8 +78,22 @@ class MyCarChoicedOptionView: UIView {
     private func test_injectMock() {
         for _ in 0..<5 {
             stackView.addArrangedSubview(
-                MyCarChoicedOptionItemView(intrinsicSize: .init(width: itemWidth, height: 103))
+                MyCarChoicedOptionItemView(
+                    data: MyCarChoicedOptionItemModel(
+                        imageName: "ChoicedOptionItem",
+                        intrinsicSize: .init(width: itemWidth, height: 103),
+                        optionName: "컴포트 ||",
+                        optionPrice: "1,090,000원",
+                        optionDetail: "후석 승객 알림 / 메탈 리어범퍼스텝 / 메탈 도어스커프 / 3열 파워폴딩시트 / 3열 열선시트 / 헤드업 디스틀레이"
+                    )
+                )
             )
+            stackView.addArrangedSubview(separator)
+        }
+    }
+    func setStackView(to data: [MyCarChoicedOptionItemModel]) {
+        for idx in 0..<data.count {
+            stackView.addArrangedSubview(MyCarChoicedOptionItemView(data: data[idx]))
             stackView.addArrangedSubview(separator)
         }
     }
