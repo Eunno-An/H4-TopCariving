@@ -1,156 +1,33 @@
-import { Flex } from '@components/common';
 import styled from '@emotion/styled';
 import { OptionCard } from '@components/archive/detail/archiveOptionCard/OptionCard';
+import { ArchiveDetailPageProps } from '@pages/Archive/detail';
 
-export interface OptionInfoInterface {
-  photoUrl: string;
-  optionName: string;
-  option?: string[];
-  review?: string;
-  tags: string[];
-}
+export const ArchiveOptionDetails = ({
+  optionDetail,
+}: ArchiveDetailPageProps) => {
+  const optionArr = optionDetail && [
+    ...(optionDetail['상세 품목'] || []),
+    ...(optionDetail['N performance'] || []),
+    ...(optionDetail['H Genuine Accessories'] || []),
+  ];
 
-const optionInfoDummy = [
-  {
-    photoUrl:
-      'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/2_cooling.jpeg',
-    optionName: '컴포트 || 패키지 ',
-    option: [
-      '후석 승객 알림',
-      '메탈 리어범퍼스텝',
-      '메탈 도어스커프',
-      '3열 파워 폴딩시트',
-      '3열 열선시트',
-      '헤드업 디스플레이',
-    ],
-    review:
-      '승차감이 좋아요 차가 크고 운전하는 시야도 높아서 좋았어요 저는 13개월 아들이 있는데 뒤에 차시트 달아도 널널할 것 같습니다.',
-    tags: ['어린이👶', '편리해요😉', '출퇴근용으로 딱🚶'],
-  },
-  {
-    photoUrl:
-      'https://topcariving.s3.ap-northeast-2.amazonaws.com/convenience/wirelesscharging.jpeg',
-    optionName: '컴포트 || 패키지 ',
-    review:
-      '승차감이 좋아요 차가 크고 운전하는 시야도 높아서 좋았어요 저는 13개월 아들이 있는데 뒤에 차시트 달아도 널널할 것 같습니다.',
-    tags: ['어린이👶', '편리해요😉', '출퇴근용으로 딱🚶'],
-  },
-  {
-    photoUrl:
-      'https://topcariving.s3.ap-northeast-2.amazonaws.com/multimedia/reartalking.jpeg',
-    optionName: '컴포트 || 패키지 ',
-    option: [
-      '후석 승객 알림',
-      '메탈 리어범퍼스텝',
-      '메탈 도어스커프',
-      '3열 파워 폴딩시트',
-      '3열 열선시트',
-      '헤드업 디스플레이',
-    ],
-    tags: ['어린이👶', '편리해요😉', '출퇴근용으로 딱🚶'],
-  },
-  {
-    photoUrl:
-      'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/2_cooling.jpeg',
-    optionName: '컴포트 || 패키지 ',
-
-    review:
-      '승차감이 좋아요 차가 크고 운전하는 시야도 높아서 좋았어요 저는 13개월 아들이 있는데 뒤에 차시트 달아도 널널할 것 같습니다.',
-    tags: ['어린이👶', '편리해요😉', '출퇴근용으로 딱🚶'],
-  },
-  {
-    photoUrl:
-      'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/metalrearbumper.jpeg',
-    optionName: '컴포트 || 패키지 ',
-    option: [
-      '후석 승객 알림',
-      '메탈 리어범퍼스텝',
-      '메탈 도어스커프',
-      '3열 파워 폴딩시트',
-      '3열 열선시트',
-      '헤드업 디스플레이',
-    ],
-    review:
-      '승차감이 좋아요 차가 크고 운전하는 시야도 높아서 좋았어요 저는 13개월 아들이 있는데 뒤에 차시트 달아도 널널할 것 같습니다.',
-    tags: ['어린이👶', '편리해요😉', '출퇴근용으로 딱🚶'],
-  },
-  {
-    photoUrl:
-      'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/2_cooling.jpeg',
-    optionName: '컴포트 || 패키지 ',
-    tags: ['어린이👶', '편리해요😉', '출퇴근용으로 딱🚶'],
-  },
-  {
-    photoUrl:
-      'https://topcariving.s3.ap-northeast-2.amazonaws.com/N_performance/20_darkwheel.jpeg',
-    optionName: '컴포트 || 패키지 ',
-    option: [
-      '후석 승객 알림',
-      '메탈 리어범퍼스텝',
-      '메탈 도어스커프',
-      '3열 파워 폴딩시트',
-      '3열 열선시트',
-      '헤드업 디스플레이',
-    ],
-    review:
-      '승차감이 좋아요 차가 크고 운전하는 시야도 높아서 좋았어요 저는 13개월 아들이 있는데 뒤에 차시트 달아도 널널할 것 같습니다.',
-    tags: ['어린이👶', '편리해요😉', '출퇴근용으로 딱🚶'],
-  },
-  {
-    photoUrl:
-      'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/2_cooling.jpeg',
-    optionName: '컴포트 || 패키지 ',
-    tags: ['어린이👶', '편리해요😉', '출퇴근용으로 딱🚶'],
-  },
-  {
-    photoUrl:
-      'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/2_cooling.jpeg',
-    optionName: '컴포트 || 패키지 ',
-    option: [
-      '후석 승객 알림',
-      '메탈 리어범퍼스텝',
-      '메탈 도어스커프',
-      '3열 파워 폴딩시트',
-      '3열 열선시트',
-      '헤드업 디스플레이',
-    ],
-
-    tags: ['어린이👶', '편리해요😉', '출퇴근용으로 딱🚶'],
-  },
-  {
-    photoUrl:
-      'https://topcariving.s3.ap-northeast-2.amazonaws.com/selected/2_cooling.jpeg',
-    optionName: '컴포트 || 패키지 ',
-
-    review:
-      '승차감이 좋아요 차가 크고 운전하는 시야도 높아서 좋았어요 저는 13개월 아들이 있는데 뒤에 차시트 달아도 널널할 것 같습니다.',
-    tags: ['어린이👶', '편리해요😉', '출퇴근용으로 딱🚶'],
-  },
-] as OptionInfoInterface[];
-
-export const ArchiveOptionDetails = () => {
   return (
-    <Flex
-      width={1044}
-      justify="space-between"
-      padding="40px 0 0 0"
-      gap={24}
-      backgroundColor="White"
-    >
-      {[0, 1, 2].map((number) => (
-        <CardContainer>
-          {optionInfoDummy.map(
-            (it, idx) => idx % 3 == number && <OptionCard info={it} />,
-          )}
-        </CardContainer>
-      ))}
-    </Flex>
+    <CardContainer>
+      {optionArr &&
+        optionArr.map((optionInfo, idx) => (
+          <OptionCard info={optionInfo} key={`optionDetail_${idx}`} />
+        ))}
+    </CardContainer>
   );
 };
 
-const CardContainer = styled(Flex)`
-  flex-direction: column;
-  width: 331px;
-  gap: 24px;
-  justify-content: flex-start;
+const CardContainer = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  /* grid-auto-rows: 10px; */
+  width: 1040px;
+  height: 100vh;
+  gap: 10px;
+
+  padding: 30px 0 60px 0;
 `;

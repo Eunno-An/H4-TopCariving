@@ -2,76 +2,20 @@ import styled from '@emotion/styled';
 import { theme } from '@styles/theme';
 import { useState } from 'react';
 
-const position = [
-  {
-    positionId: 1,
-    optionName: '2열 통풍시트',
-    leftPercent: '65%',
-    topPercent: '35%',
-  },
-  {
-    positionId: 2,
-    optionName: '듀얼 와이드 선루프',
-    leftPercent: '55%',
-    topPercent: '21%',
-  },
-  {
-    positionId: 3,
-    optionName: '빌트인 캠',
-    leftPercent: '45%',
-    topPercent: '28%',
-  },
-  {
-    positionId: 4,
-    optionName: '듀얼 머플러 패키지',
-    leftPercent: '79%',
-    topPercent: '58%',
-  },
-  {
-    positionId: 5,
-    optionName: '빌트인 공기청정기',
-    leftPercent: '46%',
-    topPercent: '34%',
-  },
-  {
-    positionId: 6,
-    optionName: '사이드스텝',
-    leftPercent: '65%',
-    topPercent: '66%',
-  },
-  {
-    positionId: 7,
-    optionName: '적외선 무릎워머',
-    leftPercent: '50%',
-    topPercent: '48%',
-  },
-  {
-    positionId: 8,
-    optionName: '차량 보호 필름',
-    leftPercent: '59%',
-    topPercent: '36%',
-  },
-  {
-    positionId: 9,
-    optionName: '20인치 다크 스퍼터링 휠',
-    leftPercent: '51%',
-    topPercent: '67%',
-  },
-  {
-    positionId: 10,
-    optionName: '20인치 블랙톤 전면 가공 휠',
-    leftPercent: '51%',
-    topPercent: '67%',
-  },
-  {
-    positionId: 11,
-    optionName: '알콘(alcon) 단조 브레이크 & 20인치 휠 패키지',
-    leftPercent: '51%',
-    topPercent: '67%',
-  },
-];
+export interface positionInterface {
+  positionId: number;
+  optionName: string;
+  leftPercent: string;
+  topPercent: string;
+}
 
-export const CarOptionPosition = () => {
+export const CarOptionPosition = ({
+  position,
+  color,
+}: {
+  position: positionInterface[] | undefined;
+  color?: string | undefined;
+}) => {
   const [currrentOption, setCurrentOption] = useState<string>('');
   const [isHover, setIsHover] = useState(false);
   const onPositionEnterHandler = (optionName: string) => {
@@ -84,26 +28,27 @@ export const CarOptionPosition = () => {
   };
   return (
     <CarImgBox>
-      {position.map((it) => (
-        <>
-          <OptionPoint
-            leftPosition={it.leftPercent}
-            topPositipon={it.topPercent}
-            onMouseEnter={() => onPositionEnterHandler(it.optionName)}
-            onMouseOut={() => onPositionOutHandler()}
-          />
-          {isHover && currrentOption === it.optionName && (
-            <OptionInfoBox
-              leftPosition={parseInt(it.leftPercent)}
-              topPositipon={parseInt(it.topPercent)}
+      {position &&
+        position.map((it, idx) => (
+          <div key={`carPosition_${idx}`}>
+            <OptionPoint
+              leftPosition={it.leftPercent}
+              topPositipon={it.topPercent}
+              onMouseEnter={() => onPositionEnterHandler(it.optionName)}
               onMouseOut={() => onPositionOutHandler()}
-            >
-              {it.optionName}
-            </OptionInfoBox>
-          )}
-        </>
-      ))}
-      <img src={`/image/exterior/black/image_001.png`} alt="" />
+            />
+            {isHover && currrentOption === it.optionName && (
+              <OptionInfoBox
+                leftPosition={parseInt(it.leftPercent)}
+                topPositipon={parseInt(it.topPercent)}
+                onMouseOut={() => onPositionOutHandler()}
+              >
+                {it.optionName}
+              </OptionInfoBox>
+            )}
+          </div>
+        ))}
+      <img src={`/image/exterior/${color}/image_001.png`} alt="" />
     </CarImgBox>
   );
 };

@@ -12,11 +12,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.backend.topcariving.config.TestSupport;
-import com.backend.topcariving.domain.archive.entity.MyCar;
-import com.backend.topcariving.domain.archive.repository.MyCarRepository;
-import com.backend.topcariving.domain.option.dto.request.esitmation.EstimationChangeRequestDTO;
-import com.backend.topcariving.domain.option.dto.response.estimation.OptionSummaryDTO;
-import com.backend.topcariving.domain.option.dto.response.estimation.SummaryResponseDTO;
+import com.backend.topcariving.domain.entity.archive.MyCar;
+import com.backend.topcariving.domain.repository.archive.MyCarRepository;
+import com.backend.topcariving.domain.dto.option.request.esitmation.EstimationChangeRequestDTO;
+import com.backend.topcariving.domain.dto.option.response.estimation.OptionSummaryDTO;
+import com.backend.topcariving.domain.dto.option.response.estimation.SummaryResponseDTO;
+import com.backend.topcariving.domain.service.option.EstimationService;
 
 @SpringBootTest
 @Transactional
@@ -42,12 +43,14 @@ public class EstimationServiceIntegralTest extends TestSupport {
 
 			// then
 			final Map<String, List<OptionSummaryDTO>> options = summary.getOptions();
-			final List<OptionSummaryDTO> colors = options.get("색상");
+			final List<OptionSummaryDTO> externalColors = options.get("외장색상");
+			final List<OptionSummaryDTO> internalColors = options.get("내장색상");
 			final List<OptionSummaryDTO> model = options.get("모델");
 			final List<OptionSummaryDTO> trims = options.get("트림");
 			final List<OptionSummaryDTO> selected = options.get("선택품목");
 
-			softAssertions.assertThat(colors).as("색상은 외장, 내장 색상이 있어야함").hasSize(2);
+			softAssertions.assertThat(externalColors).as("외장색상은 하나여야함").hasSize(1);
+			softAssertions.assertThat(internalColors).as("내장색상은 하나여야함").hasSize(1);
 			softAssertions.assertThat(model).as("모델은 하나여야만 함").hasSize(1);
 			softAssertions.assertThat(trims).as("트림의 갯수는 최대 3개일 수 있음 (모델 제외)").hasSize(3);
 			softAssertions.assertThat(selected).as("해당 유저가 선택한 선택옵션은 2개임").hasSize(2);

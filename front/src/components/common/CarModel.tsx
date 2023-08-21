@@ -145,5 +145,7 @@ const ImgContainer = styled.img`
   width: 800px;
   height: auto;
 
+  object-fit: cover;
+
   z-index: 2;
 `;

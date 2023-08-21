@@ -5,6 +5,7 @@ import { myCarOptionInterface } from '@interface/index';
 import { BodyCard } from '@components/myCar/trim';
 import { useMyCar } from '@contexts/MyCarContext';
 import { useLoaderData } from 'react-router-dom';
+import { ArchivePopup } from '@components/common/ArchivePopup';
 
 const BodyType = () => {
   const bodyTypeInfo = useLoaderData() as myCarOptionInterface[];
@@ -61,36 +62,41 @@ const BodyType = () => {
   };
 
   return (
-    <Flex padding="28px 0 0 0" align="flex-start" gap={28}>
-      <Flex direction="column" height="auto" gap={23}>
-        <Flex width={620} align="flex-start">
-          <ImgTag src={bodyTypeInfo[isSelected].photoUrl} alt="" />
+    <>
+      <Flex padding="28px 0 0 0" align="flex-start" gap={28}>
+        <Flex direction="column" height="auto" gap={23}>
+          <Flex width={620} align="flex-start">
+            <ImgTag src={bodyTypeInfo[isSelected].photoUrl} alt="" />
+          </Flex>
+          <Flex width={620} direction="column" justify="space-between">
+            <InfoBox justify="space-between" align="flex-start" height={48}>
+              <Text typo="Heading1_Bold">
+                {bodyTypeInfo[isSelected].optionName}
+              </Text>
+              <Text typo="Heading2_Bold">
+                +{bodyTypeInfo[isSelected].price.toLocaleString()}원
+              </Text>
+            </InfoBox>
+          </Flex>
         </Flex>
-        <Flex width={620} direction="column" justify="space-between">
-          <InfoBox justify="space-between" align="flex-start" height={48}>
-            <Text typo="Heading1_Bold">
-              {bodyTypeInfo[isSelected].optionName}
-            </Text>
-            <Text typo="Heading2_Bold">
-              +{bodyTypeInfo[isSelected].price.toLocaleString()}원
-            </Text>
-          </InfoBox>
-        </Flex>
-      </Flex>
 
-      <Flex direction="column" justify="flex-start" gap={12}>
-        {bodyTypeInfo.map((body, idx) => (
-          <div
-            key={`engineOption_${idx}`}
-            onClick={() => {
-              onSelectBodyType(idx);
-            }}
-          >
-            <BodyCard option={body} isSelected={isSelected === idx} />
-          </div>
-        ))}
+        <Flex direction="column" justify="flex-start" gap={12}>
+          {bodyTypeInfo.map((body, idx) => (
+            <div
+              key={`engineOption_${idx}`}
+              onClick={() => {
+                onSelectBodyType(idx);
+              }}
+            >
+              <BodyCard option={body} isSelected={isSelected === idx} />
+            </div>
+          ))}
+        </Flex>
       </Flex>
-    </Flex>
+      <ArchivePopup
+        desc={`${bodyTypeInfo[isSelected].optionName}의 리얼한 후기가 궁금하다면?`}
+      />
+    </>
   );
 };
 

@@ -17,13 +17,15 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.backend.topcariving.domain.archive.exception.InvalidAuthorityException;
-import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
-import com.backend.topcariving.domain.option.entity.CarOption;
-import com.backend.topcariving.domain.option.entity.CategoryDetail;
-import com.backend.topcariving.domain.option.exception.InvalidCarOptionIdException;
-import com.backend.topcariving.domain.option.exception.InvalidCategoryException;
-import com.backend.topcariving.domain.option.repository.CarOptionRepository;
+import com.backend.topcariving.domain.entity.option.enums.Category;
+import com.backend.topcariving.domain.exception.InvalidAuthorityException;
+import com.backend.topcariving.domain.repository.archive.CarArchivingRepository;
+import com.backend.topcariving.domain.entity.option.CarOption;
+import com.backend.topcariving.domain.entity.option.enums.CategoryDetail;
+import com.backend.topcariving.domain.exception.InvalidArchivingIdException;
+import com.backend.topcariving.domain.exception.InvalidCarOptionIdException;
+import com.backend.topcariving.domain.exception.InvalidCategoryException;
+import com.backend.topcariving.domain.repository.option.CarOptionRepository;
 
 @ExtendWith(MockitoExtension.class)
 class ValidatorTest {
@@ -52,7 +54,7 @@ class ValidatorTest {
 	@MethodSource("generateCarOptionIdToSelectedData")
 	void 유저는_API에서_지원_가능한_옵션만_변경이_가능하다(Long carOptionId, CategoryDetail categoryDetail) {
 		// given
-		given(carOptionRepository.existsByCarOptionIdAndCategoryDetail(carOptionId, categoryDetail.getName()))
+		given(carOptionRepository.existsByCarOptionIdAndCategoryDetail(carOptionId, categoryDetail))
 			.willReturn(false);
 
 		// when, then
@@ -63,14 +65,24 @@ class ValidatorTest {
 	@Test
 	void 선택_옵션에서_선택_옵션_카테고리가_아닌_옵션이_존재하면_오류가_발생한다() {
 		// given
-		CarOption carOption1 = new CarOption(1L, "카테고리", CategoryDetail.SELECTED.getName(),
+		CarOption carOption1 = new CarOption(1L, Category.CHOICE, CategoryDetail.SELECTED,
 			"선택옵션1", "선택옵션 설명1", 0, "사진경로1", null);
-		CarOption carOption2 = new CarOption(2L, "카테고리", CategoryDetail.N_PERFORMANCE.getName(),
+		CarOption carOption2 = new CarOption(2L, Category.CHOICE, CategoryDetail.N_PERFORMANCE,
 			"N 퍼포먼스1", "N 퍼포먼스 설명1", 0, "사진경로2", null);
 
 		// when, then
 		assertThatThrownBy(() -> validator.verifySameCategory(List.of(carOption1, carOption2), CategoryDetail.SELECTED))
 			.isInstanceOf(InvalidCategoryException.class);
+	}
+
+	@Test
+	void 아카이빙_아이디가_존재하지_않으면_오류가_발생한다() {
+		// given
+		given(carArchivingRepository.existsByArchivingId(21L)).willReturn(false);
+
+		// when, then
+		Assertions.assertThatThrownBy(() -> validator.verifyArchivingId(21L))
+			.isInstanceOf(InvalidArchivingIdException.class);
 	}
 
 	static Stream<Arguments> generateCarOptionIdToSelectedData() {

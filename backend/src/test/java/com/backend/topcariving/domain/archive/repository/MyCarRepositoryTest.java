@@ -11,9 +11,11 @@ import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.backend.topcariving.config.TestSupport;
-import com.backend.topcariving.domain.archive.entity.MyCar;
-import com.backend.topcariving.domain.option.dto.response.estimation.OptionSummaryDTO;
-import com.backend.topcariving.domain.option.entity.CategoryDetail;
+import com.backend.topcariving.domain.entity.archive.MyCar;
+import com.backend.topcariving.domain.dto.option.response.estimation.OptionSummaryDTO;
+import com.backend.topcariving.domain.entity.option.enums.Category;
+import com.backend.topcariving.domain.entity.option.enums.CategoryDetail;
+import com.backend.topcariving.domain.repository.archive.implement.MyCarRepositoryImpl;
 
 @JdbcTest
 class MyCarRepositoryTest extends TestSupport {
@@ -85,8 +87,8 @@ class MyCarRepositoryTest extends TestSupport {
 			.filter(optionSummaryDTO -> optionSummaryDTO.getCarOptionId() == 1L)
 			.findFirst()
 			.orElse(null);
-		softAssertions.assertThat(optionSummary.getCategory()).as("카테고리 테스트").isEqualTo("트림");
-		softAssertions.assertThat(optionSummary.getCategoryDetail()).as("카테고리 세부정보 테스트").isEqualTo("모델");
+		softAssertions.assertThat(optionSummary.getCategory()).as("카테고리 테스트").isEqualTo(Category.TRIM);
+		softAssertions.assertThat(optionSummary.getCategoryDetail()).as("카테고리 세부정보 테스트").isEqualTo(CategoryDetail.MODEL);
 		softAssertions.assertThat(optionSummary.getName()).as("이름 테스트").isEqualTo("Le Blanc");
 
 	}
@@ -95,7 +97,7 @@ class MyCarRepositoryTest extends TestSupport {
 	void deleteByArchivingIdAndCategoryDetail() {
 		// given
 		Long archivingId = 1L;
-		String categoryDetail = CategoryDetail.MODEL.getName();
+		CategoryDetail categoryDetail = CategoryDetail.MODEL;
 
 		// when
 		myCarRepository.deleteByArchivingIdAndCategoryDetail(archivingId, categoryDetail);
@@ -112,7 +114,7 @@ class MyCarRepositoryTest extends TestSupport {
 		Long carOptionId = 2L;
 		
 		// when
-		myCarRepository.updateCarOptionIdByArchivingIdAndCategoryDetail(archivingId, carOptionId, CategoryDetail.MODEL.getName());
+		myCarRepository.updateCarOptionIdByArchivingIdAndCategoryDetail(archivingId, carOptionId, CategoryDetail.MODEL);
 		
 		// then
 		final MyCar findMyCar = myCarRepository.findById(1L).get();

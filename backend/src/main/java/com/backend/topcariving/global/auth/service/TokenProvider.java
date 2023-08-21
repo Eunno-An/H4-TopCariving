@@ -10,17 +10,19 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import com.backend.topcariving.domain.user.entity.AuthInfo;
-import com.backend.topcariving.domain.user.repository.AuthInfoRepository;
-import com.backend.topcariving.global.exception.InvalidTokenException;
+import com.backend.topcariving.global.auth.entity.AuthInfo;
+import com.backend.topcariving.global.auth.repository.AuthInfoRepository;
+import com.backend.topcariving.global.auth.exception.InvalidTokenException;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.RequiredArgsConstructor;
 
 @Component
+@RequiredArgsConstructor
 public class TokenProvider {
 
 	@Value("${token.access-token-expiration}")
@@ -31,7 +33,7 @@ public class TokenProvider {
 
 	private static final String BEARER_TYPE = "Bearer";
 
-	private AuthInfoRepository authInfoRepository;
+	private final AuthInfoRepository authInfoRepository;
 
 	public String createAccessToken(Long userId) {
 		final byte[] keyByte = Decoders.BASE64.decode(SECRET_KEY);

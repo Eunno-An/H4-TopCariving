@@ -1,31 +1,43 @@
 import { Flex, Tag, Text } from '@components/common';
 import styled from '@emotion/styled';
 import { theme } from '@styles/theme';
-import { OptionInfoInterface } from '..';
+import { archiveOptionDetailInterface } from '@pages/Archive/detail';
+import { css } from '@emotion/react';
 
-export const OptionCard = ({ info }: { info: OptionInfoInterface }) => {
+export const OptionCard = ({
+  info,
+}: {
+  info: archiveOptionDetailInterface;
+}) => {
   return (
     <OptionDetailCard>
       <OptionTop direction="column" align="flex-start">
-        <OptionImg src={info.photoUrl} alt="" />
+        <OptionImg
+          src={info.photoUrl}
+          alt=""
+          css={css`
+            object-fit: cover;
+          `}
+        />
         <Text typo="Heading3_Medium" margin="20px 0 9px 0">
           {info.optionName}
         </Text>
       </OptionTop>
-      {info.option && (
+      <Flex justify="flex-start" height="auto">
         <Text typo="Body2_Medium" palette="Primary" margin="0 0 10px 0">
-          {info.option.join(' | ')}
+          {info.childOptionNames.join(' | ')}
         </Text>
-      )}
-      {info.review && (
-        <Text typo="Body3_Regular" margin="0 0 20px 0">
-          {info.review}
-        </Text>
-      )}
+      </Flex>
 
-      <Flex gap={8}>
-        {info.tags.map((it) => (
-          <Tag desc={it} />
+      <Flex
+        gap={8}
+        justify="flex-start"
+        css={css`
+          flex-wrap: wrap;
+        `}
+      >
+        {info.tags.map((it, idx) => (
+          <Tag key={`infoTage_${idx}`} desc={it.tagContent} />
         ))}
       </Flex>
     </OptionDetailCard>
@@ -56,4 +68,5 @@ const OptionImg = styled.img`
   width: 314px;
   height: 130px;
   border-radius: 8px;
+  object-fit: cover;
 `;

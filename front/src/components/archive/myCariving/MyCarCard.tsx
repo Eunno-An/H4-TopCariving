@@ -4,11 +4,14 @@ import deleteIcon from '@assets/images/deleteIcon.svg';
 import { theme } from '@styles/theme';
 import { css } from '@emotion/react';
 import { useAlert } from '@contexts/AlertContext';
+import { getDate } from '@utils/getDate';
+import { MyArchiveUrl, apiInstance } from '@utils/api';
 
 interface CreatedCarTrimInterface {
-  additionalProp1: string;
-  additionalProp2: string;
-  additionalProp3: string;
+  바디타입: string;
+  모델: string;
+  엔진: string;
+  구동방식: string;
 }
 
 interface CreatedCarSelectedInterface {
@@ -19,24 +22,31 @@ interface CreatedCarSelectedInterface {
 interface CreatedCarInterface {
   archivingId: number;
   trims: CreatedCarTrimInterface;
-  dayTime: string;
+  dayTime: Date;
   selectedOptions: CreatedCarSelectedInterface[];
   complete: boolean;
 }
 
-export const MyCarCard = ({ info }: { info: CreatedCarInterface }) => {
-  const date = new Date(`${info.dayTime}`);
-  const year = date.getFullYear();
-  const month = date.getMonth();
-  const day = date.getDay();
-
+export const MyCarCard = ({
+  info,
+  deletedCarId,
+}: {
+  info: CreatedCarInterface;
+  deletedCarId: (archivingId: number) => void;
+}) => {
   const { openAlert, closeAlert } = useAlert();
 
-  const closeModal = () => {
+  const closeModal = async (archivingId: number) => {
+    deletedCarId(archivingId);
+    await apiInstance({
+      url: `${MyArchiveUrl.DELETE_CARS}/${archivingId}`,
+      method: 'DELETE',
+    });
+
     closeAlert();
   };
 
-  const onDeleteHandler = () => {
+  const onDeleteHandler = (archivingId: number) => {
     openAlert({
       newContent: [
         '펠리세이드 Le Blacn을',
@@ -44,7 +54,11 @@ export const MyCarCard = ({ info }: { info: CreatedCarInterface }) => {
       ],
       newButtonInfo: [
         { text: '취소', color: 'LightGray', onClick: closeAlert },
-        { text: '확인', color: 'Primary', onClick: closeModal },
+        {
+          text: '확인',
+          color: 'Primary',
+          onClick: () => closeModal(archivingId),
+        },
       ],
     });
   };
@@ -75,22 +89,22 @@ export const MyCarCard = ({ info }: { info: CreatedCarInterface }) => {
         <Flex gap={10} justify="flex-end">
           {info.complete ? (
             <SaveStatusBox typo="Body4_Medium" isComplete={info.complete}>
-              {year}년 {month}월 {day}일에 만들었어요
+              {`${getDate(new Date(info.dayTime))}에 만들었어요`}
             </SaveStatusBox>
           ) : (
             <SaveStatusBox typo="Body4_Medium" isComplete={info.complete}>
-              {year}년 {month}월 {day}일 임시저장
+              {`${getDate(new Date(info.dayTime))} 임시저장`}
             </SaveStatusBox>
           )}
-          <div onClick={onDeleteHandler}>
+          <div onClick={() => onDeleteHandler(info.archivingId)}>
             <DeleteIcon src={deleteIcon} alt="" />
           </div>
         </Flex>
       </Flex>
       <Flex justify="flex-start">
         <Text typo="Body3_Regular">
-          {info.trims.additionalProp1} / {info.trims.additionalProp2} /{' '}
-          {info.trims.additionalProp3}
+          {info.trims.바디타입} / {info.trims.모델} / {info.trims.엔진} /{' '}
+          {info.trims.구동방식}
         </Text>
       </Flex>
       <Flex>
@@ -103,6 +117,9 @@ export const MyCarCard = ({ info }: { info: CreatedCarInterface }) => {
               <ImgBox src={it.photoUrl} alt="" />
             </ImgContain>
           ))}
+          {!info.selectedOptions.length && (
+            <Text alertPalette="Primary">선택한 옵션이 없습니다</Text>
+          )}
         </CarOptionImgBox>
       </Flex>
     </CarCard>
@@ -149,6 +166,8 @@ const CarOptionImgBox = styled(Flex)`
 
   gap: 4px;
 
+  height: 140px;
+
   padding-top: 20px;
 
   ::-webkit-scrollbar {
@@ -182,6 +201,8 @@ const SaveStatusBox = styled(Text)<{ isComplete: boolean }>`
 const ImgBox = styled.img`
   width: 122px;
   height: 121px;
+
+  object-fit: cover;
 
   border-radius: 8px;
 `;

@@ -52,7 +52,7 @@ export const TrimCard = ({
               }}
             />
             <Flex direction="column">
-              {item.content.split('\\n').map((name: string, key: number) => (
+              {item.content.split('\n').map((name: string, key: number) => (
                 <Text
                   typo="Caption_Medium"
                   palette={isSelected ? 'Primary' : 'DarkGray'}
@@ -85,4 +85,9 @@ const CustomFlex = styled(Flex)<{ isSelected: boolean }>`
       : `2px solid ${theme.palette.White}`};
   box-sizing: border-box;
   cursor: pointer;
+
+  &:hover {
+    border: 2px solid ${theme.palette.Primary};
+  }
+  transition: ease 0.3s;
 `;

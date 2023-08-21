@@ -9,7 +9,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.backend.topcariving.config.TestSupport;
-import com.backend.topcariving.domain.option.dto.response.tag.TagResponseDTO;
+import com.backend.topcariving.domain.dto.option.response.tag.TagResponseDTO;
+import com.backend.topcariving.domain.repository.review.implement.TagReviewRepositoryImpl;
 
 @JdbcTest
 class TagReviewRepositoryTest extends TestSupport {
@@ -28,7 +29,7 @@ class TagReviewRepositoryTest extends TestSupport {
 	void 태그에서_가장_많은_태그에_대한_정보를_3건_가져오는_쿼리가_제대로_동작하는가() {
 		// given
 		Long carOptionId = 110L;
-		String result = "편리해요☺\uFE0F";
+		String result = "가격이 합리적이에요\uD83D\uDC4D";
 		// when
 		final List<TagResponseDTO> tagResponseDTOS = tagReviewRepository.findTagResponseDTOByCarOptionIdAndLimit(
 			carOptionId, 5);

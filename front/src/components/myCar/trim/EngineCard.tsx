@@ -51,6 +51,11 @@ const EngineBox = styled(Flex)<{ isSelected: boolean }>`
     isSelected ? theme.palette.Primary : theme.palette.Black};
   border-radius: 8px;
   cursor: pointer;
+
+  &:hover {
+    border: 2px solid ${theme.palette.Primary};
+  }
+  transition: ease 0.3s;
 `;
 
 const BorderLine = styled.div`

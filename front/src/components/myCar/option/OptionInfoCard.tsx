@@ -64,8 +64,8 @@ export const OptionInfoCard = ({
           </RightButtonContainer>
         </>
       ) : (
-        <Text alertPalette="Primary" typo="Body2_Medium">
-          하위옵션이 존재하지 않습니다
+        <Text palette="Primary" typo="Body2_Medium">
+          하위옵션이 존재하지 않아요
         </Text>
       )}
     </InfoContainer>

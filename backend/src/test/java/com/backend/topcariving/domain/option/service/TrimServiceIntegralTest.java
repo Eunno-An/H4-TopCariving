@@ -13,14 +13,15 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.backend.topcariving.config.TestSupport;
-import com.backend.topcariving.domain.archive.entity.MyCar;
-import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
-import com.backend.topcariving.domain.archive.repository.MyCarRepository;
-import com.backend.topcariving.domain.option.dto.request.SelectOptionRequestDTO;
-import com.backend.topcariving.domain.option.dto.response.engine.EngineResponseDTO;
-import com.backend.topcariving.domain.option.dto.response.model.ModelResponseDTO;
-import com.backend.topcariving.domain.option.dto.response.trim.OptionResponseDTO;
-import com.backend.topcariving.domain.option.entity.CategoryDetail;
+import com.backend.topcariving.domain.entity.archive.MyCar;
+import com.backend.topcariving.domain.repository.archive.CarArchivingRepository;
+import com.backend.topcariving.domain.repository.archive.MyCarRepository;
+import com.backend.topcariving.domain.dto.option.request.SelectOptionRequestDTO;
+import com.backend.topcariving.domain.dto.option.response.engine.EngineResponseDTO;
+import com.backend.topcariving.domain.dto.option.response.model.ModelResponseDTO;
+import com.backend.topcariving.domain.dto.option.response.trim.OptionResponseDTO;
+import com.backend.topcariving.domain.entity.option.enums.CategoryDetail;
+import com.backend.topcariving.domain.service.option.TrimService;
 
 @SpringBootTest
 @Transactional

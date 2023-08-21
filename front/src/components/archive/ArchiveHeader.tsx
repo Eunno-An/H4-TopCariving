@@ -6,6 +6,7 @@ import vector850 from '@assets/images/vector850.svg';
 import { css } from '@emotion/react';
 import { useAlert } from '@contexts/AlertContext';
 import { useNavigate } from 'react-router-dom';
+import { LogoutButton } from '@components/common/LogoutButton';
 
 export const ArchiveHeader = ({
   pageTitle = '아카이빙',
@@ -37,7 +38,9 @@ export const ArchiveHeader = ({
       justify="center"
       padding="0 100px 0 100px"
       css={css`
+        position: fixed;
         flex-shrink: 0;
+        z-index: 1;
       `}
     >
       <Flex width={1040}>
@@ -74,6 +77,7 @@ export const ArchiveHeader = ({
               </>
             )}
           </Flex>
+          <LogoutButton />
         </Flex>
       </Flex>
     </Flex>

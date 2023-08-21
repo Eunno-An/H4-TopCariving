@@ -1,6 +1,6 @@
 package com.backend.topcariving.domain.option.service;
 
-import static com.backend.topcariving.domain.option.entity.CategoryDetail.*;
+import static com.backend.topcariving.domain.entity.option.enums.CategoryDetail.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,15 +21,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.backend.topcariving.config.TestSupport;
-import com.backend.topcariving.domain.archive.entity.CarArchiving;
-import com.backend.topcariving.domain.archive.entity.MyCar;
-import com.backend.topcariving.domain.archive.repository.CarArchivingRepository;
-import com.backend.topcariving.domain.archive.repository.MyCarRepository;
-import com.backend.topcariving.domain.option.dto.request.SelectOptionRequestDTO;
-import com.backend.topcariving.domain.option.dto.request.SelectOptionsRequestDTO;
-import com.backend.topcariving.domain.option.dto.response.selection.SelectionResponseDTO;
-import com.backend.topcariving.domain.option.dto.response.trim.OptionResponseDTO;
-import com.backend.topcariving.domain.option.entity.CategoryDetail;
+import com.backend.topcariving.domain.entity.archive.CarArchiving;
+import com.backend.topcariving.domain.entity.archive.MyCar;
+import com.backend.topcariving.domain.repository.archive.CarArchivingRepository;
+import com.backend.topcariving.domain.repository.archive.MyCarRepository;
+import com.backend.topcariving.domain.dto.option.request.SelectOptionRequestDTO;
+import com.backend.topcariving.domain.dto.option.request.SelectOptionsRequestDTO;
+import com.backend.topcariving.domain.dto.option.response.selection.SelectionResponseDTO;
+import com.backend.topcariving.domain.dto.option.response.trim.OptionResponseDTO;
+import com.backend.topcariving.domain.entity.option.enums.CategoryDetail;
+import com.backend.topcariving.domain.service.option.OptionService;
 
 @SpringBootTest
 @Transactional
@@ -297,18 +298,17 @@ public class OptionServiceIntegralTest extends TestSupport {
 			Long archivingId = optionService.saveSelectionOption(1L, selectOptionRequestDTO, N_PERFORMANCE);
 
 			// then
-			List<MyCar> findCar = myCarRepository.findByCategoryDetailAndArchivingId(N_PERFORMANCE.getName(),
-				archivingId);
+			List<MyCar> findCar = myCarRepository.findByCategoryDetailAndArchivingId(N_PERFORMANCE, archivingId);
 			Assertions.assertThat(findCar).isEmpty();
 		}
 
 		@Test
 		void N_Performance_를_저장한_후에는_MY_CAR_에_car_option_id_가_null_인_레코드가_저장되어야_한다() {
 			// given
-			SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(128L, 11L);
+			SelectOptionRequestDTO selectOptionRequestDTO = new SelectOptionRequestDTO(128L, 8L);
 
 			// when
-			Long archivingId = optionService.saveSelectionOption(1L, selectOptionRequestDTO, N_PERFORMANCE);
+			Long archivingId = optionService.saveSelectionOption(8L, selectOptionRequestDTO, N_PERFORMANCE);
 
 			// then
 			List<MyCar> findCar = myCarRepository.findByArchivingId(archivingId);
@@ -343,8 +343,7 @@ public class OptionServiceIntegralTest extends TestSupport {
 		Long archivingId = optionService.saveSelectionOptions(1L, selectOptionsRequestDTO, categoryDetail);
 
 		// then
-		List<MyCar> findCar = myCarRepository.findByCategoryDetailAndArchivingId(categoryDetail.getName(),
-			archivingId);
+		List<MyCar> findCar = myCarRepository.findByCategoryDetailAndArchivingId(categoryDetail, archivingId);
 		Assertions.assertThat(findCar).isEmpty();
 	}
 

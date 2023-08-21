@@ -1,3 +1,9 @@
+export const LoginUrl = {
+  LOGIN: '/login',
+  REISSUE: '/reissue',
+  LOGOUT: '/logout',
+};
+
 export const TrimUrl = {
   BODY_TYPE: '/api/options/trims/body-types',
   DRIVING_METHOD: '/api/options/trims/driving-methods',
@@ -24,7 +30,15 @@ export const Summary = {
   ESTIMATION: '/api/options/estimations/summary',
 };
 
-export const LoginUrl = {
-  LOGIN: '/login',
-  REISSUE: '/reissue',
+export const ArchiveUrl = {
+  MAIN_RESULT: '/api/archiving/result',
+  DETAIL: '/api/archiving/details',
+  BOOKMARK: '/api/archiving/feeds/bookmarks',
+  FEED: '/api/archiving/feeds',
+};
+
+export const MyArchiveUrl = {
+  CREATED_CARS: '/api/archiving/created-cars?pageNumber=1&pageSize=8',
+  DELETE_CARS: '/api/archiving/created-cars',
+  REVERT: '/api/archiving/created-cars',
 };

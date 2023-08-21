@@ -10,7 +10,8 @@ import org.springframework.boot.test.autoconfigure.jdbc.JdbcTest;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import com.backend.topcariving.config.TestSupport;
-import com.backend.topcariving.domain.bookmark.entity.Bookmark;
+import com.backend.topcariving.domain.entity.archive.Bookmark;
+import com.backend.topcariving.domain.repository.archive.implement.BookmarkRepositoryImpl;
 
 @JdbcTest
 class BookmarkRepositoryTest extends TestSupport {
@@ -75,5 +76,19 @@ class BookmarkRepositoryTest extends TestSupport {
 		Optional<Bookmark> findBookmark = bookmarkRepository.findById(bookmark.getBookmarkId());
 
 		Assertions.assertThat(findBookmark.get().getIsAlive()).isTrue();
+	}
+
+	@Test
+	void updateIsAliveByUserIdAndArchivingId() {
+		// given
+		Long userId = 1L;
+		Long archivingId = 2L;
+
+		// when
+		bookmarkRepository.updateIsAliveByUserIdAndArchivingId(false, userId, archivingId);
+
+		// then
+		Bookmark findBookmark = bookmarkRepository.findByUserIdAndArchivingId(userId, archivingId).get();
+		Assertions.assertThat(findBookmark.getIsAlive()).isFalse();
 	}
 }

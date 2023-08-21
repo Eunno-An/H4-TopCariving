@@ -2,12 +2,12 @@ import { Flex, Text } from '@components/common';
 
 import hyundai from '@assets/images/hyundai.svg';
 import cargo from '@assets/images/cargo.svg';
-import save from '@assets/images/save.svg';
 import vector845 from '@assets/images/vector845.svg';
 import vector850 from '@assets/images/vector850.svg';
 import { css } from '@emotion/react';
 import { useAlert } from '@contexts/AlertContext';
 import { useNavigate } from 'react-router-dom';
+import { LogoutButton } from '@components/common/LogoutButton';
 
 export const Header = () => {
   const { openAlert, closeAlert } = useAlert();
@@ -54,10 +54,6 @@ export const Header = () => {
         </Flex>
 
         <Flex justify="flex-end" gap={21}>
-          <Flex width="auto" gap={3}>
-            <Text typo="Body4_Medium">자동 저장중</Text>
-            <img src={save} alt="" />
-          </Flex>
           <Flex gap={16} width="auto">
             <Text typo="Body2_Medium" palette="DarkGray">
               펠리세이드
@@ -79,6 +75,7 @@ export const Header = () => {
                 아카이빙
               </Text>
             </Flex>
+            <LogoutButton />
           </Flex>
         </Flex>
       </Flex>
