@@ -65,6 +65,7 @@
 		D462E89B2A92428A00C5A8EC /* TicketBackgroundView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8982A92428900C5A8EC /* TicketBackgroundView.swift */; };
 		D462E89C2A92428A00C5A8EC /* MyCarChoicedOptionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8992A92428900C5A8EC /* MyCarChoicedOptionItemView.swift */; };
 		D462E89D2A92428A00C5A8EC /* MyCarFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E89A2A92428A00C5A8EC /* MyCarFeatureView.swift */; };
+		D462E8DD2A93463A00C5A8EC /* CGRect+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8DC2A93463A00C5A8EC /* CGRect+.swift */; };
 		D4A68CF82A808D6300E2C1FD /* OptionRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A68CF72A808D6300E2C1FD /* OptionRequestDTO.swift */; };
 		D4A68CFA2A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A68CF92A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift */; };
 		D4A68CFC2A80925400E2C1FD /* ArchivingOptionResponseDTO+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A68CFB2A80925400E2C1FD /* ArchivingOptionResponseDTO+Mapping.swift */; };
@@ -194,6 +195,7 @@
 		D462E8982A92428900C5A8EC /* TicketBackgroundView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TicketBackgroundView.swift; sourceTree = "<group>"; };
 		D462E8992A92428900C5A8EC /* MyCarChoicedOptionItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCarChoicedOptionItemView.swift; sourceTree = "<group>"; };
 		D462E89A2A92428A00C5A8EC /* MyCarFeatureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCarFeatureView.swift; sourceTree = "<group>"; };
+		D462E8DC2A93463A00C5A8EC /* CGRect+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+.swift"; sourceTree = "<group>"; };
 		D4A68CF72A808D6300E2C1FD /* OptionRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionRequestDTO.swift; sourceTree = "<group>"; };
 		D4A68CF92A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArchivingColorResponseDTO+Mapping.swift"; sourceTree = "<group>"; };
 		D4A68CFB2A80925400E2C1FD /* ArchivingOptionResponseDTO+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArchivingOptionResponseDTO+Mapping.swift"; sourceTree = "<group>"; };
@@ -548,6 +550,7 @@
 				7625A8002A8A26AA0060EEF5 /* String+.swift */,
 				76CA13B12A8E0135006C3106 /* UIViewController+.swift */,
 				76CA13B32A8E062B006C3106 /* NSAttributedString+.swift */,
+				D462E8DC2A93463A00C5A8EC /* CGRect+.swift */,
 			);
 			path = Global;
 			sourceTree = "<group>";
@@ -763,6 +766,7 @@
 				7631E95D2A891A7B00015363 /* OptionDescriptionCell.swift in Sources */,
 				D462E89D2A92428A00C5A8EC /* MyCarFeatureView.swift in Sources */,
 				76CA13B42A8E062B006C3106 /* NSAttributedString+.swift in Sources */,
+				D462E8DD2A93463A00C5A8EC /* CGRect+.swift in Sources */,
 				7631E94B2A8382E100015363 /* BaseMyCarViewController.swift in Sources */,
 				D44B45952A7CB9CA00E8E207 /* APIEndPoints.swift in Sources */,
 				D4A68D402A80F0EE00E2C1FD /* Color.swift in Sources */,
