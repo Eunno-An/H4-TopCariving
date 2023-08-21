@@ -71,6 +71,7 @@
 		D462E89C2A92428A00C5A8EC /* MyCarChoicedOptionItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8992A92428900C5A8EC /* MyCarChoicedOptionItemView.swift */; };
 		D462E89D2A92428A00C5A8EC /* MyCarFeatureView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E89A2A92428A00C5A8EC /* MyCarFeatureView.swift */; };
 		D462E8DD2A93463A00C5A8EC /* CGRect+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8DC2A93463A00C5A8EC /* CGRect+.swift */; };
+		D462E8E02A93A07A00C5A8EC /* MyCarivingCarSummaryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D462E8DF2A93A07A00C5A8EC /* MyCarivingCarSummaryView.swift */; };
 		D4A68CF82A808D6300E2C1FD /* OptionRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A68CF72A808D6300E2C1FD /* OptionRequestDTO.swift */; };
 		D4A68CFA2A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A68CF92A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift */; };
 		D4A68CFC2A80925400E2C1FD /* ArchivingOptionResponseDTO+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = D4A68CFB2A80925400E2C1FD /* ArchivingOptionResponseDTO+Mapping.swift */; };
@@ -206,6 +207,7 @@
 		D462E8992A92428900C5A8EC /* MyCarChoicedOptionItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCarChoicedOptionItemView.swift; sourceTree = "<group>"; };
 		D462E89A2A92428A00C5A8EC /* MyCarFeatureView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCarFeatureView.swift; sourceTree = "<group>"; };
 		D462E8DC2A93463A00C5A8EC /* CGRect+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGRect+.swift"; sourceTree = "<group>"; };
+		D462E8DF2A93A07A00C5A8EC /* MyCarivingCarSummaryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCarivingCarSummaryView.swift; sourceTree = "<group>"; };
 		D4A68CF72A808D6300E2C1FD /* OptionRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionRequestDTO.swift; sourceTree = "<group>"; };
 		D4A68CF92A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArchivingColorResponseDTO+Mapping.swift"; sourceTree = "<group>"; };
 		D4A68CFB2A80925400E2C1FD /* ArchivingOptionResponseDTO+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ArchivingOptionResponseDTO+Mapping.swift"; sourceTree = "<group>"; };
@@ -543,6 +545,7 @@
 				C3C96D4A2A8BC110002C09D2 /* SummaryCell.swift */,
 				76932D6F2A8C62670020860D /* ColorImageLabel.swift */,
 				76CA13AB2A8D2E30006C3106 /* SummaryColorCell.swift */,
+				D462E8DF2A93A07A00C5A8EC /* MyCarivingCarSummaryView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -748,6 +751,7 @@
 				D462E8122A88A3D700C5A8EC /* SubCategoryModalViewController.swift in Sources */,
 				D4A68D002A8093B200E2C1FD /* ModifyOptionResponseDTO+Mapping.swift in Sources */,
 				D462E8772A8DEBC000C5A8EC /* ChangeOptionButtonView.swift in Sources */,
+				D462E8E02A93A07A00C5A8EC /* MyCarivingCarSummaryView.swift in Sources */,
 				D4ACBA842A78CE62002B6A5B /* DummyViewController.swift in Sources */,
 				D462E7842A86918D00C5A8EC /* BaseOptionMainCategoryView.swift in Sources */,
 				C313500E2A7FB82B00D5D401 /* TappableView.swift in Sources */,

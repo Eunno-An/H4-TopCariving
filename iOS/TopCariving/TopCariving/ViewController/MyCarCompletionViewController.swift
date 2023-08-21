@@ -27,7 +27,6 @@ class MyCarCompletionViewController: BaseMyCarViewController {
     private var myCarChoicedOptionView = MyCarChoicedOptionView()
     private var anotherProcedureView = AnotherProcedureView()
     private let consultingView = ConsultingView()
-    private let footerView = MyCarFooterView()
     
     // MARK: - Properties
     
@@ -56,7 +55,7 @@ class MyCarCompletionViewController: BaseMyCarViewController {
     }
     
     // MARK: - Helpers
-    private func setUI() {
+    override func setUI() {
         view.backgroundColor = .white
         scrollView.translatesAutoresizingMaskIntoConstraints = false
         containerView.translatesAutoresizingMaskIntoConstraints = false
@@ -84,7 +83,7 @@ class MyCarCompletionViewController: BaseMyCarViewController {
             containerView.addSubview($0)
         }
     }
-    private func setLayout() {
+    override func setLayout() {
         let contentViewHeight = containerView.heightAnchor.constraint(greaterThanOrEqualTo: view.heightAnchor)
         contentViewHeight.priority = .defaultLow
         contentViewHeight.isActive = true
@@ -140,6 +139,5 @@ class MyCarCompletionViewController: BaseMyCarViewController {
     func setMyCarFeatureView(to data: MyCarCompletionModel) {
         myCarFeatureView.setSummaryContainerView(to: data.featureSummaryModel)
         myCarChoicedOptionView.setStackView(to: data.myCarChoicedOptionModel.myCarChoicedOptionItems)
-
     }
 }
