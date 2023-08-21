@@ -31,7 +31,7 @@ class MyCarFeatureView: UIView {
         setUI()
         setLayout()
     }
-    init(data: FeatureSummary) {
+    init(data: FeatureSummaryModel) {
         super.init(frame: .zero)
         setUI()
         setLayout()
@@ -58,7 +58,7 @@ class MyCarFeatureView: UIView {
             summaryContainerView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -15)
         ])
     }
-    func setSummaryContainerView(to data: FeatureSummary) {
+    func setSummaryContainerView(to data: FeatureSummaryModel) {
         summaryContainerView = FeatureSummaryContainerView(data: data)
     }
 }

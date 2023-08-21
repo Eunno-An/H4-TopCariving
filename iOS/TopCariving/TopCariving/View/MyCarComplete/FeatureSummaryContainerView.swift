@@ -7,7 +7,7 @@
 
 import UIKit
 
-struct FeatureSummary {
+struct FeatureSummaryModel {
     var trim: String
     var option: String
     var price: String
@@ -80,7 +80,7 @@ class FeatureSummaryContainerView: UIView {
         setLayout()
         test_data()
     }
-    init(data: FeatureSummary) {
+    init(data: FeatureSummaryModel) {
         super.init(frame: .zero)
         setUI()
         setLayout()
@@ -152,7 +152,7 @@ class FeatureSummaryContainerView: UIView {
     func setPrice(to price: String) {
         self.price.text = price
     }
-    func setFeatureSummaryView(to data: FeatureSummary) {
+    func setFeatureSummaryView(to data: FeatureSummaryModel) {
         setTrim(to: data.trim)
         setOption(to: data.option)
         setPrice(to: data.price)

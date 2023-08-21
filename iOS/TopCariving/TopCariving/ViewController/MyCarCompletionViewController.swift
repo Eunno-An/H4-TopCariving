@@ -114,7 +114,7 @@ class MyCarCompletionViewController: BaseMyCarViewController {
             footerView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.365)
         ])
     }
-    func setMyCarFeatureView(to data: FeatureSummary) {
+    func setMyCarFeatureView(to data: FeatureSummaryModel) {
         myCarFeatureView = MyCarFeatureView(data: data)
     }
 }
