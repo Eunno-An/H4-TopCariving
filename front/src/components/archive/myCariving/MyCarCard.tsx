@@ -27,18 +27,23 @@ interface CreatedCarInterface {
   complete: boolean;
 }
 
-export const MyCarCard = ({ info }: { info: CreatedCarInterface }) => {
+export const MyCarCard = ({
+  info,
+  deletedCarId,
+}: {
+  info: CreatedCarInterface;
+  deletedCarId: (archivingId: number) => void;
+}) => {
   const { openAlert, closeAlert } = useAlert();
 
   const closeModal = async (archivingId: number) => {
-    console.log(archivingId);
+    deletedCarId(archivingId);
     await apiInstance({
       url: `${MyArchiveUrl.DELETE_CARS}/${archivingId}`,
       method: 'DELETE',
     });
 
     closeAlert();
-    location.reload();
   };
 
   const onDeleteHandler = (archivingId: number) => {

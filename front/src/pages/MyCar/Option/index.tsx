@@ -15,7 +15,6 @@ import vector478 from '@assets/images/Vector 478.svg';
 import { useLoaderData } from 'react-router-dom';
 import { apiInstance } from '@utils/api';
 import { optionInfoInterface } from '@interface/index';
-import { ArchivePopup } from '@components/common/ArchivePopup';
 
 const defaultCategoryList = [
   '파워트레인/성능',
