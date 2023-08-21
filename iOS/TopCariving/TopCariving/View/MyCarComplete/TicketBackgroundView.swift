@@ -6,7 +6,9 @@
 //
 
 import UIKit
-
+struct TicketBackgroundModel {
+    var imageName: String
+}
 class TicketBackgroundView: TicketView {
     // MARK: - UI properties
     private var title: UILabel = {
@@ -45,6 +47,22 @@ class TicketBackgroundView: TicketView {
     // MARK: - Properties
     
     // MARK: - Lifecycles
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setUI()
+        setLayout()
+    }
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setUI()
+        setLayout()
+    }
+    init(ticketBackground: TicketBackgroundModel) {
+        super.init(frame: .zero)
+        setData(to: ticketBackground)
+        setUI()
+        setLayout()
+    }
     override func layoutSubviews() {
         drawTicket(holeYPosition: 70)
         setUI()
@@ -82,5 +100,12 @@ class TicketBackgroundView: TicketView {
             carImage.leadingAnchor.constraint(equalTo: leadingAnchor),
             carImage.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
+    }
+    func setCarImage(to name: String) {
+        carImage.image = UIImage(named: "image 31")
+        // 이미지서비스로 변경
+    }
+    func setData(to data: TicketBackgroundModel) {
+        setCarImage(to: data.imageName)
     }
 }
