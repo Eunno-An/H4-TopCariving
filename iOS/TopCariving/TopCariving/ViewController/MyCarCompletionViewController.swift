@@ -7,6 +7,11 @@
 
 import UIKit
 
+struct MyCarCompletionModel {
+    var featureSummaryModel: FeatureSummaryModel
+    var myCarChoicedOptionModel: MyCarChoicedOptionModel
+}
+
 class MyCarCompletionViewController: BaseMyCarViewController {
     // MARK: - UI properties
     private let scrollView = UIScrollView()
@@ -23,9 +28,27 @@ class MyCarCompletionViewController: BaseMyCarViewController {
     private var anotherProcedureView = AnotherProcedureView()
     private let consultingView = ConsultingView()
     private let footerView = MyCarFooterView()
+    
     // MARK: - Properties
     
     // MARK: - Lifecycles
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+        setUI()
+        setLayout()
+    }
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        setUI()
+        setLayout()
+    }
+    init(myCarCompletionModel: MyCarCompletionModel) {
+        super.init(nibName: nil, bundle: nil)
+        setMyCarFeatureView(to: myCarCompletionModel)
+        setUI()
+        setLayout()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUI()
@@ -114,7 +137,9 @@ class MyCarCompletionViewController: BaseMyCarViewController {
             footerView.heightAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.365)
         ])
     }
-    func setMyCarFeatureView(to data: FeatureSummaryModel) {
-        myCarFeatureView = MyCarFeatureView(data: data)
+    func setMyCarFeatureView(to data: MyCarCompletionModel) {
+        myCarFeatureView.setSummaryContainerView(to: data.featureSummaryModel)
+        myCarChoicedOptionView.setStackView(to: data.myCarChoicedOptionModel.myCarChoicedOptionItems)
+
     }
 }

@@ -7,6 +7,10 @@
 
 import UIKit
 
+struct MyCarChoicedOptionModel {
+    var myCarChoicedOptionItems: [MyCarChoicedOptionItemModel]
+}
+
 class MyCarChoicedOptionView: UIView {
     // MARK: - UI properties
     private var title: UILabel = {
@@ -30,30 +34,29 @@ class MyCarChoicedOptionView: UIView {
         return stackView
     }()
     // MARK: - Properties
-    private var itemWidth: CGFloat = .zero
     
     // MARK: - Lifecycles
     override init(frame: CGRect) {
         super.init(frame: frame)
-        setItemWidth()
-        test_injectMock()
         setUI()
         setLayout()
-        setTitle(to: stackView.arrangedSubviews.count)
+        setTitle()
     }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
-        setItemWidth()
-        test_injectMock()
         setUI()
         setLayout()
-        setTitle(to: stackView.arrangedSubviews.count)
+        setTitle()
+    }
+    init(myCarChoicedOptionModel: MyCarChoicedOptionModel) {
+        super.init(frame: .zero)
+        setStackView(to: myCarChoicedOptionModel.myCarChoicedOptionItems)
+        setTitle()
+        setUI()
+        setLayout()
     }
     
     // MARK: - Helpers
-    private func setItemWidth() {
-        itemWidth = (window?.windowScene?.screen.bounds.width ?? 352) - 16*2
-    }
     private func setUI() {
         addSubview(title)
         addSubview(separator)
@@ -67,7 +70,7 @@ class MyCarChoicedOptionView: UIView {
             title.leadingAnchor.constraint(equalTo: leadingAnchor),
             
             separator.heightAnchor.constraint(equalToConstant: 1),
-            separator.widthAnchor.constraint(equalToConstant: itemWidth),
+            separator.widthAnchor.constraint(equalToConstant: CGRect.screenBounds.width - 16*2),
             separator.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 16),
             separator.leadingAnchor.constraint(equalTo: leadingAnchor),
             
@@ -75,29 +78,13 @@ class MyCarChoicedOptionView: UIView {
             stackView.leadingAnchor.constraint(equalTo: leadingAnchor)
         ])
     }
-    private func test_injectMock() {
-        for _ in 0..<5 {
-            stackView.addArrangedSubview(
-                MyCarChoicedOptionItemView(
-                    data: MyCarChoicedOptionItemModel(
-                        imageName: "ChoicedOptionItem",
-                        intrinsicSize: .init(width: itemWidth, height: 103),
-                        optionName: "컴포트 ||",
-                        optionPrice: "1,090,000원",
-                        optionDetail: "후석 승객 알림 / 메탈 리어범퍼스텝 / 메탈 도어스커프 / 3열 파워폴딩시트 / 3열 열선시트 / 헤드업 디스틀레이"
-                    )
-                )
-            )
-            stackView.addArrangedSubview(separator)
-        }
-    }
     func setStackView(to data: [MyCarChoicedOptionItemModel]) {
         for idx in 0..<data.count {
             stackView.addArrangedSubview(MyCarChoicedOptionItemView(data: data[idx]))
-            stackView.addArrangedSubview(separator)
         }
+        setTitle()
     }
-    func setTitle(to number: Int) {
-        title.text = "선택옵션 " + String(number) + "개"
+    private func setTitle() {
+        title.text = "선택옵션 " + String(stackView.arrangedSubviews.count) + "개"
     }
 }

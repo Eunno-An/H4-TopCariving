@@ -85,9 +85,21 @@ class ViewController: BaseMyCarViewController {
         }
         footerView.tapNextButton.sink(receiveValue: { [weak self] in
             guard let self else { return }
-            self.navigationController?.pushViewController(MyCarCompletionViewController(), animated: true)
+            self.navigationController?.pushViewController(MyCarCompletionViewController(myCarCompletionModel: test_makeMockData()), animated: true)
         })
         .store(in: &bag)
     }
     
+    func test_makeMockData() -> MyCarCompletionModel {
+        var choicedOptionItems = test_makeChoicedOptionItemsData(with: 2)
+        var myCarCompletionModel = MyCarCompletionModel(featureSummaryModel: FeatureSummaryModel(trim: "펠리세이드 Le Blanc(르블랑)", option: "디젤 2.2 / 4WD / 7인승", price: "47,340,000원", colors: [("red", "문라이트 블루펄"), ("red", "퀄팅 천연(블랙)")]), myCarChoicedOptionModel: MyCarChoicedOptionModel(myCarChoicedOptionItems: choicedOptionItems))
+        return myCarCompletionModel
+    }
+    func test_makeChoicedOptionItemsData(with number: Int) -> [MyCarChoicedOptionItemModel] {
+        var ret: [MyCarChoicedOptionItemModel] = []
+        for _ in 0..<number {
+            ret.append(MyCarChoicedOptionItemModel(imageName: "ChoicedOptionItem", intrinsicSize: .init(width: CGRect.screenBounds.width - 16*2, height: 103), optionName: "컴포트 ||", optionPrice: "1,090,000원", optionDetail: "후석 승객 알림 / 메탈 리어범퍼스텝 / 메탈 도어스커프 / 3열 파워폴딩시트 / 3열 열선시트 / 헤드업 디스틀레이"))
+        }
+        return ret
+    }
 }
