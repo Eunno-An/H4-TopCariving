@@ -128,11 +128,12 @@ class LoginViewController: UIViewController {
                 guard let self else { return }
                 Task {
                     do {
+                        _ = KeyChain.deleteStringFromKeychain(key: "accessToken")
+                        _ = KeyChain.deleteStringFromKeychain(key: "refreshToken")
                         let isLoginFinish = try await LoginService().emailLogin(
                             url: URL(string: "https://dev.topcariving.com/login")!,
-                            loginInfo: .init(email: "mg@gmail.com", password: "1234")
+                            loginInfo: .init(email: idTextField.text ?? "", password: passwordLabel.text ?? "") //
                         )
-                        print(isLoginFinish)
                     } catch {
                         print(error.localizedDescription)
                     }
