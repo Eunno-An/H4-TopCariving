@@ -134,7 +134,7 @@ class LoginViewController: UIViewController {
                             url: URL(string: "https://dev.topcariving.com/login")!,
                             loginInfo: .init(
                                 email: self.idTextField.text ?? "",
-                                password: self.passwordLabel.text ?? ""
+                                password: self.passwordTextField.text ?? ""
                             )
                         )
                     } catch {
