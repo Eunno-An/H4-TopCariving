@@ -126,7 +126,14 @@ class LoginViewController: UIViewController {
         loginButton.touchUpPublisher
             .sink(receiveValue: { [weak self] in
                 guard let self else { return }
-                print((self.idTextField.text, self.passwordTextField.text))
+                Task {
+                    let loginInfo = try await LoginService.shared.login(
+                        url: URL(string: "https://dev.topcariving.com/login")!,
+                        loginInfo: .init(email: "mg@gmail.com", password: "1234", accessToken: "")
+                    )
+                    print(loginInfo.accessToken)
+                    print(loginInfo.refreshToken)
+                }
                 self.view.endEditing(true)
             })
             .store(in: &bag)

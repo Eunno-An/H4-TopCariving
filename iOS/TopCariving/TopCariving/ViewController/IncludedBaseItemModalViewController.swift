@@ -230,7 +230,7 @@ extension IncludedBaseItemModalViewController: UITableViewDelegate {
         
         mergedPublishers.sink { [weak self, weak sectionHeader] _ in
             guard let self = self, let sectionHeader = sectionHeader else {
-                print("NONO")
+                // login rogic
                 return
             }
             hideSection(sender: sectionHeader)
