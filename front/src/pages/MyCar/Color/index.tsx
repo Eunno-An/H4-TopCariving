@@ -13,8 +13,9 @@ import {
   exteriorColorResponseInterface,
   interiorColorResponseInterface,
 } from './interface';
-import { useLoaderData } from 'react-router-dom';
 import { ArchivePopup } from '@components/common/ArchivePopup';
+import { ColorUrl } from '@utils/api';
+import { useSuspenseFetch } from '@hooks/useSuspenseFetch';
 
 export const colorPath = {
   어비스블랙펄: 'black',
@@ -27,7 +28,7 @@ export const colorPath = {
 
 const Color = () => {
   const { myCarInfo, setMyCarInfo } = useMyCar();
-  const colorInfo = useLoaderData() as colorInfoInterface;
+  const colorInfo = useSuspenseFetch(ColorUrl.BOTH) as colorInfoInterface;
 
   const [isLastClick, setIsLastClick] = useState<{
     key: keyof colorInfoInterface;

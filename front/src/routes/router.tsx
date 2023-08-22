@@ -12,7 +12,6 @@ import Complete from '@pages/MyCar/Complete';
 
 import {
   OptionUrl,
-  ColorUrl,
   TrimUrl,
   apiInstance,
   Summary,
@@ -23,7 +22,6 @@ import { myCarOptionInterface } from '@interface/index';
 import { ArchiveDetail } from '@pages/Archive/detail';
 import { Archive } from '@pages/Archive';
 import { ArchiveMain, archiveMainInterface } from '@pages/Archive/main';
-import { colorInfoInterface } from '@pages/MyCar/Color/interface';
 import { MyCariving } from '@pages/Archive/mycariving';
 import { getArchivingId } from '@components/myCar';
 import { OauthRedirect } from '@pages/Login/oauthRedirect';
@@ -80,12 +78,6 @@ export const router = createBrowserRouter([
       {
         path: 'color',
         element: <Color />,
-        loader: async () => {
-          return (await apiInstance({
-            url: ColorUrl.BOTH,
-            method: 'GET',
-          })) as colorInfoInterface;
-        },
       },
       {
         path: 'option',
