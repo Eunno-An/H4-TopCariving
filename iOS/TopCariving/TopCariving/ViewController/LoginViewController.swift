@@ -137,9 +137,8 @@ class LoginViewController: UIViewController {
                                 password: self.passwordLabel.text ?? ""
                             )
                         )
-                        print(isLoginFinish)
                     } catch {
-                        print(error.localizedDescription)
+                        NSLog(error.localizedDescription)
                     }
                 }
                 self.view.endEditing(true)

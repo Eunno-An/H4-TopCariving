@@ -143,7 +143,7 @@ class LoginService {
                     if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                         if let accessToken = jsonResponse["accessToken"] as? String,
                            let refreshToken = jsonResponse["refreshToken"] as? String {
-                            print("reIssue Ok")
+                            NSLog("reIssue Ok")
                             _ = KeyChain.saveStringToKeychain(value: accessToken, key: "accessToken")
                             _ = KeyChain.saveStringToKeychain(value: refreshToken, key: "refreshToken")
                             continuation.resume(returning: .success)

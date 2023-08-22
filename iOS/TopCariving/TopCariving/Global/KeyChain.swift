@@ -19,7 +19,6 @@ enum KeyChain {
             let status = SecItemAdd(query as CFDictionary, nil)
             return status == errSecSuccess
         }
-        
         return false
     }
     static func getStringFromKeychain(key: String) -> String? {
