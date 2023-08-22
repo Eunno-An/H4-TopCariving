@@ -5,23 +5,15 @@
 //  Created by Eunno An on 2023/08/21.
 //
 
+import Combine
 import UIKit
 
-struct CarImagePoint {
-    var point: (CGFloat, CGFloat)
-    var isBookmarked: Bool
-    var imageUrl: String
-}
-struct CarImagePoints {
-    var numberPositions: [CarImagePoint]
-}
+typealias Position = (CGFloat, CGFloat)
+
 struct MyCarivingCarSummaryModel {
-    var carImage: String
-    var trim: String
-    var optionName: String
-    var price: String
-    var numberPositions: CarImagePoints
-    var colorInfo: [(String, String)]
+    var featureSummary: FeatureSummaryModel
+    var points: [CarImagePoint]
+    var positions: [Position]
 }
 
 class MyCarivingCarSummaryView: UIView {
@@ -43,7 +35,7 @@ class MyCarivingCarSummaryView: UIView {
     private let featureContainerView = FeatureSummaryContainerView()
     
     // MARK: - Properties
-    
+    private var bag = Set<AnyCancellable>()
     // MARK: - Lifecycles
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -54,6 +46,12 @@ class MyCarivingCarSummaryView: UIView {
         super.init(coder: coder)
         setUI()
         setLayout()
+    }
+    init(data: MyCarivingCarSummaryModel) {
+        super.init(frame: .zero)
+        setUI()
+        setLayout()
+        setMyCarivingView(to: data)
     }
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -95,5 +93,49 @@ class MyCarivingCarSummaryView: UIView {
     func setFeatureContainerView(to data: FeatureSummaryModel) {
         featureContainerView.setFeatureSummaryView(to: data)
     }
-    func setCarImagePointViews()
+    func setCarImagePointViews(points: [CarImagePoint], positions: [Position]) {
+        let testPoints = make_test_points(with: 3)
+        let testPositions = make_test_positions(with: 3)
+        for idx in 0..<testPoints.count {
+            let point = testPoints[idx]
+            let position = testPositions[idx]
+            
+            let posX = (position.0 * (CGRect.screenBounds.width - 16 * 2))
+            let posY = (position.1 * 190)
+            let carImagePointView = CarImagePointView(point: point)
+            
+            carImagePointView.tabPublisher.sink { _ in
+                carImagePointView.clickToggle()
+            }.store(in: &bag)
+            carImagePointView.translatesAutoresizingMaskIntoConstraints = false
+            
+            addSubview(carImagePointView)
+            
+            NSLayoutConstraint.activate([
+                carImagePointView.heightAnchor.constraint(equalToConstant: 22),
+                carImagePointView.widthAnchor.constraint(equalToConstant: 22),
+                carImagePointView.topAnchor.constraint(equalTo: carImage.topAnchor, constant: posY),
+                carImagePointView.leadingAnchor.constraint(equalTo: carImage.leadingAnchor, constant: posX)
+            ])
+        }
+    }
+    private func make_test_points(with number: Int) -> [CarImagePoint] {
+        var ret: [CarImagePoint] = []
+        for num in 1...number {
+            ret.append(CarImagePoint(number: UInt8(num), isBookmarked: false))
+        }
+        return ret
+    }
+    private func make_test_positions(with number: Int) -> [Position] {
+        var ret: [Position] = []
+        for _ in 1...number {
+            let randomPos = (CGFloat.random(in: 0.2..<0.8), CGFloat.random(in: 0.2..<0.8))
+            ret.append(randomPos)
+        }
+        return ret
+    }
+    func setMyCarivingView(to data: MyCarivingCarSummaryModel) {
+        setFeatureContainerView(to: data.featureSummary)
+        setCarImagePointViews(points: data.points, positions: data.positions)
+    }
 }
