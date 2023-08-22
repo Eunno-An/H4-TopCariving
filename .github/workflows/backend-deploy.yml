@@ -39,10 +39,6 @@ jobs:
         run: ./gradlew clean build -Pjasypt.password='${{ secrets.JASYPT_SECRET }}'
         working-directory: ./backend
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
       - name: Deploy Prod use SCP For Main Server
         uses: appleboy/scp-action@master
         with:
@@ -74,10 +70,6 @@ jobs:
             cd ~/deploy/
             ./deploy_zero_down.sh
 
-  send-result:
-    needs: deploy
-    runs-on: ubuntu-latest
-    steps:
       - name: Commit 메시지에서 개행문자 분리
         id: extract_message
         run: |
