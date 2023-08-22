@@ -41,6 +41,7 @@ class TicketBackgroundView: TicketView {
     private var carImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "image 31")
+        imageView.contentMode = .scaleAspectFit
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()

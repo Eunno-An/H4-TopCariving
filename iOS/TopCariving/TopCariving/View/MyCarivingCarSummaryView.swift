@@ -30,12 +30,14 @@ class MyCarivingCarSummaryView: UIView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "image_001")
+        imageView.contentMode = .scaleAspectFit
         return imageView
     }()
     private let featureContainerView = FeatureSummaryContainerView()
     
     // MARK: - Properties
     private var bag = Set<AnyCancellable>()
+    
     // MARK: - Lifecycles
     override init(frame: CGRect) {
         super.init(frame: frame)
