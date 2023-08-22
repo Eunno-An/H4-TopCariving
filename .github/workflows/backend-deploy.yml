@@ -40,6 +40,7 @@ jobs:
         working-directory: ./backend
 
   deploy:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Deploy Prod use SCP For Main Server
@@ -74,6 +75,7 @@ jobs:
             ./deploy_zero_down.sh
 
   send-result:
+    needs: deploy
     runs-on: ubuntu-latest
     steps:
       - name: Commit 메시지에서 개행문자 분리
