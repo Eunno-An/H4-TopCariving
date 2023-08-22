@@ -1,6 +1,5 @@
 package com.backend.topcariving.global.auth.service;
 
-import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.UUID;
 
@@ -10,9 +9,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
-import com.backend.topcariving.global.auth.entity.AuthInfo;
-import com.backend.topcariving.global.auth.repository.AuthInfoRepository;
 import com.backend.topcariving.global.auth.exception.InvalidTokenException;
+import com.backend.topcariving.global.auth.repository.AuthInfoRepository;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -78,13 +76,5 @@ public class TokenProvider {
 			.setSigningKey(SECRET_KEY)
 			.build()
 			.parseClaimsJws(token);
-	}
-
-	public void verifyExpiredTime(AuthInfo authInfo) {
-		final LocalDateTime expiredTime = authInfo.getExpiredTime();
-		if (expiredTime.isBefore(LocalDateTime.now())) {
-			authInfoRepository.deleteById(authInfo.getAuthInfoId());
-			throw new InvalidTokenException();
-		}
 	}
 }

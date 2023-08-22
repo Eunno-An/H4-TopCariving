@@ -38,7 +38,6 @@ export const ArchiveUrl = {
 };
 
 export const MyArchiveUrl = {
-  CREATED_CARS: '/api/archiving/created-cars?pageNumber=1&pageSize=8',
-  DELETE_CARS: '/api/archiving/created-cars',
-  REVERT: '/api/archiving/created-cars',
+  CREATED_CARS: '/api/archiving/created-cars',
+  FEED: '/api/archiving/feeds',
 };

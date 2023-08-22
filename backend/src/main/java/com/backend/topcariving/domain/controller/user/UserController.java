@@ -66,12 +66,7 @@ public class UserController {
 	@GetMapping("/logout")
 	@Operation(summary = "로그아웃", description = "로그아웃을 수행하고, ")
 	@SecurityRequirement(name = "Authorization")
-	public ResponseEntity<Void> logout(@Parameter(hidden = true) @Login Long userId) {
+	public void logout(@Parameter(hidden = true) @Login Long userId) {
 		oAuthService.logout(userId);
-
-		HttpHeaders headers = new HttpHeaders();
-		headers.set("Location", MAIN_URI);
-
-		return new ResponseEntity<>(headers, HttpStatus.FOUND);
 	}
 }

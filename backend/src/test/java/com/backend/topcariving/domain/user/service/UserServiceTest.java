@@ -15,6 +15,8 @@ import com.backend.topcariving.domain.exception.UserNotFoundException;
 import com.backend.topcariving.domain.service.user.UserService;
 import com.backend.topcariving.global.auth.dto.LoginRequestDTO;
 import com.backend.topcariving.domain.entity.user.User;
+import com.backend.topcariving.global.auth.entity.AuthInfo;
+import com.backend.topcariving.global.auth.entity.enums.LoginType;
 import com.backend.topcariving.global.auth.repository.AuthInfoRepository;
 import com.backend.topcariving.domain.repository.user.UserRepository;
 import com.backend.topcariving.global.auth.dto.TokenDTO;
@@ -38,7 +40,7 @@ class UserServiceTest {
 	@Test
 	void 로그인_시_액세스_토큰이_발급되어야_한다() {
 		// given
-		final User user = new User(1L, "이름", "이메일", "패스워드");
+		final User user = new User(1L, "이름", "이메일", "패스워드", LoginType.LOCAL);
 		given(userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword()))
 			.willReturn(Optional.of(user));
 
@@ -51,8 +53,9 @@ class UserServiceTest {
 		given(tokenProvider.createRefreshToken())
 			.willReturn(refreshToken);
 
-		given(authInfoRepository.findByUserId(user.getUserId()))
-			.willReturn(Optional.empty());
+		given(authInfoRepository.save(any(AuthInfo.class)))
+			.willReturn(null);
+
 
 		// when
 		final TokenDTO token = userService.login(loginRequestDTO);
@@ -65,7 +68,7 @@ class UserServiceTest {
 	@Test
 	void 유저_정보가_없을_경우_예외를_던져야_한다() {
 		// given
-		final User user = new User(1L, "이름", "이메일", "패스워드");
+		final User user = new User(1L, "이름", "이메일", "패스워드", LoginType.LOCAL);
 		given(userRepository.findByEmailAndPassword(user.getEmail(), user.getPassword()))
 			.willReturn(Optional.empty());
 

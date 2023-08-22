@@ -1,6 +1,7 @@
 package com.backend.topcariving.domain.service.option;
 
 import static com.backend.topcariving.domain.entity.option.enums.Category.*;
+import static com.backend.topcariving.domain.entity.option.enums.ExteriorColor.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,6 +19,8 @@ import com.backend.topcariving.domain.dto.option.response.estimation.SummaryResp
 import com.backend.topcariving.domain.entity.archive.MyCar;
 import com.backend.topcariving.domain.entity.option.CarOption;
 import com.backend.topcariving.domain.entity.option.enums.Category;
+import com.backend.topcariving.domain.entity.option.enums.CategoryDetail;
+import com.backend.topcariving.domain.exception.InvalidArchivingIdException;
 import com.backend.topcariving.domain.repository.archive.MyCarRepository;
 import com.backend.topcariving.domain.repository.option.CarOptionRepository;
 import com.backend.topcariving.global.utils.Validator;
@@ -40,10 +43,14 @@ public class EstimationService {
 		final List<OptionSummaryDTO> optionSummaryDTOs = myCarRepository.findOptionSummaryByArchivingId(
 			archivingId);
 
+		CarOption colorOption = carOptionRepository.findByArchivingIdAndCategoryDetail(archivingId, CategoryDetail.EXTERIOR_COLOR)
+			.orElseThrow(InvalidArchivingIdException::new);
+		String photoUrl = getPhotoUrl(colorOption.getCarOptionId());
+
 		Map<String, List<OptionSummaryDTO>> result = convertToOptionSummaryMap(
 			optionSummaryDTOs);
 
-		return new SummaryResponseDTO(result);
+		return new SummaryResponseDTO(photoUrl, result);
 	}
 
 	@Transactional

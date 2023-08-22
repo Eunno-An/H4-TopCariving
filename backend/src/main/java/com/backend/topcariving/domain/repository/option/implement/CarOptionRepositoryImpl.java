@@ -95,6 +95,20 @@ public class CarOptionRepositoryImpl implements CarOptionRepository {
 		return jdbcTemplate.query(sql, (rs, rowNum) -> rs.getString("option_name"), carOptionId);
 	}
 
+	@Override
+	public Optional<CarOption> findByArchivingIdAndCategoryDetail(Long archivingId, CategoryDetail categoryDetail) {
+		String sql = "SELECT * FROM CAR_OPTION CO "
+			+ "INNER JOIN MY_CAR MC ON CO.car_option_id = MC.car_option_id "
+			+ "INNER JOIN CAR_ARCHIVING CA on MC.archiving_id = CA.archiving_id "
+			+ "WHERE MC.archiving_id = ? AND category_detail = ?;";
+
+		List<CarOption> results = jdbcTemplate.query(sql, carOptionRowMapper(), archivingId, categoryDetail.getName());
+
+		if (results.isEmpty())
+			return Optional.empty();
+		return Optional.ofNullable(results.get(0));
+	}
+
 	private RowMapper<CarOption> carOptionRowMapper() {
 		return (rs, rowNum) -> new CarOption(
 			rs.getLong("car_option_id"),

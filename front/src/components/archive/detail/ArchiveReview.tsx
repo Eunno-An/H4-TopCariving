@@ -10,9 +10,6 @@ export const ArchiveReview = ({
   detailInfo,
   optionDetail,
 }: ArchiveDetailPageProps) => {
-  console.log(detailInfo);
-  console.log(optionDetail);
-
   return (
     <Flex direction="column" height={200} backgroundColor="LightSand">
       <CarInfo

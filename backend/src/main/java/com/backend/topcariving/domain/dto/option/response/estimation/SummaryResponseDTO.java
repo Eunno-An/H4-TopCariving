@@ -11,6 +11,8 @@ import lombok.Getter;
 @Getter
 @Schema(description = "견적 요약 보기에 표시되는 항목들, key-value로 매칭되어있음")
 public class SummaryResponseDTO {
+	
+	private String photoUrl;
 
 	private Map<String, List<OptionSummaryDTO>> options;
 }

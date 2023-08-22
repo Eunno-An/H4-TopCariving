@@ -1,23 +1,34 @@
 import { useNavigate } from 'react-router-dom';
 import { Button } from '.';
 import { useAlert } from '@contexts/AlertContext';
-import { LoginUrl, apiInstance } from '@utils/api';
+import { LoginUrl, token } from '@utils/api';
 import styled from '@emotion/styled';
 import { theme } from '@styles/theme';
+
+const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
 export const LogoutButton = () => {
   const { openAlert, closeAlert } = useAlert();
   const navigate = useNavigate();
+
   const confirmLogout = async () => {
-    await apiInstance({
-      url: `${LoginUrl.LOGOUT}`,
+    const data = await fetch(`${SERVER_URL}${LoginUrl.LOGOUT}`, {
       method: 'GET',
+      headers: {
+        Authorization: `Bearer ${token.accessToken}`,
+      },
+      credentials: 'include',
+    }).then((res) => {
+      return res;
     });
-    closeAlert();
-    sessionStorage.clear();
-    localStorage.clear();
-    navigate('/');
+
+    if (data) {
+      localStorage.clear();
+      closeAlert();
+      navigate('/');
+    }
   };
+
   const onClickLogout = () => {
     openAlert({
       newContent: ['로그아웃 하시겠어요?'],

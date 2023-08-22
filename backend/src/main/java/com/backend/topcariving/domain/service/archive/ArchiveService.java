@@ -2,6 +2,7 @@ package com.backend.topcariving.domain.service.archive;
 
 import static com.backend.topcariving.domain.entity.archive.enums.ArchivingType.*;
 import static com.backend.topcariving.domain.entity.option.enums.CategoryDetail.*;
+import static com.backend.topcariving.domain.entity.option.enums.ExteriorColor.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -120,6 +121,10 @@ public class ArchiveService {
 		List<CarOption> carOptions = carOptionRepository.findByArchivingId(archivingId);
 		int totalPrice = carOptions.stream().mapToInt(CarOption::getPrice).sum();
 
+		CarOption colorOption = carOptionRepository.findByArchivingIdAndCategoryDetail(archivingId, EXTERIOR_COLOR)
+			.orElseThrow(InvalidArchivingIdException::new);
+		String photoUrl = getPhotoUrl(colorOption.getCarOptionId());
+
 		List<PositionDTO> positions = createPositionDTO(carOptions);
 
 		Optional<Bookmark> bookmark = bookmarkRepository.findByUserIdAndArchivingId(userId, archivingId);
@@ -130,7 +135,7 @@ public class ArchiveService {
 		CarReview carReview = carReviewRepository.findByArchivingId(archivingId).orElse(null);
 		List<TagResponseDTO> tags = tagReviewRepository.findTagResponseDTOByArchivingId(archivingId);
 
-		return ArchiveDetailResponseDTO.of(carArchiving, totalPrice, positions, isBookmarked, optionDetailDTOs, carReview, tags);
+		return ArchiveDetailResponseDTO.of(carArchiving, totalPrice, photoUrl, positions, isBookmarked, optionDetailDTOs, carReview, tags);
 	}
 
 	private List<PositionDTO> createPositionDTO(List<CarOption> carOptions) {
@@ -277,10 +282,12 @@ public class ArchiveService {
 		return result;
 	}
 
+	@Transactional
 	public Long deleteMyArchiving(Long userId, Long archivingId) {
 		return toggleMyArchiving(false, userId, archivingId);
 	}
 
+	@Transactional
 	public Long restoreMyArchiving(Long userId, Long archivingId) {
 		return toggleMyArchiving(true, userId, archivingId);
 	}

@@ -1,12 +1,15 @@
 import { Button, Flex, masonryLayout } from '@components/common';
 import styled from '@emotion/styled';
 import { MyCarCard } from './MyCarCard';
-import { FeedSaveCard } from '.';
 import revertIcon from '@assets/images/revertIcon.svg';
 import { css } from '@emotion/react';
 import { useEffect, useRef, useState } from 'react';
 import { MyArchiveUrl, apiInstance } from '@utils/api';
 import { MenuName, OptionMenu } from '@pages/MyCar/Option';
+import { archiveSearchResponsesInterface } from '@pages/Archive/main';
+import { ArchiveCard } from '../main';
+import { useNavigate } from 'react-router-dom';
+import { useToast } from '@contexts/ToastContext';
 
 export interface createdMyCarInterface {
   archivingId: number;
@@ -30,43 +33,75 @@ const cateName = {
 };
 
 export const MyCarList = () => {
-  const [isRemoved, setIsRemoved] = useState(false);
+  const [pageNum, setPageNum] = useState(0);
   const [removedId, setRemovedId] = useState<number>(-1);
+  const [removedCar, setRemovedCar] = useState<createdMyCarInterface[]>([]);
   const [createCar, setCreateCar] = useState<createdMyCarInterface[]>([]);
+  const [bookmarkCar, setBookmarkCar] = useState<
+    archiveSearchResponsesInterface[]
+  >([]);
   const [selectedMenu, setSelectedMenu] = useState('내가 만든 차량 목록');
 
+  const getCreatedCar = async () => {
+    const data = await apiInstance({
+      url: `${MyArchiveUrl.CREATED_CARS}?pageNumber=${pageNum + 1}&pageSize=8`,
+      method: 'GET',
+    });
+    setCreateCar([...data]);
+  };
+
+  const getBookMarkCar = async () => {
+    const data = (await apiInstance({
+      url: `${MyArchiveUrl.FEED}?pageNumber=${pageNum + 1}&pageSize=8`,
+      method: 'GET',
+    })) as archiveSearchResponsesInterface[];
+    setBookmarkCar(data);
+  };
+
+  const { openToast } = useToast();
+
   const deletedCar = (archivingId: number) => {
-    setIsRemoved(true);
+    openToast({
+      newContent: '삭제되었어요. 되돌리기를 누르면 취소할 수 있어요.',
+    });
+    setRemovedCar([...createCar]);
+    setCreateCar((it) => it.filter((item) => item.archivingId !== archivingId));
     setRemovedId(archivingId);
   };
 
-  const revertDataFromServer = async () => {
+  const revertDeletedCar = async () => {
     if (removedId !== -1) {
       await apiInstance({
-        url: `${MyArchiveUrl.REVERT}/${removedId}`,
+        url: `${MyArchiveUrl.CREATED_CARS}/${removedId}`,
         method: 'POST',
       });
+      openToast({ newContent: '삭제가 취소되었어요.' });
+      setCreateCar([...removedCar]);
+      setRemovedCar([]);
+      setRemovedId(-1);
     }
-
-    setIsRemoved(false);
-    setRemovedId(-1);
   };
 
-  useEffect(() => {
-    const newCreatedCar = async () => {
-      return await apiInstance({
-        url: MyArchiveUrl.CREATED_CARS,
-        method: 'GET',
-      });
-    };
-    newCreatedCar().then((data) => setCreateCar(data));
-    setIsRemoved(false);
-  }, [isRemoved, removedId]);
+  const navigate = useNavigate();
+  const onMoveDetail = (archivindId: number) => {
+    // e.stopPropagation(); // 이벤트 전파 막기
+    navigate(`/archive/detail?id=${archivindId}`);
+  };
 
   const masonryRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     masonryLayout({ element: masonryRef });
-  }, [isRemoved, removedId]);
+  }, [selectedMenu, createCar, bookmarkCar]);
+
+  useEffect(() => {
+    getBookMarkCar();
+  }, [removedId, pageNum]);
+
+  useEffect(() => {
+    if (createCar.length <= 4) {
+      getCreatedCar();
+    }
+  }, [createCar]);
 
   return (
     <Flex direction="column" justify="flex-start" gap={30}>
@@ -83,6 +118,7 @@ export const MyCarList = () => {
             onClick={() => {
               if (selectedMenu !== cateName.myCar) {
                 setSelectedMenu(cateName.myCar);
+                setPageNum(0);
               }
             }}
           >
@@ -93,6 +129,7 @@ export const MyCarList = () => {
             onClick={() => {
               if (selectedMenu !== cateName.savedCar) {
                 setSelectedMenu(cateName.savedCar);
+                setPageNum(0);
               }
             }}
           >
@@ -102,44 +139,49 @@ export const MyCarList = () => {
         <CardContainer ref={masonryRef}>
           {selectedMenu === cateName.myCar
             ? createCar.map((it) => (
-                <MyCarCard
+                <div
                   key={`mycarcard_${it.archivingId}`}
-                  info={it}
-                  deletedCarId={(archivingId) => deletedCar(archivingId)}
-                />
+                  onClick={() => onMoveDetail(it.archivingId)}
+                >
+                  <MyCarCard
+                    info={it}
+                    deletedCarId={(archivingId) => deletedCar(archivingId)}
+                  />
+                </div>
               ))
-            : Array(8)
-                .fill(0)
-                .map((_, idx) => <FeedSaveCard key={`feedCard_${idx}`} />)}
+            : bookmarkCar.map((bookmarkInfo, idx) => (
+                <div
+                  key={`mychivingCard_${idx}`}
+                  onClick={() => onMoveDetail(bookmarkInfo.archivingId)}
+                >
+                  <ArchiveCard
+                    key={`mychivingCard_${idx}`}
+                    archiveInfo={bookmarkInfo}
+                  />
+                </div>
+              ))}
         </CardContainer>
       </Flex>
-      <Flex
-        css={css`
-          position: relative;
-        `}
-      >
-        {/* {removedId !== -1 && ( */}
-        <RevertBox isShow={removedId !== -1}>
-          <div onClick={revertDataFromServer}>
-            <Button
-              width={121}
-              backgroundColor="Primary"
-              heightType="medium"
-              typo="Heading4_Bold"
-            >
-              <img
-                src={revertIcon}
-                alt=""
-                css={css`
-                  padding-right: 5px;
-                `}
-              />
-              되돌리기
-            </Button>
-          </div>
-        </RevertBox>
-        {/* )} */}
-      </Flex>
+      <RevertBox isShow={removedId !== -1}>
+        <div onClick={revertDeletedCar}>
+          <Button
+            width={121}
+            backgroundColor="Primary"
+            heightType="medium"
+            typo="Heading4_Bold"
+          >
+            <img
+              src={revertIcon}
+              alt=""
+              css={css`
+                padding-right: 5px;
+                z-index: 2;
+              `}
+            />
+            되돌리기
+          </Button>
+        </div>
+      </RevertBox>
     </Flex>
   );
 };
@@ -158,7 +200,7 @@ const RevertBox = styled.div<{ isShow: boolean }>`
 const CardContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  // grid-auto-rows: 10px;
+  grid-auto-rows: 10px;
 
   width: 1048px;
   gap: 25px;

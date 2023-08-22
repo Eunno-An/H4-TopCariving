@@ -6,6 +6,7 @@ import { BodyCard } from '@components/myCar/trim';
 import { useMyCar } from '@contexts/MyCarContext';
 import { useLoaderData } from 'react-router-dom';
 import { ArchivePopup } from '@components/common/ArchivePopup';
+import { css } from '@emotion/react';
 
 const BodyType = () => {
   const bodyTypeInfo = useLoaderData() as myCarOptionInterface[];
@@ -63,7 +64,14 @@ const BodyType = () => {
 
   return (
     <>
-      <Flex padding="28px 0 0 0" align="flex-start" gap={28}>
+      <Flex
+        padding="28px 0 0 0"
+        align="flex-start"
+        gap={28}
+        css={css`
+          position: relative;
+        `}
+      >
         <Flex direction="column" height="auto" gap={23}>
           <Flex width={620} align="flex-start">
             <ImgTag src={bodyTypeInfo[isSelected].photoUrl} alt="" />
@@ -92,10 +100,10 @@ const BodyType = () => {
             </div>
           ))}
         </Flex>
+        <ArchivePopup
+          desc={`${bodyTypeInfo[isSelected].optionName}의 리얼한 후기가 궁금하다면?`}
+        />
       </Flex>
-      <ArchivePopup
-        desc={`${bodyTypeInfo[isSelected].optionName}의 리얼한 후기가 궁금하다면?`}
-      />
     </>
   );
 };

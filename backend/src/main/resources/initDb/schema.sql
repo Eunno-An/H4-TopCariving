@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS USER_INFO
     name     varchar(10),
     email    varchar(30),
     password varchar(16),
+    login_type varchar(20),
     CONSTRAINT pk_user_info PRIMARY KEY (user_id)
     );
 
@@ -100,16 +101,6 @@ CREATE TABLE IF NOT EXISTS ENGINE_DETAIL
     CONSTRAINT fk_engine_detail_to_car_option FOREIGN KEY (car_option_id) REFERENCES CAR_OPTION (car_option_id)
     );
 
-CREATE TABLE IF NOT EXISTS AUTH_INFO
-(
-    auth_info_id  bigint auto_increment,
-    refresh_token varchar(255),
-    expired_time  datetime,
-    login_type varchar(20),
-    user_id       bigint,
-    CONSTRAINT pk_auth_info PRIMARY KEY (auth_info_id),
-    CONSTRAINT fk_auth_info_to_user FOREIGN KEY (user_id) REFERENCES USER_INFO (user_id)
-    );
 
 CREATE TABLE IF NOT EXISTS BOOKMARK
 (

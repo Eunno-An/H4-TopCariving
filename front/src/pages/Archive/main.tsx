@@ -23,6 +23,7 @@ export const ArchiveMain = () => {
     useState<{ carOptionId: number; optionName: string }[]>(initOptions);
 
   const navigate = useNavigate();
+
   const onMoveDetail = (archivindId: number) => {
     navigate(`/archive/detail?id=${archivindId}`);
   };

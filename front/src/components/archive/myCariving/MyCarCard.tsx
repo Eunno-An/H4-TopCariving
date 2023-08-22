@@ -39,7 +39,7 @@ export const MyCarCard = ({
   const closeModal = async (archivingId: number) => {
     deletedCarId(archivingId);
     await apiInstance({
-      url: `${MyArchiveUrl.DELETE_CARS}/${archivingId}`,
+      url: `${MyArchiveUrl.CREATED_CARS}/${archivingId}`,
       method: 'DELETE',
     });
 
@@ -96,7 +96,12 @@ export const MyCarCard = ({
               {`${getDate(new Date(info.dayTime))} 임시저장`}
             </SaveStatusBox>
           )}
-          <div onClick={() => onDeleteHandler(info.archivingId)}>
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+              onDeleteHandler(info.archivingId);
+            }}
+          >
             <DeleteIcon src={deleteIcon} alt="" />
           </div>
         </Flex>
@@ -107,20 +112,23 @@ export const MyCarCard = ({
           {info.trims.구동방식}
         </Text>
       </Flex>
-      <Flex>
-        <CarOptionImgBox>
-          {info.selectedOptions.map((it, idx) => (
-            <ImgContain key={`imgContain_${idx}`}>
-              <ImgInfo>
-                <ImgInfoText>{it.name}</ImgInfoText>
-              </ImgInfo>
-              <ImgBox src={it.photoUrl} alt="" />
-            </ImgContain>
-          ))}
-          {!info.selectedOptions.length && (
-            <Text alertPalette="Primary">선택한 옵션이 없습니다</Text>
-          )}
-        </CarOptionImgBox>
+      <Flex margin="20px 0 0 0">
+        {info.selectedOptions.length ? (
+          <CarOptionImgBox>
+            {info.selectedOptions.map((it, idx) => (
+              <ImgContain key={`imgContain_${idx}`}>
+                <ImgInfo>
+                  <ImgInfoText>{it.name}</ImgInfoText>
+                </ImgInfo>
+                <ImgBox src={it.photoUrl} alt="" />
+              </ImgContain>
+            ))}
+          </CarOptionImgBox>
+        ) : (
+          <Flex backgroundColor="LightSand" height={50} borderRadius="8px">
+            <Text palette="Sand">선택한 옵션이 없어요</Text>
+          </Flex>
+        )}
       </Flex>
     </CarCard>
   );
@@ -168,8 +176,6 @@ const CarOptionImgBox = styled(Flex)`
 
   height: 140px;
 
-  padding-top: 20px;
-
   ::-webkit-scrollbar {
     display: none;
   }
@@ -177,14 +183,22 @@ const CarOptionImgBox = styled(Flex)`
 
 const CarCard = styled(Flex)`
   width: 506px;
-  height: 239px;
+  // height: 239px;
+  height: auto;
 
   flex-direction: column;
 
-  border: 1px solid ${theme.palette.Sand};
+  border: 2px solid ${theme.palette.Sand};
   border-radius: 8px;
 
   padding: 20px 30px;
+
+  cursor: pointer;
+
+  &:hover {
+    background-color: ${theme.palette.LightSand};
+  }
+  transition: 0.3s ease;
 `;
 
 const SaveStatusBox = styled(Text)<{ isComplete: boolean }>`
@@ -205,4 +219,10 @@ const ImgBox = styled.img`
   object-fit: cover;
 
   border-radius: 8px;
+
+  &:hover {
+    brightness: 1.2;
+  }
+  transition: brightness 0.3s ease;
+  z-index: 1;
 `;

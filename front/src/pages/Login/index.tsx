@@ -7,7 +7,9 @@ import { initMyCarInfo, useMyCar } from '@contexts/MyCarContext';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
-import { LoginUrl, apiInstance } from '@utils/api';
+import { LoginUrl, apiInstance, token } from '@utils/api';
+import { HyundaiOauthUrl } from '@assets/constant';
+import { useToast } from '@contexts/ToastContext';
 
 const Login = () => {
   const {
@@ -19,14 +21,19 @@ const Login = () => {
 
   const { setMyCarInfo } = useMyCar();
   useEffect(() => {
-    localStorage.clear();
+    if (
+      localStorage.getItem('refreshToken') &&
+      localStorage.getItem('refreshToken') !== String(undefined)
+    ) {
+      navigate('/my-car/trim');
+    }
     localStorage.setItem('myCarInfo', JSON.stringify(initMyCarInfo));
     localStorage.setItem('archivingId', JSON.stringify(null));
     setMyCarInfo(initMyCarInfo);
   }, []);
 
+  const { openToast } = useToast();
   const navigate = useNavigate();
-
   const onSubmit = async () => {
     const res = await apiInstance({
       url: LoginUrl.LOGIN,
@@ -37,16 +44,19 @@ const Login = () => {
       }),
     });
 
-    sessionStorage.setItem('accessToken', res.accessToken);
-    sessionStorage.setItem('refreshToken', res.refreshToken);
-
-    navigate('/my-car/trim');
+    if (res.accessToken) {
+      token.accessToken = res.accessToken;
+      localStorage.setItem('refreshToken', res.refreshToken);
+      navigate('/my-car/trim');
+    } else {
+      openToast({
+        newContent: '유저 정보가 존재하지 않아요',
+      });
+    }
   };
 
   const onMoveHyundai = () => {
-    // 상수 처리
-    window.location.href =
-      'https://prd.kr-ccapi.hyundai.com/api/v1/user/oauth2/authorize?client_id=207147f6-05d9-4cda-a6cb-96fec38f1eae&redirect_uri=https://dev.topcariving.com/oauth/authorize&response_type=code&state=a213bdsfe';
+    window.location.href = HyundaiOauthUrl;
   };
   return (
     <Flex direction="column" align="center" justify="center">

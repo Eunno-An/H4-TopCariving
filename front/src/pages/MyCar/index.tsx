@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Flex } from '@components/common';
 import { Footer, Header, NavBar } from '@components/myCar';
 import styled from '@emotion/styled';
 import { ErrorBoundary } from '@components/ErrorBoundary';
+import { Loading } from '@components/common/Loading';
 
 export const myCarUrl = [
   '/my-car/trim',
@@ -41,7 +42,9 @@ const MyCar = () => {
       <NavBar currentUrl={currentUrl} />
       <Flex direction="column" width={1040}>
         <ErrorBoundary>
-          <Outlet />
+          <Suspense fallback={<Loading />}>
+            <Outlet />
+          </Suspense>
         </ErrorBoundary>
       </Flex>
       <Footer currentUrl={currentUrl} setCurrentUrl={setCurrentUrl} />

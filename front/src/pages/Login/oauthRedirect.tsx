@@ -1,3 +1,4 @@
+import { token } from '@utils/api';
 import { useEffect } from 'react';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
@@ -12,8 +13,8 @@ export const OauthRedirect = () => {
     const accessT = searchParams.get('accessToken') || '';
     const refreshT = searchParams.get('refreshToken') || '';
 
-    sessionStorage.setItem('accessToken', accessT);
-    sessionStorage.setItem('refreshToken', refreshT);
+    token.accessToken = accessT;
+    localStorage.setItem('refreshToken', refreshT);
 
     navigate('/my-car/trim');
   }, []);

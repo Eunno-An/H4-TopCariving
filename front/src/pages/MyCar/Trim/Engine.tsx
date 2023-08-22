@@ -5,6 +5,7 @@ import { EngineCard } from '@components/myCar/trim';
 import { MyCarContextType, useMyCar } from '@contexts/MyCarContext';
 import { useLoaderData } from 'react-router-dom';
 import { ArchivePopup } from '@components/common/ArchivePopup';
+import { css } from '@emotion/react';
 
 export interface engineInfoInterface {
   carOptionId: number;
@@ -73,7 +74,14 @@ const Engine = () => {
   return (
     <>
       {engineInfo && (
-        <Flex gap={28} padding="28px 0 0 0" align="flex-start">
+        <Flex
+          gap={28}
+          padding="28px 0 0 0"
+          align="flex-start"
+          css={css`
+            position: relative;
+          `}
+        >
           <Flex direction="column" gap={23} height="auto">
             <Flex width={620} align="flex-start">
               <ImgTag src={engineInfo[isSelected].photoUrl} alt="" />
@@ -102,11 +110,11 @@ const Engine = () => {
               </div>
             ))}
           </Flex>
+          <ArchivePopup
+            desc={`${engineInfo[isSelected].optionName}의 리얼한 후기가 궁금하다면?`}
+          />
         </Flex>
       )}
-      <ArchivePopup
-        desc={`${engineInfo[isSelected].optionName}의 리얼한 후기가 궁금하다면?`}
-      />
     </>
   );
 };
