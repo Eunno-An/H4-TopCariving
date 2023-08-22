@@ -28,4 +28,6 @@ public interface CarOptionRepository {
 	List<CarOption> findByArchivingId(Long archivingId);
 
 	List<String> findStringByParentOptionId(Long carOptionId);
+
+	Optional<CarOption> findByArchivingIdAndCategoryDetail(Long archivingId, CategoryDetail categoryDetail);
 }

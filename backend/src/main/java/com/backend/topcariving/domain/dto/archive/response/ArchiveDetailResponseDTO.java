@@ -31,6 +31,9 @@ public class ArchiveDetailResponseDTO {
 	@Schema(description = "총 가격")
 	private Integer totalPrice;
 
+	@Schema(description = "차량 이미지")
+	private String photoUrl;
+
 	@Schema(description = "포지션 리스트")
 	private List<PositionDTO> positions;
 
@@ -46,13 +49,14 @@ public class ArchiveDetailResponseDTO {
 	@Schema(description = "차량 전체 태그 리뷰")
 	private List<TagResponseDTO> tags;
 
-	public static ArchiveDetailResponseDTO of(CarArchiving carArchiving, int totalPrice, List<PositionDTO> positions,
+	public static ArchiveDetailResponseDTO of(CarArchiving carArchiving, int totalPrice, String photoUrl, List<PositionDTO> positions,
 		boolean isBookmarked, List<OptionDetailDTO> optionDetails, CarReview carReview, List<TagResponseDTO> tags) {
 		return ArchiveDetailResponseDTO.builder()
 			.archivingId(carArchiving.getArchivingId())
 			.dayTime(carArchiving.getDayTime())
 			.archivingType(carArchiving.getArchivingType())
 			.totalPrice(totalPrice)
+			.photoUrl(photoUrl)
 			.positions(positions)
 			.isBookmarked(isBookmarked)
 			.optionDetails(optionDetails)
