@@ -5,22 +5,29 @@ interface apiInstanceInterface {
   method: 'GET' | 'POST' | 'DELETE';
   bodyData?: string;
 }
-// const getAccessToken = () => sessionStorage.getItem('accessToken');
-// const getRefreshToken = () => sessionStorage.getItem('refreshToken');
+
+export const token = { accessToken: null } as { accessToken: null | string };
+const getAccessToken = () => token.accessToken;
+const getRefreshToken = () => localStorage.getItem('refreshToken');
+
+let isFirstRequestToken = true;
 
 const tokenApiInstance = async ({ url, method }: apiInstanceInterface) => {
+  isFirstRequestToken = false;
   const tokenData = await fetch(`${SERVER_URL}${url}`, {
     method: method,
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer refresh_token`,
+      Authorization: `Bearer ${getRefreshToken()}`,
     },
     credentials: 'include',
   })
     .then((res) => {
       return res.json();
     })
-    .catch((err) => console.error(err));
+    .catch((err) => {
+      console.error(err);
+    });
   return tokenData;
 };
 export const apiInstance = async ({
@@ -32,27 +39,45 @@ export const apiInstance = async ({
     method: method,
     headers: {
       'Content-Type': 'application/json',
-      // Authorization: `Bearer ${getAccessToken()}`,
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2OTIxNjk5NzAsImV4cCI6MTcyMzcwNTk3MCwiaXNzIjoiVG9wQ2FyaXZpbmciLCJzdWIiOiIxIn0.p1bkF0pLsHkobfdkyPyGBjaClOHDhXbUFpeagBUWvx4`,
+      Authorization: `Bearer ${getAccessToken()}`,
     },
     credentials: 'include',
     body: bodyData,
   })
     .then(async (res) => {
-      if (res.status === 401) {
-        const { accessToken } = await tokenApiInstance({
+      const firstStatusNumber = String(res.status).split('')[0];
+      if (res.status === 404) {
+        return 'NOT_FOUND';
+      } else if (res.status === 401 && isFirstRequestToken) {
+        const { accessToken, refreshToken } = await tokenApiInstance({
           url: LoginUrl.REISSUE,
           method: 'GET',
           bodyData: bodyData,
         });
-        sessionStorage.setItem('accessToken', accessToken);
+
+        // 유효한 토큰이 없으면 로그인화면으로 리다이렉트
+        if (!refreshToken || !accessToken) {
+          localStorage.clear();
+          window.location.href = '/';
+          return;
+        }
+
+        token.accessToken = accessToken;
+        localStorage.setItem('refreshToken', refreshToken);
+
         const newRes = (await apiInstance({
           url: url,
           method: method,
           bodyData: bodyData,
         })) as string;
+
         return newRes;
+      } else if (res.status === 302) {
+        return 'LOGOUT';
+      } else if (firstStatusNumber !== '2') {
+        return;
       } else {
+        isFirstRequestToken = true;
         return res.json();
       }
     })
