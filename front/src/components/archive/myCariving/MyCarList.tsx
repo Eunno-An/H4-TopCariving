@@ -35,6 +35,7 @@ const cateName = {
 export const MyCarList = () => {
   const [pageNum, setPageNum] = useState(0);
   const [removedId, setRemovedId] = useState<number>(-1);
+  const [removedCar, setRemovedCar] = useState<createdMyCarInterface[]>([]);
   const [createCar, setCreateCar] = useState<createdMyCarInterface[]>([]);
   const [bookmarkCar, setBookmarkCar] = useState<
     archiveSearchResponsesInterface[]
@@ -43,10 +44,10 @@ export const MyCarList = () => {
 
   const getCreatedCar = async () => {
     const data = await apiInstance({
-      url: `${MyArchiveUrl.DELETE_CARS}?pageNumber=${pageNum + 1}&pageSize=8`,
+      url: `${MyArchiveUrl.CREATED_CARS}?pageNumber=${pageNum + 1}&pageSize=8`,
       method: 'GET',
     });
-    setCreateCar(data);
+    setCreateCar([...data]);
   };
 
   const getBookMarkCar = async () => {
@@ -57,27 +58,26 @@ export const MyCarList = () => {
     setBookmarkCar(data);
   };
 
-  useEffect(() => {
-    getCreatedCar();
-    getBookMarkCar();
-  }, [removedId, pageNum]);
-
   const { openToast } = useToast();
 
   const deletedCar = (archivingId: number) => {
     openToast({
       newContent: '삭제되었어요. 되돌리기를 누르면 취소할 수 있어요.',
     });
+    setRemovedCar([...createCar]);
+    setCreateCar((it) => it.filter((item) => item.archivingId !== archivingId));
     setRemovedId(archivingId);
   };
 
   const revertDeletedCar = async () => {
     if (removedId !== -1) {
       await apiInstance({
-        url: `${MyArchiveUrl.DELETE_CARS}/${removedId}`,
+        url: `${MyArchiveUrl.CREATED_CARS}/${removedId}`,
         method: 'POST',
       });
       openToast({ newContent: '삭제가 취소되었어요.' });
+      setCreateCar([...removedCar]);
+      setRemovedCar([]);
       setRemovedId(-1);
     }
   };
@@ -92,6 +92,16 @@ export const MyCarList = () => {
   useEffect(() => {
     masonryLayout({ element: masonryRef });
   }, [selectedMenu, createCar, bookmarkCar]);
+
+  useEffect(() => {
+    getBookMarkCar();
+  }, [removedId, pageNum]);
+
+  useEffect(() => {
+    if (createCar.length <= 4) {
+      getCreatedCar();
+    }
+  }, [createCar]);
 
   return (
     <Flex direction="column" justify="flex-start" gap={30}>

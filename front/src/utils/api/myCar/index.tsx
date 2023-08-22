@@ -38,6 +38,6 @@ export const ArchiveUrl = {
 };
 
 export const MyArchiveUrl = {
-  DELETE_CARS: '/api/archiving/created-cars',
+  CREATED_CARS: '/api/archiving/created-cars',
   FEED: '/api/archiving/feeds',
 };

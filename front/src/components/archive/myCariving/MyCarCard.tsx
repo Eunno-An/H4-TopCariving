@@ -39,7 +39,7 @@ export const MyCarCard = ({
   const closeModal = async (archivingId: number) => {
     deletedCarId(archivingId);
     await apiInstance({
-      url: `${MyArchiveUrl.DELETE_CARS}/${archivingId}`,
+      url: `${MyArchiveUrl.CREATED_CARS}/${archivingId}`,
       method: 'DELETE',
     });
 
