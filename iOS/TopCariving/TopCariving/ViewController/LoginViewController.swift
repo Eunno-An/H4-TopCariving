@@ -132,8 +132,12 @@ class LoginViewController: UIViewController {
                         _ = KeyChain.deleteStringFromKeychain(key: "refreshToken")
                         let isLoginFinish = try await LoginService().emailLogin(
                             url: URL(string: "https://dev.topcariving.com/login")!,
-                            loginInfo: .init(email: idTextField.text ?? "", password: passwordLabel.text ?? "") //
+                            loginInfo: .init(
+                                email: self.idTextField.text ?? "",
+                                password: self.passwordLabel.text ?? ""
+                            )
                         )
+                        print(isLoginFinish)
                     } catch {
                         print(error.localizedDescription)
                     }

@@ -36,7 +36,7 @@ class LoginService {
         KeyChain.getStringFromKeychain(key: "accessToken") != nil
     }
     
-    func emailLogin(url: URL, loginInfo: LoginInfo) async throws -> Bool {
+    func emailLogin(url: URL, loginInfo: LoginInfo) async throws -> LoginResult {
         let requestData: [String: Any] = [
             "email": loginInfo.email,
             "password": loginInfo.password
@@ -46,7 +46,7 @@ class LoginService {
             jsonData = try JSONSerialization.data(withJSONObject: requestData, options: [])
         } catch {
             NSLog(error.localizedDescription)
-            return false
+            return .failure(.decodingError)
         }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -54,34 +54,51 @@ class LoginService {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         return try await withCheckedThrowingContinuation { continuation in
-            let task = URLSession.shared.dataTask(with: request) { (data, _, error) in
+            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
                 if let error = error {
-                    continuation.resume(throwing: error)
-                    return
+                    continuation.resume(returning: .failure(.transportError))
                 }
                 guard let data = data else {
-                    continuation.resume(returning: false) // Login failed
+                    continuation.resume(returning: .failure(.missingData))
                     return
                 }
+                guard let httpResponse = response as? HTTPURLResponse else {
+                    continuation.resume(returning: .failure(.transportError))
+                    return
+                }
+                switch httpResponse.statusCode {
+                case 401:
+                    Task {
+                        do {
+                            _ = try await self.reIssue()
+                            continuation.resume(returning: .success)
+                        } catch {
+                            NSLog(error.localizedDescription)
+                        }
+                    }
+                    return
+                case 200:
+                    NSLog("Login: statusCode 200")
+                default:
+                    continuation.resume(returning: .failure(.serverError(code: httpResponse.statusCode)))
+                    return
+                }
+                
                 do {
                     if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                         if let accessToken = jsonResponse["accessToken"] as? String,
                            let refreshToken = jsonResponse["refreshToken"] as? String {
-                            print("emailLogin OK")
                             _ = KeyChain.saveStringToKeychain(value: accessToken, key: "accessToken")
                             _ = KeyChain.saveStringToKeychain(value: refreshToken, key: "refreshToken")
-                            continuation.resume(returning: true)
+                            continuation.resume(returning: .success)
                         } else {
-                            print("Tokens not found in response")
-                            continuation.resume(returning: false)
+                            continuation.resume(returning: .failure(.tokenNotFound))
                         }
                     } else {
-                        print("Invalid JSON response")
-                        continuation.resume(returning: false)
+                        continuation.resume(returning: .failure(.invalidJsonResponse))
                     }
                 } catch {
-                    print("JSON parsing error: \(error)")
-                    continuation.resume(returning: false)
+                    continuation.resume(returning: .failure(.other(error)))
                 }
             }
             task.resume()
