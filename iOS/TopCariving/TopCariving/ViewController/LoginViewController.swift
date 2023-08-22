@@ -126,10 +126,17 @@ class LoginViewController: UIViewController {
         loginButton.touchUpPublisher
             .sink(receiveValue: { [weak self] in
                 guard let self else { return }
-                    let loginInfo = LoginService().emailLogin(
-                        url: URL(string: "https://dev.topcariving.com/login")!,
-                        loginInfo: .init(email: "mg@gmail.com", password: "1234")
-                    )
+                Task {
+                    do {
+                        let isLoginFinish = try await LoginService().emailLogin(
+                            url: URL(string: "https://dev.topcariving.com/login")!,
+                            loginInfo: .init(email: "mg@gmail.com", password: "1234")
+                        )
+                        print(isLoginFinish)
+                    } catch {
+                        print(error.localizedDescription)
+                    }
+                }
                 self.view.endEditing(true)
             })
             .store(in: &bag)
