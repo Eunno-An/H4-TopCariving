@@ -3,7 +3,6 @@ package com.backend.topcariving.global.auth.service;
 import static com.backend.topcariving.global.auth.entity.enums.LoginType.*;
 
 import java.net.URI;
-import java.time.LocalDateTime;
 import java.util.Base64;
 import java.util.Optional;
 
@@ -117,40 +116,28 @@ public class OAuthService {
 	}
 
 	private AuthInfo saveUser(OauthInfoDTO userInfo) {
-		Optional<AuthInfo> authInfo = authInfoRepository.findByEmail(userInfo.getEmail());
+		Optional<User> findUser = userRepository.findByEmail(userInfo.getEmail());
 
-		if (authInfo.isPresent() && authInfo.get().getLoginType() == LOCAL) {
+		if (findUser.isPresent() && findUser.get().getLoginType() == LOCAL) {
 			throw new AlreadyExistUserException();
 		}
 
 		String refreshToken = tokenProvider.createRefreshToken();
-		LocalDateTime expiredTime = LocalDateTime.now().plusSeconds(REFRESH_TOKEN_EXPIRATION / 1_000);
 
-		if (authInfo.isEmpty()) {
-			User user = new User(null, userInfo.getName(), userInfo.getEmail(), null);
-			user = userRepository.save(user);
-			AuthInfo newAuthInfo = AuthInfo.builder()
-				.userId(user.getUserId())
-				.loginType(HYUNDAI)
-				.refreshToken(refreshToken)
-				.expiredTime(expiredTime)
-				.build();
-			return authInfoRepository.save(newAuthInfo);
+		User user = findUser.get();
+		if (findUser.isEmpty()) {
+			User newUser = new User(null, userInfo.getName(), userInfo.getEmail(), null, HYUNDAI);
+			user = userRepository.save(newUser);
 		}
 
-		AuthInfo result = authInfo.get();
-		authInfoRepository.update(refreshToken, expiredTime, result.getUserId());
-		result.updateToken(refreshToken, expiredTime);
-		return result;
+		return authInfoRepository.save(new AuthInfo(refreshToken, user.getUserId()));
 	}
 
 	public void logout(Long userId) {
-		AuthInfo authInfo = authInfoRepository.findByUserId(userId).orElseThrow(UserNotFoundException::new);
-		if (HYUNDAI == authInfo.getLoginType()) {
+		User user = userRepository.findById(userId).orElseThrow(UserNotFoundException::new);
+		if (HYUNDAI == user.getLoginType()) {
 			authLogout(userId);
 		}
-
-		authInfoRepository.update(null, LocalDateTime.now(), userId);
 	}
 
 	private void authLogout(Long userId) {

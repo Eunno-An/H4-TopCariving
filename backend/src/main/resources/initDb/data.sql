@@ -238,21 +238,16 @@ INSERT INTO MODEL_PHOTO (model_photo_id, content, photo_svg_url, photo_png_url, 
 /**
   USER_INFO
  */
-INSERT INTO USER_INFO (name, email, password) VALUES ('김민구', 'mg@gmail.com', '1234');
-INSERT INTO USER_INFO (name, email, password) VALUES ('오지은', 'je@gmail.com', '1234');
-INSERT INTO USER_INFO (name, email, password) VALUES ('조승기', 'sk@gmail.com', '1234');
-INSERT INTO USER_INFO (name, email, password) VALUES ('안은노', 'en@gmail.com', '1234');
-INSERT INTO USER_INFO (name, email, password) VALUES ('유해찬', 'hc@gmail.com', '1234');
-INSERT INTO USER_INFO (name, email, password) VALUES ('김아현', 'ah@gmail.com', '1234');
-INSERT INTO USER_INFO (name, email, password) VALUES ('현대', 'hyundai@gmail.com', '1234');
-INSERT INTO USER_INFO (name, email, password) VALUES ('와우', 'wow@gmail.com', '1234');
-INSERT INTO USER_INFO (name, email, password) VALUES ('홍길동', 'hong@gmail.com', '1234');
-INSERT INTO USER_INFO (name, email, password) VALUES ('고길동', 'go@gmail.com', '1234');
-
-/**
-  AUTH_INFO
- */
-INSERT INTO AUTH_INFO (refresh_token, expired_time, user_id) VALUES ('refresh_token', '2024-01-01 12:00:00', 1);
+INSERT INTO USER_INFO (name, email, password, login_type) VALUES ('김민구', 'mg@gmail.com', '1234', 'local');
+INSERT INTO USER_INFO (name, email, password, login_type) VALUES ('오지은', 'je@gmail.com', '1234', 'local');
+INSERT INTO USER_INFO (name, email, password, login_type) VALUES ('조승기', 'sk@gmail.com', '1234', 'local');
+INSERT INTO USER_INFO (name, email, password, login_type) VALUES ('안은노', 'en@gmail.com', '1234', 'local');
+INSERT INTO USER_INFO (name, email, password, login_type) VALUES ('유해찬', 'hc@gmail.com', '1234', 'local');
+INSERT INTO USER_INFO (name, email, password, login_type) VALUES ('김아현', 'ah@gmail.com', '1234', 'local');
+INSERT INTO USER_INFO (name, email, password, login_type) VALUES ('현대', 'hyundai@gmail.com', '1234', 'local');
+INSERT INTO USER_INFO (name, email, password, login_type) VALUES ('와우', 'wow@gmail.com', '1234', 'local');
+INSERT INTO USER_INFO (name, email, password, login_type) VALUES ('홍길동', 'hong@gmail.com', '1234', 'local');
+INSERT INTO USER_INFO (name, email, password, login_type) VALUES ('고길동', 'go@gmail.com', '1234', 'local');
 
 /**
   CAR_ARCHIVING
