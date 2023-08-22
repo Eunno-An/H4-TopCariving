@@ -93,7 +93,7 @@ export const ArchiveShortInfo = ({
         justify="flex-start"
         gap={47}
         css={css`
-          z-index: 1;
+          z-index: 3;
         `}
       >
         <Flex direction="column" align="flex-start" height="auto">
