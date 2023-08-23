@@ -22,7 +22,7 @@ export const ArchiveReview = ({
       >
         <Flex direction="column" align="flex-start" height="auto">
           <Flex justify="flex-start" gap={25}>
-            <Text typo="Heading1_Bold">{`펠리세이드 ${optionDetail?.모델[0].optionName}`}</Text>
+            <Text typo="Heading1_Bold">{`팰리세이드 ${optionDetail?.모델[0].optionName}`}</Text>
             <InfoTag>
               <Text typo="Body4_Medium" palette="Gold">
                 {`${getDate(

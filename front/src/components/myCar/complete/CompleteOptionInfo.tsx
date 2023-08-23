@@ -22,15 +22,21 @@ export const SelectOptionContainer = ({
             </Flex>
           </Flex>
           <SelectedOption justify="space-between" borderRadius="8px" gap={10}>
-            {options.map(({ photoUrl, name, categoryDetail, price }, idx) => (
-              <CompleteOptionCard
-                photoUrl={photoUrl}
-                optionName={name}
-                price={price}
-                optionDetail={categoryDetail}
-                key={`selectedOption_${idx}`}
-              />
-            ))}
+            {options.map(
+              (
+                { photoUrl, name, categoryDetail, price, childOptions },
+                idx,
+              ) => (
+                <CompleteOptionCard
+                  photoUrl={photoUrl}
+                  optionName={name}
+                  price={price}
+                  optionDetail={categoryDetail}
+                  key={`selectedOption_${idx}`}
+                  childOptions={childOptions}
+                />
+              ),
+            )}
           </SelectedOption>
         </Flex>
       )}

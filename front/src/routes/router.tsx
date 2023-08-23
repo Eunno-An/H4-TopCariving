@@ -83,18 +83,15 @@ export const router = createBrowserRouter([
         path: 'option',
         element: <MyCarOptions key={'option'} />,
         loader: async () => {
-          const res1 = await apiInstance({
-            url: OptionUrl.SELECTION,
-            method: 'GET',
-          });
-          const res2 = await apiInstance({
-            url: OptionUrl.BASIC,
-            method: 'GET',
-          });
-
           const [selectOptionData, defaultData] = await Promise.all([
-            res1,
-            res2,
+            await apiInstance({
+              url: OptionUrl.SELECTION,
+              method: 'GET',
+            }),
+            await apiInstance({
+              url: OptionUrl.BASIC,
+              method: 'GET',
+            }),
           ]);
 
           return {
@@ -107,18 +104,15 @@ export const router = createBrowserRouter([
         path: 'option/genuine',
         element: <MyCarOptions key={'genuine'} />,
         loader: async () => {
-          const res1 = await apiInstance({
-            url: OptionUrl.ACCESSORY,
-            method: 'GET',
-          });
-          const res2 = await apiInstance({
-            url: OptionUrl.BASIC,
-            method: 'GET',
-          });
-
           const [selectOptionData, defaultData] = await Promise.all([
-            res1,
-            res2,
+            await apiInstance({
+              url: OptionUrl.ACCESSORY,
+              method: 'GET',
+            }),
+            await apiInstance({
+              url: OptionUrl.BASIC,
+              method: 'GET',
+            }),
           ]);
 
           return {
@@ -131,18 +125,15 @@ export const router = createBrowserRouter([
         path: 'option/performance',
         element: <MyCarOptions key={'performance'} />,
         loader: async () => {
-          const res1 = await apiInstance({
-            url: OptionUrl.PERFORMANCE,
-            method: 'GET',
-          });
-          const res2 = await apiInstance({
-            url: OptionUrl.BASIC,
-            method: 'GET',
-          });
-
           const [selectOptionData, defaultData] = await Promise.all([
-            res1,
-            res2,
+            await apiInstance({
+              url: OptionUrl.PERFORMANCE,
+              method: 'GET',
+            }),
+            await apiInstance({
+              url: OptionUrl.BASIC,
+              method: 'GET',
+            }),
           ]);
 
           return {

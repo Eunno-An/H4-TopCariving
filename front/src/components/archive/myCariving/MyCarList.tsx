@@ -84,7 +84,6 @@ export const MyCarList = () => {
 
   const navigate = useNavigate();
   const onMoveDetail = (archivindId: number) => {
-    // e.stopPropagation(); // 이벤트 전파 막기
     navigate(`/archive/detail?id=${archivindId}`);
   };
 

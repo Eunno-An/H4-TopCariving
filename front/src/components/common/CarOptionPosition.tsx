@@ -48,7 +48,10 @@ export const CarOptionPosition = ({
             )}
           </div>
         ))}
-      <img src={`/image/exterior/${color}/image_001.png`} alt="" />
+      <img
+        src={`https://topcariving.s3.ap-northeast-2.amazonaws.com/360/${color}/image_001.webp`}
+        alt=""
+      />
     </CarImgBox>
   );
 };

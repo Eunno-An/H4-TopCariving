@@ -41,6 +41,7 @@ const PopupContainer = styled.div`
   position: absolute;
   top: -55px;
   right: -20px;
+  z-index: 8;
 `;
 
 const CloseButton = styled(Text)`

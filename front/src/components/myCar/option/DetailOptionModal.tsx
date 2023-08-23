@@ -35,7 +35,7 @@ export const DetailOptionModal = ({
         </Title>
         <ContentWrapper>
           <Content>
-            <p>{`펠리세이드 ${myCarInfo.trim.type?.name}`}</p>
+            <p>{`팰리세이드 ${myCarInfo.trim.type?.name}`}</p>
             <p>{`${myCarInfo.trim.type?.price.toLocaleString()}원`}</p>
           </Content>
           <Content>
@@ -45,7 +45,7 @@ export const DetailOptionModal = ({
                   idx !== 0 && trim !== null ? trim.name : null,
                 )
                 .filter((name) => name !== null)
-                .join('/')}
+                .join(' / ')}
             </p>
             <p>
               {`+${Object.values(myCarInfo.trim)

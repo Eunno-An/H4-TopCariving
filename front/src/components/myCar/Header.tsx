@@ -43,7 +43,7 @@ export const Header = () => {
         top: 0;
         left: 0;
         flex-shrink: 0;
-        z-index: 1;
+        z-index: 6;
       `}
     >
       <Flex width={1280}>
@@ -56,7 +56,7 @@ export const Header = () => {
         <Flex justify="flex-end" gap={21}>
           <Flex gap={16} width="auto">
             <Text typo="Body2_Medium" palette="DarkGray">
-              펠리세이드
+              팰리세이드
             </Text>
             <img src={vector850} alt="" />
             <Flex

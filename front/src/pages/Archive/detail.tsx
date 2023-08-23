@@ -58,6 +58,7 @@ export interface archiveOptionDetailInterface {
   photoUrl: string;
   childOptionNames: string[];
   positionId: null;
+  price: number;
   tags: { tagContent: string }[];
 }
 

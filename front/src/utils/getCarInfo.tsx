@@ -56,22 +56,26 @@ export const getCarInfo = ({ info }: { info: archiveDetailInterface }) => {
 
   optionDetails[`상세 품목`] &&
     optionDetails[`상세 품목`].forEach((item) => {
-      if (item.categoryDetail === '상세 품목') {
-        initOption.selected = [
-          ...initOption.selected,
-          { id: item.carOptionId, name: item.optionName, price: 0 },
-        ];
-      } else if (item.categoryDetail === 'H Genuine Accessories') {
-        initOption.genuine = [
-          ...initOption.genuine,
-          { id: item.carOptionId, name: item.optionName, price: 0 },
-        ];
-      } else if (item.categoryDetail === 'N performance') {
-        initOption.performance = [
-          ...initOption.performance,
-          { id: item.carOptionId, name: item.optionName, price: 0 },
-        ];
-      }
+      initOption.selected = [
+        ...initOption.selected,
+        { id: item.carOptionId, name: item.optionName, price: item.price },
+      ];
+    });
+
+  optionDetails[`H Genuine Accessories`] &&
+    optionDetails[`H Genuine Accessories`].forEach((item) => {
+      initOption.genuine = [
+        ...initOption.genuine,
+        { id: item.carOptionId, name: item.optionName, price: item.price },
+      ];
+    });
+
+  optionDetails['N performance'] &&
+    optionDetails['N performance'].forEach((item) => {
+      initOption.performance = [
+        ...initOption.performance,
+        { id: item.carOptionId, name: item.optionName, price: item.price },
+      ];
     });
 
   const carInfo: MyCarInfoInterface = {
@@ -80,28 +84,28 @@ export const getCarInfo = ({ info }: { info: archiveDetailInterface }) => {
         ? {
             id: optionDetails.모델[0].carOptionId,
             name: optionDetails.모델[0].optionName,
-            price: 0,
+            price: optionDetails.모델[0].price,
           }
         : null,
       engine: optionDetails.엔진
         ? {
             id: optionDetails.엔진[0].carOptionId,
             name: optionDetails.엔진[0].optionName,
-            price: 0,
+            price: optionDetails.엔진[0].price,
           }
         : null,
       bodyType: optionDetails.바디타입
         ? {
             id: optionDetails.바디타입[0].carOptionId,
             name: optionDetails.바디타입[0].optionName,
-            price: 0,
+            price: optionDetails.바디타입[0].price,
           }
         : null,
       traction: optionDetails.구동방식
         ? {
             id: optionDetails.구동방식[0].carOptionId,
             name: optionDetails.구동방식[0].optionName,
-            price: 0,
+            price: optionDetails.구동방식[0].price,
           }
         : null,
     },
@@ -112,7 +116,7 @@ export const getCarInfo = ({ info }: { info: archiveDetailInterface }) => {
             // eslint-disable-next-line @typescript-eslint/no-explicit-any
             name: optionDetails.외장색상[0].optionName as any,
             url: optionDetails.외장색상[0].photoUrl,
-            price: 0,
+            price: optionDetails.외장색상[0].price,
           }
         : null,
       interiorColor: optionDetails.내장색상
@@ -120,7 +124,7 @@ export const getCarInfo = ({ info }: { info: archiveDetailInterface }) => {
             id: optionDetails.내장색상[0].carOptionId,
             name: optionDetails.내장색상[0].optionName,
             url: optionDetails.내장색상[0].photoUrl,
-            price: 0,
+            price: optionDetails.내장색상[0].price,
           }
         : null,
     },

@@ -6,6 +6,16 @@ springdoc:
     display-request-duration: true
     operations-sorter: alpha
 
+server:
+  shutdown: graceful
+
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: health
+
 token:
   access-token-expiration: ENC(wPeBVsCNvfRyE/b0nLCOoQ==)
   secret-key: ENC(9w2F54pDUxduEsjYPcFteYskKT9NelCfXUUf4KQReW7YjPUi2bq4pYDEn9gOSznpdjYrYr71ceATvazxeaNAGQ==)

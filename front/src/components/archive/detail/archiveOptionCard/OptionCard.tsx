@@ -11,62 +11,49 @@ export const OptionCard = ({
 }) => {
   return (
     <OptionDetailCard>
-      <OptionTop direction="column" align="flex-start">
-        <OptionImg
-          src={info.photoUrl}
-          alt=""
-          css={css`
-            object-fit: cover;
-          `}
-        />
-        <Text typo="Heading3_Medium" margin="20px 0 9px 0">
-          {info.optionName}
-        </Text>
-      </OptionTop>
-      <Flex justify="flex-start" height="auto">
-        <Text typo="Body2_Medium" palette="Primary" margin="0 0 10px 0">
+      <OptionImg src={info.photoUrl} alt="" />
+      <Text typo="Heading3_Medium">{info.optionName}</Text>
+      {info.childOptionNames.length !== 0 && (
+        <Text typo="Body2_Medium" palette="Primary">
           {info.childOptionNames.join(' | ')}
         </Text>
-      </Flex>
+      )}
 
-      <Flex
-        gap={8}
-        justify="flex-start"
-        css={css`
-          flex-wrap: wrap;
-        `}
-      >
-        {info.tags.map((it, idx) => (
-          <Tag key={`infoTage_${idx}`} desc={it.tagContent} />
-        ))}
-      </Flex>
+      {info.tags.length !== 0 && (
+        <Flex
+          align="flex-start"
+          justify="flex-start"
+          gap={8}
+          height="auto"
+          css={css`
+            flex-wrap: wrap;
+          `}
+        >
+          {info.tags.map((it, idx) => (
+            <Tag key={`infoTage_${idx}`} desc={it.tagContent} />
+          ))}
+        </Flex>
+      )}
     </OptionDetailCard>
   );
 };
 
-const OptionTop = styled(Flex)`
-  width: 314px;
+const OptionDetailCard = styled(Flex)`
   flex-direction: column;
+  justify-content: flex-start;
   align-items: flex-start;
 
-  border-bottom: 1px solid ${theme.palette.LightGray};
-
-  margin-bottom: 12px;
-`;
-
-const OptionDetailCard = styled(Flex)`
   width: 335px;
   height: auto;
-  padding: 15px 15px 30px 15px;
-  flex-direction: column;
-  border: 2px solid ${theme.palette.Sand};
+  padding: 15px;
+  gap: 12px;
 
+  border: 2px solid ${theme.palette.Sand};
   border-radius: 8px;
 `;
 
 const OptionImg = styled.img`
-  width: 314px;
-  height: 130px;
+  width: 305px;
   border-radius: 8px;
   object-fit: cover;
 `;

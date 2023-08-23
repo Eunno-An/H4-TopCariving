@@ -100,19 +100,20 @@ public class ArchiveService {
 
 		Map<String, List<String>> carArchiveResult = new HashMap<>();
 		for (CarOption carOption : carOptions) {
-			if (!carArchiveResult.containsKey(carOption.getCategoryDetail().getName())) {
+			String key = Category.findCarOptionResultKey(carOption.getCategoryDetail(), carOption.getCategory());
+			if (!carArchiveResult.containsKey(key)) {
 				List<String> values = new ArrayList<>();
-				carArchiveResult.put(carOption.getCategoryDetail().getName(), values);
+				carArchiveResult.put(key, values);
 			}
-			putValueInOptionMap(carArchiveResult, carOption);
+			putValueInOptionMap(carArchiveResult, carOption, key);
 		}
 		return carArchiveResult;
 	}
 
-	private void putValueInOptionMap(Map<String, List<String>> carArchiveResult, CarOption carOption) {
-		List<String> values = carArchiveResult.get(carOption.getCategoryDetail().getName());
+	private void putValueInOptionMap(Map<String, List<String>> carArchiveResult, CarOption carOption, String key) {
+		List<String> values = carArchiveResult.get(key);
 		values.add(carOption.getOptionName());
-		carArchiveResult.put(carOption.getCategoryDetail().getName(), values);
+		carArchiveResult.put(key, values);
 	}
 
 	public ArchiveDetailResponseDTO getDetailsCars(Long userId, Long archivingId) {

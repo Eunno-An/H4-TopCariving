@@ -18,7 +18,7 @@ import { ColorUrl } from '@utils/api';
 import { useSuspenseFetch } from '@hooks/useSuspenseFetch';
 
 export const colorPath = {
-  어비스블랙펄: 'black',
+  어비스블랙펄: 'abyss',
   '쉬머링 실버 메탈릭': 'silver',
   '문라이프 블루 펄': 'blue',
   '가이아 브라운 펄': 'brown',

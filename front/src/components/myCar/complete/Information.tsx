@@ -9,7 +9,7 @@ export const Information = () => {
   return (
     <Flex direction="column" align="flex-start" width={1040} gap={16}>
       <Text typo="Heading2_Medium">
-        나의 펠리세이드는 이런 기능을 가지고 있어요
+        나의 팰리세이드는 이런 기능을 가지고 있어요
       </Text>
       <Flex
         direction="column"
@@ -20,7 +20,7 @@ export const Information = () => {
         borderRadius="8px"
       >
         <Flex direction="column" gap={6} align="flex-start" height="auto">
-          <Text typo="Heading2_Medium">{`펠리세이드 ${myCarInfo.trim.type?.name}`}</Text>
+          <Text typo="Heading2_Medium">{`팰리세이드 ${myCarInfo.trim.type?.name}`}</Text>
           <Flex justify="space-between">
             <Text typo="Body1_Regular">
               {Object.values(myCarInfo.trim)
@@ -28,7 +28,7 @@ export const Information = () => {
                   idx !== 0 && trim !== null ? trim.name : null,
                 )
                 .filter((name) => name !== null)
-                .join('/')}
+                .join(' / ')}
             </Text>
             <Text typo="Heading2_Medium">{`${myCarInfo.price.toLocaleString()}원`}</Text>
           </Flex>

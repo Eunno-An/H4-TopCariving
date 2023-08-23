@@ -40,7 +40,7 @@ export const ArchiveHeader = ({
       css={css`
         position: fixed;
         flex-shrink: 0;
-        z-index: 1;
+        z-index: 6;
       `}
     >
       <Flex width={1040}>
@@ -53,7 +53,7 @@ export const ArchiveHeader = ({
         <Flex justify="flex-end" gap={21}>
           <Flex gap={16} width="auto">
             <Text typo="Heading5_Bold" palette="Black">
-              펠리세이드
+              팰리세이드
             </Text>
             {pageTitle === '아카이빙' && (
               <>

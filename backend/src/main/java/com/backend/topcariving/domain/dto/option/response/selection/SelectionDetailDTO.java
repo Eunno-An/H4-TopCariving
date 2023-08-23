@@ -21,11 +21,15 @@ public class SelectionDetailDTO {
 	@Schema(description = "옵션 설명", example = "주요 주행 정보를 전면 윈드실드에 표시합니다.")
 	private String optionDetail;
 
+	@Schema(description = "옵션 사진", example = "https://www.test.com/picture.png")
+	private String photoUrl;
+
 	public static SelectionDetailDTO from(CarOption carOption) {
 		return SelectionDetailDTO.builder()
 			.carOptionId(carOption.getCarOptionId())
 			.optionName((carOption.getOptionName()))
 			.optionDetail(carOption.getOptionDetail())
+			.photoUrl(carOption.getPhotoUrl())
 			.build();
 	}
 }

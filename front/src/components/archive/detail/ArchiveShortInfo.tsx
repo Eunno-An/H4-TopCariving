@@ -92,9 +92,6 @@ export const ArchiveShortInfo = ({
         padding="60px 0 30px 0"
         justify="flex-start"
         gap={47}
-        css={css`
-          z-index: 3;
-        `}
       >
         <Flex direction="column" align="flex-start" height="auto">
           <Text typo="Body1_Regular">총 가격</Text>
@@ -117,7 +114,11 @@ export const ArchiveShortInfo = ({
               justify="flex-start"
               height="auto"
             >
-              {optionDetail?.[`상세 품목`].map((option) => (
+              {[
+                ...(optionDetail?.['상세 품목'] || []),
+                ...(optionDetail?.['N performance'] || []),
+                ...(optionDetail?.['H Genuine Accessories'] || []),
+              ].map((option) => (
                 <OptionTag key={`상세품목_${option.carOptionId}`}>
                   <Text typo="Body3_Regular" palette="DarkGray">
                     {option.optionName}
@@ -126,7 +127,13 @@ export const ArchiveShortInfo = ({
               ))}
             </OptionTagContainer>
           </Flex>
-          <Flex gap={14} height="auto">
+          <Flex
+            gap={14}
+            height="auto"
+            css={css`
+              z-index: 3;
+            `}
+          >
             <BookMark
               isBookmarked={detailInfo?.isBookmarked}
               onClick={onChangeBookMark}
