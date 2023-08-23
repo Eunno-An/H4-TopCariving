@@ -22,8 +22,8 @@ export const ArchiveOptionDetails = ({
         ...(optionDetail?.['N performance'] || []),
         ...(optionDetail?.['H Genuine Accessories'] || []),
       ].map((optionInfo, idx) => (
-        <div>
-          <OptionCard info={optionInfo} key={`optionDetail_${idx}`} />
+        <div key={`optionDetail_${idx}`}>
+          <OptionCard info={optionInfo} />
         </div>
       ))}
     </CardContainer>

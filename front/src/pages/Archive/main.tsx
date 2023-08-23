@@ -108,6 +108,7 @@ export type archiveType =
   | '엔진'
   | '외장색상'
   | '상세 품목'
+  | '선택품목'
   | 'H Genuine Accessories'
   | 'N performance'
   | '구동방식';
@@ -137,7 +138,7 @@ export interface initArchiveMainInterface {
 
 export const cateName = [
   '전체',
-  '펠리세이드',
+  '팰리세이드',
   '베뉴',
   '코나',
   '싼타페',

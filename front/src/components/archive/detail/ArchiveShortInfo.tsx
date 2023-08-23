@@ -114,7 +114,11 @@ export const ArchiveShortInfo = ({
               justify="flex-start"
               height="auto"
             >
-              {optionDetail?.[`상세 품목`].map((option) => (
+              {[
+                ...(optionDetail?.['상세 품목'] || []),
+                ...(optionDetail?.['N performance'] || []),
+                ...(optionDetail?.['H Genuine Accessories'] || []),
+              ].map((option) => (
                 <OptionTag key={`상세품목_${option.carOptionId}`}>
                   <Text typo="Body3_Regular" palette="DarkGray">
                     {option.optionName}

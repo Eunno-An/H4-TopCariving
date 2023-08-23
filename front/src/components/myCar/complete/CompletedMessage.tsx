@@ -21,7 +21,7 @@ export const CompletedMessage = ({ carColor }: { carColor: string }) => {
           <TitleBorder />
         </Flex>
         <Flex direction="column" align="flex-start" gap={3}>
-          <Text typo="Heading1_Medium">나의 펠리세이드가 완성되었어요 !</Text>
+          <Text typo="Heading1_Medium">나의 팰리세이드가 완성되었어요 !</Text>
           <Text typo="Caption_Regular">
             완성된 차량은 마이페이지 <img src={keyboardRight} alt="" />{' '}
             마이카이빙에서 볼 수 있어요

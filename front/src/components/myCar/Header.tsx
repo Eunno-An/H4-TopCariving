@@ -56,7 +56,7 @@ export const Header = () => {
         <Flex justify="flex-end" gap={21}>
           <Flex gap={16} width="auto">
             <Text typo="Body2_Medium" palette="DarkGray">
-              펠리세이드
+              팰리세이드
             </Text>
             <img src={vector850} alt="" />
             <Flex

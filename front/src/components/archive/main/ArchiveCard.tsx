@@ -18,26 +18,13 @@ export const ArchiveCard = ({
   archiveInfo,
   selectedOption,
 }: ArchiveCardProps) => {
-  let selectedOptionList = [] as string[];
-
-  ['상세 품목', 'H Genuine Accessories', 'N performance'].forEach(
-    (key: string) => {
-      if (archiveInfo.carArchiveResult[key]) {
-        selectedOptionList = [
-          ...selectedOptionList,
-          ...archiveInfo.carArchiveResult[key],
-        ];
-      }
-    },
-  );
-
   return (
     <>
       {archiveInfo.carArchiveResult && (
         <Wrapper direction="column" justify="flex-start" align="flex-start">
           <Flex height="auto" justify="space-between" margin="0 0 5px 0">
             <Text typo="Heading3_Bold">
-              {`펠리세이드 ${
+              {`팰리세이드 ${
                 archiveInfo.carArchiveResult.모델 &&
                 archiveInfo.carArchiveResult.모델[0]
               }`}
@@ -46,16 +33,9 @@ export const ArchiveCard = ({
               archiveInfo.type
             }했어요`}</BrownTag>
           </Flex>
-          <Text typo="Body3_Regular">{`${
-            archiveInfo.carArchiveResult.엔진 &&
-            archiveInfo.carArchiveResult.엔진[0]
-          } / ${
-            archiveInfo.carArchiveResult.구동방식 &&
-            archiveInfo.carArchiveResult.구동방식[0]
-          } / ${
-            archiveInfo.carArchiveResult.바디타입 &&
-            archiveInfo.carArchiveResult.바디타입[0]
-          }`}</Text>
+          <Text typo="Body3_Regular">{`${archiveInfo.carArchiveResult.트림.join(
+            '/',
+          )}`}</Text>
           <Flex
             height="auto"
             gap={12}
@@ -94,19 +74,21 @@ export const ArchiveCard = ({
                 flex-wrap: wrap;
               `}
             >
-              {selectedOptionList.map((optionName, idx) => {
-                const isSelected =
-                  selectedOption?.some(
-                    (option) => option.optionName === optionName,
-                  ) || false;
-                return (
-                  <OptionChip key={`상세품목_${idx}`} isSelected={isSelected}>
-                    <Text key={`상세품목_${idx}`} typo="Body3_Regular">
-                      {optionName}
-                    </Text>
-                  </OptionChip>
-                );
-              })}
+              {archiveInfo.carArchiveResult['선택품목'].map(
+                (optionName, idx) => {
+                  const isSelected =
+                    selectedOption?.some(
+                      (option) => option.optionName === optionName,
+                    ) || false;
+                  return (
+                    <OptionChip key={`상세품목_${idx}`} isSelected={isSelected}>
+                      <Text key={`상세품목_${idx}`} typo="Body3_Regular">
+                        {optionName}
+                      </Text>
+                    </OptionChip>
+                  );
+                },
+              )}
             </Flex>
           </Flex>
           <Flex
@@ -118,9 +100,10 @@ export const ArchiveCard = ({
               flex-wrap: wrap;
             `}
           >
-            {archiveInfo.tags.map(({ tagContent }, idx) => (
-              <Tag desc={tagContent} key={`tagContent_${idx}`} />
-            ))}
+            {archiveInfo.tags &&
+              archiveInfo.tags.map(({ tagContent }, idx) => (
+                <Tag desc={tagContent} key={`tagContent_${idx}`} />
+              ))}
           </Flex>
         </Wrapper>
       )}

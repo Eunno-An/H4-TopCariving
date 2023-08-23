@@ -49,7 +49,7 @@ export const MyCarCard = ({
   const onDeleteHandler = (archivingId: number) => {
     openAlert({
       newContent: [
-        `펠리세이드 ${info.trims.모델}을`,
+        `팰리세이드 ${info.trims.모델}을`,
         '내가 만든 차량 목록에서 삭제하시겠어요?',
       ],
       newButtonInfo: [
@@ -84,7 +84,7 @@ export const MyCarCard = ({
             white-space: nowrap;
           `}
         >
-          펠리세이드 {info.trims.모델}
+          팰리세이드 {info.trims.모델}
         </Text>
         <Flex gap={10} justify="flex-end">
           {info.complete ? (
@@ -108,8 +108,7 @@ export const MyCarCard = ({
       </Flex>
       <Flex justify="flex-start">
         <Text typo="Body3_Regular">
-          {info.trims.바디타입} / {info.trims.모델} / {info.trims.엔진} /{' '}
-          {info.trims.구동방식}
+          {info.trims.엔진}/{info.trims.바디타입}/{info.trims.구동방식}
         </Text>
       </Flex>
       <Flex margin="20px 0 0 0">
