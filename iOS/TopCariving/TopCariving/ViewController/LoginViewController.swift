@@ -85,7 +85,7 @@ class LoginViewController: UIViewController {
         }
     }
     private func setLayout() {
-
+        
         NSLayoutConstraint.activate([
             logoImageView.topAnchor.constraint(equalTo: view.topAnchor,
                                                constant: 100 * view.frame.height / 852),
@@ -128,10 +128,7 @@ class LoginViewController: UIViewController {
                 guard let self else { return }
                 Task {
                     do {
-                        _ = KeyChain.deleteStringFromKeychain(key: "accessToken")
-                        _ = KeyChain.deleteStringFromKeychain(key: "refreshToken")
                         let isLoginFinish = try await LoginService().emailLogin(
-                            url: URL(string: "https://dev.topcariving.com/login")!,
                             loginInfo: .init(
                                 email: self.idTextField.text ?? "",
                                 password: self.passwordTextField.text ?? ""

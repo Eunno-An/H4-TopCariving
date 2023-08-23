@@ -37,7 +37,7 @@ class LoginService {
         KeyChain.getStringFromKeychain(key: "accessToken") != nil
     }
     // swiftlint: disable cyclomatic_complexity
-    func emailLogin(url: URL, loginInfo: LoginInfo) async throws -> LoginResult {
+    func emailLogin(loginInfo: LoginInfo) async throws -> LoginResult {
         let requestData: [String: Any] = [
             "email": loginInfo.email,
             "password": loginInfo.password
@@ -48,6 +48,9 @@ class LoginService {
         } catch {
             NSLog(error.localizedDescription)
             return .failure(.decodingError)
+        }
+        guard let url = URL(string: "https://dev.topcariving.com/login") else {
+            return .failure(.invalidURL)
         }
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
@@ -79,10 +82,14 @@ class LoginService {
                     if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                         if let accessToken = jsonResponse["accessToken"] as? String,
                            let refreshToken = jsonResponse["refreshToken"] as? String {
-                            KeyChain.saveStringToKeychain(value: accessToken, key: "accessToken")
+                            
+                            let ableSaving = KeyChain.saveStringToKeychain(value: accessToken, key: "accessToken")
                             && KeyChain.saveStringToKeychain(value: refreshToken, key: "refreshToken")
-                            ? continuation.resume(returning: .success)
-                            : continuation.resume(returning: .failure(.keyChainError))
+                            if ableSaving {
+                                continuation.resume(returning: .success)
+                            } else {
+                                continuation.resume(returning: .failure(.keyChainError))
+                            }
                         } else {
                             continuation.resume(returning: .failure(.tokenNotFound))
                         }
@@ -96,7 +103,7 @@ class LoginService {
             task.resume()
         }
     }
-    // swiftlint: enable cyclomatic_complexity
+    
     func reIssue() async throws -> LoginResult {
         guard let url = URL(string: "https://dev.topcariving.com/reissue") else {
             return .failure(.invalidURL)
@@ -121,10 +128,14 @@ class LoginService {
                 
                 switch httpResponse.statusCode {
                 case 401:
+                    let ableDeleting =
                     KeyChain.deleteStringFromKeychain(key: "accessToken")
                     && KeyChain.deleteStringFromKeychain(key: "refreshToken")
-                    ? continuation.resume(returning: .failure(.serverError(code: 401)))
-                    : continuation.resume(returning: .failure(.keyChainError))
+                    if ableDeleting {
+                        continuation.resume(returning: .failure(.serverError(code: 401)))
+                    } else {
+                        continuation.resume(returning: .failure(.keyChainError))
+                    }
                     return
                 case 200:
                     NSLog("statusCode 200")
@@ -136,10 +147,14 @@ class LoginService {
                     if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                         if let accessToken = jsonResponse["accessToken"] as? String,
                            let refreshToken = jsonResponse["refreshToken"] as? String {
+                            let ableSaving =
                             KeyChain.saveStringToKeychain(value: accessToken, key: "accessToken")
                             && KeyChain.saveStringToKeychain(value: refreshToken, key: "refreshToken")
-                            ? continuation.resume(returning: .success)
-                            : continuation.resume(returning: .failure(.keyChainError))
+                            if ableSaving {
+                                continuation.resume(returning: .success)
+                            } else {
+                                continuation.resume(returning: .failure(.keyChainError))
+                            }
                         } else {
                             continuation.resume(returning: .failure(.tokenNotFound))
                         }
@@ -153,4 +168,5 @@ class LoginService {
             task.resume()
         }
     }
+    // swiftlint: enable cyclomatic_complexity
 }
