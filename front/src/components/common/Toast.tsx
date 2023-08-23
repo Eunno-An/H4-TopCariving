@@ -29,5 +29,5 @@ const Container = styled(Flex)<{ isOpen: boolean }>`
   background-color: ${theme.palette.Primary};
   opacity: 0.9;
   transition: ease-out 0.5s;
-  z-index: 2;
+  z-index: 7;
 `;

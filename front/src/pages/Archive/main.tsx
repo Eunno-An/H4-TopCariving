@@ -1,6 +1,6 @@
 import { Category, OptionWrapper } from '@components/archive/main';
 import { ArchiveCard } from '@components/archive/main/ArchiveCard';
-import { Flex, masonryLayout } from '@components/common';
+import { Flex, Text, masonryLayout } from '@components/common';
 import styled from '@emotion/styled';
 import { ArchiveUrl, apiInstance } from '@utils/api';
 import { useEffect, useRef, useState } from 'react';
@@ -56,7 +56,7 @@ export const ArchiveMain = () => {
   const masonryRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     masonryLayout({ element: masonryRef });
-  }, [options]);
+  }, [archiveSearchResponses, selectedMenu]);
 
   return (
     <Flex direction="column" justify="flex-start">
@@ -66,10 +66,10 @@ export const ArchiveMain = () => {
         selectedOption={selectedOption}
         setSelectedOption={setSelectedOption}
       />
-      <Container ref={masonryRef}>
-        {selectedMenu === 1 ? (
-          archiveSearchResponses.length !== 0 ? (
-            archiveSearchResponses.map((archiveInfo, idx) => (
+      <>
+        {selectedMenu === 1 && archiveSearchResponses.length !== 0 ? (
+          <Container ref={masonryRef}>
+            {archiveSearchResponses.map((archiveInfo, idx) => (
               <div
                 key={`archiveCard_${idx}`}
                 onClick={() => onMoveDetail(archiveInfo.archivingId)}
@@ -79,14 +79,14 @@ export const ArchiveMain = () => {
                   selectedOption={selectedOption}
                 />
               </div>
-            ))
-          ) : (
-            <Flex>검색 결과가 없습니다.</Flex>
-          )
+            ))}
+          </Container>
         ) : (
-          <Flex>검색 결과가 없습니다.</Flex>
+          <Flex width={1048}>
+            <Text typo="Body1_Regular">검색 결과가 존재하지 않아요.</Text>
+          </Flex>
         )}
-      </Container>
+      </>
     </Flex>
   );
 };
@@ -144,22 +144,4 @@ export const cateName = [
   '그랜저',
   '아반떼',
   '아이오닉',
-];
-
-export const optionName = [
-  { carOptionId: 1, optionName: '듀얼 와이드 선루프' },
-  { carOptionId: 2, optionName: '2열 통풍시트' },
-  { carOptionId: 3, optionName: '현대스마트센스1' },
-  { carOptionId: 4, optionName: '듀얼 머플러 패키지' },
-  { carOptionId: 5, optionName: '사이드스텝' },
-  { carOptionId: 6, optionName: '차량 보호 필름' },
-  { carOptionId: 7, optionName: '듀얼 와이드 선루프' },
-  { carOptionId: 8, optionName: '2열 통풍시트' },
-  { carOptionId: 9, optionName: '현대스마트센스1' },
-  { carOptionId: 10, optionName: '듀얼 머플러 패키지' },
-  { carOptionId: 11, optionName: '사이드스텝' },
-  { carOptionId: 12, optionName: '차량 보호 필름' },
-  { carOptionId: 13, optionName: '듀얼 와이드 선루프' },
-  { carOptionId: 14, optionName: '2열 통풍시트' },
-  { carOptionId: 15, optionName: '현대스마트센스1' },
 ];

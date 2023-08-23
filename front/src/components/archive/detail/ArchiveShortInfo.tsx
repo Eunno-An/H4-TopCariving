@@ -92,9 +92,6 @@ export const ArchiveShortInfo = ({
         padding="60px 0 30px 0"
         justify="flex-start"
         gap={47}
-        css={css`
-          z-index: 3;
-        `}
       >
         <Flex direction="column" align="flex-start" height="auto">
           <Text typo="Body1_Regular">총 가격</Text>
@@ -126,7 +123,13 @@ export const ArchiveShortInfo = ({
               ))}
             </OptionTagContainer>
           </Flex>
-          <Flex gap={14} height="auto">
+          <Flex
+            gap={14}
+            height="auto"
+            css={css`
+              z-index: 3;
+            `}
+          >
             <BookMark
               isBookmarked={detailInfo?.isBookmarked}
               onClick={onChangeBookMark}

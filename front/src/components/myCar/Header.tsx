@@ -43,7 +43,7 @@ export const Header = () => {
         top: 0;
         left: 0;
         flex-shrink: 0;
-        z-index: 1;
+        z-index: 6;
       `}
     >
       <Flex width={1280}>
