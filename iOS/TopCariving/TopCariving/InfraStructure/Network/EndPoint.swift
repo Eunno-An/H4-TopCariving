@@ -13,7 +13,7 @@ protocol EndPoint {
     var path: String { get }
     var method: RequestMethod { get }
     var header: [String: String]? { get }
-    var body: [String: String]? { get }
+    var body: Encodable? { get }
 }
 
 extension EndPoint {
@@ -22,6 +22,6 @@ extension EndPoint {
     }
 
     var host: String {
-        return ""
+        return "dev.topcariving.com"
     }
 }

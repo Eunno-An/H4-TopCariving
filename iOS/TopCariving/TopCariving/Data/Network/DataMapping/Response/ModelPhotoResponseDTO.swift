@@ -9,15 +9,15 @@ import Foundation
 
 struct ModelPhotoResponseDTO: Decodable {
     let content: String
-    let photoSVGURL: String
-    let photoPNGURL: String
+    let photoSvgUrl: String
+    let photoPngUrl: String
 }
 
 extension ModelPhotoResponseDTO {
     func toDomain() -> ModelPhoto {
         return .init(
             content: content,
-            photoSVGURL: photoSVGURL, 
-            photoPNGURL: photoPNGURL)
+            photoSVGURL: photoSvgUrl,
+            photoPNGURL: photoPngUrl)
     }
 }

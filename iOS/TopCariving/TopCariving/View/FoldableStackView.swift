@@ -9,8 +9,6 @@ import Combine
 import UIKit
 
 class FoldableStackView: UIStackView {
-    // MARK: - UI properties
-    
     // MARK: - Properties
     var bag = Set<AnyCancellable>()
     var tapSubject = PassthroughSubject<Int, Never>()
@@ -20,15 +18,9 @@ class FoldableStackView: UIStackView {
         super.init(frame: frame)
         setUI()
     }
-    
     required init(coder: NSCoder) {
         super.init(coder: coder)
         setUI()
-    }
-    
-    convenience init(arrangedSubviews views: [FoldableView]) {
-        self.init(frame: .zero)
-        views.forEach { addArrangedSubview($0) }
     }
     
     // MARK: - Helpers
@@ -39,13 +31,11 @@ class FoldableStackView: UIStackView {
         distribution = .equalSpacing
         spacing = 8
     }
-    
     override func addArrangedSubview(_ view: UIView) {
-        guard let view = view as? FoldableView else { return }
         super.addArrangedSubview(view)
         tapped(at: 0)
         
-        view.tapSubject
+        view.tabPublisher
             .compactMap { [weak self] _ in
                 self?.arrangedSubviews.firstIndex(of: view)
             }
@@ -55,7 +45,6 @@ class FoldableStackView: UIStackView {
             })
             .store(in: &bag)
     }
-    
     private func tapped(at index: Int) {
         guard (0..<arrangedSubviews.count) ~= index else { return }
         

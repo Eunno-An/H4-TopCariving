@@ -9,7 +9,7 @@ import Foundation
 
 struct ModelResponseDTO: Decodable {
     typealias Identifier = Int64
-    let carOptionID: Identifier
+    let carOptionId: Identifier
     let optionName: String
     let price: Int32
     let photos: [ModelPhotoResponseDTO]
@@ -18,7 +18,7 @@ struct ModelResponseDTO: Decodable {
 extension ModelResponseDTO {
     func toDomain() -> Model {
         return .init(
-            id: carOptionID,
+            id: carOptionId,
             optionName: optionName,
             price: price,
             photos: photos.map {$0.toDomain()})

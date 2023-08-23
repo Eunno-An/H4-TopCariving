@@ -48,7 +48,7 @@ class SummaryViewController: UIViewController {
     }()
     private lazy var collectionViewLayout: UICollectionViewLayout = {
         let layout = UICollectionViewFlowLayout()
-        let width = view.window?.windowScene?.screen.bounds.width ?? 352
+        let width = CGRect.screenBounds.width ?? 352
         layout.minimumInteritemSpacing = 8
         layout.itemSize = .init(width: width, height: 22)
         layout.headerReferenceSize = .init(width: width, height: 42)

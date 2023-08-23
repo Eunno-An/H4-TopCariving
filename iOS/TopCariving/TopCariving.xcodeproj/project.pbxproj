@@ -22,11 +22,38 @@
 		763F60402A7B75D1000D11D9 /* CarSummaryContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763F603F2A7B75D1000D11D9 /* CarSummaryContainer.swift */; };
 		763F60422A7B9B08000D11D9 /* FoldableStackView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763F60412A7B9B08000D11D9 /* FoldableStackView.swift */; };
 		763F60482A7C7F35000D11D9 /* ToastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 763F60472A7C7F35000D11D9 /* ToastView.swift */; };
+		7672EDC92A93550100A1969E /* TagsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7672EDC82A93550100A1969E /* TagsView.swift */; };
+		769F68372A8E1CEB000EF81C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769F68362A8E1CEB000EF81C /* LoginViewController.swift */; };
+		767E23DB2A94FF1A00006017 /* ModelOptionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767E23DA2A94FF1A00006017 /* ModelOptionViewModel.swift */; };
+		767E23DD2A95097C00006017 /* TrimEndPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767E23DC2A95097C00006017 /* TrimEndPoint.swift */; };
+		767E23DF2A9514E400006017 /* SelectOptionRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767E23DE2A9514E400006017 /* SelectOptionRequestDTO.swift */; };
+		767E23E12A951D3200006017 /* SuccessResponseLongDTO+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 767E23E02A951D3200006017 /* SuccessResponseLongDTO+Mapping.swift */; };
 		7683E3892A8EF0FA00BF8BEB /* ColorSectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7683E3882A8EF0FA00BF8BEB /* ColorSectionViewController.swift */; };
 		7683E38B2A8EF20100BF8BEB /* ProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7683E38A2A8EF20100BF8BEB /* ProgressView.swift */; };
 		7683E38D2A8EF4B400BF8BEB /* MockImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7683E38C2A8EF4B400BF8BEB /* MockImageService.swift */; };
 		7683E38F2A8EF5A200BF8BEB /* SelectOptionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7683E38E2A8EF5A200BF8BEB /* SelectOptionViewController.swift */; };
 		7683E3952A8EFDDB00BF8BEB /* InteriorColorSelctionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7683E3942A8EFDDB00BF8BEB /* InteriorColorSelctionViewController.swift */; };
+		7683E3AC2A924ABA00BF8BEB /* ArchivingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7683E3AB2A924ABA00BF8BEB /* ArchivingViewController.swift */; };
+		7683E3AE2A924CAB00BF8BEB /* ArchivingSearchButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7683E3AD2A924CAB00BF8BEB /* ArchivingSearchButton.swift */; };
+		7683E3B02A925A5600BF8BEB /* SearchFilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7683E3AF2A925A5600BF8BEB /* SearchFilterViewController.swift */; };
+		7683E3B42A925ED300BF8BEB /* ArchivingSettingButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7683E3B32A925ED300BF8BEB /* ArchivingSettingButton.swift */; };
+		7683E3B62A9265E100BF8BEB /* OptionTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7683E3B52A9265E100BF8BEB /* OptionTagView.swift */; };
+		7683E3B82A9265E900BF8BEB /* OptionTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7683E3B72A9265E900BF8BEB /* OptionTagCell.swift */; };
+		7683E3BA2A92F9F800BF8BEB /* SearchCarSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7683E3B92A92F9F800BF8BEB /* SearchCarSettingViewController.swift */; };
+		7683E3BC2A92FDF100BF8BEB /* SettingOptionTagCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7683E3BB2A92FDF100BF8BEB /* SettingOptionTagCell.swift */; };
+		7683E3BE2A92FEBF00BF8BEB /* SearchOptionSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7683E3BD2A92FEBF00BF8BEB /* SearchOptionSettingViewController.swift */; };
+		7683E3C02A93485800BF8BEB /* ArchivingReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7683E3BF2A93485800BF8BEB /* ArchivingReviewView.swift */; };
+		7683E3C22A934A8C00BF8BEB /* ArchivingReviewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7683E3C12A934A8C00BF8BEB /* ArchivingReviewCell.swift */; };
+		768919562A93A7BD00EFD91C /* ArchivingDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768919552A93A7BD00EFD91C /* ArchivingDetailView.swift */; };
+		768919582A93AFEB00EFD91C /* ArchivingDetailCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768919572A93AFEB00EFD91C /* ArchivingDetailCell.swift */; };
+		7689195A2A93B70600EFD91C /* ArchivingDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 768919592A93B70600EFD91C /* ArchivingDetailViewController.swift */; };
+		7689195C2A93C47E00EFD91C /* BaseArchivingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7689195B2A93C47E00EFD91C /* BaseArchivingViewController.swift */; };
+		7689195E2A93CD2000EFD91C /* ArchivingDetailHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7689195D2A93CD2000EFD91C /* ArchivingDetailHeader.swift */; };
+		768919602A93DBB700EFD91C /* BaseSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7689195F2A93DBB700EFD91C /* BaseSearchViewController.swift */; };
+		7683E39E2A91E4B900BF8BEB /* EngineSelectionContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7683E39D2A91E4B900BF8BEB /* EngineSelectionContainer.swift */; };
+		7683E3A22A91F16200BF8BEB /* TrimReviewedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7683E3A12A91F16200BF8BEB /* TrimReviewedView.swift */; };
+		7683E3A42A92162500BF8BEB /* TrimSelectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7683E3A32A92162500BF8BEB /* TrimSelectionViewController.swift */; };
+		7683E3A82A92168900BF8BEB /* TrimSelectionContainer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7683E3A72A92168900BF8BEB /* TrimSelectionContainer.swift */; };
 		76932D702A8C62670020860D /* ColorImageLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76932D6F2A8C62670020860D /* ColorImageLabel.swift */; };
 		769F68372A8E1CEB000EF81C /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769F68362A8E1CEB000EF81C /* LoginViewController.swift */; };
 		76CA13AC2A8D2E30006C3106 /* SummaryColorCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76CA13AB2A8D2E30006C3106 /* SummaryColorCell.swift */; };
@@ -163,11 +190,37 @@
 		763F603F2A7B75D1000D11D9 /* CarSummaryContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CarSummaryContainer.swift; sourceTree = "<group>"; };
 		763F60412A7B9B08000D11D9 /* FoldableStackView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoldableStackView.swift; sourceTree = "<group>"; };
 		763F60472A7C7F35000D11D9 /* ToastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToastView.swift; sourceTree = "<group>"; };
+		7672EDC82A93550100A1969E /* TagsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TagsView.swift; sourceTree = "<group>"; };
+		767E23DA2A94FF1A00006017 /* ModelOptionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelOptionViewModel.swift; sourceTree = "<group>"; };
+		767E23DC2A95097C00006017 /* TrimEndPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimEndPoint.swift; sourceTree = "<group>"; };
+		767E23DE2A9514E400006017 /* SelectOptionRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOptionRequestDTO.swift; sourceTree = "<group>"; };
+		767E23E02A951D3200006017 /* SuccessResponseLongDTO+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SuccessResponseLongDTO+Mapping.swift"; sourceTree = "<group>"; };
 		7683E3882A8EF0FA00BF8BEB /* ColorSectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorSectionViewController.swift; sourceTree = "<group>"; };
 		7683E38A2A8EF20100BF8BEB /* ProgressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressView.swift; sourceTree = "<group>"; };
 		7683E38C2A8EF4B400BF8BEB /* MockImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageService.swift; sourceTree = "<group>"; };
 		7683E38E2A8EF5A200BF8BEB /* SelectOptionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectOptionViewController.swift; sourceTree = "<group>"; };
 		7683E3942A8EFDDB00BF8BEB /* InteriorColorSelctionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteriorColorSelctionViewController.swift; sourceTree = "<group>"; };
+		7683E3AB2A924ABA00BF8BEB /* ArchivingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchivingViewController.swift; sourceTree = "<group>"; };
+		7683E3AD2A924CAB00BF8BEB /* ArchivingSearchButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchivingSearchButton.swift; sourceTree = "<group>"; };
+		7683E3AF2A925A5600BF8BEB /* SearchFilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchFilterViewController.swift; sourceTree = "<group>"; };
+		7683E3B32A925ED300BF8BEB /* ArchivingSettingButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchivingSettingButton.swift; sourceTree = "<group>"; };
+		7683E3B52A9265E100BF8BEB /* OptionTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionTagView.swift; sourceTree = "<group>"; };
+		7683E3B72A9265E900BF8BEB /* OptionTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionTagCell.swift; sourceTree = "<group>"; };
+		7683E3B92A92F9F800BF8BEB /* SearchCarSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCarSettingViewController.swift; sourceTree = "<group>"; };
+		7683E3BB2A92FDF100BF8BEB /* SettingOptionTagCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingOptionTagCell.swift; sourceTree = "<group>"; };
+		7683E3BD2A92FEBF00BF8BEB /* SearchOptionSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchOptionSettingViewController.swift; sourceTree = "<group>"; };
+		7683E3BF2A93485800BF8BEB /* ArchivingReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchivingReviewView.swift; sourceTree = "<group>"; };
+		7683E3C12A934A8C00BF8BEB /* ArchivingReviewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchivingReviewCell.swift; sourceTree = "<group>"; };
+		768919552A93A7BD00EFD91C /* ArchivingDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchivingDetailView.swift; sourceTree = "<group>"; };
+		768919572A93AFEB00EFD91C /* ArchivingDetailCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchivingDetailCell.swift; sourceTree = "<group>"; };
+		768919592A93B70600EFD91C /* ArchivingDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchivingDetailViewController.swift; sourceTree = "<group>"; };
+		7689195B2A93C47E00EFD91C /* BaseArchivingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseArchivingViewController.swift; sourceTree = "<group>"; };
+		7689195D2A93CD2000EFD91C /* ArchivingDetailHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArchivingDetailHeader.swift; sourceTree = "<group>"; };
+		7689195F2A93DBB700EFD91C /* BaseSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseSearchViewController.swift; sourceTree = "<group>"; };
+		7683E39D2A91E4B900BF8BEB /* EngineSelectionContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EngineSelectionContainer.swift; sourceTree = "<group>"; };
+		7683E3A12A91F16200BF8BEB /* TrimReviewedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimReviewedView.swift; sourceTree = "<group>"; };
+		7683E3A32A92162500BF8BEB /* TrimSelectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimSelectionViewController.swift; sourceTree = "<group>"; };
+		7683E3A72A92168900BF8BEB /* TrimSelectionContainer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrimSelectionContainer.swift; sourceTree = "<group>"; };
 		76932D6F2A8C62670020860D /* ColorImageLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorImageLabel.swift; sourceTree = "<group>"; };
 		769F68362A8E1CEB000EF81C /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		76CA13AB2A8D2E30006C3106 /* SummaryColorCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SummaryColorCell.swift; sourceTree = "<group>"; };
@@ -373,6 +426,7 @@
 				D44B456E2A7B968200E8E207 /* HTTPClient.swift */,
 				D44B45702A7B968A00E8E207 /* HTTPMethod.swift */,
 				D44B45722A7B969200E8E207 /* RequestError.swift */,
+				767E23DC2A95097C00006017 /* TrimEndPoint.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -381,6 +435,7 @@
 			isa = PBXGroup;
 			children = (
 				D4A68CF72A808D6300E2C1FD /* OptionRequestDTO.swift */,
+				767E23DE2A9514E400006017 /* SelectOptionRequestDTO.swift */,
 				D4A68D012A8093F800E2C1FD /* EstimationChangeRequestDTO.swift */,
 			);
 			path = Request;
@@ -402,6 +457,7 @@
 				D4A68D122A8096CC00E2C1FD /* ColorBothResponseDTO+Mapping.swift */,
 				D4A68D152A80973C00E2C1FD /* BasicOptionResponseDTO+Mapping.swift */,
 				D4A68D3D2A80F0C400E2C1FD /* TagResponseDTO.swift */,
+				767E23E02A951D3200006017 /* SuccessResponseLongDTO+Mapping.swift */,
 			);
 			path = Response;
 			sourceTree = "<group>";
@@ -504,6 +560,7 @@
 				D44B45742A7BC3DF00E8E207 /* DummyViewModel.swift */,
 				D4ACBA7F2A78CE4D002B6A5B /* ViewModelProtocol.swift */,
 				D49B0FA82A94890B00B3CEE2 /* LoginViewModel.swift */,
+				767E23DA2A94FF1A00006017 /* ModelOptionViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -521,6 +578,14 @@
 				7683E3942A8EFDDB00BF8BEB /* InteriorColorSelctionViewController.swift */,
 				7683E38E2A8EF5A200BF8BEB /* SelectOptionViewController.swift */,
 				76CA13AD2A8DE64E006C3106 /* TCAlertViewController.swift */,
+				7683E3AB2A924ABA00BF8BEB /* ArchivingViewController.swift */,
+				7683E3AF2A925A5600BF8BEB /* SearchFilterViewController.swift */,
+				7683E3B92A92F9F800BF8BEB /* SearchCarSettingViewController.swift */,
+				7683E3BD2A92FEBF00BF8BEB /* SearchOptionSettingViewController.swift */,
+				768919592A93B70600EFD91C /* ArchivingDetailViewController.swift */,
+				7689195B2A93C47E00EFD91C /* BaseArchivingViewController.swift */,
+				7689195F2A93DBB700EFD91C /* BaseSearchViewController.swift */,
+				7683E3A32A92162500BF8BEB /* TrimSelectionViewController.swift */,
 				769F68362A8E1CEB000EF81C /* LoginViewController.swift */,
 			);
 			path = ViewController;
@@ -549,6 +614,7 @@
 				7631E9522A87720200015363 /* OptionCardCell.swift */,
 				7631E9542A8777E900015363 /* OptionSelectView.swift */,
 				7631E9562A8780EB00015363 /* TagReviewView.swift */,
+				7672EDC82A93550100A1969E /* TagsView.swift */,
 				7631E9582A87839D00015363 /* TagCell.swift */,
 				7631E95A2A89181B00015363 /* OptionSnapCarouselView.swift */,
 				7631E95C2A891A7B00015363 /* OptionDescriptionCell.swift */,
@@ -558,6 +624,19 @@
 				C3C96D4A2A8BC110002C09D2 /* SummaryCell.swift */,
 				76932D6F2A8C62670020860D /* ColorImageLabel.swift */,
 				76CA13AB2A8D2E30006C3106 /* SummaryColorCell.swift */,
+				7683E3AD2A924CAB00BF8BEB /* ArchivingSearchButton.swift */,
+				7683E3B32A925ED300BF8BEB /* ArchivingSettingButton.swift */,
+				7683E3B52A9265E100BF8BEB /* OptionTagView.swift */,
+				7683E3B72A9265E900BF8BEB /* OptionTagCell.swift */,
+				7683E3BB2A92FDF100BF8BEB /* SettingOptionTagCell.swift */,
+				7683E3BF2A93485800BF8BEB /* ArchivingReviewView.swift */,
+				7683E3C12A934A8C00BF8BEB /* ArchivingReviewCell.swift */,
+				768919552A93A7BD00EFD91C /* ArchivingDetailView.swift */,
+				768919572A93AFEB00EFD91C /* ArchivingDetailCell.swift */,
+				7689195D2A93CD2000EFD91C /* ArchivingDetailHeader.swift */,
+				7683E39D2A91E4B900BF8BEB /* EngineSelectionContainer.swift */,
+				7683E3A12A91F16200BF8BEB /* TrimReviewedView.swift */,
+				7683E3A72A92168900BF8BEB /* TrimSelectionContainer.swift */,
 				D462E8DF2A93A07A00C5A8EC /* MyCarivingCarSummaryView.swift */,
 				D49B0FA22A93FD5000B3CEE2 /* CarImagePointView.swift */,
 			);
@@ -756,6 +835,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				767E23DD2A95097C00006017 /* TrimEndPoint.swift in Sources */,
 				D49B0FA32A93FD5000B3CEE2 /* CarImagePointView.swift in Sources */,
 				769F68372A8E1CEB000EF81C /* LoginViewController.swift in Sources */,
 				D4A68D522A8384AC00E2C1FD /* DegreeView.swift in Sources */,
@@ -765,6 +845,7 @@
 				D4A68D062A8094EA00E2C1FD /* ModelPhotoResponseDTO.swift in Sources */,
 				D462E8712A8D15FE00C5A8EC /* MyCarCompletionViewController.swift in Sources */,
 				D44B45732A7B969200E8E207 /* RequestError.swift in Sources */,
+				7683E39E2A91E4B900BF8BEB /* EngineSelectionContainer.swift in Sources */,
 				D462E8122A88A3D700C5A8EC /* SubCategoryModalViewController.swift in Sources */,
 				D4A68D002A8093B200E2C1FD /* ModifyOptionResponseDTO+Mapping.swift in Sources */,
 				D462E8772A8DEBC000C5A8EC /* ChangeOptionButtonView.swift in Sources */,
@@ -777,7 +858,9 @@
 				D4ACBA482A78A3AD002B6A5B /* ViewController.swift in Sources */,
 				D462E8892A91C78900C5A8EC /* ConsultingView.swift in Sources */,
 				D44B456F2A7B968200E8E207 /* HTTPClient.swift in Sources */,
+				7683E3B82A9265E900BF8BEB /* OptionTagCell.swift in Sources */,
 				D4CFBAAF2A7A3E6500CCB27E /* UIFont+.swift in Sources */,
+				7683E3C02A93485800BF8BEB /* ArchivingReviewView.swift in Sources */,
 				76CA13AC2A8D2E30006C3106 /* SummaryColorCell.swift in Sources */,
 				D4A68CFA2A808E0B00E2C1FD /* ArchivingColorResponseDTO+Mapping.swift in Sources */,
 				D4A68D3E2A80F0C400E2C1FD /* TagResponseDTO.swift in Sources */,
@@ -787,17 +870,24 @@
 				D4A68D362A80EFEE00E2C1FD /* Model.swift in Sources */,
 				D44B456B2A7B94D700E8E207 /* EndPoint.swift in Sources */,
 				D4ACBA442A78A3AD002B6A5B /* AppDelegate.swift in Sources */,
+				768919602A93DBB700EFD91C /* BaseSearchViewController.swift in Sources */,
 				C31350102A8B4E4700D5D401 /* ColorSelectionView.swift in Sources */,
 				76932D702A8C62670020860D /* ColorImageLabel.swift in Sources */,
 				D4A68CF82A808D6300E2C1FD /* OptionRequestDTO.swift in Sources */,
 				D4A68D0C2A8095B100E2C1FD /* SelectionResponseDTO+Mapping.swift in Sources */,
+				7683E3BA2A92F9F800BF8BEB /* SearchCarSettingViewController.swift in Sources */,
 				D462E7662A84C9BF00C5A8EC /* UIButton+.swift in Sources */,
 				D462E7782A852D3C00C5A8EC /* UIGestureRecognizer+.swift in Sources */,
 				D4A68D322A80EF8500E2C1FD /* ModifyOption.swift in Sources */,
+				7683E3A82A92168900BF8BEB /* TrimSelectionContainer.swift in Sources */,
+				7683E3A22A91F16200BF8BEB /* TrimReviewedView.swift in Sources */,
 				D462E87D2A8E044D00C5A8EC /* ColorDescriptionView.swift in Sources */,
 				D462E8752A8DE56400C5A8EC /* FeatureSummaryContainerView.swift in Sources */,
 				7631E9412A81D21500015363 /* MyCarFooterView.swift in Sources */,
 				D44B45752A7BC3DF00E8E207 /* DummyViewModel.swift in Sources */,
+				7689195C2A93C47E00EFD91C /* BaseArchivingViewController.swift in Sources */,
+				7672EDC92A93550100A1969E /* TagsView.swift in Sources */,
+				7683E3B42A925ED300BF8BEB /* ArchivingSettingButton.swift in Sources */,
 				D462E77E2A85CCA900C5A8EC /* CombineGestureEvent.swift in Sources */,
 				7631E95D2A891A7B00015363 /* OptionDescriptionCell.swift in Sources */,
 				D462E89D2A92428A00C5A8EC /* MyCarFeatureView.swift in Sources */,
@@ -806,21 +896,26 @@
 				7631E94B2A8382E100015363 /* BaseMyCarViewController.swift in Sources */,
 				D44B45952A7CB9CA00E8E207 /* APIEndPoints.swift in Sources */,
 				D4A68D402A80F0EE00E2C1FD /* Color.swift in Sources */,
+				7683E3AC2A924ABA00BF8BEB /* ArchivingViewController.swift in Sources */,
 				D462E7802A85F3D900C5A8EC /* UIView+.swift in Sources */,
 				D49B0FA72A94855900B3CEE2 /* KeyChain.swift in Sources */,
 				D4CFBAAD2A7A25B100CCB27E /* HyundaiFont.swift in Sources */,
 				D4A68D442A80F13500E2C1FD /* BasicOption.swift in Sources */,
+				768919562A93A7BD00EFD91C /* ArchivingDetailView.swift in Sources */,
 				C3C96D452A8B5529002C09D2 /* ColorCell.swift in Sources */,
 				D4A68D022A8093F800E2C1FD /* EstimationChangeRequestDTO.swift in Sources */,
 				D49B0FA52A94811D00B3CEE2 /* LoginService.swift in Sources */,
 				D4A68D302A80EF2A00E2C1FD /* Archiving.swift in Sources */,
 				7631E9572A8780EB00015363 /* TagReviewView.swift in Sources */,
+				767E23DF2A9514E400006017 /* SelectOptionRequestDTO.swift in Sources */,
 				D4A68D342A80EFC900E2C1FD /* Trim.swift in Sources */,
 				D4A68D4C2A81D2C300E2C1FD /* RotatableOptionImageView.swift in Sources */,
+				768919582A93AFEB00EFD91C /* ArchivingDetailCell.swift in Sources */,
 				D462E8162A88D6E600C5A8EC /* ModalPresentationController.swift in Sources */,
 				D4A68D482A80F17C00E2C1FD /* EstimationChange.swift in Sources */,
 				7631E9472A82200C00015363 /* UILabel+.swift in Sources */,
 				D4A68D102A80968500E2C1FD /* ColorResponseDTO+Mapping.swift in Sources */,
+				7689195A2A93B70600EFD91C /* ArchivingDetailViewController.swift in Sources */,
 				7625A8012A8A26AA0060EEF5 /* String+.swift in Sources */,
 				7683E3892A8EF0FA00BF8BEB /* ColorSectionViewController.swift in Sources */,
 				7683E38F2A8EF5A200BF8BEB /* SelectOptionViewController.swift in Sources */,
@@ -828,14 +923,18 @@
 				7631E9592A87839D00015363 /* TagCell.swift in Sources */,
 				D4ACBA872A78CE8F002B6A5B /* UIColor+.swift in Sources */,
 				D4A68CFE2A80930800E2C1FD /* ArchivingResponseDTO+Mapping.swift in Sources */,
+				7683E3BC2A92FDF100BF8BEB /* SettingOptionTagCell.swift in Sources */,
 				D4A68D462A80F15500E2C1FD /* ModelPhoto.swift in Sources */,
 				D4A68D042A80946D00E2C1FD /* TrimResponseDTO+Mapping.swift in Sources */,
 				D49B0FA92A94890B00B3CEE2 /* LoginViewModel.swift in Sources */,
 				D4ACBA822A78CE56002B6A5B /* DummyModel.swift in Sources */,
 				C3C96D492A8BBDCB002C09D2 /* SummaryHeaderView.swift in Sources */,
+				7683E3B62A9265E100BF8BEB /* OptionTagView.swift in Sources */,
+				7683E3BE2A92FEBF00BF8BEB /* SearchOptionSettingViewController.swift in Sources */,
 				D4A68D132A8096CC00E2C1FD /* ColorBothResponseDTO+Mapping.swift in Sources */,
 				7683E38B2A8EF20100BF8BEB /* ProgressView.swift in Sources */,
 				7683E3952A8EFDDB00BF8BEB /* InteriorColorSelctionViewController.swift in Sources */,
+				7689195E2A93CD2000EFD91C /* ArchivingDetailHeader.swift in Sources */,
 				D462E85C2A8B79D000C5A8EC /* BaseOptionSubCategoryModel.swift in Sources */,
 				7683E38D2A8EF4B400BF8BEB /* MockImageService.swift in Sources */,
 				D4A68D2E2A80EF0C00E2C1FD /* ArchivingOption.swift in Sources */,
@@ -845,13 +944,17 @@
 				D462E8812A9098C600C5A8EC /* MyCarChoicedOptionView.swift in Sources */,
 				7631E9532A87720200015363 /* OptionCardCell.swift in Sources */,
 				D4A68D382A80F01400E2C1FD /* SelectionDetail.swift in Sources */,
+				7683E3A42A92162500BF8BEB /* TrimSelectionViewController.swift in Sources */,
 				D44B45712A7B968A00E8E207 /* HTTPMethod.swift in Sources */,
 				7631E9552A8777E900015363 /* OptionSelectView.swift in Sources */,
 				D4A68D422A80F10E00E2C1FD /* ColorBoth.swift in Sources */,
 				D4ACBA802A78CE4D002B6A5B /* ViewModelProtocol.swift in Sources */,
 				763F60482A7C7F35000D11D9 /* ToastView.swift in Sources */,
+				767E23DB2A94FF1A00006017 /* ModelOptionViewModel.swift in Sources */,
 				7631E9432A81D3CF00015363 /* CTAButton.swift in Sources */,
+				7683E3B02A925A5600BF8BEB /* SearchFilterViewController.swift in Sources */,
 				76CA13AE2A8DE64E006C3106 /* TCAlertViewController.swift in Sources */,
+				7683E3C22A934A8C00BF8BEB /* ArchivingReviewCell.swift in Sources */,
 				D462E81C2A8A700E00C5A8EC /* BaseOptonSubCategoryCell.swift in Sources */,
 				D462E89B2A92428A00C5A8EC /* TicketBackgroundView.swift in Sources */,
 				763F60422A7B9B08000D11D9 /* FoldableStackView.swift in Sources */,
@@ -859,11 +962,13 @@
 				D462E85A2A8B79C300C5A8EC /* BaseOptonMainCategoryModel.swift in Sources */,
 				C313500C2A7E98DE00D5D401 /* FoldableView.swift in Sources */,
 				763F60402A7B75D1000D11D9 /* CarSummaryContainer.swift in Sources */,
+				767E23E12A951D3200006017 /* SuccessResponseLongDTO+Mapping.swift in Sources */,
 				C3C96D472A8B9CD1002C09D2 /* SummaryViewController.swift in Sources */,
 				76CA13B22A8E0135006C3106 /* UIViewController+.swift in Sources */,
 				D4ACBA802A78CE4D002B6A5B /* ViewModelProtocol.swift in Sources */,
 				7631E9612A89A0C400015363 /* OptionDescriptionView.swift in Sources */,
 				D4ACBA462A78A3AD002B6A5B /* SceneDelegate.swift in Sources */,
+				7683E3AE2A924CAB00BF8BEB /* ArchivingSearchButton.swift in Sources */,
 				D4A68D082A80952700E2C1FD /* ModelResponseDTO+Mapping.swift in Sources */,
 				7631E95B2A89181B00015363 /* OptionSnapCarouselView.swift in Sources */,
 				D462E7682A84CAA100C5A8EC /* UIControl+.swift in Sources */,

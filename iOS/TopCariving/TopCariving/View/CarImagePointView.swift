@@ -77,7 +77,7 @@ class CarImagePointView: UIView {
         point.backgroundColor = .white
     }
     func clickToggle() {
-        isBookmarked ? unCheck() : check()
+        (isBookmarked ? unCheck() : check())
         isBookmarked.toggle()
     }
 }

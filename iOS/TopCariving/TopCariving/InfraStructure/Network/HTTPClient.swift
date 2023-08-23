@@ -33,12 +33,17 @@ class HTTPClient: HTTPClientProtocol {
         request.allHTTPHeaderFields = endPoint.header
         
         if let body = endPoint.body {
-            request.httpBody = try? JSONSerialization.data(withJSONObject: body, options: [])
+            guard let encodedBody = try? JSONEncoder().encode(body) else { return .failure(.encode) }
+            request.httpBody = encodedBody
         }
         
-        guard let (data, response) = try? await URLSession.shared.data(for: request, delegate: nil) else {
-            return .failure(.unknown)
+        var (data, response): (Data, URLResponse)
+        do {
+            (data, response) = try await URLSession.shared.data(for: request, delegate: nil)
+        } catch {
+            return .failure(.unknown(error))
         }
+        
         guard let response = response as? HTTPURLResponse else {
             return .failure(.noResponse)
         }
@@ -51,7 +56,7 @@ class HTTPClient: HTTPClientProtocol {
         case 401:
             return .failure(.unauthorized)
         default:
-            return .failure(.unexpectedStatusCode)
+            return .failure(.unexpectedStatusCode(response.statusCode))
         }
     }
 }

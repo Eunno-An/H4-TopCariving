@@ -15,11 +15,19 @@ class ViewController: BaseMyCarViewController {
     private let containerStackView = FoldableStackView()
     
     // MARK: - Properties
+    private let viewModel: ModelOptionViewModel
     
     // MARK: - Lifecycles
     override func viewDidLoad() {
         super.viewDidLoad()
-        injectMock()
+        bind()
+    }
+    init(viewModel: ModelOptionViewModel) {
+        self.viewModel = viewModel
+        super.init(nibName: nil, bundle: nil)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     // MARK: - Helpers
@@ -34,7 +42,6 @@ class ViewController: BaseMyCarViewController {
             scrollView.addSubview($0)
         }
     }
-    
     override func setLayout() {
         super.setLayout()
         scrollView.translatesAutoresizingMaskIntoConstraints = false
@@ -54,27 +61,65 @@ class ViewController: BaseMyCarViewController {
             containerStackView.topAnchor.constraint(equalTo: rotatableView.bottomAnchor),
             containerStackView.centerXAnchor.constraint(equalTo: scrollView.centerXAnchor),
             containerStackView.widthAnchor.constraint(equalToConstant: view.frame.width - 32),
-            containerStackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor, constant: -8)
+            containerStackView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor,
+                                                       constant: -8)
         ])
     }
-    
-    private func injectMock() {
-        // swiftlint: disable line_length
-        let testIcons = [("https://topcariving.s3.ap-northeast-2.amazonaws.com/png/leBlanc1.png", "20인치\n알로이 휠"),
-                       ("https://topcariving.s3.ap-northeast-2.amazonaws.com/png/leBlanc2.png", "서라운드 뷰\n모니터"),
-                       ("https://topcariving.s3.ap-northeast-2.amazonaws.com/png/leBlanc3.png", "클러스터\n(12.3인 컬러 LCD)")]
-        let titles = ["1. Le Blanc", "2. Exclusive", "3. Prestige", "4. Calligraphy"]
-        let prices = ["47,720,000", "40,440,000", "47,720,000", "52,540,000"]
-        (0..<4).forEach {
+    private func bind() {
+        let output = viewModel.transform(input: .init(
+            viewDidLoadPublisher: Just(()).eraseToAnyPublisher(),
+            tapNextButtonPublisher: footerView.tapNextButton.eraseToAnyPublisher(),
+            tapCarIndexPublisher: containerStackView.tapSubject.eraseToAnyPublisher()
+        ))
+        output.errorSubject
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] error in
+            guard let self else { return }
+            self.showAlert(with: NSAttributedString(string: error), acceptTitle: "확인", acceptHandler: {})
+        }).store(in: &bag)
+        
+        output.unauthorizedSubject
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] in
+            guard let self else { return }
+            self.showAlert(with: NSAttributedString(string: "인증에 실패하였습니다."),
+                           acceptTitle: "로그인",
+                           acceptHandler: { [weak self] in
+                guard let self else { return }
+                self.navigationController?.popToRootViewController(animated: true)
+            })
+        }).store(in: &bag)
+        
+        output.pushSubject
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] _ in
+            guard let self else { return }
+            // Navigation Push
+        }).store(in: &bag)
+        
+        output.modelSubject
+            .receive(on: DispatchQueue.main)
+            .sink(receiveValue: { [weak self] models in
+            guard let self else { return }
+            setContainer(with: models)
+        }).store(in: &bag)
+        
+        output.priceSubject.sink(receiveValue: { [weak self] price in
+            guard let self else { return }
+            footerView.setPrice(to: price)
+        }).store(in: &bag)
+        
+    }
+    private func setContainer(with models: [CarSummaryContainerModel]) {
+        models.forEach { model in
             let view = CarSummaryContainer()
-            view.setInfo(to: titles[$0], price: prices[$0], icons: testIcons)
+            view.setInfo(to: model.title, price: model.price, icons: model.icons)
             containerStackView.addArrangedSubview(view)
         }
         footerView.tapNextButton.sink(receiveValue: { [weak self] in
             guard let self else { return }
-            self.navigationController?.pushViewController(DummyViewController(), animated: true)
+            self.navigationController?.pushViewController(InteriorColorSelctionViewController(), animated: true)
         })
         .store(in: &bag)
     }
-    
 }

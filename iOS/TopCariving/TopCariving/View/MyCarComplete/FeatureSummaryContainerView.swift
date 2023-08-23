@@ -72,13 +72,11 @@ class FeatureSummaryContainerView: UIView {
         super.init(frame: frame)
         setUI()
         setLayout()
-        test_data()
     }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUI()
         setLayout()
-        test_data()
     }
     init(data: FeatureSummaryModel) {
         super.init(frame: .zero)
@@ -137,14 +135,6 @@ class FeatureSummaryContainerView: UIView {
     func setBackgroundColor(to color: UIColor) {
         backgroundColor = color
     }
-    private func test_data() {
-        outColorDescriptionView = ColorDescriptionView(
-            data: ColorDescriptionModel(space: "외장", colorImage: "", colorName: "문라이트 블루펄")
-        )
-        inColorDescriptionView = ColorDescriptionView(
-            data: ColorDescriptionModel(space: "내장", colorImage: "", colorName: "퀄팅 천연(블랙)")
-        )
-    }
     func setTrim(to trim: String) {
         self.trim.text = trim
     }
@@ -161,20 +151,12 @@ class FeatureSummaryContainerView: UIView {
         guard data.colors.count == 2 else {
             return
         }
-        inColorDescriptionView = ColorDescriptionView(
-            data: ColorDescriptionModel(
-                space: "내장",
-                colorImage: data.colors[0].0,
-                colorName: data.colors[0].1
-            )
-        )
-        outColorDescriptionView = ColorDescriptionView(
-            data: ColorDescriptionModel(
-                space: "외장",
-                colorImage: data.colors[1].0,
-                colorName: data.colors[1].1
-            )
-        )
+        inColorDescriptionView.setData(to: .init(space: "외장",
+                                                 colorImage: data.colors[0].0,
+                                                 colorName: data.colors[0].1))
+        outColorDescriptionView.setData(to: .init(space: "내장",
+                                                  colorImage: data.colors[1].0,
+                                                  colorName: data.colors[1].1))
     }
     func hideEditButton() {
         editButton.isHidden = true

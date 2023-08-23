@@ -1,17 +1,15 @@
 {
   "images" : [
     {
-      "filename" : "ProgressTrim.png",
+      "filename" : "HyundaiTopLogo.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "ProgressTrim 1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "ProgressTrim 2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }

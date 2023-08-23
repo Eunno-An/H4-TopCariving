@@ -8,23 +8,32 @@
 import Foundation
 
 enum RequestError: Error {
+    case encode
     case decode
     case invalidURL
     case noResponse
     case unauthorized
-    case unexpectedStatusCode
-    case unknown
+    case unexpectedStatusCode(Int)
+    case unknown(Error)
 }
 
 extension RequestError: LocalizedError {
     var errorDescription: String? {
         switch self {
+        case .encode:
+            return "Encode Error"
         case .decode:
             return "Decode error"
+        case .invalidURL:
+            return "invalidURL"
+        case .noResponse:
+            return "noResponse"
         case .unauthorized:
             return "Session expired"
-        default:
-            return "Unknown error"
+        case .unexpectedStatusCode(let code):
+            return "unexpectedStatusCode\(code)"
+        case .unknown(let error):
+            return "Request Error \(error)"
         }
     }
 }

@@ -8,6 +8,12 @@
 import Combine
 import UIKit
 
+struct CarSummaryContainerModel {
+    let icons: [(String, String)]
+    let title: String
+    let price: String
+}
+
 class CarSummaryContainer: FoldableView {
     // MARK: - UI properties
     private let iconStackView = UIStackView()

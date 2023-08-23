@@ -17,7 +17,7 @@ class LoginViewController: UIViewController {
         return scrollView
     }()
     private let logoImageView: UIImageView = {
-        let screenWidth = UIScreen.main.bounds.width
+        let screenWidth = CGRect.screenBounds.width
         let imageView = UIImageView(image: UIImage(named: "hyundaiLogo")?.resized(to: screenWidth * 0.5))
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill

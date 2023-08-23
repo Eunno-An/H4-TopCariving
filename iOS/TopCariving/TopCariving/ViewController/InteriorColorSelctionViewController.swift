@@ -55,7 +55,7 @@ class InteriorColorSelctionViewController: BaseMyCarViewController {
             tagReviewView.topAnchor.constraint(equalTo: colorSelectionView.bottomAnchor, constant: 20),
             tagReviewView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             tagReviewView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            tagReviewView.collectionView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor,
+            tagReviewView.bottomAnchor.constraint(equalTo: scrollView.contentLayoutGuide.bottomAnchor,
                                                                  constant: -8)
             ])
     }

@@ -11,9 +11,9 @@ import Combine
 
 class DummyViewController: UIViewController {
     // MARK: - UI properties
-    private let myCarivingSummaryView = MyCarivingCarSummaryView(
-        data: MyCarivingCarSummaryModel(
-            featureSummary: .init(trim: "팰리세이드 Le Blanc(르블랑)", option: "디젤 2.2 / 4WD / 7인승", price: "47,340,000 원", colors: [("", "어비스 블랙펄"), ("", "퀄팅 천연(블랙)")]), points: [], positions: []))
+    private let myCarivingSummaryView = MyCarivingCarSummaryView()
+//        data: MyCarivingCarSummaryModel(
+//            featureSummary: .init(trim: "팰리세이드 Le Blanc(르블랑)", option: "디젤 2.2 / 4WD / 7인승", price: "47,340,000 원", colors: [("", "어비스 블랙펄"), ("", "퀄팅 천연(블랙)")]), points: [], positions: []))
     // MARK: - Properties
     
     // MARK: - Lifecycles

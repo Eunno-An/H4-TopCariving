@@ -56,6 +56,6 @@ class ProgressView: UIImageView {
     }
     // MARK: - Helpers
     func setImage(to progress: Progress) {
-        image = UIImage(named: progress.imageName)?.resized(to: window?.windowScene?.screen.bounds.width ?? 352)
+        image = UIImage(named: progress.imageName)?.resized(to: CGRect.screenBounds.width)
     }
 }

@@ -72,7 +72,7 @@ class FoldableView: TappableView, Foldable {
     // MARK: - Helpers
     func setUI() {
         layer.cornerRadius = 8
-        
+        translatesAutoresizingMaskIntoConstraints = false
         [titleLabel, priceLabel, wonLabel, separator].forEach {
             addSubview($0)
         }

@@ -37,6 +37,7 @@ class SelectOptionViewController: BaseMyCarViewController {
         testInject()
         optionSelectView.refresh()
         testSetEvent()
+        testPush()
     }
     
     // MARK: - Helpers
@@ -72,10 +73,10 @@ class SelectOptionViewController: BaseMyCarViewController {
             reviewView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             reviewView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
             
-            carImageView.topAnchor.constraint(equalTo: reviewView.collectionView.bottomAnchor, constant: 10),
+            carImageView.topAnchor.constraint(equalTo: reviewView.bottomAnchor, constant: 10),
             carImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
             carImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
-            carImageView.heightAnchor.constraint(equalToConstant: 180 * (view.window?.windowScene?.screen.bounds.width ?? 352) / 852),
+            carImageView.heightAnchor.constraint(equalToConstant: 180 * CGRect.screenBounds.width / 352),
             
             optionDescriptionCollection.topAnchor.constraint(equalTo: carImageView.bottomAnchor, constant: 10),
             optionDescriptionCollection.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 0),
@@ -191,6 +192,13 @@ class SelectOptionViewController: BaseMyCarViewController {
                 self.carImageView.setAsyncImage(url: detailImages[indexPath.row], size: carImageView.bounds.size)
             })
             .store(in: &bag)
+    }
+    private func testPush() {
+        footerView.tapNextButton.sink(receiveValue: {[weak self] _ in
+            guard let self else { return }
+            self.navigationController?.pushViewController(ArchivingViewController(), animated: true)
+        })
+        .store(in: &bag)
     }
 }
 

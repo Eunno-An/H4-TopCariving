@@ -9,6 +9,6 @@ import Foundation
 
 struct EstimationChangeRequestDTO: Encodable {
     typealias Identifier = Int64
-    let archivingID: Identifier
-    let optionIDs: [Identifier]
+    let ids: [Identifier]
+    let archivingId: Identifier
 }

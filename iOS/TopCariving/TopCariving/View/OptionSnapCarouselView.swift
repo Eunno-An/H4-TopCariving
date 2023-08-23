@@ -35,7 +35,7 @@ class OptionSnapCarouselView: UIView {
     }()
     private lazy var collectionViewLayout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
-        layout.itemSize = .init(width: (window?.windowScene?.screen.bounds.width ?? 352) - 32, height: 131)
+        layout.itemSize = .init(width: CGRect.screenBounds.width - 32, height: 131)
         layout.scrollDirection = .horizontal
         layout.sectionInset = .init(top: 0, left: 16, bottom: 0, right: 16)
         layout.minimumLineSpacing = 32
