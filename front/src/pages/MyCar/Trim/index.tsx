@@ -66,7 +66,7 @@ export const Trim = () => {
 
   return (
     <Flex direction="column" justify="flex-start" height="auto">
-      <CarModel exteriorColor="black" />
+      <CarModel exteriorColor="abyss" />
       <Flex gap={24}>
         {modelInfo && (
           <>

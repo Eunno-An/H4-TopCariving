@@ -15,10 +15,10 @@ export const CarModel = ({ exteriorColor }: { exteriorColor: string }) => {
 
   useEffect(() => {
     let newCarList = [] as { path: string }[];
-
     for (let idx = 1; idx <= 60; idx++) {
       const num = idx < 10 ? '00' + idx : '0' + idx;
-      const path = `/image/exterior/${exteriorColor}/image_${num}.png`;
+      const path = `https://topcariving.s3.ap-northeast-2.amazonaws.com/360/${exteriorColor}/image_${num}.webp`;
+
       newCarList = [...newCarList, { path }];
     }
 

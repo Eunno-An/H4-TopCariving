@@ -2,8 +2,8 @@ import { Flex, Text } from '@components/common';
 import styled from '@emotion/styled';
 import { theme } from '@styles/theme';
 import keyboardRight from '@assets/images/keyboardRight.svg';
-import realSand from '@assets/images/realSand.png';
-import palmTree from '@assets/images/palmTree.png';
+import realSand from '@assets/images/realSand.webp';
+import palmTree from '@assets/images/palmTree.webp';
 
 export const CompletedMessage = ({ carColor }: { carColor: string }) => {
   return (
@@ -29,7 +29,10 @@ export const CompletedMessage = ({ carColor }: { carColor: string }) => {
         </Flex>
         <PalmTreeImg src={palmTree} />
         <SandImg src={realSand} />
-        <CarImg src={`/image/exterior/${carColor}/image_001.png`} alt="" />
+        <CarImg
+          src={`https://topcariving.s3.ap-northeast-2.amazonaws.com/360/${carColor}/image_001.webp`}
+          alt=""
+        />
       </MyCarComplete>
     </Flex>
   );
