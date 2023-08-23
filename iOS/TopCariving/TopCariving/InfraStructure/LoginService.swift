@@ -29,13 +29,14 @@ class LoginService {
         case decodingError
         case tokenNotFound
         case invalidJsonResponse
+        case keyChainError
         case other(Error)
     }
     
     func isExistAccessToken() -> Bool {
         KeyChain.getStringFromKeychain(key: "accessToken") != nil
     }
-    
+    // swiftlint: disable cyclomatic_complexity
     func emailLogin(url: URL, loginInfo: LoginInfo) async throws -> LoginResult {
         let requestData: [String: Any] = [
             "email": loginInfo.email,
@@ -55,7 +56,7 @@ class LoginService {
         
         return try await withCheckedThrowingContinuation { continuation in
             let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-                if let error = error {
+                if error != nil {
                     continuation.resume(returning: .failure(.transportError))
                 }
                 guard let data = data else {
@@ -67,16 +68,6 @@ class LoginService {
                     return
                 }
                 switch httpResponse.statusCode {
-                case 401:
-                    Task {
-                        do {
-                            _ = try await self.reIssue()
-                            continuation.resume(returning: .success)
-                        } catch {
-                            NSLog(error.localizedDescription)
-                        }
-                    }
-                    return
                 case 200:
                     NSLog("Login: statusCode 200")
                 default:
@@ -88,9 +79,10 @@ class LoginService {
                     if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                         if let accessToken = jsonResponse["accessToken"] as? String,
                            let refreshToken = jsonResponse["refreshToken"] as? String {
-                            _ = KeyChain.saveStringToKeychain(value: accessToken, key: "accessToken")
-                            _ = KeyChain.saveStringToKeychain(value: refreshToken, key: "refreshToken")
-                            continuation.resume(returning: .success)
+                            KeyChain.saveStringToKeychain(value: accessToken, key: "accessToken")
+                            && KeyChain.saveStringToKeychain(value: refreshToken, key: "refreshToken")
+                            ? continuation.resume(returning: .success)
+                            : continuation.resume(returning: .failure(.keyChainError))
                         } else {
                             continuation.resume(returning: .failure(.tokenNotFound))
                         }
@@ -104,7 +96,7 @@ class LoginService {
             task.resume()
         }
     }
-
+    // swiftlint: enable cyclomatic_complexity
     func reIssue() async throws -> LoginResult {
         guard let url = URL(string: "https://dev.topcariving.com/reissue") else {
             return .failure(.invalidURL)
@@ -115,7 +107,7 @@ class LoginService {
         request.setValue("Bearer \(refreshToken)", forHTTPHeaderField: "Authorization")
         return await withCheckedContinuation { continuation in
             let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
-                if let error = error {
+                if error != nil {
                     continuation.resume(returning: .failure(.transportError))
                 }
                 guard let data = data else {
@@ -129,9 +121,10 @@ class LoginService {
                 
                 switch httpResponse.statusCode {
                 case 401:
-                    _ = KeyChain.deleteStringFromKeychain(key: "accessToken")
-                    _ = KeyChain.deleteStringFromKeychain(key: "refreshToken")
-                    continuation.resume(returning: .failure(.serverError(code: 401)))
+                    KeyChain.deleteStringFromKeychain(key: "accessToken")
+                    && KeyChain.deleteStringFromKeychain(key: "refreshToken")
+                    ? continuation.resume(returning: .failure(.serverError(code: 401)))
+                    : continuation.resume(returning: .failure(.keyChainError))
                     return
                 case 200:
                     NSLog("statusCode 200")
@@ -143,10 +136,10 @@ class LoginService {
                     if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                         if let accessToken = jsonResponse["accessToken"] as? String,
                            let refreshToken = jsonResponse["refreshToken"] as? String {
-                            NSLog("reIssue Ok")
-                            _ = KeyChain.saveStringToKeychain(value: accessToken, key: "accessToken")
-                            _ = KeyChain.saveStringToKeychain(value: refreshToken, key: "refreshToken")
-                            continuation.resume(returning: .success)
+                            KeyChain.saveStringToKeychain(value: accessToken, key: "accessToken")
+                            && KeyChain.saveStringToKeychain(value: refreshToken, key: "refreshToken")
+                            ? continuation.resume(returning: .success)
+                            : continuation.resume(returning: .failure(.keyChainError))
                         } else {
                             continuation.resume(returning: .failure(.tokenNotFound))
                         }
@@ -160,6 +153,4 @@ class LoginService {
             task.resume()
         }
     }
-    
-    // 근데 401에러가 뜬다? 리 이슈 해야함. Authorization 헤더에 Bearer + 공백 + 리프레시토큰을 붙이고 요청. 만약 성공하면 액세스토큰 재저장. 만약 실패하면 키체인 값 다 삭제하고, 로그인 화면으로
 }

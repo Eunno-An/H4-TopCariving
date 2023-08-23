@@ -37,10 +37,9 @@ enum KeyChain {
                 return String(data: data, encoding: .utf8)
             }
         }
-        
         return nil
     }
-    static func deleteStringFromKeychain(key: String) -> Bool? {
+    static func deleteStringFromKeychain(key: String) -> Bool {
         let query: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: key
