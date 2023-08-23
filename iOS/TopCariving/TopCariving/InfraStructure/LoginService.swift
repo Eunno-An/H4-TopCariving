@@ -33,8 +33,8 @@ class LoginService {
         case other(Error)
     }
     
-    func isExistAccessToken() -> Bool {
-        KeyChain.getStringFromKeychain(key: "accessToken") != nil
+    func isExistAccessToken() async -> Bool {
+        await KeyChain.getStringFromKeychain(key: "accessToken") != nil
     }
     // swiftlint: disable cyclomatic_complexity
     func emailLogin(loginInfo: LoginInfo) async throws -> LoginResult {
@@ -82,13 +82,22 @@ class LoginService {
                     if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                         if let accessToken = jsonResponse["accessToken"] as? String,
                            let refreshToken = jsonResponse["refreshToken"] as? String {
-                            
-                            let ableSaving = KeyChain.saveStringToKeychain(value: accessToken, key: "accessToken")
-                            && KeyChain.saveStringToKeychain(value: refreshToken, key: "refreshToken")
-                            if ableSaving {
-                                continuation.resume(returning: .success)
-                            } else {
-                                continuation.resume(returning: .failure(.keyChainError))
+                            Task {
+                                let ableSavingAccessToken = await KeyChain.saveStringToKeychain(
+                                    value: accessToken,
+                                    key: "accessToken"
+                                )
+                                let ableSavingRefreshToken = await KeyChain.saveStringToKeychain(
+                                    value: refreshToken,
+                                    key: "refreshToken"
+                                )
+                                if ableSavingAccessToken && ableSavingRefreshToken {
+                                    NSLog("success")
+                                    continuation.resume(returning: .success)
+                                } else {
+                                    NSLog("failure")
+                                    continuation.resume(returning: .failure(.keyChainError))
+                                }
                             }
                         } else {
                             continuation.resume(returning: .failure(.tokenNotFound))
@@ -109,7 +118,7 @@ class LoginService {
             return .failure(.invalidURL)
         }
         var request = URLRequest(url: url)
-        let refreshToken: String = KeyChain.getStringFromKeychain(key: "refreshToken") ?? ""
+        let refreshToken: String = await KeyChain.getStringFromKeychain(key: "refreshToken") ?? ""
         request.httpMethod = "GET"
         request.setValue("Bearer \(refreshToken)", forHTTPHeaderField: "Authorization")
         return await withCheckedContinuation { continuation in
@@ -128,13 +137,14 @@ class LoginService {
                 
                 switch httpResponse.statusCode {
                 case 401:
-                    let ableDeleting =
-                    KeyChain.deleteStringFromKeychain(key: "accessToken")
-                    && KeyChain.deleteStringFromKeychain(key: "refreshToken")
-                    if ableDeleting {
-                        continuation.resume(returning: .failure(.serverError(code: 401)))
-                    } else {
-                        continuation.resume(returning: .failure(.keyChainError))
+                    Task {
+                        let ableDeletingAccessToken = await KeyChain.deleteStringFromKeychain(key: "accessToken")
+                        let ableDeletingRefreshToken = await KeyChain.deleteStringFromKeychain(key: "refreshToken")
+                        if ableDeletingAccessToken && ableDeletingRefreshToken {
+                            continuation.resume(returning: .failure(.serverError(code: 401)))
+                        } else {
+                            continuation.resume(returning: .failure(.keyChainError))
+                        }
                     }
                     return
                 case 200:
@@ -147,13 +157,20 @@ class LoginService {
                     if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                         if let accessToken = jsonResponse["accessToken"] as? String,
                            let refreshToken = jsonResponse["refreshToken"] as? String {
-                            let ableSaving =
-                            KeyChain.saveStringToKeychain(value: accessToken, key: "accessToken")
-                            && KeyChain.saveStringToKeychain(value: refreshToken, key: "refreshToken")
-                            if ableSaving {
-                                continuation.resume(returning: .success)
-                            } else {
-                                continuation.resume(returning: .failure(.keyChainError))
+                            Task {
+                                let ableSavingAccessToken = await KeyChain.saveStringToKeychain(
+                                    value: accessToken,
+                                    key: "accessToken"
+                                )
+                                let ableSavingRefreshToken = await KeyChain.saveStringToKeychain(
+                                    value: refreshToken,
+                                    key: "refreshToken"
+                                )
+                                if ableSavingAccessToken && ableSavingRefreshToken {
+                                    continuation.resume(returning: .success)
+                                } else {
+                                    continuation.resume(returning: .failure(.keyChainError))
+                                }
                             }
                         } else {
                             continuation.resume(returning: .failure(.tokenNotFound))
