@@ -10,6 +10,7 @@ import { archiveSearchResponsesInterface } from '@pages/Archive/main';
 import { ArchiveCard } from '../main';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@contexts/ToastContext';
+import { pageSize } from '@assets/constant';
 
 export interface createdMyCarInterface {
   archivingId: number;
@@ -42,23 +43,82 @@ export const MyCarList = () => {
   >([]);
   const [selectedMenu, setSelectedMenu] = useState('내가 만든 차량 목록');
 
+  const { openToast } = useToast();
+  const masonryRef = useRef<HTMLDivElement>(null);
+  const lastCreateCarRef = useRef<HTMLDivElement>(null);
+
+  const navigate = useNavigate();
+  const onMoveDetail = (archivindId: number) => {
+    navigate(`/archive/detail?id=${archivindId}`);
+  };
+
+  useEffect(() => {
+    masonryLayout({ element: masonryRef });
+  }, [selectedMenu, createCar, bookmarkCar]);
+
+  useEffect(() => {
+    if (selectedMenu === cateName.myCar) getCreatedCar();
+    else getBookMarkCar();
+  }, [selectedMenu, removedId, pageNum]);
+
+  useEffect(() => {
+    if (createCar.length <= 4) {
+      getCreatedCar();
+    }
+  }, [createCar]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting) {
+          setPageNum(pageNum + 1);
+        }
+      },
+      { threshold: 0.5 }, // Adjust the threshold value as needed
+    );
+    if (lastCreateCarRef.current) {
+      observer.observe(lastCreateCarRef.current);
+    }
+
+    return () => {
+      if (lastCreateCarRef.current) {
+        observer.unobserve(lastCreateCarRef.current);
+      }
+    };
+  }, [lastCreateCarRef]);
+
   const getCreatedCar = async () => {
     const data = await apiInstance({
-      url: `${MyArchiveUrl.CREATED_CARS}?pageNumber=${pageNum + 1}&pageSize=8`,
+      url: `${MyArchiveUrl.CREATED_CARS}?pageNumber=${
+        pageNum + 1
+      }&pageSize=${pageSize}`,
       method: 'GET',
     });
-    setCreateCar([...data]);
+    // 중복데이터 쌓는 것 방지
+    if (
+      JSON.stringify(data[7]) !==
+      JSON.stringify(createCar[createCar.length - 1])
+    ) {
+      setCreateCar([...createCar, ...data]);
+    }
   };
 
   const getBookMarkCar = async () => {
     const data = (await apiInstance({
-      url: `${MyArchiveUrl.FEED}?pageNumber=${pageNum + 1}&pageSize=8`,
+      url: `${MyArchiveUrl.FEED}?pageNumber=${
+        pageNum + 1
+      }&pageSize=${pageSize}`,
       method: 'GET',
     })) as archiveSearchResponsesInterface[];
-    setBookmarkCar(data);
+    // 중복데이터 쌓는 것 방지
+    if (
+      JSON.stringify(data[7]) !==
+      JSON.stringify(bookmarkCar[bookmarkCar.length - 1])
+    ) {
+      setBookmarkCar([...bookmarkCar, ...data]);
+    }
   };
-
-  const { openToast } = useToast();
 
   const deletedCar = (archivingId: number) => {
     openToast({
@@ -81,26 +141,6 @@ export const MyCarList = () => {
       setRemovedId(-1);
     }
   };
-
-  const navigate = useNavigate();
-  const onMoveDetail = (archivindId: number) => {
-    navigate(`/archive/detail?id=${archivindId}`);
-  };
-
-  const masonryRef = useRef<HTMLDivElement>(null);
-  useEffect(() => {
-    masonryLayout({ element: masonryRef });
-  }, [selectedMenu, createCar, bookmarkCar]);
-
-  useEffect(() => {
-    getBookMarkCar();
-  }, [removedId, pageNum]);
-
-  useEffect(() => {
-    if (createCar.length <= 4) {
-      getCreatedCar();
-    }
-  }, [createCar]);
 
   return (
     <Flex direction="column" justify="flex-start" gap={30}>
@@ -137,10 +177,11 @@ export const MyCarList = () => {
         </OptionMenu>
         <CardContainer ref={masonryRef}>
           {selectedMenu === cateName.myCar
-            ? createCar.map((it) => (
+            ? createCar.map((it, idx) => (
                 <div
                   key={`mycarcard_${it.archivingId}`}
                   onClick={() => onMoveDetail(it.archivingId)}
+                  ref={idx === createCar.length - 1 ? lastCreateCarRef : null}
                 >
                   <MyCarCard
                     info={it}
@@ -148,17 +189,19 @@ export const MyCarList = () => {
                   />
                 </div>
               ))
-            : bookmarkCar.map((bookmarkInfo, idx) => (
-                <div
-                  key={`mychivingCard_${idx}`}
-                  onClick={() => onMoveDetail(bookmarkInfo.archivingId)}
-                >
-                  <ArchiveCard
+            : bookmarkCar.map((bookmarkInfo, idx) => {
+                return (
+                  <div
                     key={`mychivingCard_${idx}`}
-                    archiveInfo={bookmarkInfo}
-                  />
-                </div>
-              ))}
+                    onClick={() => onMoveDetail(bookmarkInfo.archivingId)}
+                  >
+                    <ArchiveCard
+                      key={`mychivingCard_${idx}`}
+                      archiveInfo={bookmarkInfo}
+                    />
+                  </div>
+                );
+              })}
         </CardContainer>
       </Flex>
       <RevertBox isShow={removedId !== -1}>

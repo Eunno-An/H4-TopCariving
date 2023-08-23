@@ -38,7 +38,16 @@ export const ArchiveNavbar = ({
   };
 
   return (
-    <Flex height={91} backgroundColor="White">
+    <Flex
+      height={91}
+      backgroundColor="White"
+      css={css`
+        position: fixed;
+        top: 60px;
+        right: 0px;
+        z-index: 6;
+      `}
+    >
       <Flex
         padding="23px 0 23px 0 "
         width={1040}

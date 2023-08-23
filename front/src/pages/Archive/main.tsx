@@ -1,62 +1,111 @@
+import { pageSize } from '@assets/constant';
 import { Category, OptionWrapper } from '@components/archive/main';
 import { ArchiveCard } from '@components/archive/main/ArchiveCard';
 import { Flex, Text, masonryLayout } from '@components/common';
-import styled from '@emotion/styled';
 import { ArchiveUrl, apiInstance } from '@utils/api';
+
 import { useEffect, useRef, useState } from 'react';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import styled from '@emotion/styled';
 
 export const ArchiveMain = () => {
+  const [archiveSearchResponses, setArchiveSearchResponses] = useState<
+    archiveSearchResponsesInterface[]
+  >([]);
+  const [options, setOptions] = useState<
+    { carOptionId: number; optionName: string }[]
+  >([]);
+
   const [selectedMenu, setSelectedMenu] = useState(1);
   const [selectedOption, setSelectedOption] = useState<
     { carOptionId: number; optionName: string }[]
   >([]);
   const [pageNum, setPageNum] = useState(0);
-  const { initArchiveSearchResponses, initOptions } =
-    useLoaderData() as initArchiveMainInterface;
 
-  const [archiveSearchResponses, setArchiveSearchResponses] = useState<
-    archiveSearchResponsesInterface[]
-  >(initArchiveSearchResponses);
-
-  const [options, setOptions] =
-    useState<{ carOptionId: number; optionName: string }[]>(initOptions);
+  const archiveCardRef = useRef<HTMLDivElement>(null);
+  const masonryRef = useRef<HTMLDivElement>(null);
 
   const navigate = useNavigate();
-
   const onMoveDetail = (archivindId: number) => {
     navigate(`/archive/detail?id=${archivindId}`);
   };
 
-  useEffect(() => {
+  const getData = async () => {
     let param = '';
     selectedOption.forEach((item, idx) => {
       param += `optionIds=${item.carOptionId}`;
-      // 마지막 항목이 아닐 때만 '&'를 추가
       if (idx < selectedOption.length - 1) {
         param += '&';
       }
     });
 
-    const getData = async () => {
-      const { archiveSearchResponses, options } = (await apiInstance({
-        url: `${ArchiveUrl.MAIN_RESULT}?pageNumber=${
-          pageNum + 1
-        }&pageSize=8&${param}`,
-        method: 'GET',
-      })) as archiveMainInterface;
-      setArchiveSearchResponses(archiveSearchResponses);
-      setOptions(options);
-      setPageNum(pageNum + 1);
-    };
+    const { archiveSearchResponses, options } = (await apiInstance({
+      url: `${ArchiveUrl.MAIN_RESULT}?pageNumber=${
+        pageNum + 1
+      }&pageSize=${pageSize}&${param}`,
+      method: 'GET',
+    })) as archiveMainInterface;
 
-    getData();
+    return {
+      newArchiveSearchResponses: archiveSearchResponses,
+      newOptions: options,
+    };
+  };
+
+  useEffect(() => {
+    const setData = async () => {
+      const { newArchiveSearchResponses, newOptions } = await getData();
+      setArchiveSearchResponses(newArchiveSearchResponses);
+      setOptions(newOptions);
+    };
+    setData();
+  }, []);
+
+  useEffect(() => {
+    setPageNum(0);
+    const setData = async () => {
+      const { newArchiveSearchResponses } = await getData();
+      setArchiveSearchResponses(newArchiveSearchResponses);
+    };
+    setData();
+    window.scrollTo(0, 0);
   }, [selectedOption]);
 
-  const masonryRef = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    const setData = async () => {
+      const { newArchiveSearchResponses } = await getData();
+      setArchiveSearchResponses([
+        ...archiveSearchResponses,
+        ...newArchiveSearchResponses,
+      ]);
+    };
+    setData();
+  }, [pageNum]);
+
   useEffect(() => {
     masonryLayout({ element: masonryRef });
   }, [archiveSearchResponses, selectedMenu]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const entry = entries[0];
+        if (entry.isIntersecting) {
+          setTimeout(() => setPageNum(pageNum + 1), 1000);
+        }
+      },
+      { threshold: 0.5 },
+    );
+    if (archiveCardRef.current) {
+      observer.observe(archiveCardRef.current);
+    }
+
+    return () => {
+      if (archiveCardRef.current) {
+        observer.unobserve(archiveCardRef.current);
+      }
+    };
+  }, [archiveSearchResponses, archiveCardRef, pageNum]);
 
   return (
     <Flex direction="column" justify="flex-start">
@@ -66,6 +115,7 @@ export const ArchiveMain = () => {
         selectedOption={selectedOption}
         setSelectedOption={setSelectedOption}
       />
+      <TopMargin />
       <>
         {selectedMenu === 1 && archiveSearchResponses.length !== 0 ? (
           <Container ref={masonryRef}>
@@ -73,6 +123,11 @@ export const ArchiveMain = () => {
               <div
                 key={`archiveCard_${idx}`}
                 onClick={() => onMoveDetail(archiveInfo.archivingId)}
+                ref={
+                  idx === archiveSearchResponses.length - 1
+                    ? archiveCardRef
+                    : null
+                }
               >
                 <ArchiveCard
                   archiveInfo={archiveInfo}
@@ -90,6 +145,11 @@ export const ArchiveMain = () => {
     </Flex>
   );
 };
+
+const TopMargin = styled.div`
+  height: 320px;
+  flex-shrink: 0;
+`;
 
 export const Container = styled.div`
   display: grid;
