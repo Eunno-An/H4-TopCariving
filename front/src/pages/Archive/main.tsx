@@ -108,6 +108,8 @@ export type archiveType =
   | '엔진'
   | '외장색상'
   | '상세 품목'
+  | 'H Genuine Accessories'
+  | 'N performance'
   | '구동방식';
 
 export interface archiveSearchResponsesInterface {
