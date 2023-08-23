@@ -1,9 +1,12 @@
+import { token } from '@utils/api';
+
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
 
 let status = 'pending';
 let data;
 export function useSuspenseFetch(url: string) {
   if (status === 'resolved') {
+    status = 'pending';
     return data;
   }
 
@@ -11,7 +14,7 @@ export function useSuspenseFetch(url: string) {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer eyJhbGciOiJIUzI1NiJ9.eyJpYXQiOjE2OTIxNjk5NzAsImV4cCI6MTcyMzcwNTk3MCwiaXNzIjoiVG9wQ2FyaXZpbmciLCJzdWIiOiIxIn0.p1bkF0pLsHkobfdkyPyGBjaClOHDhXbUFpeagBUWvx4`,
+      Authorization: `Bearer ${token.accessToken}`,
     },
     credentials: 'include',
   }).then((res) => res.json());

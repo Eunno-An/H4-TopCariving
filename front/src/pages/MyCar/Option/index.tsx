@@ -13,7 +13,7 @@ import { theme } from '@styles/theme';
 import { css } from '@emotion/react';
 import vector478 from '@assets/images/Vector 478.svg';
 import { useLoaderData } from 'react-router-dom';
-import { apiInstance } from '@utils/api';
+import { OptionUrl, apiInstance } from '@utils/api';
 import { optionInfoInterface } from '@interface/index';
 import { ArchivePopup } from '@components/common/ArchivePopup';
 
@@ -197,7 +197,7 @@ export const MyCarOptions = () => {
 
   const fetchDetailsData = async (optionId: number) => {
     const res = (await await apiInstance({
-      url: `/api/options/details/${optionId}`,
+      url: `${OptionUrl.DETAIL}/${optionId}`,
       method: 'GET',
     })) as optionInfoInterface;
 
@@ -209,7 +209,6 @@ export const MyCarOptions = () => {
       const data = (await fetchDetailsData(
         optionInfo[selectedItem].carOptionId,
       )) as optionInfoInterface;
-
       setInfo(data);
     }
     fetchData();
@@ -226,7 +225,11 @@ export const MyCarOptions = () => {
         <Flex gap={39} height={320}>
           {/* 이미지 */}
           <Flex width={479}>
-            <ImgContainer src={optionInfo[selectedItem].photoUrl} alt="" />
+            {info?.details && info.details[cardPageIdx] ? (
+              <ImgContainer src={info.details[cardPageIdx].photoUrl} alt="" />
+            ) : (
+              <ImgContainer src={optionInfo[selectedItem].photoUrl} alt="" />
+            )}
           </Flex>
           {/* 옵션 Info */}
           <Flex direction="column" justify="flex-start">
@@ -446,6 +449,7 @@ const ImgContainer = styled.img`
 interface optionDatasInterface {
   selectOptionData: selectOptionInterface[];
   defaultOptionData: defaultOptionInterface;
+  // detailInfoData: optionInfoInterface;
 }
 
 export interface urlPathInterface {
@@ -468,6 +472,7 @@ export interface optionDetailInterface {
   carOptionId: number;
   optionName: string;
   optionDetail: string;
+  photoUrl: string;
 }
 
 export interface optionTagInterface {

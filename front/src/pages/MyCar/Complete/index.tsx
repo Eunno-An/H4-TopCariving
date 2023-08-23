@@ -73,6 +73,7 @@ export interface completeOptionValue {
   name: string;
   photoUrl: string;
   price: number;
+  childOptions: string[];
 }
 
 export interface completeOptionInterface {
