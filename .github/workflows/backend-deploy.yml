@@ -70,6 +70,28 @@ jobs:
             cd ~/deploy/
             ./deploy_zero_down.sh
 
+      - name: Run server2 deployment
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.EC2_REPLICA_ADDRESS }}
+          username: ${{ secrets.EC2_REPLICA_USERNAME }}
+          port: ${{ secrets.EC2_REPLICA_PORT }}
+          key: ${{ secrets.EC2_REPLICA_PRIVATE_KEY }}
+          script: |
+            cd ~/deploy/
+            ./deploy.sh
+
+      - name: set load balancing using nginx
+        uses: appleboy/ssh-action@v0.1.6
+        with:
+          host: ${{ secrets.EC2_ADDRESS }}
+          username: ${{ secrets.EC2_USERNAME }}
+          port: ${{ secrets.EC2_PORT }}
+          key: ${{ secrets.EC2_PRIVATE_KEY }}
+          script: |
+            cd ~/deploy/
+            ./deploy_server2.sh
+
       - name: Commit 메시지에서 개행문자 분리
         id: extract_message
         run: |
