@@ -43,7 +43,7 @@ export interface trimModelInterface {
 
 export interface optionInfoInterface {
   carOptionId: number;
-  details?: optionDetailInterface[];
+  details: optionDetailInterface[];
   optionName: string;
   photoUrl: string;
   price: string;

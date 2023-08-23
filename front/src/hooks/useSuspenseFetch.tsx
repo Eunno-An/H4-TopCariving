@@ -1,13 +1,11 @@
 import { token } from '@utils/api';
 
 const SERVER_URL = import.meta.env.VITE_SERVER_URL;
+const dataMap = new Map();
 
-let status = 'pending';
-let data;
 export function useSuspenseFetch(url: string) {
-  if (status === 'resolved') {
-    status = 'pending';
-    return data;
+  if (dataMap.get(url) && dataMap.get(url).status === 'resolved') {
+    return dataMap.get(url).dataMap;
   }
 
   const promise = fetch(`${SERVER_URL}${url}`, {
@@ -21,11 +19,15 @@ export function useSuspenseFetch(url: string) {
 
   promise
     .then((res) => {
-      status = 'resolved';
-      data = res;
+      setTimeout(() => {
+        dataMap.set(url, {
+          dataMap: res,
+          status: 'resolved',
+        });
+      }, 100);
     })
     .catch((err) => {
-      throw new Error('ERROR');
+      throw err;
     });
 
   throw promise;

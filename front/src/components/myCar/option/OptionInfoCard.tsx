@@ -1,76 +1,138 @@
-import { Flex, Text } from '@components/common';
+import { Flex, Tag, Text } from '@components/common';
 import styled from '@emotion/styled';
 import { theme } from '@styles/theme';
 import leftBtn from '@assets/images/leftBtn.svg';
 import rightBtn from '@assets/images/rightBtn.svg';
 import { optionInfoInterface } from '@interface/index';
+import { css } from '@emotion/react';
+import { useSuspenseFetch } from '@hooks/useSuspenseFetch';
+import { OptionUrl } from '@utils/api';
+import { useEffect, useState } from 'react';
 
 export const OptionInfoCard = ({
-  info,
-  onMovePage,
-  cardPageIdx,
+  optionId,
+  setSubInfoImage,
 }: {
-  info: optionInfoInterface;
-  onMovePage: ({ pageParam }: { pageParam: number }) => void;
-  cardPageIdx: number;
+  optionId: number;
+  setSubInfoImage: (imgSrc: string) => void;
 }) => {
-  const total = info.details?.length;
+  const info = useSuspenseFetch(
+    `${OptionUrl.DETAIL}/${optionId}`,
+  ) as optionInfoInterface;
+
+  const [cardPageIdx, setCarPageIdx] = useState(0);
+  const [optionName, setOptionName] = useState('');
+  const [optionDetail, setOptionDetail] = useState('');
+
+  const onMovePage = (
+    pageDirection: number,
+    len = info.details?.length || 1,
+  ) => {
+    if (pageDirection === -1) {
+      if (cardPageIdx - 1 < 0) {
+        setCarPageIdx(len - 1);
+      } else {
+        setCarPageIdx(cardPageIdx - 1);
+      }
+    } else {
+      setCarPageIdx((cardPageIdx + 1) % len);
+    }
+  };
+
+  useEffect(() => {
+    setCarPageIdx(0);
+    setOptionName(info.details[0] ? info.details[0].optionName : '');
+    setOptionDetail(info.details[0] ? info.details[0].optionDetail : '');
+    setSubInfoImage(info.photoUrl);
+  }, [info]);
+
+  useEffect(() => {
+    const currentDetailInfo = info.details[cardPageIdx];
+
+    if (currentDetailInfo) {
+      setSubInfoImage(currentDetailInfo.photoUrl);
+      setOptionDetail(currentDetailInfo.optionDetail);
+      setOptionName(currentDetailInfo.optionName);
+    } else {
+      setSubInfoImage(info.photoUrl);
+      setOptionDetail('');
+      setOptionName('');
+    }
+  }, [cardPageIdx]);
+
+  const total = info.details.length;
 
   return (
-    <InfoContainer>
-      {info.details?.length ? (
-        <>
-          <InfoTitleContainer height={59} isContent={info.details?.length}>
-            <Flex justify="flex-start" gap={8}>
-              <Flex
-                backgroundColor="Primary"
-                borderRadius="50%"
-                width={22}
-                height={22}
-                padding="6px"
-              >
-                <Text palette="LightSand">{cardPageIdx + 1}</Text>
+    <Flex direction="column" justify="flex-start" gap={10}>
+      <Flex gap={4} height="auto" justify="flex-start" css={TagWrap}>
+        {info?.tags &&
+          info.tags.map((it, idx) => (
+            <Tag key={`tags_${idx}`} desc={it.tagContent} />
+          ))}
+      </Flex>
+      <InfoContainer>
+        {info.details.length ? (
+          <>
+            <InfoTitleContainer height={59} isContent={info.details.length}>
+              <Flex justify="flex-start" gap={8}>
+                <Flex
+                  backgroundColor="Primary"
+                  borderRadius="50%"
+                  width={22}
+                  height={22}
+                  padding="6px"
+                >
+                  <Text palette="LightSand">{cardPageIdx + 1}</Text>
+                </Flex>
+
+                <Text palette="Primary">
+                  {optionName}
+                  {/* {info.details.length > cardPageIdx &&
+                    info.details[cardPageIdx].optionName} */}
+                </Text>
               </Flex>
 
-              <Text palette="Primary">
-                {info.details[cardPageIdx].optionName}
+              <Flex
+                justify="flex-end"
+                backgroundColor="DarkGray"
+                borderRadius="13px"
+                width="auto"
+                padding="0 9px"
+              >
+                <Text palette="LightSand" typo="Caption_Regular">
+                  {cardPageIdx + 1}/{total}
+                </Text>
+              </Flex>
+            </InfoTitleContainer>
+
+            <DetatilInfoContainer justify="space-between">
+              <Text typo="Body3_Regular" palette="Primary">
+                {/* {info.details.length > cardPageIdx &&
+                  info.details[cardPageIdx].optionDetail} */}
+                {optionDetail}
               </Text>
-            </Flex>
+            </DetatilInfoContainer>
 
-            <Flex
-              justify="flex-end"
-              backgroundColor="DarkGray"
-              borderRadius="13px"
-              width="auto"
-              padding="0 9px"
-            >
-              <Text palette="LightSand" typo="Caption_Regular">
-                {cardPageIdx + 1}/{total}
-              </Text>
-            </Flex>
-          </InfoTitleContainer>
-
-          <DetatilInfoContainer justify="space-between">
-            <Text typo="Body3_Regular" palette="Primary">
-              {info.details[cardPageIdx].optionDetail}
-            </Text>
-          </DetatilInfoContainer>
-
-          <LeftButtonContainer onClick={() => onMovePage({ pageParam: -1 })}>
-            <img src={leftBtn} alt="" />
-          </LeftButtonContainer>
-          <RightButtonContainer onClick={() => onMovePage({ pageParam: +1 })}>
-            <img src={rightBtn} alt="" />
-          </RightButtonContainer>
-        </>
-      ) : (
-        <Text palette="Primary" typo="Body2_Medium">
-          하위옵션이 존재하지 않아요
-        </Text>
-      )}
-    </InfoContainer>
+            <LeftButtonContainer onClick={() => onMovePage(-1)}>
+              <img src={leftBtn} alt="" />
+            </LeftButtonContainer>
+            <RightButtonContainer onClick={() => onMovePage(1)}>
+              <img src={rightBtn} alt="" />
+            </RightButtonContainer>
+          </>
+        ) : (
+          <Text palette="Primary" typo="Body2_Medium">
+            하위옵션이 존재하지 않아요
+          </Text>
+        )}
+      </InfoContainer>
+    </Flex>
   );
 };
+
+const TagWrap = css`
+  flex-wrap: wrap;
+`;
 
 const LeftButtonContainer = styled.div`
   position: absolute;
