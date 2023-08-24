@@ -1,4 +1,4 @@
-import { Button, Flex, masonryLayout } from '@components/common';
+import { Button, Flex, Text, masonryLayout } from '@components/common';
 import styled from '@emotion/styled';
 import { MyCarCard } from './MyCarCard';
 import revertIcon from '@assets/images/revertIcon.svg';
@@ -11,6 +11,7 @@ import { ArchiveCard } from '../main';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@contexts/ToastContext';
 import { pageSize } from '@assets/constant';
+import { useInfiniteScroll } from '@hooks/useInfiniteScroll';
 
 export interface createdMyCarInterface {
   archivingId: number;
@@ -29,12 +30,14 @@ export interface createdMyCarInterface {
 }
 
 const cateName = {
-  myCar: '내가 만든 차량 목록',
-  savedCar: '피드에서 저장한 차량 목록',
+  made: '내가 만든 차량 목록',
+  bookmarked: '피드에서 저장한 차량 목록',
 };
 
 export const MyCarList = () => {
-  const [pageNum, setPageNum] = useState(0);
+  const [myCarPageNum, setMyCarPageNum] = useState(0);
+  const [bookMarkPageNum, setBookMarkPageNum] = useState(0);
+
   const [removedId, setRemovedId] = useState<number>(-1);
   const [removedCar, setRemovedCar] = useState<createdMyCarInterface[]>([]);
   const [createCar, setCreateCar] = useState<createdMyCarInterface[]>([]);
@@ -45,7 +48,8 @@ export const MyCarList = () => {
 
   const { openToast } = useToast();
   const masonryRef = useRef<HTMLDivElement>(null);
-  const lastCreateCarRef = useRef<HTMLDivElement>(null);
+  const madeCardRef = useRef<HTMLDivElement>(null);
+  const BookMarkCardRef = useRef<HTMLDivElement>(null);
 
   const navigate = useNavigate();
   const onMoveDetail = (archivindId: number) => {
@@ -57,67 +61,50 @@ export const MyCarList = () => {
   }, [selectedMenu, createCar, bookmarkCar]);
 
   useEffect(() => {
-    if (selectedMenu === cateName.myCar) getCreatedCar();
-    else getBookMarkCar();
-  }, [selectedMenu, removedId, pageNum]);
+    if (selectedMenu === cateName.made) getCreatedCar();
+  }, [selectedMenu, myCarPageNum]);
 
   useEffect(() => {
-    if (createCar.length <= 4) {
-      getCreatedCar();
-    }
-  }, [createCar]);
+    if (selectedMenu === cateName.bookmarked) getBookMarkCar();
+  }, [selectedMenu, bookMarkPageNum]);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (entry.isIntersecting) {
-          setPageNum(pageNum + 1);
-        }
-      },
-      { threshold: 0.5 }, // Adjust the threshold value as needed
-    );
-    if (lastCreateCarRef.current) {
-      observer.observe(lastCreateCarRef.current);
-    }
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useInfiniteScroll({
+      element: madeCardRef,
+      pageNum: myCarPageNum,
+      setPageNum: setMyCarPageNum,
+    });
+  }, [createCar, madeCardRef]);
 
-    return () => {
-      if (lastCreateCarRef.current) {
-        observer.unobserve(lastCreateCarRef.current);
-      }
-    };
-  }, [lastCreateCarRef]);
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useInfiniteScroll({
+      element: BookMarkCardRef,
+      pageNum: bookMarkPageNum,
+      setPageNum: setBookMarkPageNum,
+    });
+  }, [bookmarkCar, BookMarkCardRef]);
 
   const getCreatedCar = async () => {
     const data = await apiInstance({
       url: `${MyArchiveUrl.CREATED_CARS}?pageNumber=${
-        pageNum + 1
+        myCarPageNum + 1
       }&pageSize=${pageSize}`,
       method: 'GET',
     });
-    // 중복데이터 쌓는 것 방지
-    if (
-      JSON.stringify(data[7]) !==
-      JSON.stringify(createCar[createCar.length - 1])
-    ) {
-      setCreateCar([...createCar, ...data]);
-    }
+    setCreateCar([...createCar, ...data]);
   };
 
   const getBookMarkCar = async () => {
     const data = (await apiInstance({
       url: `${MyArchiveUrl.FEED}?pageNumber=${
-        pageNum + 1
+        bookMarkPageNum + 1
       }&pageSize=${pageSize}`,
       method: 'GET',
     })) as archiveSearchResponsesInterface[];
-    // 중복데이터 쌓는 것 방지
-    if (
-      JSON.stringify(data[7]) !==
-      JSON.stringify(bookmarkCar[bookmarkCar.length - 1])
-    ) {
-      setBookmarkCar([...bookmarkCar, ...data]);
-    }
+
+    setBookmarkCar([...bookmarkCar, ...data]);
   };
 
   const deletedCar = (archivingId: number) => {
@@ -144,44 +131,49 @@ export const MyCarList = () => {
 
   return (
     <Flex direction="column" justify="flex-start" gap={30}>
-      <Flex
-        width={1024}
-        height={620}
-        direction="column"
-        justify="flex-start"
-        gap={30}
-      >
-        <OptionMenu justify="flex-start" height={40} gap={23}>
+      <Flex height={620} direction="column" justify="flex-start" gap={30}>
+        <OptionMenu
+          justify="flex-start"
+          width={1048}
+          height={40}
+          gap={23}
+          backgroundColor="White"
+          css={css`
+            position: fixed;
+            z-index: 6;
+            top: 151px;
+          `}
+        >
           <MyCarivingMenuName
-            isSelected={selectedMenu === cateName.myCar}
+            isSelected={selectedMenu === cateName.made}
             onClick={() => {
-              if (selectedMenu !== cateName.myCar) {
-                setSelectedMenu(cateName.myCar);
-                setPageNum(0);
+              if (selectedMenu !== cateName.made) {
+                setSelectedMenu(cateName.made);
               }
             }}
           >
-            {cateName.myCar}
+            {cateName.made}
           </MyCarivingMenuName>
           <MyCarivingMenuName
-            isSelected={selectedMenu === cateName.savedCar}
+            isSelected={selectedMenu === cateName.bookmarked}
             onClick={() => {
-              if (selectedMenu !== cateName.savedCar) {
-                setSelectedMenu(cateName.savedCar);
-                setPageNum(0);
+              if (selectedMenu !== cateName.bookmarked) {
+                setSelectedMenu(cateName.bookmarked);
               }
             }}
           >
-            {cateName.savedCar}
+            {cateName.bookmarked}
           </MyCarivingMenuName>
         </OptionMenu>
+        <TopMargin />
         <CardContainer ref={masonryRef}>
-          {selectedMenu === cateName.myCar
-            ? createCar.map((it, idx) => (
+          {selectedMenu === cateName.made ? (
+            createCar.length !== 0 ? (
+              createCar.map((it, idx) => (
                 <div
                   key={`mycarcard_${it.archivingId}`}
                   onClick={() => onMoveDetail(it.archivingId)}
-                  ref={idx === createCar.length - 1 ? lastCreateCarRef : null}
+                  ref={idx === createCar.length - 1 ? madeCardRef : null}
                 >
                   <MyCarCard
                     info={it}
@@ -189,19 +181,33 @@ export const MyCarList = () => {
                   />
                 </div>
               ))
-            : bookmarkCar.map((bookmarkInfo, idx) => {
-                return (
-                  <div
-                    key={`mychivingCard_${idx}`}
-                    onClick={() => onMoveDetail(bookmarkInfo.archivingId)}
-                  >
-                    <ArchiveCard
-                      key={`mychivingCard_${idx}`}
-                      archiveInfo={bookmarkInfo}
-                    />
-                  </div>
-                );
-              })}
+            ) : (
+              <Flex width={1048}>
+                <Text typo="Body1_Regular">
+                  내가 만든 차량이 존재하지 않아요.
+                </Text>
+              </Flex>
+            )
+          ) : bookmarkCar.length !== 0 ? (
+            bookmarkCar.map((bookmarkInfo, idx) => (
+              <div
+                key={`mychivingCard_${idx}`}
+                onClick={() => onMoveDetail(bookmarkInfo.archivingId)}
+                ref={idx === bookmarkCar.length - 1 ? BookMarkCardRef : null}
+              >
+                <ArchiveCard
+                  key={`mychivingCard_${idx}`}
+                  archiveInfo={bookmarkInfo}
+                />
+              </div>
+            ))
+          ) : (
+            <Flex width={1048}>
+              <Text typo="Body1_Regular">
+                피드에 저장한 차량이 존재하지 않아요.
+              </Text>
+            </Flex>
+          )}
         </CardContainer>
       </Flex>
       <RevertBox isShow={removedId !== -1}>
@@ -228,6 +234,11 @@ export const MyCarList = () => {
   );
 };
 
+const TopMargin = styled.div`
+  height: 40px;
+  flex-shrink: 0;
+`;
+
 const RevertBox = styled.div<{ isShow: boolean }>`
   position: fixed;
   bottom: 30px;
@@ -246,7 +257,7 @@ const CardContainer = styled.div`
 
   width: 1048px;
   gap: 25px;
-  padding: 0 0 60px 0;
+  padding: 0 0 160px 0;
 `;
 
 const MyCarivingMenuName = styled(MenuName)`

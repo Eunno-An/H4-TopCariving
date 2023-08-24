@@ -1,9 +1,14 @@
 import { Button, Flex, Text } from '@components/common';
 import { useMyCar } from '@contexts/MyCarContext';
+import { useToast } from '@contexts/ToastContext';
 import { css } from '@emotion/react';
 
 export const Footer = () => {
   const { myCarInfo } = useMyCar();
+  const { openToast } = useToast();
+  const noActionToast = () => {
+    openToast({ newContent: '현재는 지원하지 않는 기능이에요.' });
+  };
   return (
     <Flex
       backgroundColor="Sand"
@@ -30,6 +35,7 @@ export const Footer = () => {
         typo="Heading4_Bold"
         heightType="medium"
         width={176}
+        onClick={noActionToast}
       >
         이 차량 구매하기
       </Button>

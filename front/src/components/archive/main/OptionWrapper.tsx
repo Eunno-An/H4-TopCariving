@@ -94,4 +94,6 @@ export const OptionChip = styled.div<{ isSelected: boolean }>`
     isSelected ? theme.palette.White : theme.palette.Black};
 
   cursor: pointer;
+
+  transition: ease 0.3s;
 `;

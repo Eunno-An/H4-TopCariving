@@ -7,6 +7,7 @@ import { ArchiveUrl, apiInstance } from '@utils/api';
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
+import { useInfiniteScroll } from '@hooks/useInfiniteScroll';
 
 export const ArchiveMain = () => {
   const [archiveSearchResponses, setArchiveSearchResponses] = useState<
@@ -87,24 +88,12 @@ export const ArchiveMain = () => {
   }, [archiveSearchResponses, selectedMenu]);
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const entry = entries[0];
-        if (entry.isIntersecting) {
-          setTimeout(() => setPageNum(pageNum + 1), 1000);
-        }
-      },
-      { threshold: 0.5 },
-    );
-    if (archiveCardRef.current) {
-      observer.observe(archiveCardRef.current);
-    }
-
-    return () => {
-      if (archiveCardRef.current) {
-        observer.unobserve(archiveCardRef.current);
-      }
-    };
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useInfiniteScroll({
+      element: archiveCardRef,
+      pageNum: pageNum,
+      setPageNum: setPageNum,
+    });
   }, [archiveSearchResponses, archiveCardRef, pageNum]);
 
   return (
@@ -158,7 +147,7 @@ export const Container = styled.div`
 
   width: 1048px;
   gap: 25px;
-  padding: 30px 0 60px 0;
+  padding: 30px 0 160px 0;
 `;
 
 export type archiveType =

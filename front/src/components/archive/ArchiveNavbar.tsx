@@ -26,10 +26,7 @@ export const ArchiveNavbar = ({
 
   const onClickMoveMyCar = () => {
     openAlert({
-      newContent: [
-        '계속해서 내 차 만들기를 하시겠어요?',
-        '내 차 만들기 화면으로 이동해요.',
-      ],
+      newContent: ['내 차 만들기로 이동할까요?'],
       newButtonInfo: [
         { text: '취소', color: 'LightGray', onClick: closeAlert },
         { text: '확인', color: 'Primary', onClick: onMoveMyCar },

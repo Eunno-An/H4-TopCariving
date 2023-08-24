@@ -1,6 +1,7 @@
 import { ArchiveReview, ArchiveShortInfo } from '@components/archive/detail';
 import { ArchiveOptionDetails } from '@components/archive/detail/ArchiveOptionDetails';
 import { positionInterface } from '@components/common/CarOptionPosition';
+import styled from '@emotion/styled';
 import { ArchiveUrl, apiInstance } from '@utils/api';
 import { getOptionKeyInfo } from '@utils/getCarInfo';
 import { useEffect, useState } from 'react';
@@ -30,6 +31,7 @@ export const ArchiveDetail = () => {
 
   return (
     <>
+      <TopMargin />
       <ArchiveReview detailInfo={detailInfo} optionDetail={optionDetail} />
       <ArchiveShortInfo
         detailInfo={detailInfo}
@@ -43,6 +45,11 @@ export const ArchiveDetail = () => {
     </>
   );
 };
+
+const TopMargin = styled.div`
+  height: 151px;
+  flex-shrink: 0;
+`;
 
 export interface ArchiveDetailPageProps {
   detailInfo?: archiveDetailInterface;

@@ -23,7 +23,7 @@ export const ArchiveHeader = ({
 
   const onClickArchiving = () => {
     openAlert({
-      newContent: ['마이 카이빙으로 이동하시겠습니까?'],
+      newContent: ['마이 카이빙으로 이동할까요?'],
       newButtonInfo: [
         { text: '취소', color: 'LightGray', onClick: closeAlert },
         { text: '확인', color: 'Primary', onClick: moveToArchiving },
