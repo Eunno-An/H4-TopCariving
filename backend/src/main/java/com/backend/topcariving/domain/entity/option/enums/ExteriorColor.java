@@ -20,7 +20,7 @@ public enum ExteriorColor {
 	private final Long carOptionId;
 	private final String name;
 
-	private static final String FIX_LINK = "https://d37c20hjk1kqzz.cloudfront.net/360/%s/image_001.png";
+	private static final String FIX_LINK = "https://d37c20hjk1kqzz.cloudfront.net/360/%s/image_001.webp";
 
 	public static String getPhotoUrl(Long carOptionId) {
 		String colorName = Arrays.stream(ExteriorColor.values())

@@ -17,8 +17,12 @@ export const Category = ({
     <Flex
       height={38}
       gap={90}
+      backgroundColor="White"
       css={css`
         border-bottom: 1px solid ${theme.palette.LightGray};
+        position: fixed;
+        top: 151px;
+        z-index: 6;
       `}
     >
       {cateName.map((cate, idx) => (

@@ -138,7 +138,7 @@ const Color = () => {
               exteriorColor={
                 myCarInfo.color.exteriorColor
                   ? colorPath[myCarInfo.color.exteriorColor?.name]
-                  : 'black'
+                  : 'abyss'
               }
             />
           ) : (

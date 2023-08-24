@@ -4,7 +4,7 @@ import { Flex } from '@components/common';
 import { Footer, Header, NavBar } from '@components/myCar';
 import styled from '@emotion/styled';
 import { ErrorBoundary } from '@components/ErrorBoundary';
-import { Loading } from '@components/common/Loading';
+import { Loading } from '@components/common/Loading/Loader';
 
 export const myCarUrl = [
   '/my-car/trim',

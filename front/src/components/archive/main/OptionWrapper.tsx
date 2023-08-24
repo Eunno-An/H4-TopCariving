@@ -4,7 +4,6 @@ import styled from '@emotion/styled';
 import { theme } from '@styles/theme';
 import { Dispatch, SetStateAction } from 'react';
 
-// 4:14
 interface OptionWrapperInterface {
   options: { carOptionId: number; optionName: string }[];
   selectedOption: {
@@ -42,7 +41,15 @@ export const OptionWrapper = ({
   };
 
   return (
-    <Flex backgroundColor="LightSand" height="auto">
+    <Flex
+      backgroundColor="LightSand"
+      height="auto"
+      css={css`
+        position: fixed;
+        top: 151px;
+        z-index: 6;
+      `}
+    >
       <Flex
         height="auto"
         padding="25px 0"
@@ -87,4 +94,6 @@ export const OptionChip = styled.div<{ isSelected: boolean }>`
     isSelected ? theme.palette.White : theme.palette.Black};
 
   cursor: pointer;
+
+  transition: ease 0.3s;
 `;

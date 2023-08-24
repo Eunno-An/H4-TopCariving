@@ -4,7 +4,11 @@ import { Flex } from './Flex';
 import { Text } from '.';
 import rotationIcon from '@assets/images/rotationHorizontal.svg';
 
-export const CarModel = ({ exteriorColor }: { exteriorColor: string }) => {
+export const CarModel = ({
+  exteriorColor = 'abyss',
+}: {
+  exteriorColor: string;
+}) => {
   const [carList, setCarList] = useState<{ path: string }[]>([]);
   const [focus, setFocus] = useState<number>(0);
   const [isClicked, setIsClicked] = useState<boolean>(false);

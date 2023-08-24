@@ -2,6 +2,7 @@ import { Button, Flex, Text } from '@components/common';
 import styled from '@emotion/styled';
 import keyboardRight from '@assets/images/keyboardRight.svg';
 import { css } from '@emotion/react';
+import { useToast } from '@contexts/ToastContext';
 
 const progressInfo = [
   '구매상담 신청하기',
@@ -11,6 +12,10 @@ const progressInfo = [
 ];
 
 export const CompleteButton = () => {
+  const { openToast } = useToast();
+  const noActionToast = () => {
+    openToast({ newContent: '현재는 지원하지 않는 기능이에요.' });
+  };
   return (
     <Flex
       justify="space-between"
@@ -31,6 +36,7 @@ export const CompleteButton = () => {
           padding="15px 24px"
           backgroundColor="LightSand"
           css={buttonCss}
+          onClick={noActionToast}
         >
           <Text typo="Body3_Medium">출고일자 상담신청 바로가기</Text>
           <img src={keyboardRight} alt="" />
@@ -48,6 +54,7 @@ export const CompleteButton = () => {
               heightType="medium"
               typo="Body3_Medium"
               key={`button_${idx}`}
+              onClick={noActionToast}
             >
               {text}
             </Button>

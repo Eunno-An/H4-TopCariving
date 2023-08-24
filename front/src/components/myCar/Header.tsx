@@ -19,12 +19,21 @@ export const Header = () => {
   };
 
   const onClickArchiving = () => {
-    openAlert({
-      newContent: [
+    let content = [];
+    if (window.location.pathname === '/my-car/complete') {
+      content = [
+        '아카이빙으로 이동할까요?',
+        '완성된 차량은 마이카이빙에서 확인할 수 있어요.',
+      ];
+    } else {
+      content = [
         '내 차 만들기를 그만하시겠어요?',
         '만들던 차량은 아카이빙 > 내가 만든 차량에',
         '저장해둘게요',
-      ],
+      ];
+    }
+    openAlert({
+      newContent: content,
       newButtonInfo: [
         { text: '취소', color: 'LightGray', onClick: closeAlert },
         { text: '확인', color: 'Primary', onClick: moveToArchiving },

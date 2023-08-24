@@ -1,5 +1,4 @@
 import { Flex, Text } from '@components/common';
-import { Tag } from '@components/common/Tag';
 import {
   OptionModal,
   alertContentInterface,
@@ -7,15 +6,14 @@ import {
 import { optionKey, useMyCar } from '@contexts/MyCarContext';
 import { OptionCard, OptionInfoCard } from '@components/myCar/option';
 
-import React, { useEffect, useState } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
 import { theme } from '@styles/theme';
 import { css } from '@emotion/react';
 import vector478 from '@assets/images/Vector 478.svg';
 import { useLoaderData } from 'react-router-dom';
-import { OptionUrl, apiInstance } from '@utils/api';
-import { optionInfoInterface } from '@interface/index';
 import { ArchivePopup } from '@components/common/ArchivePopup';
+import { OptionLoader } from '@components/common/Loading/OptionLoader';
 
 const defaultCategoryList = [
   '파워트레인/성능',
@@ -64,9 +62,10 @@ export const MyCarOptions = () => {
   const [selectedItem, setSelectedItem] = useState(0);
   const [selectedMenu, setSelectedMenu] = useState(cateName.select);
   const [defaultOption, setDefaultOption] = useState(0);
-  const [info, setInfo] = useState<optionInfoInterface>();
+  const [infoImage, setInfoImage] = useState<string>(
+    selectOptionData[0].photoUrl,
+  );
 
-  const [cardPageIdx, setCarPageIdx] = useState(0);
   const [isOpen, setIsOpen] = useState(false);
 
   const [currentDefaultCategory, setCurrentDefaultCategory] =
@@ -153,23 +152,11 @@ export const MyCarOptions = () => {
     }
   };
 
-  const onMovePage = ({ pageParam }: { pageParam: number }) => {
-    const len = info?.details?.length ? info?.details?.length : 1;
-
-    if (pageParam === -1) {
-      if (cardPageIdx - 1 < 0) {
-        setCarPageIdx(len - 1);
-      } else {
-        setCarPageIdx(cardPageIdx - 1);
-      }
-    } else {
-      setCarPageIdx((cardPageIdx + 1) % len);
-    }
+  const setSubInfoImage = (imgSrc: string) => {
+    setInfoImage(imgSrc);
   };
 
   const onSelectedItemHandler = (idx: number) => {
-    setCarPageIdx(0);
-
     if (selectedMenu === cateName.select) {
       selectedMenu === cateName.select && setSelectedItem(idx);
     } else {
@@ -195,25 +182,6 @@ export const MyCarOptions = () => {
     setIsOpen(false);
   };
 
-  const fetchDetailsData = async (optionId: number) => {
-    const res = (await await apiInstance({
-      url: `${OptionUrl.DETAIL}/${optionId}`,
-      method: 'GET',
-    })) as optionInfoInterface;
-
-    return res;
-  };
-
-  useEffect(() => {
-    async function fetchData() {
-      const data = (await fetchDetailsData(
-        optionInfo[selectedItem].carOptionId,
-      )) as optionInfoInterface;
-      setInfo(data);
-    }
-    fetchData();
-  }, [selectedItem]);
-
   return (
     <Flex
       css={css`
@@ -225,11 +193,7 @@ export const MyCarOptions = () => {
         <Flex gap={39} height={320}>
           {/* 이미지 */}
           <Flex width={479}>
-            {info?.details && info.details[cardPageIdx] ? (
-              <ImgContainer src={info.details[cardPageIdx].photoUrl} alt="" />
-            ) : (
-              <ImgContainer src={optionInfo[selectedItem].photoUrl} alt="" />
-            )}
+            {infoImage && <ImgContainer src={infoImage} alt="" />}
           </Flex>
           {/* 옵션 Info */}
           <Flex direction="column" justify="flex-start">
@@ -245,7 +209,7 @@ export const MyCarOptions = () => {
             {/* 옵션에대한 태그칩 */}
             <Flex
               width={507}
-              height="auto"
+              height={30}
               margin="12px 0 18px 0"
               gap={12}
               direction="column"
@@ -259,33 +223,25 @@ export const MyCarOptions = () => {
                   에 대해 시승자들은 이런 후기를 남겼어요
                 </Text>
               </Flex>
-              <Flex gap={4} height="auto" justify="flex-start" css={TagWrap}>
-                {info?.tags &&
-                  info.tags.map((it, idx) => (
-                    <Tag key={`tags_${idx}`} desc={it.tagContent} />
-                  ))}
-              </Flex>
             </Flex>
             {/* 옵션 세부 설명 */}
-            {info && (
+            <Suspense fallback={<OptionLoader />}>
               <OptionInfoCard
-                info={info}
-                onMovePage={onMovePage}
-                cardPageIdx={cardPageIdx}
+                optionId={optionInfo[selectedItem].carOptionId}
+                setSubInfoImage={(imgSrc) => setSubInfoImage(imgSrc)}
               />
-            )}
+            </Suspense>
           </Flex>
         </Flex>
 
         {/* 옵션 하단 */}
-        <Flex direction="column" height={245} gap={20}>
+        <Flex direction="column" height={255} gap={20}>
           {/* 선택 항목 / 기본 포함 항목 */}
           <OptionMenu justify="flex-start" height={40} gap={23}>
             <MenuName
               isSelected={selectedMenu === cateName.select}
               onClick={() => {
                 if (selectedMenu !== cateName.select) {
-                  setCarPageIdx(0);
                   setOptionInfo(optionInfo);
                   setSelectedMenu(cateName.select);
                 }
@@ -297,7 +253,6 @@ export const MyCarOptions = () => {
               isSelected={selectedMenu === cateName.default}
               onClick={() => {
                 if (selectedMenu !== cateName.default) {
-                  setCarPageIdx(0);
                   setSelectedMenu(cateName.default);
                 }
               }}
@@ -419,10 +374,6 @@ export const MenuName = styled(Text)<{ isSelected: boolean }>`
     color: ${theme.palette.DarkGray};
   }
   transition: ease 0.3s;
-`;
-
-const TagWrap = css`
-  flex-wrap: wrap;
 `;
 
 export const OptionMenu = styled(Flex)`

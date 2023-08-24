@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Flex, Text } from '.';
+import { Flex, Text } from '..';
 import { theme } from '@styles/theme';
 import car from '@assets/images/car.svg';
 

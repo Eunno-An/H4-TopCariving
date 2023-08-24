@@ -9,7 +9,6 @@ export const Archive = () => {
   return (
     <Flex direction="column" justify="flex-start">
       <ArchiveHeader />
-      <TopMargin />
       <ArchiveNavbar />
       <ErrorBoundary>
         <Outlet />

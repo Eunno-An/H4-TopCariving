@@ -8,3 +8,10 @@ spring:
     url: ENC(0SUyw7B+cKv9VCZDbAiYmzMZNVTVmQeh4NQqck4CdcYZBiYd14BQplaUFm+xRZfRYzSKGtsaJfGQjFKPYsCswXb8/K+pwJYz+bLkmWEi410Qs+SxBmqetg==)
     username: ENC(MJX+k+uCnubICpKQeYdgRg==)
     password: ENC(JpGdXlntVs1tD+mf8k3K7PkhQE66QHQe)
+    hikari:
+      connectionTimeout: 30000
+      maximumPoolSize: 100
+      minimumIdle: 5
+      idleTimeout: 600000
+      maxLifetime: 1800000
+      autoCommit: true
