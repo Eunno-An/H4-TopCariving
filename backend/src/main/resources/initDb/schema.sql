@@ -61,7 +61,7 @@ CREATE TABLE IF NOT EXISTS CAR_REVIEW
     review        text,
     my_car_id     bigint,
     CONSTRAINT pk_car_review PRIMARY KEY (car_review_id),
-    CONSTRAINT fk_car_review_to_my_car FOREIGN KEY (my_car_id) REFERENCES MY_CAR (my_car_id)
+    CONSTRAINT fk_car_review_to_my_car FOREIGN KEY (my_car_id) REFERENCES MY_CAR (my_car_id) ON DELETE CASCADE
     );
 
 CREATE TABLE IF NOT EXISTS TAG
@@ -78,7 +78,7 @@ CREATE TABLE IF NOT EXISTS TAG_REVIEW
     my_car_id     bigint,
     CONSTRAINT pk_tag_review PRIMARY KEY (tag_review_id),
     CONSTRAINT fk_tag_review_to_tag FOREIGN KEY (tag_id) REFERENCES TAG (tag_id),
-    CONSTRAINT fk_tag_review_to_my_car FOREIGN KEY (my_car_id) REFERENCES MY_CAR (my_car_id)
+    CONSTRAINT fk_tag_review_to_my_car FOREIGN KEY (my_car_id) REFERENCES MY_CAR (my_car_id) ON DELETE CASCADE
     );
 
 CREATE TABLE IF NOT EXISTS CAR_OPTION_TAG

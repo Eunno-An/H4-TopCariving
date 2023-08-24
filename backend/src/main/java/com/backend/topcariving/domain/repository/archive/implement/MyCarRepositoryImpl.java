@@ -91,14 +91,6 @@ public class MyCarRepositoryImpl implements MyCarRepository {
 
 	@Override
 	public void deleteByArchivingIdAndCategoryDetail(final Long archivingId, final CategoryDetail categoryDetail) {
-		String sqlDeleteReferenceTagReview = "DELETE FROM TAG_REVIEW WHERE my_car_id IN (SELECT my_car_id FROM MY_CAR AS MC INNER JOIN CAR_OPTION AS CO ON MC.car_option_id = CO.car_option_id"
-			+ " WHERE archiving_id = ? AND category_detail = ?)";
-		jdbcTemplate.update(sqlDeleteReferenceTagReview, archivingId, categoryDetail.getName());
-
-		String sqlDeleteReferenceCarReview = "DELETE FROM CAR_REVIEW WHERE my_car_id IN (SELECT my_car_id FROM MY_CAR AS MC INNER JOIN CAR_OPTION AS CO ON MC.car_option_id = CO.car_option_id"
-			+ " WHERE archiving_id = ? AND category_detail = ?)";
-		jdbcTemplate.update(sqlDeleteReferenceCarReview, archivingId, categoryDetail.getName());
-
 		String sql = "DELETE FROM MY_CAR WHERE car_option_id IN (SELECT car_option_id FROM CAR_OPTION WHERE CATEGORY_DETAIL = ?) AND archiving_id = ?;";
 
 		jdbcTemplate.update(sql, categoryDetail.getName(), archivingId);
