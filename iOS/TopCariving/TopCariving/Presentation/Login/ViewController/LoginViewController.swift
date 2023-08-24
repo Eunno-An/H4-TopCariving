@@ -134,10 +134,18 @@ class LoginViewController: UIViewController {
                                 password: self.passwordTextField.text ?? ""
                             )
                         )
+                        if isLoginFinish == LoginService.LoginResult.success {
+                            DispatchQueue.main.async {
+                                self.navigationController?.pushViewController(
+                                    SelectOptionViewController(), animated: true
+                                )
+                            }
+                        }
                     } catch {
                         NSLog(error.localizedDescription)
                     }
                 }
+                
                 self.view.endEditing(true)
             })
             .store(in: &bag)

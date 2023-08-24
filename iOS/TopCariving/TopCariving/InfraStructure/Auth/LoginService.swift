@@ -17,7 +17,16 @@ struct TokenInfo: Codable {
 }
 
 class LoginService {
-    enum LoginResult {
+    enum LoginResult: Equatable {
+        static func == (lhs: LoginService.LoginResult, rhs: LoginService.LoginResult) -> Bool {
+            switch (lhs, rhs) {
+            case (success, success):
+                return true
+            default:
+                return false
+            }
+        }
+        
         case success
         case failure(LoginError)
     }
@@ -61,6 +70,7 @@ class LoginService {
             let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
                 if error != nil {
                     continuation.resume(returning: .failure(.transportError))
+                    return
                 }
                 guard let data = data else {
                     continuation.resume(returning: .failure(.missingData))

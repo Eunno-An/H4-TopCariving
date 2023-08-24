@@ -19,8 +19,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowSecene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowSecene)
         CGRect.screenBounds = window?.windowScene?.screen.bounds ?? .zero
-        var viewController = LoginViewController()
-        window?.rootViewController = viewController
+        let navigationController = UINavigationController(rootViewController: LoginViewController())
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
     }
 

@@ -480,7 +480,6 @@
 		767E23EF2A960D3B00006017 /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				767E24012A961CB900006017 /* View */,
 				767E24022A961CBD00006017 /* ViewController */,
 				767E24002A961CB300006017 /* ViewModel */,
 			);
@@ -658,13 +657,6 @@
 				D49B0FA82A94890B00B3CEE2 /* LoginViewModel.swift */,
 			);
 			path = ViewModel;
-			sourceTree = "<group>";
-		};
-		767E24012A961CB900006017 /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
 			sourceTree = "<group>";
 		};
 		767E24022A961CBD00006017 /* ViewController */ = {
