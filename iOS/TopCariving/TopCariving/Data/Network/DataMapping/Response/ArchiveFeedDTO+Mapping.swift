@@ -1,0 +1,23 @@
+//
+//  ArchiveFeedDTO+Mapping.swift
+//  TopCariving
+//
+//  Created by Eunno An on 2023/08/25.
+//
+
+import Foundation
+
+struct ArchiveFeedDTO: Decodable {
+    typealias identifier = Int64
+    let archivingId: identifier
+    let carArchiveResult: [String: [String]]
+    let dayTime: String
+    let carReview: String
+    let tags: TagResponseDTO
+    let type: [String]
+}
+extension ArchiveFeedDTO {
+    func toDomain() -> ArchiveFeed {
+        return .init(id: archivingId, carArchivingResult: carArchiveResult, dayTime: dayTime, carReview: carReview, tags: tags.toDomain(), type: type)
+    }
+}
