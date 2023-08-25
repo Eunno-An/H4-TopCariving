@@ -23,7 +23,7 @@ class HTTPClient: HTTPClientProtocol {
         urlComponents.scheme = endPoint.scheme
         urlComponents.host = endPoint.host
         urlComponents.path = endPoint.path
-        
+        urlComponents.queryItems = endPoint.queryItems
         guard let url = urlComponents.url else {
             return .failure(.invalidURL)
         }
