@@ -8,8 +8,8 @@
 import Foundation
 
 struct SearchOptionDTO: Decodable {
-    typealias identifier = Int64
-    let carOptionID: identifier
+    typealias Identifier = Int64
+    let carOptionID: Identifier
     let optionName: String
 }
 extension SearchOptionDTO {

@@ -8,7 +8,7 @@
 import Foundation
 
 struct SearchOption: Identifiable {
-    typealias identifier = Int64
-    let id: identifier
+    typealias Identifier = Int64
+    let id: Identifier
     let optionName: String
 }

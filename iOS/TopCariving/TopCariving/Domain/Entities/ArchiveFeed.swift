@@ -8,8 +8,8 @@
 import Foundation
 
 struct ArchiveFeed: Identifiable {
-    typealias identifier = Int64
-    let id: identifier
+    typealias Identifier = Int64
+    let id: Identifier
     let carArchivingResult: [String: [String]]
     let dayTime: String
     let carReview: String

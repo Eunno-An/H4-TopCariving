@@ -10,7 +10,7 @@ import Foundation
 struct ModifyOptionResponseDTO: Decodable {
     typealias Identifier = Int64
     let carOptionID: Identifier
-    let archivingResult: ArchivingResponseDTO
+    let archivingResult: ArchiveResponseDTO
 }
 
 extension ModifyOptionResponseDTO {

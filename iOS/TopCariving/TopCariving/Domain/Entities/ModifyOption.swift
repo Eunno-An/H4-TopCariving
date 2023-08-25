@@ -10,5 +10,5 @@ import Foundation
 struct ModifyOption: Identifiable {
     typealias Identifier = Int64
     let id: Identifier
-    let archivingResult: ArchivingResponseDTO
+    let archivingResult: ArchiveResponseDTO
 }

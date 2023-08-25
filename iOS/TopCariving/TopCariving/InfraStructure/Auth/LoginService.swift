@@ -17,6 +17,9 @@ struct TokenInfo: Codable {
 }
 
 class LoginService {
+    static let shared = LoginService()
+    var accessToken = ""
+    var refreshToken = ""
     enum LoginResult: Equatable {
         static func == (lhs: LoginService.LoginResult, rhs: LoginService.LoginResult) -> Bool {
             switch (lhs, rhs) {
@@ -103,9 +106,11 @@ class LoginService {
                                 )
                                 if ableSavingAccessToken && ableSavingRefreshToken {
                                     NSLog("success")
+                                    self.accessToken = accessToken
                                     continuation.resume(returning: .success)
                                 } else {
                                     NSLog("failure")
+                                    self.refreshToken = refreshToken
                                     continuation.resume(returning: .failure(.keyChainError))
                                 }
                             }
@@ -151,6 +156,8 @@ class LoginService {
                         let ableDeletingAccessToken = await KeyChain.deleteStringFromKeychain(key: "accessToken")
                         let ableDeletingRefreshToken = await KeyChain.deleteStringFromKeychain(key: "refreshToken")
                         if ableDeletingAccessToken && ableDeletingRefreshToken {
+                            self.accessToken = ""
+                            self.refreshToken = ""
                             continuation.resume(returning: .failure(.serverError(code: 401)))
                         } else {
                             continuation.resume(returning: .failure(.keyChainError))
@@ -177,6 +184,8 @@ class LoginService {
                                     key: "refreshToken"
                                 )
                                 if ableSavingAccessToken && ableSavingRefreshToken {
+                                    self.accessToken = accessToken
+                                    self.refreshToken = refreshToken
                                     continuation.resume(returning: .success)
                                 } else {
                                     continuation.resume(returning: .failure(.keyChainError))

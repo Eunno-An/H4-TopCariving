@@ -8,8 +8,8 @@
 import Foundation
 
 struct ArchiveFeedDTO: Decodable {
-    typealias identifier = Int64
-    let archivingId: identifier
+    typealias Identifier = Int64
+    let archivingId: Identifier
     let carArchiveResult: [String: [String]]
     let dayTime: String
     let carReview: String
