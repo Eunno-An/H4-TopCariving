@@ -8,6 +8,6 @@
 import Foundation
 
 struct Archiving {
-    let options: [SearchOption]
-    let archiveSearchResponses: [ArchiveFeed]
+    var options: [SearchOption]
+    var archiveSearchResponses: [ArchiveFeed]
 }

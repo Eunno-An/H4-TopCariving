@@ -33,9 +33,19 @@ class ArchivingReviewView: UIView {
         
         return UICollectionViewCompositionalLayout(section: section)
     }()
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.tintColor = .white
+        refreshControl.addTarget(self, action: #selector(scrollRefresh(_:)), for: .allEvents)
+        return refreshControl
+    }()
+    
     // MARK: - Properties
     private var dataSource: UICollectionViewDiffableDataSource<Section, ArchivingReviewCellModel>!
+    private var bag = Set<AnyCancellable>()
     var tapCellIndexPathSubject = PassthroughSubject<IndexPath, Never>()
+    private var viewModel = ArchivingReviewViewModel(httpClient: HTTPClient())
+    
     // MARK: - Lifecycles
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -52,6 +62,7 @@ class ArchivingReviewView: UIView {
     // MARK: - Helpers
     private func setUI() {
         translatesAutoresizingMaskIntoConstraints = false
+        collectionView.refreshControl = refreshControl
         addSubview(collectionView)
     }
     private func setLayout() {
@@ -73,11 +84,28 @@ class ArchivingReviewView: UIView {
         })
     }
     func refresh(by models: [ArchivingReviewCellModel]) {
+        viewModel.process.receive(on: DispatchQueue.main)
+            .sink { [weak self] status in
+                guard let self else { return }
+                DispatchQueue.main.async {
+                    switch status {
+                    case .finished:
+                        self.refreshControl.endRefreshing()
+                    default:
+                        break
+                    }
+                }
+                
+            }.store(in: &bag)
         var snapShot = dataSource.snapshot()
         snapShot.appendSections([.review])
         snapShot.appendItems(models)
         dataSource.apply(snapShot)
     }
+    @objc func scrollRefresh(_ sender: Any) {
+        viewModel.fetchReviewCellData(page: 1)
+    }
+    
 }
 
 extension ArchivingReviewView: UICollectionViewDelegate {

@@ -9,6 +9,13 @@ import Combine
 import Foundation
 
 class ArchivingReviewViewModel: ViewModelType {
+    enum Process {
+        case ready
+        case inProcess
+        case finished
+        case finishedWithEmptyResult
+        case failedWithError(error: Error)
+    }
     // MARK: - Input
     struct Input {
         let viewDidLoadPublisher: AnyPublisher<Void, Never>
@@ -21,11 +28,13 @@ class ArchivingReviewViewModel: ViewModelType {
     private var bag = Set<AnyCancellable>()
     private let utilityQueue = DispatchQueue(label: "utilityQueue", qos: .utility)
     private var loadPage = 1
-    private let reviewCellData = CurrentValueSubject<[ArchivingReviewCellModel], Never>([])
+    private let reviewCellData = CurrentValueSubject<Archiving, Never>(.init(options: [], archiveSearchResponses: []))
     private let httpClient: HTTPClientProtocol
+    let process = CurrentValueSubject<Process, Never>(.ready)
     // MARK: - LifeCycle
     init(httpClient: HTTPClientProtocol) {
         self.httpClient = httpClient
+        self.fetchReviewCellData(page: 1)
     }
     
     // MARK: - Helper
@@ -33,8 +42,8 @@ class ArchivingReviewViewModel: ViewModelType {
         let output = Output()
         return output
     }
-    func fetchReviewCellData(page: Int) async throws -> ArchiveResponseDTO {
-        return try await withCheckedThrowingContinuation { continuation in
+    func fetchArchivingData(page: Int) -> AnyPublisher<Archiving, Never> {
+        return Future<Archiving, Never> { promise in
             var endPoint = ArchiveReviewEndPoint.getModels(page)
             var urlComponents = URLComponents()
             urlComponents.scheme = endPoint.scheme
@@ -43,31 +52,28 @@ class ArchivingReviewViewModel: ViewModelType {
             urlComponents.queryItems = endPoint.queryItems(withPage: page)
             guard let url = urlComponents.url else {
                 print("urlError")
-                continuation.resume(throwing: URLError(.badURL))
                 return
             }
             var request = URLRequest(url: url)
             request.httpMethod = "GET"
             request.addValue("Bearer \(LoginService.shared.myAccessToken)", forHTTPHeaderField: "authorization")
-
+            
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if let error = error {
                     print("serverError")
-                    continuation.resume(throwing: error)
                     return
                 }
-
+                
                 guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
                     print("badServerResponse")
-                    continuation.resume(throwing: URLError(.badServerResponse))
                     return
                 }
-
+                
                 do {
                     let decodedData = try JSONDecoder().decode(ArchiveResponseDTO.self, from: data!)
-                    continuation.resume(returning: decodedData)
+                    let archiving = decodedData.toDomain()
+                    promise(.success(archiving))
                 } catch let decodingError {
-                    
                     if let underlyingError = decodingError as? DecodingError {
                         switch underlyingError {
                         case .dataCorrupted(let context):
@@ -84,10 +90,37 @@ class ArchivingReviewViewModel: ViewModelType {
                     } else {
                         print("An unknown error occurred.")
                     }
-                    continuation.resume(throwing: decodingError)
                 }
             }
             task.resume()
         }
+        .eraseToAnyPublisher()
+    }
+    func fetchReviewCellData(page: Int) {
+        fetchArchivingData(page: page).subscribe(on: utilityQueue)
+            .sink(receiveCompletion: { [weak self] result in
+                guard let self = self else { return }
+                switch result {
+                case .failure(let error):
+                    self.process.send(.failedWithError(error: error))
+                    break
+                default:
+                    self.process.send(.finished)
+                }
+                self.bag.removeAll()
+            }, receiveValue: { [weak self] receivedValue in
+                guard let self = self else { return }
+                if page == 1 {
+                    self.reviewCellData.send(receivedValue)
+                } else {
+                    var newValue = self.reviewCellData.value
+                    newValue.options.append(contentsOf: receivedValue.options)
+                    newValue.archiveSearchResponses.append(contentsOf: receivedValue.archiveSearchResponses)
+                    self.reviewCellData.send(newValue)
+                }
+            }).store(in: &bag)
+    }
+    func requestMoreData(page: Int) async {
+        self.fetchReviewCellData(page: page)
     }
 }
