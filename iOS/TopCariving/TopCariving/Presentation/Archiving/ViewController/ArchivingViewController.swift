@@ -45,10 +45,7 @@ class ArchivingViewController: BaseArchivingViewController {
         setUI()
         setLayout()
         setEvent()
-        Task {
-            await test()
-        }
-        bind()
+        fetchReviewData()
     }
     
     // MARK: - Helpers
@@ -104,37 +101,12 @@ class ArchivingViewController: BaseArchivingViewController {
             self.navigationController?.pushViewController(ArchivingDetailViewController(), animated: true)
         }).store(in: &bag)
     }
-    private func bind() {
-        
+    private func fetchReviewData() {
+        viewModel.fetchReviewCellData(page: 1)
+//        viewModel.reviewCellData.sink { [weak self] archiving in
+//            self?.reviewView.refresh(by: archiving)
+//        }.store(in: &viewModel.bag)
     }
-    private func test() {
-        reviewView.refresh(by: [
-            .init(carName: "팰리세이드 Le Blanc",
-                  searchType: "구매",
-                  date: Date(),
-                  trim: "디젤 2.2 / 4WD / 7인승",
-                  outColorName: "문라이트 블루펄",
-                  inColorName: "퀼팅 천연(블랙)",
-                  selectOptions: [],
-                  tags: ["편리해요😉", "이것만 있으면 나도 주차고수🚘", "대형견도 문제 없어요🐶"]),
-            .init(carName: "팰리세이드 Le Blanc",
-                  searchType: "시승",
-                  date: Date(),
-                  trim: "디젤 2.2 / 4WD / 7인승",
-                  outColorName: "문라이트 블루펄",
-                  inColorName: "퀼팅 천연(블랙)",
-                  selectOptions: [],
-                  tags: ["이것만 있으면 나도 주차고수🚘", "편리해요😉", "대형견도 문제 없어요🐶"]),
-            .init(carName: "팰리세이드 Le Blanc",
-                  searchType: "시승",
-                  date: Date(),
-                  trim: "디젤 2.2 / 4WD / 7인승",
-                  outColorName: "문라이트 블루펄",
-                  inColorName: "퀼팅 천연(블랙)",
-                  selectOptions: [],
-                  tags: ["주차고수🚘", "이것만 있으면"])
-        ])
-        
-        optionTagView.refresh(by: ["컴포트 || 패키지", "컴포트 || 패키지1", "컴포트 || 패키지3"])
-    }
+    
+    
 }

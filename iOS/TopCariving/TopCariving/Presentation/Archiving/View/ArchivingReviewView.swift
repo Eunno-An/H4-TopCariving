@@ -13,7 +13,7 @@ class ArchivingReviewView: UIView {
         case review
     }
     // MARK: - UI properties
-    private lazy var collectionView: UICollectionView = {
+    lazy var collectionView: UICollectionView = {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: self.collectionViewLayout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(ArchivingReviewCell.self, forCellWithReuseIdentifier: ArchivingReviewCell.identifier)
@@ -27,17 +27,11 @@ class ArchivingReviewView: UIView {
         
         let group = NSCollectionLayoutGroup.vertical(layoutSize: .init(widthDimension: .fractionalWidth(1.0),
                                                                        heightDimension: .estimated(188)),
-                                                       subitems: [item])
+                                                     subitems: [item])
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 12
         
         return UICollectionViewCompositionalLayout(section: section)
-    }()
-    private lazy var refreshControl: UIRefreshControl = {
-        let refreshControl = UIRefreshControl()
-        refreshControl.tintColor = .white
-        refreshControl.addTarget(self, action: #selector(scrollRefresh(_:)), for: .allEvents)
-        return refreshControl
     }()
     
     // MARK: - Properties
@@ -45,6 +39,7 @@ class ArchivingReviewView: UIView {
     private var bag = Set<AnyCancellable>()
     var tapCellIndexPathSubject = PassthroughSubject<IndexPath, Never>()
     private var viewModel = ArchivingReviewViewModel(httpClient: HTTPClient())
+    private var cellDataSubscription: AnyCancellable?
     
     // MARK: - Lifecycles
     override init(frame: CGRect) {
@@ -52,17 +47,19 @@ class ArchivingReviewView: UIView {
         setUI()
         setLayout()
         setCollectionViewDataSource()
+        setupDataSubscription()
     }
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setUI()
         setLayout()
         setCollectionViewDataSource()
+        setupDataSubscription()
     }
     // MARK: - Helpers
     private func setUI() {
+        collectionView.prefetchDataSource = self
         translatesAutoresizingMaskIntoConstraints = false
-        collectionView.refreshControl = refreshControl
         addSubview(collectionView)
     }
     private func setLayout() {
@@ -84,32 +81,38 @@ class ArchivingReviewView: UIView {
         })
     }
     func refresh(by models: [ArchivingReviewCellModel]) {
-        viewModel.process.receive(on: DispatchQueue.main)
-            .sink { [weak self] status in
-                guard let self else { return }
-                DispatchQueue.main.async {
-                    switch status {
-                    case .finished:
-                        self.refreshControl.endRefreshing()
-                    default:
-                        break
-                    }
-                }
-                
-            }.store(in: &bag)
-        var snapShot = dataSource.snapshot()
+        var snapShot = self.dataSource.snapshot()
         snapShot.appendSections([.review])
-        snapShot.appendItems(models)
-        dataSource.apply(snapShot)
+        snapShot.appendItems(models, toSection: .review)
+        self.dataSource.apply(snapShot)
     }
     @objc func scrollRefresh(_ sender: Any) {
-        viewModel.fetchReviewCellData(page: 1)
+        viewModel.fetchReviewCellData(page: viewModel.loadPage + 1)
     }
-    
+    private func setupDataSubscription() {
+        print("Setting subscriber")
+        viewModel.reviewCellData.sink { [weak self] cellModels in
+            print("Receive Now! : \(cellModels)")
+            self?.updateUI(with: cellModels)
+        }.store(in: &viewModel.bag)
+    }
+    func updateUI(with cellModels: [ArchivingReviewCellModel]) {
+        refresh(by: cellModels)
+    }
 }
 
 extension ArchivingReviewView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         tapCellIndexPathSubject.send(indexPath)
+    }
+}
+
+extension ArchivingReviewView: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        let lastIndexPath = indexPaths.last?.item ?? 0
+        let count = viewModel.reviewCellData.value.count
+        if lastIndexPath >= count - 1 {
+            viewModel.requestMoreData(page: viewModel.loadPage + 1)
+        }
     }
 }
