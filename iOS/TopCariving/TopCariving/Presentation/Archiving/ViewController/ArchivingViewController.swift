@@ -46,10 +46,12 @@ class ArchivingViewController: BaseArchivingViewController {
         setLayout()
         setEvent()
         fetchReviewData()
+        setupDataSubscription()
     }
     
     // MARK: - Helpers
     private func setUI() {
+        reviewView.collectionView.prefetchDataSource = self
         view.backgroundColor = .white
         [searchButton, currentAddedLabel, optionTagView, reviewBackgroundView, newestLabel, reviewView].forEach {
             view.addSubview($0)
@@ -103,10 +105,24 @@ class ArchivingViewController: BaseArchivingViewController {
     }
     private func fetchReviewData() {
         viewModel.fetchReviewCellData(page: 1)
-//        viewModel.reviewCellData.sink { [weak self] archiving in
-//            self?.reviewView.refresh(by: archiving)
-//        }.store(in: &viewModel.bag)
     }
-    
-    
+    private func setupDataSubscription() {
+        print("Setting subscriber")
+        viewModel.reviewCellData.sink { [weak self] cellModels in
+            print("Receive Now! : \(cellModels)")
+            self?.updateUI(with: cellModels)
+        }.store(in: &viewModel.bag)
+    }
+    func updateUI(with cellModels: [ArchivingReviewCellModel]) {
+        reviewView.refresh(by: cellModels)
+    }
+}
+extension ArchivingViewController: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        let lastIndexPath = indexPaths.last?.item ?? 0
+        let count = viewModel.reviewCellData.value.count
+        if lastIndexPath >= count - 1 {
+            viewModel.requestMoreData(page: viewModel.loadPage + 1)
+        }
+    }
 }

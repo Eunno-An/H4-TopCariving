@@ -8,6 +8,7 @@
 import UIKit
 
 struct ArchivingReviewCellModel: Hashable {
+    let id = UUID()
     let carName: String
     let searchType: String
     let date: String
