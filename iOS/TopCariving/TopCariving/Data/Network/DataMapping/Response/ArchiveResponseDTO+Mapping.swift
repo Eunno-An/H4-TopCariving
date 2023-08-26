@@ -15,6 +15,9 @@ struct ArchiveResponseDTO: Decodable {
 
 extension ArchiveResponseDTO {
     func toDomain() -> Archiving {
-        return .init(options: options.map {$0.toDomain()} , archiveSearchResponses: archiveSearchResponses.map {$0.toDomain()})
+        return .init(
+            options: options.map {$0.toDomain()},
+            archiveSearchResponses: archiveSearchResponses.map {$0.toDomain()}
+        )
     }
 }

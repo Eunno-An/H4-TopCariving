@@ -8,5 +8,5 @@
 import Foundation
 
 struct Tag {
-    let content: String
+    let tagContent: String
 }

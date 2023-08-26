@@ -18,8 +18,9 @@ struct TokenInfo: Codable {
 
 class LoginService {
     static let shared = LoginService()
-    var accessToken = ""
-    var refreshToken = ""
+    var myAccessToken = ""
+    var myRefreshToken = ""
+    private init() {}
     enum LoginResult: Equatable {
         static func == (lhs: LoginService.LoginResult, rhs: LoginService.LoginResult) -> Bool {
             switch (lhs, rhs) {
@@ -70,7 +71,7 @@ class LoginService {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         return try await withCheckedThrowingContinuation { continuation in
-            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            let task = URLSession.shared.dataTask(with: request) { [self] (data, response, error) in
                 if error != nil {
                     continuation.resume(returning: .failure(.transportError))
                     return
@@ -106,11 +107,11 @@ class LoginService {
                                 )
                                 if ableSavingAccessToken && ableSavingRefreshToken {
                                     NSLog("success")
-                                    self.accessToken = accessToken
+                                    self.myAccessToken = accessToken
+                                    self.myRefreshToken = refreshToken
                                     continuation.resume(returning: .success)
                                 } else {
                                     NSLog("failure")
-                                    self.refreshToken = refreshToken
                                     continuation.resume(returning: .failure(.keyChainError))
                                 }
                             }
@@ -156,8 +157,8 @@ class LoginService {
                         let ableDeletingAccessToken = await KeyChain.deleteStringFromKeychain(key: "accessToken")
                         let ableDeletingRefreshToken = await KeyChain.deleteStringFromKeychain(key: "refreshToken")
                         if ableDeletingAccessToken && ableDeletingRefreshToken {
-                            self.accessToken = ""
-                            self.refreshToken = ""
+                            self.myAccessToken = ""
+                            self.myRefreshToken = ""
                             continuation.resume(returning: .failure(.serverError(code: 401)))
                         } else {
                             continuation.resume(returning: .failure(.keyChainError))
@@ -184,8 +185,8 @@ class LoginService {
                                     key: "refreshToken"
                                 )
                                 if ableSavingAccessToken && ableSavingRefreshToken {
-                                    self.accessToken = accessToken
-                                    self.refreshToken = refreshToken
+                                    self.myAccessToken = accessToken
+                                    self.myRefreshToken = refreshToken
                                     continuation.resume(returning: .success)
                                 } else {
                                     continuation.resume(returning: .failure(.keyChainError))

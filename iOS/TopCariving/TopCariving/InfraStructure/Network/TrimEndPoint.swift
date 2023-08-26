@@ -49,4 +49,8 @@ extension TrimEndPoint: EndPoint {
             return nil
         }
     }
+    
+    var queryItems: [URLQueryItem] {
+        return []
+    }
 }

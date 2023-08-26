@@ -8,11 +8,11 @@
 import Foundation
 
 struct TagResponseDTO: Decodable {
-    let content: String
+    let tagContent: String
 }
 
 extension TagResponseDTO {
     func toDomain() -> Tag {
-        return .init(content: content)
+        return .init(tagContent: tagContent)
     }
 }

@@ -9,12 +9,11 @@ import Foundation
 
 struct SearchOptionDTO: Decodable {
     typealias Identifier = Int64
-    let carOptionID: Identifier
+    let carOptionId: Identifier
     let optionName: String
 }
 extension SearchOptionDTO {
     func toDomain() -> SearchOption {
-        return .init(id: carOptionID, optionName: optionName)
+        return .init(id: carOptionId, optionName: optionName)
     }
 }
-

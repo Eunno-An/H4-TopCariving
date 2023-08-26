@@ -8,7 +8,7 @@
 import Foundation
 
 enum ArchiveReviewEndPoint {
-    case getModels
+    case getModels(Int)
 }
 extension ArchiveReviewEndPoint: EndPoint {
     var path: String {
@@ -26,7 +26,7 @@ extension ArchiveReviewEndPoint: EndPoint {
     }
     
     var header: [String: String]? {
-        var baseHeader = ["authorization": "Bearer \(LoginService.shared.accessToken)"]
+        let baseHeader = ["authorization": "Bearer \(LoginService.shared.myAccessToken)"]
         switch self {
         case .getModels:
             return baseHeader
@@ -38,5 +38,19 @@ extension ArchiveReviewEndPoint: EndPoint {
         case .getModels:
             return nil
         }
+    }
+    
+    var queryItems: [URLQueryItem] {
+        switch self {
+        case .getModels(let page):
+            return queryItems(withPage: page)
+        }
+    }
+    
+    func queryItems(withPage page: Int) -> [URLQueryItem] {
+        return [
+            URLQueryItem(name: "pageNumber", value: String(page)),
+            URLQueryItem(name: "pageSize", value: "10")
+        ]
     }
 }

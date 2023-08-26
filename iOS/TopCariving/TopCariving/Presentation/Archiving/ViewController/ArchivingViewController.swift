@@ -37,6 +37,7 @@ class ArchivingViewController: BaseArchivingViewController {
     private let reviewView = ArchivingReviewView()
     // MARK: - Properties
     private var bag = Set<AnyCancellable>()
+    private let viewModel: ArchivingReviewViewModel = ArchivingReviewViewModel(httpClient: HTTPClient())
     
     // MARK: - Lifecycles
     override func viewDidLoad() {
@@ -44,7 +45,10 @@ class ArchivingViewController: BaseArchivingViewController {
         setUI()
         setLayout()
         setEvent()
-        test()
+        Task {
+            await test()
+        }
+        bind()
     }
     
     // MARK: - Helpers
@@ -99,6 +103,9 @@ class ArchivingViewController: BaseArchivingViewController {
             print(indexPath)
             self.navigationController?.pushViewController(ArchivingDetailViewController(), animated: true)
         }).store(in: &bag)
+    }
+    private func bind() {
+        
     }
     private func test() {
         reviewView.refresh(by: [

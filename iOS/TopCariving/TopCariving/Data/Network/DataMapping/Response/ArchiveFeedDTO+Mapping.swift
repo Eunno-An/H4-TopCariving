@@ -13,11 +13,11 @@ struct ArchiveFeedDTO: Decodable {
     let carArchiveResult: [String: [String]]
     let dayTime: String
     let carReview: String
-    let tags: TagResponseDTO
-    let type: [String]
+    let tags: [TagResponseDTO]
+    let type: String
 }
 extension ArchiveFeedDTO {
     func toDomain() -> ArchiveFeed {
-        return .init(id: archivingId, carArchivingResult: carArchiveResult, dayTime: dayTime, carReview: carReview, tags: tags.toDomain(), type: type)
+        return .init(id: archivingId, carArchiveResult: carArchiveResult, dayTime: dayTime, carReview: carReview, tags: tags.map {$0.toDomain()}, type: type)
     }
 }

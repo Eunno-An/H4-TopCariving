@@ -10,9 +10,9 @@ import Foundation
 struct ArchiveFeed: Identifiable {
     typealias Identifier = Int64
     let id: Identifier
-    let carArchivingResult: [String: [String]]
+    let carArchiveResult: [String: [String]]
     let dayTime: String
     let carReview: String
-    let tags: Tag
-    let type: [String]
+    let tags: [Tag]
+    let type: String
 }

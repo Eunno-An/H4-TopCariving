@@ -129,7 +129,7 @@ class LoginViewController: UIViewController {
                 Task {
                     do {
                         #warning("아이디 비번 변경 필요")
-                        let isLoginFinish = try await LoginService().emailLogin(
+                        let isLoginFinish = try await LoginService.shared.emailLogin(
                             loginInfo: .init(
                                 email: "en@gmail.com" ?? "",
                                 password: "1234" ?? ""
@@ -141,6 +141,7 @@ class LoginViewController: UIViewController {
                                     ArchivingViewController(), animated: true
                                 )
                             }
+                            print(LoginService.shared.myAccessToken)
                         }
                     } catch {
                         NSLog(error.localizedDescription)
