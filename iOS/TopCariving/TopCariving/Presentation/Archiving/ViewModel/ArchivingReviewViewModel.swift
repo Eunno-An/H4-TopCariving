@@ -25,16 +25,16 @@ class ArchivingReviewViewModel: ViewModelType {
         
     }
     // MARK: - Dependency
-    private var bag = Set<AnyCancellable>()
+    var bag = Set<AnyCancellable>()
     private let utilityQueue = DispatchQueue(label: "utilityQueue", qos: .utility)
-    private var loadPage = 1
-    private let reviewCellData = CurrentValueSubject<Archiving, Never>(.init(options: [], archiveSearchResponses: []))
+    var loadPage = 1
+    let reviewCellData = CurrentValueSubject<[ArchivingReviewCellModel], Never>([])
     private let httpClient: HTTPClientProtocol
-    let process = CurrentValueSubject<Process, Never>(.ready)
+    
     // MARK: - LifeCycle
     init(httpClient: HTTPClientProtocol) {
         self.httpClient = httpClient
-        self.fetchReviewCellData(page: 1)
+        //  self.fetchReviewCellData(page: 1)
     }
     
     // MARK: - Helper
@@ -42,7 +42,7 @@ class ArchivingReviewViewModel: ViewModelType {
         let output = Output()
         return output
     }
-    func fetchArchivingData(page: Int) -> AnyPublisher<Archiving, Never> {
+    func fetchArchivingData(page: Int) -> Future<Archiving, Never> {
         return Future<Archiving, Never> { promise in
             var endPoint = ArchiveReviewEndPoint.getModels(page)
             var urlComponents = URLComponents()
@@ -72,6 +72,7 @@ class ArchivingReviewViewModel: ViewModelType {
                 do {
                     let decodedData = try JSONDecoder().decode(ArchiveResponseDTO.self, from: data!)
                     let archiving = decodedData.toDomain()
+                    print("Promise success")
                     promise(.success(archiving))
                 } catch let decodingError {
                     if let underlyingError = decodingError as? DecodingError {
@@ -94,33 +95,67 @@ class ArchivingReviewViewModel: ViewModelType {
             }
             task.resume()
         }
-        .eraseToAnyPublisher()
     }
     func fetchReviewCellData(page: Int) {
         fetchArchivingData(page: page).subscribe(on: utilityQueue)
-            .sink(receiveCompletion: { [weak self] result in
-                guard let self = self else { return }
-                switch result {
-                case .failure(let error):
-                    self.process.send(.failedWithError(error: error))
-                    break
-                default:
-                    self.process.send(.finished)
-                }
-                self.bag.removeAll()
-            }, receiveValue: { [weak self] receivedValue in
+            .sink(receiveValue: { [weak self] receivedValue in
                 guard let self = self else { return }
                 if page == 1 {
-                    self.reviewCellData.send(receivedValue)
+                    let sendValue = convertToReviewCellModels(from: receivedValue)
+                    print("send Now!")
+                    self.reviewCellData.send(sendValue)
                 } else {
-                    var newValue = self.reviewCellData.value
-                    newValue.options.append(contentsOf: receivedValue.options)
-                    newValue.archiveSearchResponses.append(contentsOf: receivedValue.archiveSearchResponses)
+                    let oldValue = self.reviewCellData.value
+                    let newValue = oldValue + convertToReviewCellModels(from: receivedValue)
                     self.reviewCellData.send(newValue)
                 }
             }).store(in: &bag)
     }
-    func requestMoreData(page: Int) async {
+    func requestMoreData(page: Int) {
         self.fetchReviewCellData(page: page)
     }
+    func convertToReviewCellModels(from archiving: Archiving) -> [ArchivingReviewCellModel] {
+        let dateFormatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yy년M월d일"
+            return formatter
+        }()
+        
+        var cellModels: [ArchivingReviewCellModel] = []
+        
+        for archiveFeed in archiving.archiveSearchResponses {
+            let selectOptions = archiveFeed.carArchiveResult["선택품목"] ?? []
+            let tags = archiveFeed.tags.map { $0.tagContent }
+            
+            let cellModel = ArchivingReviewCellModel(
+                carName: archiveFeed.carArchiveResult["모델"]?.first ?? "",
+                searchType: archiveFeed.type,
+                date: formatDateString(archiveFeed.dayTime) ?? "정확한 날을 조회할 수 없어요",
+                trim: archiveFeed.carArchiveResult["트림"]?.joined(separator: " ") ?? "",
+                outColorName: archiveFeed.carArchiveResult["외장색상"]?.first ?? "",
+                inColorName: archiveFeed.carArchiveResult["내장색상"]?.first ?? "",
+                selectOptions: selectOptions,
+                tags: tags
+            )
+            
+            cellModels.append(cellModel)
+            
+        }
+        return cellModels
+    }
+    func formatDateString(_ dateString: String) -> String? {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
+        
+        if let date = dateFormatter.date(from: dateString) {
+            let outputFormatter = DateFormatter()
+            outputFormatter.locale = Locale(identifier: "ko_KR")
+            outputFormatter.dateFormat = "yy년 MM월 dd일에 시승했어요"
+            
+            return outputFormatter.string(from: date)
+        }
+        
+        return nil
+    }
+
 }

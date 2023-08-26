@@ -8,9 +8,10 @@
 import UIKit
 
 struct ArchivingReviewCellModel: Hashable {
+    let id = UUID()
     let carName: String
     let searchType: String
-    let date: Date
+    let date: String
     let trim: String
     let outColorName: String
     let inColorName: String
@@ -116,7 +117,7 @@ class ArchivingReviewCell: UICollectionViewCell {
         super.prepareForReuse()
         setUp(with: .init(carName: "",
                           searchType: "",
-                          date: Date(),
+                          date: "",
                           trim: "",
                           outColorName: "",
                           inColorName: "",
@@ -190,10 +191,7 @@ class ArchivingReviewCell: UICollectionViewCell {
     }
     func setUp(with model: ArchivingReviewCellModel) {
         titleLabel.text = model.carName
-        let dateForamtter = DateFormatter()
-        dateForamtter.locale = .init(identifier: "ko_KR")
-        dateForamtter.dateFormat = "yy년 M월 d일에 " + model.searchType + "했어요"
-        dateLabel.text = dateForamtter.string(from: model.date)
+        dateLabel.text = model.date
         trimLabel.text = model.trim
         outColorNameLabel.text = model.outColorName
         inColorNameLabel.text = model.inColorName
