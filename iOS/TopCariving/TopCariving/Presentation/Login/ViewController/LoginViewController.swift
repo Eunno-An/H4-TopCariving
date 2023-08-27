@@ -128,17 +128,16 @@ class LoginViewController: UIViewController {
                 guard let self else { return }
                 Task {
                     do {
-                        #warning("아이디 비번 변경 필요")
                         let isLoginFinish = try await LoginService.shared.emailLogin(
                             loginInfo: .init(
-                                email: "en@gmail.com" ?? "",
-                                password: "1234" ?? ""
+                                email: self.idTextField.text ?? "",
+                                password: self.passwordTextField.text ?? ""
                             )
                         )
                         if isLoginFinish == LoginService.LoginResult.success {
                             DispatchQueue.main.async {
                                 self.navigationController?.pushViewController(
-                                    ArchivingViewController(), animated: true
+                                    ViewController(viewModel: .init(httpClient: HTTPClient())), animated: true
                                 )
                             }
                             print(LoginService.shared.myAccessToken)
