@@ -59,16 +59,14 @@ class ArchivingReviewViewModel: ViewModelType {
             request.addValue("Bearer \(LoginService.shared.myAccessToken)", forHTTPHeaderField: "authorization")
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                if let error = error {
+                if error != nil {
                     print("serverError")
                     return
                 }
-                
                 guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
                     print("badServerResponse")
                     return
                 }
-                
                 do {
                     let decodedData = try JSONDecoder().decode(ArchiveResponseDTO.self, from: data!)
                     let archiving = decodedData.toDomain()
@@ -113,14 +111,9 @@ class ArchivingReviewViewModel: ViewModelType {
     }
     func requestMoreData(page: Int) {
         self.fetchReviewCellData(page: page)
+        loadPage += 1
     }
     func convertToReviewCellModels(from archiving: Archiving) -> [ArchivingReviewCellModel] {
-        let dateFormatter: DateFormatter = {
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yy년M월d일"
-            return formatter
-        }()
-        
         var cellModels: [ArchivingReviewCellModel] = []
         
         for archiveFeed in archiving.archiveSearchResponses {
@@ -137,25 +130,19 @@ class ArchivingReviewViewModel: ViewModelType {
                 selectOptions: selectOptions,
                 tags: tags
             )
-            
             cellModels.append(cellModel)
-            
         }
         return cellModels
     }
     func formatDateString(_ dateString: String) -> String? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss"
-        
         if let date = dateFormatter.date(from: dateString) {
             let outputFormatter = DateFormatter()
             outputFormatter.locale = Locale(identifier: "ko_KR")
             outputFormatter.dateFormat = "yy년 MM월 dd일에 시승했어요"
-            
             return outputFormatter.string(from: date)
         }
-        
         return nil
     }
-
 }

@@ -6,8 +6,7 @@
 //
 
 import UIKit
-//#error("스크롤 할때 효과 추가")
-//#error("아이디 비번 고정 제거")
+
 struct ArchivingReviewCellModel: Hashable {
     let id = UUID()
     let carName: String
