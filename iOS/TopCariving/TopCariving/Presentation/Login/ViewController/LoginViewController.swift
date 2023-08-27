@@ -140,7 +140,6 @@ class LoginViewController: UIViewController {
                                     ViewController(viewModel: .init(httpClient: HTTPClient())), animated: true
                                 )
                             }
-                            print(LoginService.shared.myAccessToken)
                         }
                     } catch {
                         NSLog(error.localizedDescription)

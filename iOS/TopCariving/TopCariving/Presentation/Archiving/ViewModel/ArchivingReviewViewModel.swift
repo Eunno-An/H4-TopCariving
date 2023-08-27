@@ -51,7 +51,7 @@ class ArchivingReviewViewModel: ViewModelType {
             urlComponents.path = endPoint.path
             urlComponents.queryItems = endPoint.queryItems(withPage: page)
             guard let url = urlComponents.url else {
-                print("urlError")
+                NSLog("urlError")
                 return
             }
             var request = URLRequest(url: url)
@@ -60,34 +60,34 @@ class ArchivingReviewViewModel: ViewModelType {
             
             let task = URLSession.shared.dataTask(with: request) { data, response, error in
                 if error != nil {
-                    print("serverError")
+                    NSLog("serverError")
                     return
                 }
                 guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                    print("badServerResponse")
+                    NSLog("badServerResponse")
                     return
                 }
                 do {
                     let decodedData = try JSONDecoder().decode(ArchiveResponseDTO.self, from: data!)
                     let archiving = decodedData.toDomain()
-                    print("Promise success")
+                    NSLog("Promise success")
                     promise(.success(archiving))
                 } catch let decodingError {
                     if let underlyingError = decodingError as? DecodingError {
                         switch underlyingError {
                         case .dataCorrupted(let context):
-                            print("Data Corrupted:", context.debugDescription)
+                            NSLog("Data Corrupted:", context.debugDescription)
                         case .keyNotFound(let key, let context):
-                            print("Key '\(key)' not found:", context.debugDescription)
+                            NSLog("Key '\(key)' not found:", context.debugDescription)
                         case .typeMismatch(let type, let context):
-                            print("Type '\(type)' mismatch:", context.debugDescription)
+                            NSLog("Type '\(type)' mismatch:", context.debugDescription)
                         case .valueNotFound(let type, let context):
-                            print("Value '\(type)' not found:", context.debugDescription)
+                            NSLog("Value '\(type)' not found:", context.debugDescription)
                         @unknown default:
-                            print("An unknown decoding error occurred.")
+                            NSLog("An unknown decoding error occurred.")
                         }
                     } else {
-                        print("An unknown error occurred.")
+                        NSLog("An unknown error occurred.")
                     }
                 }
             }
@@ -100,7 +100,6 @@ class ArchivingReviewViewModel: ViewModelType {
                 guard let self = self else { return }
                 if page == 1 {
                     let sendValue = convertToReviewCellModels(from: receivedValue)
-                    print("send Now!")
                     self.reviewCellData.send(sendValue)
                 } else {
                     let oldValue = self.reviewCellData.value

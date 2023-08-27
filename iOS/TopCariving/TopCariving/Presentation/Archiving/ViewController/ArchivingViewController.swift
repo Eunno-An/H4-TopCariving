@@ -99,7 +99,6 @@ class ArchivingViewController: BaseArchivingViewController {
         .store(in: &bag)
         reviewView.tapCellIndexPathSubject.sink(receiveValue: { [weak self] indexPath in
             guard let self else { return }
-            print(indexPath)
             self.navigationController?.pushViewController(ArchivingDetailViewController(), animated: true)
         }).store(in: &bag)
     }
@@ -107,9 +106,7 @@ class ArchivingViewController: BaseArchivingViewController {
         viewModel.fetchReviewCellData(page: 1)
     }
     private func setupDataSubscription() {
-        print("Setting subscriber")
         viewModel.reviewCellData.sink { [weak self] cellModels in
-            print("Receive Now! : \(cellModels)")
             self?.updateUI(with: cellModels)
         }.store(in: &viewModel.bag)
     }

@@ -65,7 +65,6 @@ class TrimSelectionViewController: BaseMyCarViewController {
     func setEvent() {
         foldableStackView.tapSubject.sink(receiveValue: { [weak self] index in
             guard let self else { return }
-            print(index)
         })
         .store(in: &bag)
     }
