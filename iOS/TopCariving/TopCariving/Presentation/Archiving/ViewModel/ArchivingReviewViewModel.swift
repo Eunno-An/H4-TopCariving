@@ -43,55 +43,9 @@ class ArchivingReviewViewModel: ViewModelType {
         return output
     }
     func fetchArchivingData(page: Int) -> Future<Archiving, Never> {
-        return Future<Archiving, Never> { promise in
-            var endPoint = ArchiveReviewEndPoint.getModels(page)
-            var urlComponents = URLComponents()
-            urlComponents.scheme = endPoint.scheme
-            urlComponents.host = endPoint.host
-            urlComponents.path = endPoint.path
-            urlComponents.queryItems = endPoint.queryItems(withPage: page)
-            guard let url = urlComponents.url else {
-                NSLog("urlError")
-                return
-            }
-            var request = URLRequest(url: url)
-            request.httpMethod = "GET"
-            request.addValue("Bearer \(LoginService.shared.myAccessToken)", forHTTPHeaderField: "authorization")
-            
-            let task = URLSession.shared.dataTask(with: request) { data, response, error in
-                if error != nil {
-                    NSLog("serverError")
-                    return
-                }
-                guard let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode == 200 else {
-                    NSLog("badServerResponse")
-                    return
-                }
-                do {
-                    let decodedData = try JSONDecoder().decode(ArchiveResponseDTO.self, from: data!)
-                    let archiving = decodedData.toDomain()
-                    NSLog("Promise success")
-                    promise(.success(archiving))
-                } catch let decodingError {
-                    if let underlyingError = decodingError as? DecodingError {
-                        switch underlyingError {
-                        case .dataCorrupted(let context):
-                            NSLog("Data Corrupted:", context.debugDescription)
-                        case .keyNotFound(let key, let context):
-                            NSLog("Key '\(key)' not found:", context.debugDescription)
-                        case .typeMismatch(let type, let context):
-                            NSLog("Type '\(type)' mismatch:", context.debugDescription)
-                        case .valueNotFound(let type, let context):
-                            NSLog("Value '\(type)' not found:", context.debugDescription)
-                        @unknown default:
-                            NSLog("An unknown decoding error occurred.")
-                        }
-                    } else {
-                        NSLog("An unknown error occurred.")
-                    }
-                }
-            }
-            task.resume()
+        let endPoint = ArchiveReviewEndPoint.getModels(page)
+        Task {
+            return await httpClient.sendRequest(endPoint: endPoint, responseModel: ArchiveResponseDTO.self)
         }
     }
     func fetchReviewCellData(page: Int) {
