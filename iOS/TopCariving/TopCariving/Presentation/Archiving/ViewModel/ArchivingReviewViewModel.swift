@@ -42,11 +42,22 @@ class ArchivingReviewViewModel: ViewModelType {
         let output = Output()
         return output
     }
-    func fetchArchivingData(page: Int) -> Future<Archiving, Never> {
+    func fetchArchivingData(page: Int) -> AnyPublisher<Archiving, Never> {
         let endPoint = ArchiveReviewEndPoint.getModels(page)
-        Task {
-            return await httpClient.sendRequest(endPoint: endPoint, responseModel: ArchiveResponseDTO.self)
-        }
+        return Future<Archiving, Never> { promise in
+            Task {
+                let result = await self.httpClient.sendRequest(
+                    endPoint: endPoint,
+                    responseModel: ArchiveResponseDTO.self)
+                switch result {
+                case .success(let archivingResponseData):
+                    let archivingData: Archiving = archivingResponseData.toDomain()
+                    promise(.success(archivingData))
+                case .failure(let error):
+                    NSLog(error.localizedDescription)
+                }
+            }
+        }.eraseToAnyPublisher()
     }
     func fetchReviewCellData(page: Int) {
         fetchArchivingData(page: page).subscribe(on: utilityQueue)
@@ -54,11 +65,15 @@ class ArchivingReviewViewModel: ViewModelType {
                 guard let self = self else { return }
                 if page == 1 {
                     let sendValue = convertToReviewCellModels(from: receivedValue)
-                    self.reviewCellData.send(sendValue)
+                    DispatchQueue.main.async {
+                        self.reviewCellData.send(sendValue)
+                    }
                 } else {
                     let oldValue = self.reviewCellData.value
                     let newValue = oldValue + convertToReviewCellModels(from: receivedValue)
-                    self.reviewCellData.send(newValue)
+                    DispatchQueue.main.async {
+                        self.reviewCellData.send(newValue)
+                    }
                 }
             }).store(in: &bag)
     }
