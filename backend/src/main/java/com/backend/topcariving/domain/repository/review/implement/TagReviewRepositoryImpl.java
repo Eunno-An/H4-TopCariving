@@ -2,6 +2,7 @@ package com.backend.topcariving.domain.repository.review.implement;
 
 import java.util.List;
 
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -17,6 +18,7 @@ public class TagReviewRepositoryImpl implements TagReviewRepository {
 	private final JdbcTemplate jdbcTemplate;
 
 	@Override
+	@Cacheable(value = "tagLimit", key = "#carOptionId")
 	public List<TagResponseDTO> findTagResponseDTOByCarOptionIdAndLimit(Long carOptionId, int limit) {
 		String sql = "SELECT TAG.tag_text AS TAG_CONTENT, COUNT(*) "
 			+ "FROM MY_CAR AS MC "
@@ -34,6 +36,7 @@ public class TagReviewRepositoryImpl implements TagReviewRepository {
 	}
 
 	@Override
+	@Cacheable(value = "tagArchiving", key = "#archivingId")
 	public List<TagResponseDTO> findTagResponseDTOByArchivingId(Long archivingId) {
 		String sql = "SELECT TAG.tag_text AS TAG_CONTENT "
 			+ "FROM TAG_REVIEW TR "
@@ -44,6 +47,7 @@ public class TagReviewRepositoryImpl implements TagReviewRepository {
 	}
 
 	@Override
+	@Cacheable(value = "tagArchivingCarOption")
 	public List<TagResponseDTO> findTagResponseDTOByArchivingIdAndCarOptionId(Long archivingId, Long carOptionId) {
 		String sql = "SELECT TAG.tag_text AS TAG_CONTENT "
 			+ "FROM TAG_REVIEW TR "
