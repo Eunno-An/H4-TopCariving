@@ -38,7 +38,6 @@ class ArchivingReviewView: UIView {
     private var dataSource: UICollectionViewDiffableDataSource<Section, ArchivingReviewCellModel>!
     private var bag = Set<AnyCancellable>()
     var tapCellIndexPathSubject = PassthroughSubject<IndexPath, Never>()
-    private var cellDataSubscription: AnyCancellable?
     
     // MARK: - Lifecycles
     override init(frame: CGRect) {

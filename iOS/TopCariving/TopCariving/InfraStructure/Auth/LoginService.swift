@@ -71,7 +71,7 @@ class LoginService {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         return try await withCheckedThrowingContinuation { continuation in
-            let task = URLSession.shared.dataTask(with: request) { [self] (data, response, error) in
+            let task = URLSession.shared.dataTask(with: request) { [weak self] (data, response, error) in
                 if error != nil {
                     continuation.resume(returning: .failure(.transportError))
                     return
