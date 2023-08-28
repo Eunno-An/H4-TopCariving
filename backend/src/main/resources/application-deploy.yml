@@ -4,14 +4,13 @@ spring:
     port: ENC(ysB2BXToP07TTsFKCsTknw==)
     password: ENC(UJ9WdLu3WVgjLl+kBE1VMJw1SLQ2B0dX)
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: ENC(0SUyw7B+cKv9VCZDbAiYmzMZNVTVmQeh4NQqck4CdcYZBiYd14BQplaUFm+xRZfRYzSKGtsaJfGQjFKPYsCswXb8/K+pwJYz+bLkmWEi410Qs+SxBmqetg==)
-    username: ENC(MJX+k+uCnubICpKQeYdgRg==)
-    password: ENC(JpGdXlntVs1tD+mf8k3K7PkhQE66QHQe)
-    hikari:
-      connectionTimeout: 30000
-      maximumPoolSize: 100
-      minimumIdle: 5
-      idleTimeout: 600000
-      maxLifetime: 1800000
-      autoCommit: true
+    master:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: ENC(0SUyw7B+cKv9VCZDbAiYmzMZNVTVmQeh4NQqck4CdcYZBiYd14BQplaUFm+xRZfRYzSKGtsaJfGQjFKPYsCswXb8/K+pwJYz+bLkmWEi410Qs+SxBmqetg==)
+      username: ENC(MJX+k+uCnubICpKQeYdgRg==)
+      password: ENC(JpGdXlntVs1tD+mf8k3K7PkhQE66QHQe)
+    slave:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: ENC(TClqv5thiUKkbxc9fS4UENyPm4A+PjZRl0O2IL2nEi0cd8DBjxXX4IAbqaNbhuH/a2Ikuqiu3DywkCK1ua0ObgRLsRHGv2O960URQITw8zBMvNxJG+53OQ==)
+      username: ENC(McklXvG3Ob3HhtLhnGs1sw==)
+      password: ENC(ngmp3SyETKss5kIBAaJWb1EYUgYE8Bqh)

@@ -1,0 +1,16 @@
+spring:
+  redis:
+    host: localhost
+    port: 6379
+    password: ENC(UJ9WdLu3WVgjLl+kBE1VMJw1SLQ2B0dX)
+  datasource:
+    master:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost/topcariving?useUnicode-true&serverTimezone=Asia/Seoul
+      username: myuserid
+      password: mypassword
+    slave:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      jdbc-url: jdbc:mysql://localhost/topcariving?useUnicode-true&serverTimezone=Asia/Seoul
+      username: myuserid
+      password: mypassword

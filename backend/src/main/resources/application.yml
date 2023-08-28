@@ -12,9 +12,8 @@ server:
 management:
   endpoints:
     web:
-      base-path: /actuator
       exposure:
-        include: health
+        include: health, prometheus
 
 token:
   access-token-expiration: ENC(wPeBVsCNvfRyE/b0nLCOoQ==)
@@ -28,3 +27,9 @@ oauth:
     client-id: ENC(Keh7pUQRMKFJ8P4qOU6E7suTjkHP1yNnbVTBtmCAdTsJ1I8rtDYj4/BT91IaXMUB)
     client-secret: ENC(LPEsledj2yz9tkLR4TBlO9pkv+WwylkcWgp2UQE/g65iQ4K8IBPXopfSrEJhlf2Lo73OoElMOmAHHwUUhg2sGQ==)
     redirect-uri: https://www.topcariving.com/oauth-redirect
+
+spring:
+  cache:
+    type: redis
+    redis:
+      cache-null-values: true

@@ -182,7 +182,6 @@ const CarOptionImgBox = styled(Flex)`
 
 const CarCard = styled(Flex)`
   width: 506px;
-  // height: 239px;
   height: auto;
 
   flex-direction: column;

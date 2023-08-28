@@ -15,7 +15,12 @@ export const useInfiniteScroll = ({
     (entries) => {
       const entry = entries[0];
       if (entry.isIntersecting) {
-        setTimeout(() => setPageNum(pageNum + 1), 1000);
+        const timeout = setTimeout(() => {
+          setPageNum(pageNum + 1);
+          observer.disconnect();
+        }, 500);
+
+        return () => clearTimeout(timeout);
       }
     },
     { threshold: 0.5 },

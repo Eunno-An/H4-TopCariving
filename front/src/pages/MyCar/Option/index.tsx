@@ -199,9 +199,9 @@ export const MyCarOptions = () => {
           <Flex direction="column" justify="flex-start">
             {/* 옵션 이름 / 가격 */}
             <OptionContainer>
-              <Text typo="Heading1_Bold">
+              <OptionName typo="Heading1_Bold">
                 {optionInfo[selectedItem].optionName}
-              </Text>
+              </OptionName>
               <Text typo="Heading2_Bold">
                 +{optionInfo[selectedItem].price.toLocaleString()} 원
               </Text>
@@ -216,9 +216,9 @@ export const MyCarOptions = () => {
               justify="flex-start"
             >
               <Flex justify="flex-start" gap={4} height="auto">
-                <Text typo="Heading3_Medium">
+                <BottomOptionName>
                   {optionInfo[selectedItem].optionName}
-                </Text>
+                </BottomOptionName>
                 <Text typo="Body3_Regular">
                   에 대해 시승자들은 이런 후기를 남겼어요
                 </Text>
@@ -388,6 +388,27 @@ const OptionContainer = styled(Flex)`
   align-items: flex-start;
 
   border-bottom: 2px solid #545454;
+`;
+
+const OptionName = styled(Text)`
+  width: 300px;
+  height: auto;
+  overflow-x: scroll;
+  white-space: nowrap;
+
+  ::-webkit-scrollbar {
+    display: none;
+  }
+`;
+
+const BottomOptionName = styled.span`
+  max-width: 250px;
+
+  ${theme.typo.Heading3_Medium}
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const ImgContainer = styled.img`
