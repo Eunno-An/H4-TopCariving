@@ -64,7 +64,7 @@ public class UserController {
 	}
 
 	@GetMapping("/logout")
-	@Operation(summary = "로그아웃", description = "로그아웃을 수행하고, ")
+	@Operation(summary = "로그아웃", description = "로그아웃을 수행한다.")
 	@SecurityRequirement(name = "Authorization")
 	public void logout(@Parameter(hidden = true) @Login Long userId) {
 		oAuthService.logout(userId);

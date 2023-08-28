@@ -16,9 +16,9 @@ management:
         include: health, prometheus
 
 token:
-  access-token-expiration: ENC(wPeBVsCNvfRyE/b0nLCOoQ==)
+  access-token-expiration: ENC(GLr8DWU5nrfQaTXIVOiaig==)
   secret-key: ENC(9w2F54pDUxduEsjYPcFteYskKT9NelCfXUUf4KQReW7YjPUi2bq4pYDEn9gOSznpdjYrYr71ceATvazxeaNAGQ==)
-  refresh-token-expiration: ENC(mlFa5gn8QYv4oNg7SxvxiA==)
+  refresh-token-expiration: ENC(taBCFm+b3LoEOw/tNAuPp02UvtZrQNVI)
 
 
 oauth:

@@ -1,9 +1,8 @@
 import { Suspense, useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Flex } from '@components/common';
-import { Footer, Header, NavBar } from '@components/myCar';
+import { ErrorBoundary, Flex } from '@components/common';
+import { Footer, Header, NavBar } from '@components/makeMyCar';
 import styled from '@emotion/styled';
-import { ErrorBoundary } from '@components/ErrorBoundary';
 import { Loading } from '@components/common/Loading/Loader';
 
 export const myCarUrl = [

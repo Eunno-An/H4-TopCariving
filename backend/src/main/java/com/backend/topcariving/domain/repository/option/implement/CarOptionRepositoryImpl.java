@@ -76,7 +76,7 @@ public class CarOptionRepositoryImpl implements CarOptionRepository {
 		Map<String, Object> paramMap = new HashMap<>();
 		paramMap.put("ids", ids);
 
-		return namedParameterJdbcTemplate.query(sql, paramMap,carOptionRowMapper());
+		return namedParameterJdbcTemplate.query(sql, paramMap, carOptionRowMapper());
 	}
 
 	@Override

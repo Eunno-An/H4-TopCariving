@@ -1,7 +1,5 @@
-import { ErrorBoundary } from '@components/ErrorBoundary';
-import { ArchiveHeader } from '@components/archive/ArchiveHeader';
-import { ArchiveNavbar } from '@components/archive/ArchiveNavbar';
-import { Flex } from '@components/common';
+import { ArchiveHeader, ArchiveNavbar } from '@components/archive';
+import { ErrorBoundary, Flex } from '@components/common';
 import styled from '@emotion/styled';
 import { Outlet } from 'react-router-dom';
 

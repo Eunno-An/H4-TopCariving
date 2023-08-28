@@ -1,5 +1,6 @@
 package com.backend.topcariving.domain.repository.option.implement;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,6 +34,10 @@ public class PositionRepositoryImpl implements PositionRepository {
 
 	@Override
 	public List<PositionDTO> findPositionDTOByCarOptionIds(List<Long> carOptionIds) {
+
+		if (carOptionIds == null || carOptionIds.isEmpty())
+			return new ArrayList<>();
+
 		String sql = "SELECT PI.position_id, CO.option_name, PI.left_percent, PI.top_percent "
 			+ "FROM POSITION_INFO PI "
 			+ "INNER JOIN CAR_OPTION CO ON CO.car_option_id = PI.car_option_id "

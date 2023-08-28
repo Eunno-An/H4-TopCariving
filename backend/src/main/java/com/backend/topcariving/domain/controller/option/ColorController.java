@@ -16,6 +16,7 @@ import com.backend.topcariving.domain.dto.option.response.color.BothColorRespons
 import com.backend.topcariving.domain.dto.option.response.color.ExteriorColorResponseDTO;
 import com.backend.topcariving.domain.dto.option.response.color.InteriorColorResponseDTO;
 import com.backend.topcariving.domain.entity.option.enums.CategoryDetail;
+import com.backend.topcariving.domain.entity.option.enums.ExteriorColor;
 import com.backend.topcariving.domain.service.option.ColorService;
 import com.backend.topcariving.domain.service.option.TrimService;
 import com.backend.topcariving.global.auth.annotation.Login;
@@ -36,6 +37,12 @@ public class ColorController {
 
 	private final ColorService colorService;
 	private final TrimService trimService;
+
+	@GetMapping
+	@Operation(summary = "컬러의 종류를 반환", description = "존재하는 외장 색상에 대한 정보를 반환한다")
+	public List<String> getColors() {
+		return ExteriorColor.getColors();
+	}
 
 	@GetMapping("/exteriors")
 	@Operation(summary = "외장 색상 옵션 전체 반환", description = "내 차 만들기에서 모든 외장 색상 옵션을 반환한다")

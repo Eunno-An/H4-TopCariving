@@ -1,10 +1,9 @@
 import styled from '@emotion/styled';
 import { AlertModalWrapper } from '@components/common';
-import { AlertProvider, MyCarProvider } from './contexts';
+import { AlertProvider, MyCarProvider, ToastProvider } from './contexts';
 import { router } from './routes/router';
 import { RouterProvider } from 'react-router-dom';
 import Toast from '@components/common/Toast';
-import { ToastProvider } from '@contexts/ToastContext';
 import React from 'react';
 
 interface AppProviderProps {

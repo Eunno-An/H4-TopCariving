@@ -1,4 +1,4 @@
-import { CarModel, Flex, Tag, Text } from '@components/common';
+import { Flex, Tag, Text } from '@components/common';
 import { ImgTag, InfoBox } from '../Trim/Engine';
 import { useEffect, useState } from 'react';
 import styled from '@emotion/styled';
@@ -13,9 +13,9 @@ import {
   exteriorColorResponseInterface,
   interiorColorResponseInterface,
 } from './interface';
-import { ArchivePopup } from '@components/common/ArchivePopup';
 import { ColorUrl } from '@utils/api';
 import { useSuspenseFetch } from '@hooks/useSuspenseFetch';
+import { ArchivePopup, CarModel } from '@components/makeMyCar';
 
 export const colorPath = {
   어비스블랙펄: 'abyss',

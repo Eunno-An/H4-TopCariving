@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
-import { CarModel, Flex } from '@components/common';
-import { TrimCard, TrimCardInterface } from '@components/myCar/trim';
+import { Flex } from '@components/common';
+import { TrimCard, TrimCardInterface } from '@components/makeMyCar/trim';
 import { MyCarContextType, useMyCar } from '@contexts/MyCarContext';
 import { useLoaderData } from 'react-router-dom';
+import { colorPath } from '../Color';
+import { CarModel } from '@components/makeMyCar';
 
 export const Trim = () => {
   const modelInfo = useLoaderData() as TrimCardInterface[];
@@ -66,7 +68,17 @@ export const Trim = () => {
 
   return (
     <Flex direction="column" justify="flex-start" height="auto">
-      <CarModel exteriorColor="abyss" />
+      <CarModel
+        exteriorColor={
+          myCarInfo.color.exteriorColor?.name
+            ? colorPath[
+                myCarInfo.color.exteriorColor?.name
+                  ? myCarInfo.color.exteriorColor?.name
+                  : '어비스블랙펄'
+              ]
+            : 'abyss'
+        }
+      />
       <Flex gap={24}>
         {modelInfo && (
           <>

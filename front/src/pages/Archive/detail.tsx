@@ -1,6 +1,6 @@
 import { ArchiveReview, ArchiveShortInfo } from '@components/archive/detail';
 import { ArchiveOptionDetails } from '@components/archive/detail/ArchiveOptionDetails';
-import { positionInterface } from '@components/common/CarOptionPosition';
+import { positionInterface } from '@components/archive/detail/CarOptionPosition';
 import styled from '@emotion/styled';
 import { ArchiveUrl, apiInstance } from '@utils/api';
 import { getOptionKeyInfo } from '@utils/getCarInfo';
