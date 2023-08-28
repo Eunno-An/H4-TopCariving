@@ -85,11 +85,7 @@ export const OptionInfoCard = ({
                   <Text palette="LightSand">{cardPageIdx + 1}</Text>
                 </Flex>
 
-                <Text palette="Primary">
-                  {optionName}
-                  {/* {info.details.length > cardPageIdx &&
-                    info.details[cardPageIdx].optionName} */}
-                </Text>
+                <Text palette="Primary">{optionName}</Text>
               </Flex>
 
               <Flex
@@ -107,8 +103,6 @@ export const OptionInfoCard = ({
 
             <DetatilInfoContainer justify="space-between">
               <Text typo="Body3_Regular" palette="Primary">
-                {/* {info.details.length > cardPageIdx &&
-                  info.details[cardPageIdx].optionDetail} */}
                 {optionDetail}
               </Text>
             </DetatilInfoContainer>
