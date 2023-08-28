@@ -1,0 +1,9 @@
+disabled_rules:
+- trailing_whitespace
+- large_tuple
+- function_body_length
+excluded:
+- TopCariving/App/AppDelegate.swift
+- TopCariving/App/SceneDelegate.swift
+- TopCarivingTests
+- TopCarivingUITests
