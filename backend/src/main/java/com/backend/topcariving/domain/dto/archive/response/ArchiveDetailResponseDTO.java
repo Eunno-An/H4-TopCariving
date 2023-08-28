@@ -15,7 +15,7 @@ import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-@Builder(access = AccessLevel.PRIVATE)
+@Builder
 @Schema(description = "차량에 대한 세부정보 응답 DTO")
 public class ArchiveDetailResponseDTO {
 

@@ -21,7 +21,7 @@ public interface CarArchivingRepository {
 
 	Optional<CarArchiving> findById(Long archivingId);
 
-	List<CarArchiving> findByCarOptionIdsAndArchivingTypes(List<Long> archivingIds, List<ArchivingType> archivingTypes, Integer pageNumber, Integer pageSize);
+	List<CarArchiving> findByCarOptionIdsAndArchivingTypes(List<Long> carOptionIds, List<ArchivingType> archivingTypes, Integer pageNumber, Integer pageSize);
 
 	List<CarArchiving> findByArchivingTypes(List<ArchivingType> archivingTypes, Integer pageNumber, Integer pageSize);
 

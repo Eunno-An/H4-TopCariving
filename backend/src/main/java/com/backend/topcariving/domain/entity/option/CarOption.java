@@ -4,8 +4,10 @@ import com.backend.topcariving.domain.entity.option.enums.Category;
 import com.backend.topcariving.domain.entity.option.enums.CategoryDetail;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 
+@Builder
 @AllArgsConstructor
 @Getter
 public class CarOption {
