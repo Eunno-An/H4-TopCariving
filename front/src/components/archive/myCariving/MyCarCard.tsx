@@ -107,9 +107,7 @@ export const MyCarCard = ({
         </Flex>
       </Flex>
       <Flex justify="flex-start">
-        <Text typo="Body3_Regular">
-          {info.trims.엔진}/{info.trims.바디타입}/{info.trims.구동방식}
-        </Text>
+        <Text typo="Body3_Regular">{Object.values(info.trims).join('/')}</Text>
       </Flex>
       <Flex margin="20px 0 0 0">
         {info.selectedOptions.length ? (

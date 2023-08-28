@@ -7,6 +7,7 @@ import { css } from '@emotion/react';
 import { useAlert } from '@contexts/AlertContext';
 import { useNavigate } from 'react-router-dom';
 import { LogoutButton } from '@components/common/LogoutButton';
+import { cursorPointer } from '@styles/common';
 
 export const ArchiveHeader = ({
   pageTitle = '아카이빙',
@@ -16,6 +17,11 @@ export const ArchiveHeader = ({
   const { openAlert, closeAlert } = useAlert();
 
   const navigate = useNavigate();
+
+  const moveToMain = () => {
+    navigate('/my-car/trim');
+  };
+
   const moveToArchiving = () => {
     closeAlert();
     navigate('/my-archive');
@@ -45,7 +51,12 @@ export const ArchiveHeader = ({
     >
       <Flex width={1040}>
         <Flex gap={9.58} justify="flex-start">
-          <img src={hyundaiBlack} alt="현대자동차 로고" />
+          <img
+            src={hyundaiBlack}
+            alt="현대자동차 로고"
+            css={cursorPointer}
+            onClick={moveToMain}
+          />
           <img src={vector845} alt="벽" />
           <Text typo="Body4_Medium">{pageTitle}</Text>
         </Flex>
@@ -65,9 +76,7 @@ export const ArchiveHeader = ({
                   width="auto"
                   height="auto"
                   gap={4}
-                  css={css`
-                    cursor: pointer;
-                  `}
+                  css={cursorPointer}
                   onClick={onClickArchiving}
                 >
                   <Text palette="Neutral" typo="Body2_Medium">

@@ -8,11 +8,17 @@ import { css } from '@emotion/react';
 import { useAlert } from '@contexts/AlertContext';
 import { useNavigate } from 'react-router-dom';
 import { LogoutButton } from '@components/common/LogoutButton';
+import { cursorPointer } from '@styles/common';
 
 export const Header = () => {
   const { openAlert, closeAlert } = useAlert();
 
   const navigate = useNavigate();
+
+  const moveToMain = () => {
+    navigate('/my-car/trim');
+  };
+
   const moveToArchiving = () => {
     closeAlert();
     navigate('/archive');
@@ -57,7 +63,12 @@ export const Header = () => {
     >
       <Flex width={1280}>
         <Flex gap={9.58} justify="flex-start">
-          <img src={hyundai} alt="현대자동차 로고" />
+          <img
+            src={hyundai}
+            alt="현대자동차 로고"
+            css={cursorPointer}
+            onClick={moveToMain}
+          />
           <img src={vector845} alt="벽" />
           <Text typo="Body4_Medium">내 차 만들기</Text>
         </Flex>
@@ -74,9 +85,7 @@ export const Header = () => {
               width={98}
               height={35}
               gap={4}
-              css={css`
-                cursor: pointer;
-              `}
+              css={cursorPointer}
               onClick={onClickArchiving}
             >
               <img src={cargo} alt="아카이빙 카고" />

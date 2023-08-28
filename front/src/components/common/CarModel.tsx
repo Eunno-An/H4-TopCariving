@@ -3,6 +3,7 @@ import { MouseEvent, useEffect, useState } from 'react';
 import { Flex } from './Flex';
 import { Text } from '.';
 import rotationIcon from '@assets/images/rotationHorizontal.svg';
+import { CarImageUrl } from '@assets/constant';
 
 export const CarModel = ({
   exteriorColor = 'abyss',
@@ -21,7 +22,7 @@ export const CarModel = ({
     let newCarList = [] as { path: string }[];
     for (let idx = 1; idx <= 60; idx++) {
       const num = idx < 10 ? '00' + idx : '0' + idx;
-      const path = `https://topcariving.s3.ap-northeast-2.amazonaws.com/360/${exteriorColor}/image_${num}.webp`;
+      const path = `${CarImageUrl}/${exteriorColor}/image_${num}.webp`;
 
       newCarList = [...newCarList, { path }];
     }

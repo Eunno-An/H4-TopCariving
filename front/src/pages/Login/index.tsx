@@ -10,6 +10,7 @@ import { useNavigate } from 'react-router-dom';
 import { LoginUrl, apiInstance, token } from '@utils/api';
 import { HyundaiOauthUrl } from '@assets/constant';
 import { useToast } from '@contexts/ToastContext';
+import { cursorPointer } from '@styles/common';
 
 const Login = () => {
   const {
@@ -104,12 +105,7 @@ const Login = () => {
                   </Text>
                 </Flex>
                 <Flex justify="flex-end">
-                  <Text
-                    onClick={onMoveHyundai}
-                    css={css`
-                      cursor: pointer;
-                    `}
-                  >
+                  <Text onClick={onMoveHyundai} css={cursorPointer}>
                     현대닷컴으로 로그인하기
                   </Text>
                 </Flex>

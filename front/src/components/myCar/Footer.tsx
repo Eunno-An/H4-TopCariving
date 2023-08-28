@@ -8,6 +8,7 @@ import { ColorUrl, OptionUrl, TrimUrl, apiInstance } from '@utils/api';
 import { Dispatch, SetStateAction, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DetailOptionModal } from './option/DetailOptionModal';
+import { cursorPointer } from '@styles/common';
 
 interface footerProps {
   currentUrl: string;
@@ -110,8 +111,8 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
             method: 'POST',
             bodyData: JSON.stringify({
               archivingId: getArchivingId(),
-              exteriorColorOptionId: myCarInfo.color.exteriorColor?.id,
-              interiorColorOptionId: myCarInfo.color.interiorColor?.id,
+              exteriorColorOptionId: myCarInfo.color.exteriorColor?.id || 11,
+              interiorColorOptionId: myCarInfo.color.interiorColor?.id || 17,
             }),
           });
           onClickButton(+1);
@@ -267,9 +268,7 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
                   0 && (
                   <BlackTagChip
                     onClick={() => setIsOpenDetailModal(true)}
-                    css={css`
-                      cursor: pointer;
-                    `}
+                    css={cursorPointer}
                   >{`+${
                     Object.values(myCarInfo.option).reduce(
                       (acc, curList) => acc.concat(curList),

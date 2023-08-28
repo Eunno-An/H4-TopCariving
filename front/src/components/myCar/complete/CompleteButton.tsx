@@ -1,8 +1,8 @@
 import { Button, Flex, Text } from '@components/common';
 import styled from '@emotion/styled';
 import keyboardRight from '@assets/images/keyboardRight.svg';
-import { css } from '@emotion/react';
 import { useToast } from '@contexts/ToastContext';
+import { cursorPointer } from '@styles/common';
 
 const progressInfo = [
   '구매상담 신청하기',
@@ -35,7 +35,7 @@ export const CompleteButton = () => {
           borderRadius="10px"
           padding="15px 24px"
           backgroundColor="LightSand"
-          css={buttonCss}
+          css={cursorPointer}
           onClick={noActionToast}
         >
           <Text typo="Body3_Medium">출고일자 상담신청 바로가기</Text>
@@ -70,8 +70,4 @@ const Grid = styled.div`
   grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
-`;
-
-const buttonCss = css`
-  cursor: pointer;
 `;
