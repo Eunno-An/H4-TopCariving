@@ -17,13 +17,13 @@ import {
   Summary,
   ArchiveUrl,
 } from '@utils/api';
-import { TrimCardInterface } from '@components/myCar/trim';
+import { TrimCardInterface } from '@components/makeMyCar/trim';
 import { myCarOptionInterface } from '@interface/index';
 import { ArchiveDetail } from '@pages/Archive/detail';
 import { Archive } from '@pages/Archive';
 import { ArchiveMain, archiveMainInterface } from '@pages/Archive/main';
 import { MyCariving } from '@pages/Archive/mycariving';
-import { getArchivingId } from '@components/myCar';
+import { getArchivingId } from '@components/makeMyCar';
 import { OauthRedirect } from '@pages/Login/oauthRedirect';
 
 export const router = createBrowserRouter([

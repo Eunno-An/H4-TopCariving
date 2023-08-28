@@ -1,19 +1,18 @@
-import { Flex } from '@components/common';
-import { Header } from '@components/myCar';
+import { ErrorBoundary, Flex } from '@components/common';
+import { Header } from '@components/makeMyCar';
 import {
   CompleteButton,
   CompletedMessage,
   Footer,
   Information,
   SelectOptionContainer,
-} from '@components/myCar/complete';
+} from '@components/makeMyCar/complete';
 import { colorPath } from '../Color';
 import { useMyCar } from '@contexts/MyCarContext';
 import styled from '@emotion/styled';
 import { theme } from '@styles/theme';
 import { css } from '@emotion/react';
 import { useLoaderData } from 'react-router-dom';
-import { ErrorBoundary } from '@components/ErrorBoundary';
 
 const Complete = () => {
   const { myCarInfo } = useMyCar();

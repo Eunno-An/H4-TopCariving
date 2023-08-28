@@ -95,7 +95,9 @@ export const ArchiveShortInfo = ({
       >
         <Flex direction="column" align="flex-start" height="auto">
           <Text typo="Body1_Regular">총 가격</Text>
-          <Text typo="Heading1_Bold">{`${detailInfo?.totalPrice.toLocaleString()}원`}</Text>
+          <Text typo="Heading1_Bold">{`${
+            detailInfo?.totalPrice && detailInfo?.totalPrice.toLocaleString()
+          }원`}</Text>
         </Flex>
         <Flex height="auto" justify="space-between">
           <Flex

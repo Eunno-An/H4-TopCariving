@@ -2,9 +2,9 @@ import { Flex, Text } from '@components/common';
 import {
   OptionModal,
   alertContentInterface,
-} from '@components/myCar/option/OptionModal';
+} from '@components/makeMyCar/option/OptionModal';
 import { optionKey, useMyCar } from '@contexts/MyCarContext';
-import { OptionCard, OptionInfoCard } from '@components/myCar/option';
+import { OptionCard, OptionInfoCard } from '@components/makeMyCar/option';
 
 import React, { Suspense, useEffect, useState } from 'react';
 import styled from '@emotion/styled';
@@ -12,8 +12,8 @@ import { theme } from '@styles/theme';
 import { css } from '@emotion/react';
 import vector478 from '@assets/images/Vector 478.svg';
 import { useLoaderData } from 'react-router-dom';
-import { ArchivePopup } from '@components/common/ArchivePopup';
 import { OptionLoader } from '@components/common/Loading/OptionLoader';
+import { ArchivePopup } from '@components/makeMyCar';
 
 const defaultCategoryList = [
   '파워트레인/성능',

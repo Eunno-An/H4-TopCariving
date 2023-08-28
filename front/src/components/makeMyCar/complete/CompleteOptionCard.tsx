@@ -1,4 +1,5 @@
 import { Flex, Text } from '@components/common';
+import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { theme } from '@styles/theme';
 
@@ -22,9 +23,18 @@ export const CompleteOptionCard = ({
         <ImgContainer src={photoUrl} alt="" />
       </Flex>
       <Flex direction="column" height={60} gap={10}>
-        <Flex justify="space-between">
+        <Flex justify="space-between" align="flex-start">
           <Text typo="Body1_Medium">{optionName}</Text>
-          <Text typo="Body1_Medium">{price.toLocaleString()}원</Text>
+          <Text
+            typo="Body1_Medium"
+            css={css`
+              display: flex;
+              justify-content: flex-end;
+              width: 180px;
+            `}
+          >
+            {price.toLocaleString()}원
+          </Text>
         </Flex>
         <Flex justify="flex-start" align="flex-start">
           <Text typo="Body3_Regular">{childOptions.join(' / ')}</Text>

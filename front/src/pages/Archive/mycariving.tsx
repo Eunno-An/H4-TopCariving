@@ -1,5 +1,5 @@
 import { ArchiveHeader, ArchiveNavbar } from '@components/archive';
-import { MyCarList } from '@components/archive/myCariving/MyCarList';
+import { MyCarList } from '@components/myCariving/MyCarList';
 import { Flex } from '@components/common';
 import styled from '@emotion/styled';
 

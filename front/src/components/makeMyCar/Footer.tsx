@@ -9,6 +9,7 @@ import { Dispatch, SetStateAction, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { DetailOptionModal } from './option/DetailOptionModal';
 import { cursorPointer } from '@styles/common';
+import columnLine from '@assets/images/myCar/columnLine.svg';
 
 interface footerProps {
   currentUrl: string;
@@ -204,7 +205,7 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
               </Text>
             </Flex>
           </Section>
-          <ColumnImg src="/image/page/myCar/columnLine.svg" />
+          <ColumnImg src={columnLine} />
           <Section width={191}>
             <Text typo="Body3_Regular" palette="DarkGray">
               선택 색상
@@ -232,7 +233,7 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
               </Text>
             </Flex>
           </Section>
-          <ColumnImg src="/image/page/myCar/columnLine.svg" />
+          <ColumnImg src={columnLine} />
           <Section width={324}>
             <Text typo="Body3_Regular" palette="DarkGray">
               선택 옵션
@@ -279,7 +280,7 @@ export const Footer = ({ currentUrl, setCurrentUrl }: footerProps) => {
               </Flex>
             )}
           </Section>
-          <ColumnImg src="/image/page/myCar/columnLine.svg" />
+          <ColumnImg src={columnLine} />
           <Section width={142}>
             <Text typo="Body3_Regular" palette="DarkGray">
               예상 가격

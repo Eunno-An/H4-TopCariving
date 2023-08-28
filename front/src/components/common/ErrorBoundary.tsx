@@ -1,5 +1,5 @@
 import { Component, ReactNode } from 'react';
-import { Flex, Text } from './common';
+import { Flex, Text } from '.';
 
 interface ErrorBoundaryProps {
   children: ReactNode;

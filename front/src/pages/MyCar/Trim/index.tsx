@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
-import { CarModel, Flex } from '@components/common';
-import { TrimCard, TrimCardInterface } from '@components/myCar/trim';
+import { Flex } from '@components/common';
+import { TrimCard, TrimCardInterface } from '@components/makeMyCar/trim';
 import { MyCarContextType, useMyCar } from '@contexts/MyCarContext';
 import { useLoaderData } from 'react-router-dom';
 import { colorPath } from '../Color';
+import { CarModel } from '@components/makeMyCar';
 
 export const Trim = () => {
   const modelInfo = useLoaderData() as TrimCardInterface[];

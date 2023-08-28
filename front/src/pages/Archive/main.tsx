@@ -1,14 +1,14 @@
 import { pageSize } from '@assets/constant';
 import { Category, OptionWrapper } from '@components/archive/main';
 import { ArchiveCard } from '@components/archive/main/ArchiveCard';
-import { Flex, Text, masonryLayout } from '@components/common';
+import { Flex, Text } from '@components/common';
 import { ArchiveUrl, apiInstance } from '@utils/api';
 
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from '@emotion/styled';
 import { useInfiniteScroll } from '@hooks/useInfiniteScroll';
-
+import { masonryLayout } from '@utils/masonryLayout';
 export const ArchiveMain = () => {
   const [archiveSearchResponses, setArchiveSearchResponses] = useState<
     archiveSearchResponsesInterface[]
@@ -126,8 +126,8 @@ export const ArchiveMain = () => {
             ))}
           </Container>
         ) : (
-          <Flex width={1048}>
-            <Text typo="Body1_Regular">검색 결과가 존재하지 않아요.</Text>
+          <Flex width={1048} height={300}>
+            <Text typo="Heading3_Medium">검색 결과가 존재하지 않아요.</Text>
           </Flex>
         )}
       </>

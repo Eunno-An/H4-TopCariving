@@ -1,10 +1,10 @@
 import styled from '@emotion/styled';
 import { Flex, Text } from '@components/common';
 import { useEffect, useState } from 'react';
-import { EngineCard } from '@components/myCar/trim';
+import { EngineCard } from '@components/makeMyCar/trim';
 import { MyCarContextType, useMyCar } from '@contexts/MyCarContext';
 import { useLoaderData } from 'react-router-dom';
-import { ArchivePopup } from '@components/common/ArchivePopup';
+import { ArchivePopup } from '@components/makeMyCar';
 import { css } from '@emotion/react';
 
 export interface engineInfoInterface {

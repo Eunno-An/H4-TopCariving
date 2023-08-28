@@ -1,4 +1,4 @@
-import { Button, Flex, Text, masonryLayout } from '@components/common';
+import { Button, Flex, Text } from '@components/common';
 import styled from '@emotion/styled';
 import { MyCarCard } from './MyCarCard';
 import revertIcon from '@assets/images/revertIcon.svg';
@@ -7,11 +7,12 @@ import { useEffect, useRef, useState } from 'react';
 import { MyArchiveUrl, apiInstance } from '@utils/api';
 import { MenuName, OptionMenu } from '@pages/MyCar/Option';
 import { archiveSearchResponsesInterface } from '@pages/Archive/main';
-import { ArchiveCard } from '../main';
+import { ArchiveCard } from '../archive/main';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '@contexts/ToastContext';
 import { pageSize } from '@assets/constant';
 import { useInfiniteScroll } from '@hooks/useInfiniteScroll';
+import { masonryLayout } from '@utils/masonryLayout';
 
 export interface createdMyCarInterface {
   archivingId: number;

@@ -2,6 +2,7 @@ import { Flex, Text } from '@components/common';
 import { css } from '@emotion/react';
 import styled from '@emotion/styled';
 import { theme } from '@styles/theme';
+import rowLine from '@assets/images/myCar/rowLine.svg';
 
 export interface TrimCardInterface {
   carOptionId: number;
@@ -33,7 +34,7 @@ export const TrimCard = ({
       <Text typo="Heading3_Bold" palette={isSelected ? 'Primary' : 'Black'}>
         {optionName}
       </Text>
-      <img src="/image/page/myCar/rowLine.svg" />
+      <img src={rowLine} />
       <Flex justify="space-between">
         {photos.map((item, key) => (
           <Flex
@@ -68,7 +69,7 @@ export const TrimCard = ({
           </Flex>
         ))}
       </Flex>
-      <img src="/image/page/myCar/rowLine.svg" />
+      <img src={rowLine} />
       <Text typo="Heading3_Bold" palette={isSelected ? 'Primary' : 'Black'}>
         {`${price.toLocaleString()}원`}
       </Text>

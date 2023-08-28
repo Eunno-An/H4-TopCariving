@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
-import { OptionCard } from '@components/archive/detail/archiveOptionCard/OptionCard';
+import { OptionCard } from '@components/archive/detail/ArchiveOptionCard';
 import { ArchiveDetailPageProps } from '@pages/Archive/detail';
 import { useEffect, useRef } from 'react';
-import { masonryLayout } from '@components/common';
+import { masonryLayout } from '@utils/masonryLayout';
+import { Flex, Text } from '@components/common';
 
 export const ArchiveOptionDetails = ({
   optionDetail,
@@ -21,11 +22,21 @@ export const ArchiveOptionDetails = ({
         ...(optionDetail?.['상세 품목'] || []),
         ...(optionDetail?.['N performance'] || []),
         ...(optionDetail?.['H Genuine Accessories'] || []),
-      ].map((optionInfo, idx) => (
-        <div key={`optionDetail_${idx}`}>
-          <OptionCard info={optionInfo} />
-        </div>
-      ))}
+      ].length !== 0 ? (
+        [
+          ...(optionDetail?.['상세 품목'] || []),
+          ...(optionDetail?.['N performance'] || []),
+          ...(optionDetail?.['H Genuine Accessories'] || []),
+        ].map((optionInfo, idx) => (
+          <div key={`optionDetail_${idx}`}>
+            <OptionCard info={optionInfo} />
+          </div>
+        ))
+      ) : (
+        <Flex width={1048} height={300}>
+          <Text typo="Heading3_Medium">선택한 옵션이 존재하지 않아요.</Text>
+        </Flex>
+      )}
     </CardContainer>
   );
 };

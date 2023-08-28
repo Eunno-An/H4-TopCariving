@@ -2,11 +2,11 @@ import { Flex, Text } from '@components/common';
 import { useEffect, useState } from 'react';
 import { ImgTag, InfoBox } from './Engine';
 import { myCarOptionInterface } from '@interface/index';
-import { BodyCard } from '@components/myCar/trim';
+import { BodyCard } from '@components/makeMyCar/trim';
 import { useMyCar } from '@contexts/MyCarContext';
 import { useLoaderData } from 'react-router-dom';
-import { ArchivePopup } from '@components/common/ArchivePopup';
 import { css } from '@emotion/react';
+import { ArchivePopup } from '@components/makeMyCar';
 
 const BodyType = () => {
   const bodyTypeInfo = useLoaderData() as myCarOptionInterface[];

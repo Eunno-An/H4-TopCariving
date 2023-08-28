@@ -1,5 +1,5 @@
 import styled from '@emotion/styled';
-import { Flex, Text } from '.';
+import { Flex, Text } from '../common';
 import popup from '@assets/images/popup.svg';
 import { useEffect, useState } from 'react';
 

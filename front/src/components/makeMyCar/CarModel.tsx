@@ -1,7 +1,7 @@
 import styled from '@emotion/styled';
 import { MouseEvent, useEffect, useState } from 'react';
-import { Flex } from './Flex';
-import { Text } from '.';
+import { Flex } from '../common/Flex';
+import { Text } from '../common';
 import rotationIcon from '@assets/images/rotationHorizontal.svg';
 import { CarImageUrl } from '@assets/constant';
 
