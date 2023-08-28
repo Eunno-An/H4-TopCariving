@@ -88,7 +88,7 @@
 
 [[프론트엔드 데모영상]<img width="1728" alt="썸네일2" src="https://github.com/softeerbootcamp-2nd/H4-TopCariving/assets/96288558/4c73d7ff-d5e9-4b28-89ac-1045d394c238">](https://youtu.be/7uhprTZYFbY)
 
-[[iOS 데모영상](https://www.youtube.com/tayeD3pu5lM)]
+[[iOS 데모영상](https://www.youtube.com/watch?v=tayeD3pu5lM)]
 
 <img width="375" alt="썸네일2" src="https://github.com/softeerbootcamp-2nd/H4-TopCariving/assets/57134892/f83466b1-f449-46d4-9bb0-eb5500a7d8d0">
 
