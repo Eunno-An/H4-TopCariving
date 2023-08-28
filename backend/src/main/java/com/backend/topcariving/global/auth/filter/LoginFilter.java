@@ -2,6 +2,7 @@ package com.backend.topcariving.global.auth.filter;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -26,6 +27,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class LoginFilter implements Filter {
 
+	private final List<String> whiteList = List.of("/api/options/colors/");
+
 	private final TokenProvider tokenProvider;
 
 	@Override
@@ -34,6 +37,8 @@ public class LoginFilter implements Filter {
 		ServletException {
 
 		HttpServletRequest servletRequest = (HttpServletRequest) request;
+		if (whiteList.contains(servletRequest.getServletPath()))
+			chain.doFilter(request, response);
 		try {
 			verifyToken(servletRequest);
 			chain.doFilter(request, response);

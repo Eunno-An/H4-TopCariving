@@ -1,7 +1,9 @@
 package com.backend.topcariving.domain.entity.option.enums;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
@@ -27,5 +29,11 @@ public enum ExteriorColor {
 			.filter(exteriorColor -> Objects.equals(carOptionId, exteriorColor.getCarOptionId()))
 			.findFirst().orElse(ABYSS).getName();
 		return String.format(FIX_LINK, colorName);
+	}
+
+	public static List<String> getColors() {
+		return Arrays.stream(ExteriorColor.values())
+			.map(ExteriorColor::getName)
+			.collect(Collectors.toList());
 	}
 }
