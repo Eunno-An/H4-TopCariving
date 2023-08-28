@@ -11,9 +11,6 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.backend.topcariving.domain.entity.archive.MyCar;
-import com.backend.topcariving.domain.repository.archive.CarArchivingRepository;
-import com.backend.topcariving.domain.repository.archive.MyCarRepository;
 import com.backend.topcariving.domain.dto.option.request.SelectOptionRequestDTO;
 import com.backend.topcariving.domain.dto.option.request.SelectOptionsRequestDTO;
 import com.backend.topcariving.domain.dto.option.response.selection.SelectionDetailDTO;
@@ -21,10 +18,13 @@ import com.backend.topcariving.domain.dto.option.response.selection.SelectionRes
 import com.backend.topcariving.domain.dto.option.response.tag.TagResponseDTO;
 import com.backend.topcariving.domain.dto.option.response.trim.BasicOptionResponseDTO;
 import com.backend.topcariving.domain.dto.option.response.trim.OptionResponseDTO;
+import com.backend.topcariving.domain.entity.archive.MyCar;
 import com.backend.topcariving.domain.entity.option.CarOption;
 import com.backend.topcariving.domain.entity.option.enums.Category;
 import com.backend.topcariving.domain.entity.option.enums.CategoryDetail;
 import com.backend.topcariving.domain.exception.InvalidCarOptionIdException;
+import com.backend.topcariving.domain.repository.archive.CarArchivingRepository;
+import com.backend.topcariving.domain.repository.archive.MyCarRepository;
 import com.backend.topcariving.domain.repository.option.CarOptionRepository;
 import com.backend.topcariving.domain.repository.review.TagReviewRepository;
 import com.backend.topcariving.global.utils.Validator;
@@ -107,6 +107,10 @@ public class OptionService {
 			.archivingId(archivingId)
 			.build();
 
+		if (categoryDetail == N_PERFORMANCE) {
+			carArchivingRepository.updateIsCompleteByArchivingId(archivingId, true);
+		}
+
 		if (carOptionId == null) {
 			myCarRepository.deleteByArchivingIdAndCategoryDetail(archivingId, categoryDetail);
 			myCarRepository.save(completeCar);
@@ -121,10 +125,6 @@ public class OptionService {
 			.carOptionId(carOptionId)
 			.archivingId(archivingId)
 			.build();
-
-		if (categoryDetail == N_PERFORMANCE) {
-			carArchivingRepository.updateIsCompleteByArchivingId(archivingId, true);
-		}
 
 		myCarRepository.save(myCar);
 		myCarRepository.save(completeCar);

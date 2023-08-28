@@ -122,9 +122,11 @@ public class ArchiveService {
 		List<CarOption> carOptions = carOptionRepository.findByArchivingId(archivingId);
 		int totalPrice = carOptions.stream().mapToInt(CarOption::getPrice).sum();
 
-		CarOption colorOption = carOptionRepository.findByArchivingIdAndCategoryDetail(archivingId, EXTERIOR_COLOR)
-			.orElseThrow(InvalidArchivingIdException::new);
-		String photoUrl = getPhotoUrl(colorOption.getCarOptionId());
+		Optional<CarOption> colorOption = carOptionRepository.findByArchivingIdAndCategoryDetail(archivingId, EXTERIOR_COLOR);
+		String photoUrl = "";
+		if (colorOption.isPresent()) {
+			photoUrl = getPhotoUrl(colorOption.get().getCarOptionId());
+		}
 
 		List<PositionDTO> positions = createPositionDTO(carOptions);
 
