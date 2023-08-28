@@ -71,7 +71,7 @@ class LoginService {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         
         return try await withCheckedThrowingContinuation { continuation in
-            let task = URLSession.shared.dataTask(with: request) { [weak self] (data, response, error) in
+            let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
                 if error != nil {
                     continuation.resume(returning: .failure(.transportError))
                     return
@@ -96,7 +96,7 @@ class LoginService {
                     if let jsonResponse = try JSONSerialization.jsonObject(with: data, options: []) as? [String: Any] {
                         if let accessToken = jsonResponse["accessToken"] as? String,
                            let refreshToken = jsonResponse["refreshToken"] as? String {
-                            Task {
+                            Task.detached(priority: .userInitiated) { [weak self] in
                                 let ableSavingAccessToken = await KeyChain.saveStringToKeychain(
                                     value: accessToken,
                                     key: "accessToken"
@@ -107,8 +107,8 @@ class LoginService {
                                 )
                                 if ableSavingAccessToken && ableSavingRefreshToken {
                                     NSLog("success")
-                                    self.myAccessToken = accessToken
-                                    self.myRefreshToken = refreshToken
+                                    self?.myAccessToken = accessToken
+                                    self?.myRefreshToken = refreshToken
                                     continuation.resume(returning: .success)
                                 } else {
                                     NSLog("failure")
